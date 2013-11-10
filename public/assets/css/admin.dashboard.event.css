@@ -1,0 +1,31 @@
+#ec-admin-nav {
+  background-color: #252525;
+}
+#ec-admin-nav ul li a {
+  color: whitesmoke;
+}
+#ec-admin-nav ul li a:hover {
+  background-color: #3f3f3f;
+}
+.ec-event-table-header {
+  padding: 0.5em 0em 0.5em 0em;
+}
+.ec-event:hover {
+  background-color: #f2f2f2;
+}
+.ec-admin-container {
+  width: 1280px;
+}
+#ec-map-cont {
+  position: relative;
+}
+#ec-map-cont #ec-region {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+@media (max-width: 1024px) {
+  .ec-admin-container {
+    width: 95%;
+  }
+}
