@@ -4,6 +4,34 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	public $template = 'admin/dashboard/template';
 	
 	/*
+	 * Socail API testing
+	 */
+	public function action_social()
+	{
+		/*
+		$settings = Config::get('ec.twitter');
+		$url	  = 'https://api.twitter.com/1.1/search/tweets.json';
+		$rm		  = 'GET';
+		//$field	  = '?q=%23BestofAnime2013&rpp=5&include_entities=true&result_type=mixed';
+		$field	  = '?q=#bestofanime2013';
+		
+		https://graph.facebook.com/UPAME
+		
+		$t = new \stwitter\twitter($settings);
+		*/
+		$cfg = Config::get('ec.facebook');
+		$f = new facebook\fb($cfg);
+		$user = $f->getUser();
+		
+		
+		$view = $this->_db('social');
+		$q = urlencode('upame');
+		$view->content = $f->api('/search?q='.$q.'%type=post');
+		$view->url	   = ($user)?$f->getLogoutUrl():$f->getLoginUrl();
+		$this->template->content = $view;
+	}
+	
+	/*
 	 * Event Function set
 	 */
 	public function action_index($page = 1)

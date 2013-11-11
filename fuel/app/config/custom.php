@@ -14,4 +14,14 @@ return array(
 						'singer artist',
 						'band artists'
 						),
+	'twitter'		=> array(
+		'oauth_access_token'			=> '14996204-R4EZ40FbfRqnA8wHHYslzfdcyz3fbmRvGdtgzSM7o',
+		'oauth_access_token_secret'		=> 'q2aBiHItufsXvqLHh7fs7IKz620Xv5rjFURtfQBBAd8SC',
+		'consumer_key'					=> 'O9LqjnACD64rfnjNYBMiQ',
+		'consumer_secret'				=> 'uj3UtOfP1Dhuj29tl2Kj1FNd5ZHAx06jUbyeplHTvc'
+	),
+	'facebook'		=> array(
+		'appId' => '479421232080499',
+		'secret'=> 'ee18f2f0055bcd6bcc4cd87c6059dee5'
+	)
 );

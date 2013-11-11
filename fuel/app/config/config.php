@@ -272,7 +272,9 @@ return array(
 		 */
 		 'packages'  => array(
 		 	'orm',
-			'myauth2'
+			'myauth2',
+			'stwitter',
+			'facebook',
 		 ),
 
 		/**
