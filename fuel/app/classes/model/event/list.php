@@ -184,6 +184,16 @@ class Model_Event_list extends Model_ModelCore
 		return $response;
 	}
 	
+	public static function toggle_visibility($id)
+	{
+		$q = Model_Event_list::query()
+				->where('id','=',$id)
+				->get_one();
+		$value = $q['private'];
+		$q->private = ($value == 0)?1:0;
+		$q->save();
+	}
+	
 	public static function read_list()
 	{
 		$q = Model_Event_list::query()

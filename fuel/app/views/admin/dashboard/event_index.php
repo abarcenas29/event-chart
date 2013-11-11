@@ -61,16 +61,16 @@
 	</div>
 	<div class="uk-width-4-10 ec-event-table-header">
 	<?php if($row['private']): ?>
-	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_open/'.$row['id']); ?>" 
+	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_visibility/'.$row['id']); ?>" 
 	   class="uk-button">
 	<i class="uk-icon-eye-close"></i>
 		Private
 	</a>
 	<?php else:?>
-	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_close/'.$row['id']); ?>" 
+	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_visibility/'.$row['id']); ?>" 
 	   class="uk-button uk-button-primary">
 	<i class="uk-icon-eye-open"></i>	
-		Visible
+		Public
 	</a>
 	<?php endif;?>
 	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_manage/'.$row['id']); ?>" 

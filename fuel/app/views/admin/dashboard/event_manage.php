@@ -13,12 +13,12 @@
 		 uk-container-center">
 <nav class="uk-navbar">
 <ul class="uk-navbar-nav" data-uk-switcher="{connect:'#ec-evt-manage'}">
-	<li><a href="#">
+	<li class="uk-active"><a href="#">
 		<i class="uk-icon-pencil"></i> 
 		Edit Information
 		</a>
 	</li>
-	<li><a href="#">
+	<li><a href="#" id="ec-venue">
 		<i class="uk-icon-globe"></i>
 		Set Venue
 		</a>
@@ -28,7 +28,7 @@
 		Upload Posters
 		</a>
 	</li>
-	<li class="uk-active"><a href="#">
+	<li ><a href="#">
 		<i class="uk-icon-edit-sign"></i>
 		Event Detail
 		</a>
@@ -164,7 +164,10 @@
 	
 	<div class="uk-form-row">
 	<div class="uk-form-controls uk-float-right">
-	<button type="submit" class="uk-button uk-button-success">
+	<button type="submit" 
+			class="uk-button 
+				   ec-submit
+				   uk-button-success">
 		<i class="uk-icon-save"></i>
 		Save
 	</button>
@@ -201,34 +204,33 @@
 				ec-admin-container
 				uk-container-center">
 <div class="uk-grid">
-	
 <section class="uk-width-1-1">
 <div id="ec-map-cont">
-<div id="ec-map" class="uk-width-1-1" style="height:400px"></div>	
+<div id="ec-map" class="uk-width-1-1" style="height:400px"></div>        
 
 <div id="ec-region">
 <div data-uk-dropdown="{mode:'click'}">
-	<button class="uk-button">
-		Regions <i class="uk-icon-caret-down"></i>
-	</button>
-	<div class="uk-dropdown">
-	<ul class="uk-nav uk-nav-dropdown">
-	<?php foreach($regions as $r): ?>
-	<li>
-		<a href="#"
-		   class="ec-coordinate"
-		   data-lat="<?php print $r['lat'] ?>"
-		   data-long="<?php print $r['long'] ?>">
-			<?php print $r['location']; ?>
-		</a>
-	</li>
-	<?php endforeach; ?>
-	</ul>
-	</div>
+        <button class="uk-button">
+                Regions <i class="uk-icon-caret-down"></i>
+        </button>
+        <div class="uk-dropdown">
+        <ul class="uk-nav uk-nav-dropdown">
+        <?php foreach($regions as $r): ?>
+        <li>
+                <a href="#"
+                   class="ec-coordinate"
+                   data-lat="<?php print $r['lat'] ?>"
+                   data-long="<?php print $r['long'] ?>">
+                        <?php print $r['location']; ?>
+                </a>
+        </li>
+        <?php endforeach; ?>
+        </ul>
+        </div>
 </div>
 </div>
 </div>
-</section>
+</section>	
 
 <section class="uk-width-1-2">
 <form 
@@ -271,7 +273,9 @@
 	
 <div class="uk-form-row">
 <div class="uk-form-controls uk-float-right">
-<button class="uk-button uk-button-success">
+<button class="uk-button 
+			   uk-button-success
+			   ec-submit">
 	<i class="uk-icon-save"></i>
 	Save Venue
 </button>
@@ -305,6 +309,7 @@
 	<a href="#" 
 	   class="uk-button 
 			  uk-button-primary
+			  ec-submit
 			  ec-poster-upload">
 		<i class="uk-icon-upload"></i> 
 		Upload!</a>
@@ -407,7 +412,7 @@
 	
 <div class="uk-form-row">
 <div class="uk-form-controls uk-float-right">
-	<button class="uk-button uk-button-success">
+	<button class="uk-button uk-button-success ec-submit">
 	<i class="uk-icon-save"></i>
 	Save Ticket
 	</button>
@@ -527,7 +532,7 @@
 <div class="uk-form-row">
 <div class="uk-form-controls uk-float-right">
 	<button type="submit" 
-			class="uk-button uk-button-success">
+			class="uk-button uk-button-success ec-submit">
 	<i class="uk-icon-save"></i>
 	 Save Guest	
 	</button>
@@ -597,8 +602,8 @@
 </div>
 
 <script>
-var editMap		  = <?php print is_null($q['lat']) ?>;
-var startLocation = (editMap)?[14.564779,120.988328]:[<?php print $q['lat']; ?>,<?php print $q['long']; ?>];
+var editMap		  = <?php print (is_null($q['lat']))?0:1; ?>;
+var startLocation = (editMap == 0)?[14.564779,120.988328]:[<?php print $q['lat']; ?>,<?php print $q['long']; ?>];
 var OpenStreetMap = 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
 var marker		  = [];
 var layer		  = null;

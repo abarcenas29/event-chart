@@ -54,6 +54,12 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$this->template->content = $view;
 	}
 
+	public function action_event_visibility($id)
+	{
+		Model_Event_list::toggle_visibility($id);
+		Response::redirect('admin/dashboard/index');
+	}
+	
 	/*
 	 * Organizer Function set
 	 */
