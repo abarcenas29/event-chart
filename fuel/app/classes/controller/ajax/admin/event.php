@@ -1,5 +1,5 @@
 <?php
-class Controller_Ajax_Admin_Event extends Controller_Ajax_AjaxCore
+class Controller_Ajax_Admin_Event extends Controller_Ajax_PrivateCore
 {
     public function post_add_poster()
 	{

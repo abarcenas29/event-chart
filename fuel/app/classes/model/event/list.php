@@ -90,18 +90,6 @@ class Model_Event_list extends Model_ModelCore
 		return $arg;
 	}
 	
-	public static function chart_index()
-	{
-		$half_year = strtotime('+6 months');
-	
-		$q = Model_Event_list::query()
-				->related('photo')
-				->where('prviate','=',false)
-				->where('start_at','<=',$half_year)
-				->where('start_at','>=',date('Y-m-d'));
-		return $q->get();
-	}
-	
 	// DESCRIPTION: Register the event
 	public static function write_event($arg)
 	{
@@ -199,6 +187,15 @@ class Model_Event_list extends Model_ModelCore
 		$q = Model_Event_list::query()
 				->related('photo')
 				->where('id','=',Fuel\Core\Session::get('event_id'));
+		return $q->get_one();
+	}
+	
+	public static function read_public_list($event_id)
+	{
+		$q = Model_Event_list::query()
+				->related('photo')
+				->where('private','=',false)
+				->where('id','=',$event_id);
 		return $q->get_one();
 	}
 	
