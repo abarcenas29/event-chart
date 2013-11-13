@@ -64,6 +64,16 @@
 	</div>
 	
 	<div class="uk-panel ec-modal-chart-body">
+		<!-- Go to detail page -->
+		<div class="uk-panel ec-modal-cont uk-margin-bottom">
+		<div class="uk-text-center" id="ec-more-event">
+			<a href="#" 
+			   class="uk-button">
+				More Info
+			</a>
+		</div>
+		</div>
+		
 		<!-- venue -->
 		<div class="uk-panel ec-modal-desc">
 			<h3>Venue</h3>
@@ -90,6 +100,7 @@ var $modalLoad= $('#ec-modal-loading');
 var $modalInfo= $('#ec-event-details');
 var $modalCover		= $('#ec-cover-image');
 var $modalNoCover	= $('#ec-no-fb-cover');
+var urlEventPage	= "<?php print Uri::create('view/event/'); ?>";
 $(document).ready(function(){
 	$('.ec-chart-modal-link').click(function(e)
 	{
@@ -97,12 +108,14 @@ $(document).ready(function(){
 		var cover = $(this).data('cover');
 		var date  = $(this).data('range');
 		var desc  = $(this).data('venue');
-		var data  = {event_id:$(this).data('event')};
+		var event = $(this).data('event');
+		var data  = {event_id:event};
 		
 		$('#ec-event-title').html(title);
 		$('.ec-event-date').html(date);
 		$('#ec-event-image').attr('src',cover);
 		$('#ec-event-venue').html(desc);
+		$('#ec-more-event a').attr('href',urlEventPage+event);
 		
 		if(cover !== 'empty')
 		{
