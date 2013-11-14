@@ -493,7 +493,19 @@
 	</a>	
 <?php break;endif;?>
 <?php endforeach;?>
+<?php if(count($q['category']) > 0):?>
 <?php if($cat['category'] != $row): ?>
+	<a href="#"
+	   class="uk-button 
+			  uk-margin-bottom
+			  ec-cat-tag"
+	   data-cat-id="0"
+	   data-value="<?php print $row ?>">
+	   <i class="uk-icon-tag"></i>
+	   <?php print $row; ?>
+	</a>
+<?php endif; ?>
+<?php else: ?>
 	<a href="#"
 	   class="uk-button 
 			  uk-margin-bottom

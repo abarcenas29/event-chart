@@ -17,6 +17,10 @@ class Model_Event_Ticket extends Model_ModelCore
 		)
 	);
 	
+	protected static $_conditions = array(
+		'order_by'	=> array('price' => 'desc')
+	);
+	
 	public static function insert_price($arg)
 	{
 		$q			 = new Model_Event_Ticket();

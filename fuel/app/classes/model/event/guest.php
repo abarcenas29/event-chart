@@ -17,6 +17,10 @@ class Model_Event_Guest extends Model_ModelCore
 		)
 	);
 	
+	protected static $_conditions = array(
+		'order_by'	=> array('name')
+	);
+	
 	public static function insert_guest($arg)
 	{
 		$q = new Model_Event_Guest();
