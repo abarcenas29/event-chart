@@ -275,6 +275,7 @@ return array(
 			'myauth2',
 			'stwitter',
 			'facebook',
+			'unirest',
 		 ),
 
 		/**

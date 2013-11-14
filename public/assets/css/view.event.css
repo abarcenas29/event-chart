@@ -1,2 +1,34 @@
-#ec-main-event-bar{background-color:#252525}#ec-main-event-bar .uk-navbar-brand{color:#AB1F2B;font-family:'Conv_weblysleekuil'}#ec-main-event-bar .uk-navbar-brand span{font-family:'Conv_weblysleekuisb'}#ec-main-event-bar .uk-navbar-nav li a{color:#fff;font-family:'Oswald',sans-serif}#ec-main-event-bar .uk-navbar-nav li a:hover{background-color:#C24A46}.ec-view-content .uk-panel-header{background-color:#252525}.ec-view-content .uk-panel-header .uk-panel-title{border-bottom:0;color:#fff;font-family:'Oswald',sans-serif;padding:.5em}
-/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+#ec-main-event-bar {
+  background-color: #252525;
+}
+#ec-main-event-bar .uk-navbar-brand {
+  color: #AB1F2B;
+  font-family: 'Conv_weblysleekuil';
+}
+#ec-main-event-bar .uk-navbar-brand span {
+  font-family: 'Conv_weblysleekuisb';
+}
+#ec-main-event-bar .uk-navbar-nav li a {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+}
+#ec-main-event-bar .uk-navbar-nav li a:hover {
+  background-color: #C24A46;
+}
+.ec-view-content .uk-panel-header {
+  background-color: #252525;
+}
+.ec-view-content .uk-panel-header .uk-panel-title {
+  border-bottom: none;
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  padding: 0.5em;
+}
+.ec-facebook {
+  background-color: #45619D;
+  color: whitesmoke;
+}
+.ec-twitter {
+  background-color: #3a92c8;
+  color: whitesmoke;
+}

@@ -79,3 +79,11 @@ body {
 #ec-more-event a:hover {
   background-color: #C9201D;
 }
+.ec-facebook {
+  background-color: #45619D;
+  color: whitesmoke;
+}
+.ec-twitter {
+  background-color: #3a92c8;
+  color: whitesmoke;
+}

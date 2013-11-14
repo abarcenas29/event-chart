@@ -23,5 +23,9 @@ return array(
 	'facebook'		=> array(
 		'appId' => '479421232080499',
 		'secret'=> 'ee18f2f0055bcd6bcc4cd87c6059dee5'
+	),
+	'qr_generator' => array(
+		'key'	=> 'q7kiZlPhOsvwSFQxoayfhZoIDlyhvNh7',
+		'url'	=> 'https://mutationevent-qr-code-generator.p.mashape.com/generate.php?',
 	)
 );

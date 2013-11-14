@@ -194,6 +194,7 @@ class Model_Event_list extends Model_ModelCore
 	{
 		$q = Model_Event_list::query()
 				->related('photo')
+				->related('organization')
 				->where('private','=',false)
 				->where('id','=',$event_id);
 		return $q->get_one();

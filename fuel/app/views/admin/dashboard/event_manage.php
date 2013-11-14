@@ -477,16 +477,34 @@
 
 <div id="ec-cat-tags">
 <?php foreach($cats as $row): ?>
-	<a href="#" 
+
+	
+<?php foreach($q['category'] as $cat): ?>
+<?php if($cat['category'] == $row): ?>
+	 <a href="#"
 	   class="uk-button 
-			  uk-margin-bottom 
+			  uk-margin-bottom
+			  uk-button-primary
+			  ec-cat-tag"
+	   data-cat-id="<?php print $cat['id']; ?>"
+	   data-value="<?php print $row ?>">
+	   <i class="uk-icon-tag"></i>
+	   <?php print $row; ?>
+	</a>	
+<?php break;endif;?>
+<?php endforeach;?>
+<?php if($cat['category'] != $row): ?>
+	<a href="#"
+	   class="uk-button 
+			  uk-margin-bottom
 			  ec-cat-tag"
 	   data-cat-id="0"
 	   data-value="<?php print $row ?>">
 	   <i class="uk-icon-tag"></i>
 	   <?php print $row; ?>
 	</a>
-<?php endforeach; ?>
+<?php endif; ?>
+<?php endforeach;?>
 </div>
 
 </div>
@@ -625,6 +643,7 @@ $(document).ready(function(){
 		var btn = 'uk-button-primary';
 		var data= {id:$(this).data(cat),cat:$(this).data('value')};
 		var $tag= $(this);
+		//$('.ec-cat-tag').attr('uk-disabled','');
 		$.post(urlCategory,data,function(d)
 		{
 			if(d.id !== 0)
@@ -636,6 +655,7 @@ $(document).ready(function(){
 				$tag.removeClass(btn);
 			}	
 			$tag.data(cat,d.id)
+			//$('.ec-cat-tag').removeAttr('uk-disabled');
 		});
 	});
 });

@@ -40,18 +40,16 @@
 <div class="uk-panel ec-modal-cont uk-margin-top">
 <?php if(!empty($q['facebook'])): ?>
 <a href="<?php print 'https://facebook.com/'.$q['facebook']; ?>" 
-   class="uk-button"
-   target="_new"
-   style="background-color:#45619D;color:whitesmoke">
+   class="uk-button ec-facebook"
+   target="_new">
 	<i class="uk-icon-facebook"></i>
 	 Facebbok
 </a>
 <?php endif; ?>
 <?php if(!empty($q['twitter'])): ?>
 <a href="<?php print 'https://twitter.com/'.$q['twitter']?>" 
-   class="uk-button"
-   target="_new"
-   style="background-color:#3a92c8;color:whitesmoke">
+   class="uk-button ec-twitter"
+   target="_new">
 	<i class="uk-icon-twitter"></i>
 	 Twitter
 </a>
