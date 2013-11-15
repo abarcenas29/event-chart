@@ -22,6 +22,14 @@ class Model_Organization extends Model_ModelCore
 		),
 	);
 	
+	protected static $_has_many = array(
+		'event_lists' => array(
+			'key_from' => 'id',
+			'key_to'   => 'main_org',
+			'model_to' => 'Model_Event_List'
+		)
+	);
+	
 	protected static $_belongs_to = array(
 		'event_list' => array(
 			'key_from'	=> 'main_org',

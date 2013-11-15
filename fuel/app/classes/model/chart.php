@@ -8,9 +8,9 @@ class Model_chart extends Model
 	
 		$q = Model_Event_list::query()
 				->related('photo')
-				//->where('private','=',false)
-				//->where('start_at','<=',$half_year)
-				//->where('start_at','>=',date('Y-m-d'))
+				->where('private','=',false)
+				->where('start_at','>=',date('Y-m-d'))
+				->where('end_at','<=',date('Y-m-d',$half_year))
 				->order_by('start_at','desc')
 				->get();
 		

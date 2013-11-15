@@ -86,17 +86,6 @@
 	</div>
 </div>
 	
-<div style="border-left:3px solid #AB1F2B;" class="uk-width-1-1 uk-margin-top">
-<h4 class="uk-margin-left">
-	Navigation
-</h4>
-</div>
-<div class="uk-width-1-1">
-<ul class="uk-list uk-list-line">
-	<li><a href="#">Social Data</a></li>
-</ul>
-</div>
-	
 </section>
 
 <!-- Event Details -->
@@ -114,6 +103,14 @@
 <article class="uk-panel uk-margin-top">
 <section id="ec-view-map" style="height:250px;">
 </section>
+<section class="uk-width-1-1 uk-text-center uk-margin-top">
+	<a class="uk-button"
+	   target="_new"
+	   href="<?php print Uri::create('http://maps.google.com/?ll='.$q['lat'].','.$q['long']); ?>">
+	<i class="uk-icon-map-marker"></i>
+		 Redirect to Google Map
+	</a>
+</section>
 </article>
 
 <article class="uk-panel ec-view-content">
@@ -122,6 +119,32 @@
 </header>
 <section>
 	<?php print $q['description']; ?>
+</section>
+<section class="uk-margin-top">
+	<?php if(!empty($q['twitter'])): ?>
+	<a href="<?php print Uri::create('http://twitter.com/'.$q['twitter']); ?>"
+	   target="_new"
+	   class="uk-button ec-twitter">
+	<i class="uk-icon-twitter"></i>
+	 Twitter
+	</a>
+	<?php endif;?>
+	<?php if(!empty($q['facebook'])): ?>
+	<a href="<?php print Uri::create('http://facebook.com/'.$q['facebook']); ?>"
+	   target="_new"
+	   class="uk-button ec-facebook">
+	<i class="uk-icon-facebook"></i>
+	 Facebook
+	</a>
+	<?php endif;?>
+	<?php if(!empty($q['website'])): ?>
+	<a href="<?php print Uri::create('http://'.$q['website']); ?>"
+	   target="_new"
+	   class="uk-button uk-button-success">
+	<i class="uk-icon-globe"></i>
+	 Website
+	</a>
+	<?php endif;?>
 </section>
 </article>
 	

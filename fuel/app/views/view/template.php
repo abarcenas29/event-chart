@@ -46,14 +46,25 @@ Event <span>Chart</span>
 	
 <div class="uk-navbar-flip">
 <ul class="uk-navbar-nav">
-	<li><a href="#">
+	<li>
+	<a href="#ec-view-offcanvas"
+	   data-uk-offcanvas>
 		<i class="uk-icon-reorder"></i>
-	</a></li>
+	</a>
+	</li>
 </ul>
 </div>
 </nav>
 	
 <?php print $content; ?>
+
+<article id="ec-view-offcanvas" class="uk-offcanvas">
+
+<section class="uk-offcanvas-bar">
+	<?php print $menu; ?>
+</section>
+
+</article>
 	
 </body>
 </html>

@@ -61,6 +61,19 @@ class Model_Event_list extends Model_ModelCore
 			'key_from'	=> 'id',
 			'key_to'	=> 'event_id',
 			'model_to'	=> 'Model_Event_Guest'
+		),
+		'instagram' => array(
+			'key_from'	=> 'id',
+			'key_to'	=> 'event_id',
+			'model_to'	=> 'Model_Event_Instagram'
+		),
+	);
+	
+	protected static $_belongs_to = array(
+		'organiztion' => array(
+			'key_from'	=> 'main_org',
+			'key_to'	=> 'id',
+			'model_to'	=> 'Model_Organization'
 		)
 	);
 	
@@ -219,7 +232,7 @@ class Model_Event_list extends Model_ModelCore
 		$format			= 'Y-m-d';
 		$start_date		= DateTime::createFromFormat($format,$arg['start_at']);
 		$end_date		= DateTime::createFromFormat($format,$arg['end_at']);
-		if($start_date < $end_date)
+		if($start_date > $end_date)
 		{
 			$temp				= $arg['start_at'];
 			$arg['start_at']	= $arg['end_at'];

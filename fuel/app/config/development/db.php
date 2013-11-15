@@ -11,8 +11,9 @@ return array(
 			'username'   => 'root',
 			'password'   => '1tp@ssw0rd',
 			'port'		 => '3307',
-			'database'	 => 'bo_echart'
+			'database'	 => 'bo_echart',
 		),
+		'charset'        => 'utf8mb4',
 		'profiling' => true
 	)
 );
