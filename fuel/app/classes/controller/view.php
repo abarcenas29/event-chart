@@ -5,8 +5,9 @@ class Controller_View extends Controller_AppCore
 	
 	public function action_event($event_id)
 	{
-		$url = Uri::create("view/event/$event_id");
+		$this->_check_vaild_event($event_id);
 		
+		$url = Uri::create("view/event/$event_id");
 		$rest_cfg = Config::get('ec.qr_generator');
 	
 		$headers['X-Mashape-Authorization'] = $rest_cfg['key'];
@@ -27,6 +28,7 @@ class Controller_View extends Controller_AppCore
 	
 	public function action_org($org_id)
 	{
+		$this->_check_valid_org($org_id);
 		$q		 = Model_Organization::read_organization($org_id);
 		
 		$url	  = Uri::create("view/org/$org_id");
@@ -52,6 +54,8 @@ class Controller_View extends Controller_AppCore
 	
 	public function action_social($event_id)
 	{
+		$this->_check_vaild_event($event_id);
+		
 		$q = Model_Event_list::read_public_list($event_id);
 		$view = $this->_vg('social');
 		$view->event_id	= $event_id;

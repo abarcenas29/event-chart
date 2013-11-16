@@ -213,11 +213,12 @@ class Model_Event_list extends Model_ModelCore
 		return $q->get_one();
 	}
 	
-	public static function delete_event($arg)
+	public static function delete_event($event_id)
 	{
-		$q = Model_Event_list::find($arg['event_id']);
-		Model_Photo::delete_picture($q['photo_id']);
-		$q->delete();
+		$q = Model_Event_list::query()
+				->where('id','=',$event_id);
+		//Model_Photo::delete_picture($q['photo_id']);
+		$q->delete(true);
 	}
 	
 	private static function _check_name($arg)

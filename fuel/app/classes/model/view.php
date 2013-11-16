@@ -3,29 +3,48 @@ class Model_View extends Model
 {
     public static function org_unique_cat($events)
 	{
-		$categories = array();
+		$event_id = array();
 		foreach($events as $event)
 		{
-			foreach($event['category'] as $cat)
-			{
-				$categories[] = $cat['category'];
-			}
+			$event_id[] = $event['id'];
 		}
-		array_unique($categories);
-		return $categories;
+		$q = Db::select('category')
+				->from('event_categories')
+				->where('event_id','in',$event_id)
+				->distinct(true)
+				->execute()
+				->as_array();
+		
+		$category = array();
+		foreach($q as $row)
+		{
+			$category[] = $row['category'];
+		}
+		
+		return $category;
 	}
 	
 	public static function org_guest_list($events)
 	{
-		$guests = array();
+		$event_id = array();
 		foreach($events as $event)
 		{
-			foreach($event['guest'] as $guest)
-			{
-				$guests[] = $guest['name'];
-			}
+			$event_id[] = $event['id'];
 		}
-		array_unique($guests);
+		
+		$q = Db::select('name')
+				->from('event_guests')
+				->where('event_id','in',$event_id)
+				->distinct(true)
+				->execute()
+				->as_array();
+		
+		$guests = array();
+		foreach($q as $row)
+		{
+			$guests[] = $row['name'];
+		}
+		
 		return $guests;
 	}
 	

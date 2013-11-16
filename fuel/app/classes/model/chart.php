@@ -21,7 +21,6 @@ class Model_chart extends Model
 			$start_date = new DateTime($row['start_at']);
 			$end_date	= new DateTime($row['end_at']);
 			$diff		= $start_date->diff($end_date);
-			$fb			= $row['facebook'];
 			
 			$chart[$c]['poster_thumb']	= Model_chart::_poster_uri($row,'thumb-');
 			$chart[$c]['poster_flow']	= Model_chart::_poster_uri($row,'flow-');

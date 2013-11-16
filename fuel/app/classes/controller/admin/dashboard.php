@@ -82,6 +82,12 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$this->template->content = $view;
 	}
 
+	public function action_event_delete($event_id)
+	{
+		Model_Event_list::delete_event($event_id);
+		Response::redirect('admin/dashboard/index');
+	}
+	
 	public function action_event_visibility($id)
 	{
 		Model_Event_list::toggle_visibility($id);
