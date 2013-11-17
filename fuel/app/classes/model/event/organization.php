@@ -37,14 +37,10 @@ class Model_Event_Organization extends Model_ModelCore
 		\Fuel\Core\DB::commit_transaction();
 	}
 	
-	public static function remove_org($arg)
+	public static function remove_org_by_event($event_id)
 	{
-		\Fuel\Core\DB::start_transaction();
-		foreach($arg['sub_ids'] as $sub_id)
-		{
-			$q = Model_Event_Organization::find($sub_id);
-			$q->delete();
-		}
-		\Fuel\Core\DB::commit_transaction();
+		$q = Model_Event_Organization::query()
+				->where('event_id','=',$event_id);
+		$q->delete();
 	}
 }

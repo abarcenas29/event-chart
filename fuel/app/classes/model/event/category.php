@@ -37,5 +37,12 @@ class Model_Event_Category extends Model_ModelCore
 		$q->delete();
 		return 0;
 	}
+	
+	public static function remove_cat_by_event($event_id)
+	{
+		$q = Model_Event_Category::query()
+				->where('event_id','=',$event_id);
+		$q->delete();
+	}
 }
 

@@ -40,5 +40,12 @@ class Model_Event_Ticket extends Model_ModelCore
 		$q->delete();
 		return true;
 	}
+	
+	public static function remove_ticket_by_event($event_id)
+	{
+		$q = Model_Event_Ticket::query()
+				->where('event_id','=',$event_id);
+		$q->delete();
+	}
 }
 

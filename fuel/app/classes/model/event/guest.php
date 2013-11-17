@@ -39,5 +39,12 @@ class Model_Event_Guest extends Model_ModelCore
 				->get_one();
 		return $q->delete();
 	}
+	
+	public static function remove_guest_by_event($event_id)
+	{
+		$q = Model_Event_Guest::query()
+				->where('event_id','=',$event_id);
+		$q->delete();
+	}
 }
 

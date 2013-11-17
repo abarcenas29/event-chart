@@ -217,8 +217,23 @@ class Model_Event_list extends Model_ModelCore
 	{
 		$q = Model_Event_list::query()
 				->where('id','=',$event_id);
-		//Model_Photo::delete_picture($q['photo_id']);
-		$q->delete(true);
+		Fuel\Core\DB::start_transaction();
+		//Category Events
+		Model_Event_Category::remove_cat_by_event($event_id);
+		//Guest Events
+		Model_Event_Guest::remove_guest_by_event($event_id);
+		//Instagram Events
+		Model_Event_Instagram::remove_instagram_by_event($event_id);
+		//Sub-Org Events
+		Model_Event_Organization::remove_org_by_event($event_id);
+		//Poster Events
+		Model_Event_Poster::remove_poster_by_event($event_id);
+		//Ticket Events
+		Model_Event_Ticket::remove_ticket_by_event($event_id);
+		//Remove picture
+		Model_Photo::delete_picture($q->get_one()['photo_id']);
+		Fuel\Core\DB::commit_transaction();
+		$q->delete();
 	}
 	
 	private static function _check_name($arg)

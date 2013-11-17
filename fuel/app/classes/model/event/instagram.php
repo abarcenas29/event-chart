@@ -101,5 +101,12 @@ class Model_Event_Instagram extends Model_ModelCore
 		}
 		return false;
 	}
+	
+	public static function remove_instagram_by_event($event_id)
+	{
+		$q = Model_Event_Instagram::query()
+				->where('event_id','=',$event_id);
+		$q->delete();
+	}
 }
 

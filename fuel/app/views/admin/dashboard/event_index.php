@@ -87,3 +87,16 @@
 </div>
 <?php endforeach; ?>
 </section>
+
+<article id="ec-modal-delete" class="uk-modal">
+<div class="uk-modal-dialog uk-modal-dialog-slide">
+<section class="uk-panel">
+<header class="uk-panel-header">
+<h1 class="uk-panel-title">
+	<i class="uk-icon-warning-sign"></i>
+	
+</h1>
+</header>
+</section>
+</div>
+</article>
