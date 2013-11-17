@@ -78,11 +78,14 @@
 	<i class="uk-icon-pencil"></i>
 		Manage
 	</a>
-	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_delete/'.$row['id']); ?>" 
-	   class="uk-button uk-button-danger">
+	<button class="uk-button 
+				   uk-button-danger
+				   ec-delete-button"
+			data-url="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_delete/'.$row['id']); ?>"
+			data-uk-modal="{target:'#ec-modal-delete'}">
 	<i class="uk-icon-trash"></i>
 		Delete
-	</a>
+	</button>
 	</div>
 </div>
 <?php endforeach; ?>
@@ -94,9 +97,29 @@
 <header class="uk-panel-header">
 <h1 class="uk-panel-title">
 	<i class="uk-icon-warning-sign"></i>
-	
+	Woah There!
 </h1>
+<section>
+	You are about to do something irreversible. By deleting the event, you will also be deleting anything related to it.
+	Are you sure you want to do this?
+</section>
+<section class="uk-margin-top uk-text-center">
+	<a href="" class="uk-button uk-button-danger" id="ec-delete-button">
+		<i class="uk-icon-trash"></i>
+		Yeah! I am doing this.
+	</a>
+</section>
 </header>
 </section>
 </div>
 </article>
+<script>
+$(document).ready(function()
+{
+	$('.ec-delete-button').click(function()
+	{
+		var url = $(this).data('url');
+		$('#ec-delete-button').attr('href',url);
+	});
+});
+</script>

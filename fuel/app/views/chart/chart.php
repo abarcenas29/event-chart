@@ -1,11 +1,53 @@
 <?php print Asset::js('jquery.wookmark.min.js'); ?>
 <?php print Asset::js('jquery.imageloaded.js'); ?>
+
+<?php if(count($now) != 0):?>
+<!-- Any Event Happening Today -->
+<section class="uk-width-large-9-10
+				uk-width-medium-1-1
+				uk-container-center
+				uk-margin-top" style="position:relative;min-height:20em;">
+<div class="uk-panel uk-panel-box uk-panel-box-primary" style="min-height:19em;">
+<div class="uk-panel-badge uk-badge uk-badge-danger">
+	Events Happening Right Now
+</div>
+<ul id="ec-charts-now">
+
+<?php foreach($now as $row): ?>
+<li class="ec-events">
+<a href="#ec-chart-modal"
+   class="ec-chart-modal-link"
+   data-title="<?php print $row['title']; ?>"
+   data-cover="<?php print (isset($row['cover_image']))?$row['cover_image']:'empty';?>"
+   data-range="<?php print $row['start_at']. ' - '. $row['end_at']; ?>"
+   data-venue="<?php print $row['venue']?>"
+   data-event="<?php print $row['event_id'];?>"
+   data-uk-modal>
+<div class="uk-panel ec-chart-title">
+	<div class="uk-text-center">
+	<?php print $row['title']; ?>
+	</div>
+</div>
+<div class="uk-panel" style="padding:0.5em;background-color:#E2E3E5;">
+<div class="uk-panel-badge uk-badge"><?php print $row['start_at']. ' ('. $row['duration'] .')'; ?></div>
+<img src="<?php print $row['poster_thumb'] ?>"/>
+</div>
+</a>
+</li>
+<?php endforeach; ?>
+
+</ul>
+</div>
+</section>
+<?php endif; ?>
+
+<!-- List of Future Events -->
 <section class="uk-width-large-9-10
 				uk-width-medium-1-1
 				uk-container-center
 				uk-margin-top" style="position:relative;">
 
-<div id="ec-chart-container">
+<div>
 <ul id="ec-charts">
 
 <?php foreach($c as $row): ?>
@@ -145,6 +187,16 @@ $(document).ready(function(){
 			outerOffset:20
 		};
 		$('#ec-charts li').wookmark(opt);
+	});
+	
+	$('#ec-charts-now').imagesLoaded(function(){
+		var opt = {
+			itemWidth: 200,
+			autoResize: true,
+			offset:30,
+			outerOffset:20
+		};
+		$('#ec-charts-now li').wookmark(opt);
 	});
 });
 </script>

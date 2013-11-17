@@ -7,6 +7,7 @@ class Controller_chart extends Controller_AppCore
 	{
 		$view		= $this->_cg('chart');
 		$view->c	= Model_chart::format_chart();
+		$view->now  = Model_chart::event_today();
 		$this->template->content = $view;
 	}
 	

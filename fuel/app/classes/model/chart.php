@@ -13,7 +13,23 @@ class Model_chart extends Model
 				->where('end_at','<=',date('Y-m-d',$half_year))
 				->order_by('start_at','desc')
 				->get();
-		
+		return Model_chart::_prepare_chart($q);
+	}
+	
+	public static function event_today()
+	{
+		$q = Model_Event_list::query()
+				->related('photo')
+				->where('start_at','<=',date('Y-m-d'))
+				->where('end_at','>=',date('Y-m-d'))
+				->where('private','=',false)
+				->order_by('start_at','desc')
+				->get();
+		return Model_chart::_prepare_chart($q);
+	}
+	
+	private static function _prepare_chart($q)
+	{
 		$c		= 0;
 		$chart	= array();
 		foreach($q as $row)
@@ -21,12 +37,13 @@ class Model_chart extends Model
 			$start_date = new DateTime($row['start_at']);
 			$end_date	= new DateTime($row['end_at']);
 			$diff		= $start_date->diff($end_date);
+			$no_days	= (int)$diff->format('%a') + 1;
 			
 			$chart[$c]['poster_thumb']	= Model_chart::_poster_uri($row,'thumb-');
 			$chart[$c]['poster_flow']	= Model_chart::_poster_uri($row,'flow-');
 			$chart[$c]['start_at']		= date('d M y',  strtotime($row['start_at']));
 			$chart[$c]['end_at']		= date('d M y',  strtotime($row['end_at']));
-			$chart[$c]['duration']		= $diff->format('%a days');
+			$chart[$c]['duration']		= "$no_days days";
 			$chart[$c]['title']			= $row['name'];
 			$chart[$c]['event_id']		= $row['id'];
 			$chart[$c]['venue']			= $row['venue'];
