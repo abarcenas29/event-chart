@@ -31,7 +31,8 @@ class Model_Event_Instagram extends Model_ModelCore
 		
 		if($max->count() != 0)
 		{
-			$max_timestamp = $max->get_one()['timestamp'];
+			$ts = $max->get_one();
+			$max_timestamp = $ts['timestamp'];
 		}
 		else
 		{

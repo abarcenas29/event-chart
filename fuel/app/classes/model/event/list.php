@@ -231,7 +231,8 @@ class Model_Event_list extends Model_ModelCore
 		//Ticket Events
 		Model_Event_Ticket::remove_ticket_by_event($event_id);
 		//Remove picture
-		Model_Photo::delete_picture($q->get_one()['photo_id']);
+		$photo = $q->get_one();
+		Model_Photo::delete_picture($photo['photo_id']);
 		Fuel\Core\DB::commit_transaction();
 		$q->delete();
 	}
