@@ -11,6 +11,13 @@ class Controller_chart extends Controller_AppCore
 		$this->template->content = $view;
 	}
 	
+	public function action_archive()
+	{
+		$view		= $this->_cg('chart');
+		$view->c	= Model_chart::event_archive();
+		$this->template->content = $view;
+	}
+	
 	private function _cg($view)
 	{
 		return View::forge("chart/$view");

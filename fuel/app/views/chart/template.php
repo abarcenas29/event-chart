@@ -39,7 +39,9 @@
 			uk-width-medium-1-1 
 			uk-margin-bottom" 
 			id="ec-header-title">
+	<a href="<?php print Uri::base(); ?>">
 	<h1 class="uk-margin-left"><span>Event</span> Charts</h1>
+	</a>
 	<p class="uk-margin-left">A Deremoe Events Service</p>
 </div>
 </section>
@@ -47,6 +49,9 @@
 <nav class="uk-navbar" id="ec-chart-nav">
 <div class="uk-navbar-flip">
 	<ul class="uk-navbar-nav">
+	<li><a href="<?php print Uri::create('chart/archive') ?>">
+		<i class="uk-icon-list"></i>
+			Archive</a></li>
 	<li><a href="#">
 		<i class="uk-icon-info-sign"></i>
 			About</a></li>

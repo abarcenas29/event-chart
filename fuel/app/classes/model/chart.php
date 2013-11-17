@@ -28,6 +28,17 @@ class Model_chart extends Model
 		return Model_chart::_prepare_chart($q);
 	}
 	
+	public static function event_archive()
+	{
+		$q = Model_Event_list::query()
+				->related('photo')
+				->where('private','<=',false)
+				->where('end_at','<=',date('Y-m-d'))
+				->order_by('start_at','desc')
+				->get();
+		return Model_chart::_prepare_chart($q);
+	}
+	
 	private static function _prepare_chart($q)
 	{
 		$c		= 0;

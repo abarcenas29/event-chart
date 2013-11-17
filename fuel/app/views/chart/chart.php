@@ -1,7 +1,7 @@
 <?php print Asset::js('jquery.wookmark.min.js'); ?>
 <?php print Asset::js('jquery.imageloaded.js'); ?>
 
-<?php if(count($now) != 0):?>
+<?php if(isset($now) && count($now) != 0):?>
 <!-- Any Event Happening Today -->
 <section class="uk-width-large-9-10
 				uk-width-medium-1-1
@@ -189,6 +189,7 @@ $(document).ready(function(){
 		$('#ec-charts li').wookmark(opt);
 	});
 	
+<?php if(isset($now) && count($now) != 0):?>
 	$('#ec-charts-now').imagesLoaded(function(){
 		var opt = {
 			itemWidth: 200,
@@ -198,5 +199,6 @@ $(document).ready(function(){
 		};
 		$('#ec-charts-now li').wookmark(opt);
 	});
+<?php endif; ?>
 });
 </script>
