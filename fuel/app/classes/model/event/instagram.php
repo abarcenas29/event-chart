@@ -60,6 +60,12 @@ class Model_Event_Instagram extends Model_ModelCore
 			}
 			
 			$rsp		= \unirest\unirest::get($url);
+			
+			if(!isset($rsp->body->pagination->next_max_tag_id))
+			{
+				break;
+			}
+			
 			$next_tag	= $rsp->body->pagination->next_max_tag_id;
 			
 			$json_data  = $rsp->body->data;
