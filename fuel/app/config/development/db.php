@@ -10,10 +10,9 @@ return array(
 			'hostname'   => 'localhost',
 			'username'   => 'root',
 			'password'   => '1tp@ssw0rd',
-			'port'		 => '3306',
+			'port'		 => '3307',
 			'database'	 => 'bo_echart',
 		),
-		'charset'        => 'utf8mb4',
 		'profiling' => true
 	)
 );

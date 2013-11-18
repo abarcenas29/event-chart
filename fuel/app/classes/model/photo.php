@@ -108,7 +108,7 @@ class Model_Photo extends Model_ModelCore
 		
 		if(file_put_contents($arg['org_file'],$decodeData))
 		{
-			
+			chmod($arg['org_file'],660);
 			$arg = Model_Photo::_convert_png_to_jpg($arg);
 			
 			//reduce file
