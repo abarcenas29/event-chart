@@ -28,7 +28,8 @@
 
 <div class="uk-width-1-1 uk-margin-top">
 <?php foreach($q['category'] as $row): ?>
-<a href="#" class="uk-button uk-button-primary uk-margin-bottom">
+<a href="<?php print Uri::create('chart/category/'.$row['category']); ?>" 
+   class="uk-button uk-button-primary uk-margin-bottom">
 	<i class="uk-icon-tag"></i>
 	<?php print $row['category']; ?>
 </a>

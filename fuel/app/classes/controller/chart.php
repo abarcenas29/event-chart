@@ -18,9 +18,17 @@ class Controller_chart extends Controller_AppCore
 		$this->template->content = $view;
 	}
 	
+	public function action_category($category = null)
+	{
+		if(is_null($category))Response::redirect('chart/index');
+		$view		= $this->_cg('chart');
+		$view->c	= Model_chart::event_category($category);
+		$view->now	= Model_chart::event_category_today($category);
+		$this->template->content = $view;
+	}
+	
 	private function _cg($view)
 	{
 		return View::forge("chart/$view");
 	}
 }
-

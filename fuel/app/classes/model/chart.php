@@ -2,9 +2,11 @@
 //Custom Chart Model
 class Model_chart extends Model
 {
-    public static function format_chart()
+    private static $_half_year = '+6 months';
+	
+	public static function format_chart()
 	{
-		$half_year = strtotime('+6 months');
+		$half_year = strtotime(Model_chart::$_half_year);
 	
 		$q = Model_Event_list::query()
 				->related('photo')
@@ -32,10 +34,41 @@ class Model_chart extends Model
 	{
 		$q = Model_Event_list::query()
 				->related('photo')
-				->where('private','<=',false)
+				->where('private','=',false)
 				->where('end_at','<=',date('Y-m-d'))
 				->order_by('start_at','desc')
 				->get();
+		return Model_chart::_prepare_chart($q);
+	}
+	
+	public static function event_category_today($category)
+	{
+		$q = Model_Event_list::query()
+				->related('photo')
+				->related('category')
+				->where('start_at','<=',date('Y-m-d'))
+				->where('end_at','>=',date('Y-m-d'))
+				->where('private','=',false)
+				->where('category.category','=',$category)
+				->order_by('start_at','desc')
+				->get();
+		
+		return Model_chart::_prepare_chart($q);
+	}
+	
+	public static function event_category($category)
+	{
+		$half_year = strtotime(Model_chart::$_half_year);
+		
+		$q = Model_Event_list::query()
+				->related('category')
+				->related('photo')
+				->where('private','=',false)
+				->where('category.category','=',$category)
+				->where('end_at','<=',date('Y-m-d',$half_year))
+				->order_by('start_at','desc')
+				->get();
+		
 		return Model_chart::_prepare_chart($q);
 	}
 	

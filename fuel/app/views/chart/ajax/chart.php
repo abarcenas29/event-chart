@@ -5,7 +5,7 @@
 <div class="uk-panel ec-modal-cont uk-margin-top">
 <?php if(count($q['category']) > 0):?>
 <?php foreach($q['category'] as $row): ?>
-	<a href="#" class="uk-button uk-button-primary">
+	<a href="<?php print Uri::create('chart/category/'.$row['category']); ?>" class="uk-button uk-button-primary">
 		<i class="uk-icon-tag"><?php print $row['category']; ?></i>
 	</a>
 <?php endforeach;?>

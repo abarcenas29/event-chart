@@ -16,6 +16,8 @@ class Controller_View extends Controller_AppCore
 		$parameter['type']	  = 'url';
 		$rsp = \unirest\unirest::get($rest_cfg['url'], $headers, $parameter);
 		
+		Session::set('callback_url',$url);
+		
 		$view		= $this->_vg('event');
 		$view->q	= Model_Event_list::read_public_list($event_id);
 		$view->qr	= $rsp->body;
