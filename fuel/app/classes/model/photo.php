@@ -108,14 +108,14 @@ class Model_Photo extends Model_ModelCore
 		
 		if(file_put_contents($arg['org_file'],$decodeData))
 		{
-			chmod($arg['org_file'],0777);
+			chmod($arg['org_file'],0775);
 			$arg = Model_Photo::_convert_png_to_jpg($arg);
 			
 			//reduce file
 			\Fuel\Core\Image::load($arg['org_file'])
 					->config('quality',80)
 					->resize($arg['width'])
-					->save($arg['org_file'],0777);
+					->save($arg['org_file'],0775);
 			
 			
 			if(isset($arg['x1']))
