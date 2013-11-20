@@ -7,6 +7,9 @@ class Controller_View extends Controller_AppCore
 	{
 		$this->_check_vaild_event($event_id);
 		
+		$fb_cfg = Config::get('ec.facebook');
+		$f		= new facebook\fb($fb_cfg);
+		
 		$url = Uri::create("view/event/$event_id");
 		$rest_cfg = Config::get('ec.qr_generator');
 	
@@ -18,10 +21,11 @@ class Controller_View extends Controller_AppCore
 		
 		Session::set('callback_url',$url);
 		
-		$view		= $this->_vg('event');
-		$view->q	= Model_Event_list::read_public_list($event_id);
-		$view->qr	= $rsp->body;
-		$view->url	= $url;
+		$view			= $this->_vg('event');
+		$view->q		= Model_Event_list::read_public_list($event_id);
+		$view->qr		= $rsp->body;
+		$view->url		= $url;
+		$view->fb_user	= $f->getUser();
 		$this->template->content = $view;
 		
 		$menu		= $this->_vmg('event');
@@ -33,6 +37,9 @@ class Controller_View extends Controller_AppCore
 	{
 		$this->_check_valid_org($org_id);
 		$q		 = Model_Organization::read_organization($org_id);
+		
+		$fb_cfg = Config::get('ec.facebook');
+		$f		= new facebook\fb($fb_cfg);
 		
 		$url	  = Uri::create("view/org/$org_id");
 		$rest_cfg = Config::get('ec.qr_generator');
@@ -49,6 +56,7 @@ class Controller_View extends Controller_AppCore
 		$view->q		= $q;
 		$view->qr		= $rsp->body;
 		$view->url		= $url;
+		$view->fb_user	= $f->getUser();
 		$view->cat		= Model_View::org_unique_cat($q['event_lists']);
 		$view->guests	= Model_View::org_guest_list($q['event_lists']);
 		$view->price	= Model_View::org_ticket_stat($q['event_lists']);

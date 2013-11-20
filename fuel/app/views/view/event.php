@@ -73,7 +73,8 @@
 	   style="width:35px">
 	<i class="uk-icon-twitter"></i>
 	</a>
-	<a href="" 
+	<a href="#ec-share-facebook"
+	   data-uk-modal
 	   class="uk-button ec-facebook uk-text-center" 
 	   style="width:35px">
 	<i class="uk-icon-facebook"></i>
@@ -236,7 +237,7 @@
 <header class="uk-panel-title">
 <h2 class="uk-panel-header">
 	Share on twitter
-	<span id="ec-share-modal-header" style="display:none;">
+	<span class="ec-share-modal-header" style="display:none;">
 		(Tweet Sent!)
 	</span>
 </h2>
@@ -285,13 +286,73 @@
 </div>
 </article>
 
+<!-- Modal Facebook Share -->
+<article id="ec-share-facebook" class="uk-modal">
+<div class="uk-modal-dialog
+			uk-modal-dialog-slide">
+<div class="uk-panel">
+<header class="uk-panel-title">
+<h2 class="uk-panel-header">
+	Share on Facebook
+	<span class="ec-share-modal-header" style="display:none;">
+		(Facebook Post Sent!)
+	</span>
+</h2>
+</header>
+<?php if(!$fb_user): ?>
+<section class="uk-width-1-1
+				uk-text-center">
+	<a href="<?php print Uri::create('redirect/facebook'); ?>"
+	   class="uk-button ec-facebook">
+	<i class="uk-icon-facebook-sign"></i>
+	Sign-in Facebook
+	</a>
+</section>
+<?php else:?>
+<form action="<?php print Uri::create('api/share/facebook.json') ?>"
+	  id="ec-form-share-facebook"
+	  method="POST"
+<section class="uk-width-1-1 uk-grid">
+<div class="uk-width-3-10 uk-text-center">
+<div class="uk-thumbnail">
+	<img 
+		width="100px"
+		src="<?php print 'http://graph.facebook.com/'.Session::get('fb_id').'/picture?type=large'; ?>"/>
+	<div class="uk-thumbnail-caption">
+	<?php print Session::get('fb_name'); ?>
+	</div>
+</div>
+</div>
+<div class="uk-width-7-10">
+	<textarea
+		name="fb-message"
+		rows="5"
+		class="uk-width-1-1">Check this out! <?php print $q['name'] ?></textarea>
+	<input name="fb-url" type="hidden" value="<?php print $url; ?>"/>
+<div class="uk-width-1-1 uk-float-right uk-margin-top">
+	<button
+		type="submit"
+		class="uk-button
+			   ec-facebook">
+	<i class="uk-icon-facebook"></i>
+	 Post Facebook
+	</button>
+</div>
+</div>
+</section>
+</form>
+<?php endif;?>
+</div>
+</div>
+</article>
+
 <script>
 var geoLocation = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
 var osmTileMap  = 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
 var venue		= "<?php print $q['venue']?>";
 var attribution = 'Event Chart Map is Powered by Cloudmade OSM.'
 
-var $tweetHeader = $('#ec-share-modal-header');
+var $tweetHeader = $('.ec-share-modal-header');
 $(document).ready(function(){
 	$('.ec-poster-link').click(function(){
 		var image = $(this).data('image');
@@ -303,6 +364,16 @@ $(document).ready(function(){
 	L.marker(geoLocation).addTo(map).bindPopup(venue).openPopup();
 
 	$('#ec-form-share-twitter').ajaxForm(
+	{
+		success:function(d)
+		{
+			$tweetHeader.show();
+			setTimeout(function(){$tweetHeader.hide()},2000);
+			console.log(d);
+		}
+	});
+	
+	$('#ec-form-share-facebook').ajaxForm(
 	{
 		success:function(d)
 		{

@@ -23,11 +23,15 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$f		= new facebook\fb($cfg);
 		$user	= $f->getUser();
 		
+		if(!$user)
+		{
+			Response::redirect($f->getLoginUrl());
+		}
 		
 		$view = $this->_db('social');
 		$q = urlencode('upame');
-		$view->content = $f->api('/search?q='.$q.'%type=post');
-		$view->url	   = ($user)?$f->getLogoutUrl():$f->getLoginUrl();
+		$view->content = $f->api('/me');
+		$view->url	   = ($user)?$f->getLogoutUrl():'';
 		$this->template->content = $view;
 	}
 	
