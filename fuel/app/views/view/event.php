@@ -59,7 +59,13 @@
 	</h4>
 	</div>
 	<div class="uk-width-1-1 uk-text-center uk-visible-large">
-		<h3><?php print '#'.$q['hashtag']; ?></h3>
+	<ul style="display:inline">
+	<?php foreach($q['hashtags'] as $row): ?>
+		<li style="list-style-type:none;" class="uk-text-bold">
+			<?php print '#'.$row['hashtag']; ?>
+		</li>
+	<?php endforeach;?>
+	</ul>
 	</div>
 	<div class="uk-width-1-1 uk-text-center uk-visible-large">
 		<div class="uk-thumbnail">

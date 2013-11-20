@@ -66,7 +66,7 @@
 <script>
 var $title			= $('#ec-ftitle');
 var $body			= $('#ec-fbody');
-var urlUserIndex	= "<?php print \Fuel\Core\Uri::create('admin/dashboard/user_index');?>";
+var urlUserIndex	= "<?php print \Fuel\Core\Uri::create('admin/dashboard/index');?>";
 
 $(document).ready(function(){
 	$('#ec-form-user').ajaxForm({
@@ -80,7 +80,7 @@ $(document).ready(function(){
 			if(data.success)
 			{
 				$title.html('Success!!!');
-				//setTimeout(function(){window.location = urlUserIndex;},1000);
+				setTimeout(function(){window.location = urlUserIndex;},1000);
 			}
 			$body.html(data.response);
 		},

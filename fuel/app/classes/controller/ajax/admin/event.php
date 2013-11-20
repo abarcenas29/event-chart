@@ -41,5 +41,17 @@ class Controller_Ajax_Admin_Event extends Controller_Ajax_PrivateCore
 		$view->args = $arg;
 		return $view;
 	}
+	
+	public function post_add_hashtag()
+	{
+		$arg = array();
+		$arg['hashtag']	= str_replace('#','',Input::post('hashtag'));
+		$arg['event_id']= Session::get('event_id');
+		$arg['hash_id']	= Model_Event_Hashtag::insert_hashtag($arg);
+		
+		$view		= View::forge('admin/dashboard/ajax/hashtag');
+		$view->args = $arg;
+		return $view;
+	}
 }
 

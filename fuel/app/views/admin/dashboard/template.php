@@ -56,14 +56,25 @@
 </ul>
 <div class="uk-navbar-flip">
 <ul class="uk-navbar-nav">
-	<li><a href="<?php print Fuel\Core\Uri::create('admin/login/logout'); ?>">
-		<i class="uk-icon-unlock"></i>
-		 <?php print Fuel\Core\Session::get('username'); ?>
+	<li class="uk-parent ec-dropdown" data-uk-dropdown>
+		<a href="#">
+			<i class="uk-icon-user"></i>
+			<?php print Fuel\Core\Session::get('username'); ?>
 		</a>
-	</li>
-	<li><a href="<?php print Fuel\Core\Uri::create('admin/dashboard/change_password'); ?>">
-		<i class="uk-icon-key"></i>
+		<div class="uk-dropdown uk-dropdown-navbar">
+		<ul class="uk-nav uk-navbar ec-dropdown-navbar">
+		<li>
+		<a href="<?php print Uri::create('admin/dashboard/change_password')?>">
+			Change Password
 		</a>
+		</li>
+		<li>
+		<a href="<?php print Uri::create('admin/login/logout'); ?>">
+			Logout
+		</a>
+		</li>
+		</ul>
+		</div>
 	</li>
 	<li><a href="#"><i class="uk-icon-reorder"></i></a></li>
 </ul>

@@ -17,7 +17,6 @@ class Model_Event_list extends Model_ModelCore
 		'facebook',
 		'twitter',
 		'website',
-		'hashtag',
 		'private',
 		'created_by',
 		'created_at'
@@ -67,6 +66,11 @@ class Model_Event_list extends Model_ModelCore
 			'key_to'	=> 'event_id',
 			'model_to'	=> 'Model_Event_Instagram'
 		),
+		'hashtags'	=> array(
+			'key_from'	=> 'id',
+			'key_to'	=> 'event_id',
+			'model_to'	=> 'Model_Event_Hashtag'
+		)
 	);
 	
 	protected static $_belongs_to = array(
@@ -124,7 +128,6 @@ class Model_Event_list extends Model_ModelCore
 			$q->facebook	= $arg['facebook'];
 			$q->twitter		= $arg['twitter'];
 			$q->website		= $arg['website'];
-			$q->hashtag		= $arg['hashtag'];
 			$q->private		= true;
 			$q->created_by	= \Fuel\Core\Session::get('email');
 			$q->save();
@@ -155,7 +158,6 @@ class Model_Event_list extends Model_ModelCore
 		$q->facebook	= $arg['facebook'];
 		$q->twitter		= $arg['twitter'];
 		$q->website		= $arg['website'];
-		$q->hashtag		= $arg['hashtag'];
 		$q->private		= true;
 		$q->created_by	= \Fuel\Core\Session::get('email');
 		$q->save();
@@ -230,6 +232,8 @@ class Model_Event_list extends Model_ModelCore
 		Model_Event_Poster::remove_poster_by_event($event_id);
 		//Ticket Events
 		Model_Event_Ticket::remove_ticket_by_event($event_id);
+		//Hashtag Events
+		Model_Event_Hashtag::remove_hashtag_by_event($event_id);
 		//Remove picture
 		$photo = $q->get_one();
 		Model_Photo::delete_picture($photo['photo_id']);

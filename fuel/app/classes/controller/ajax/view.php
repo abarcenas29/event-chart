@@ -23,6 +23,7 @@ class Controller_Ajax_View extends Controller_Ajax_AjaxCore
 		
 		$view = View::forge('view/ajax/instagram_page');
 		$view->rsp = $rsp;
+		
 		return $view;
 	}
 }

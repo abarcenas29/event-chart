@@ -58,6 +58,15 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		return $this->response($response);
 	}
 	
+	public function post_del_hashtag()
+	{
+		$arg			= array();
+		$arg['hash_id'] = Input::post('id');
+		$arg['event_id']= Session::get('event_id');
+		$rsp['success']	= Model_Event_Hashtag::delete_hashtag($arg);
+		return $this->response($rsp);
+	}
+	
 	public function post_toggle_cat()
 	{
 		$arg = array();
@@ -84,10 +93,9 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		$arg['main_org']= Input::post('main_org');
 		$arg['start_at']= Input::post('start_at');
 		$arg['end_at']	= Input::post('end_at');
-		$arg['facebook']= Input::post('facebook');
-		$arg['twitter'] = Input::post('twitter');
-		$arg['hashtag']	= Input::post('hashtag');
-		$arg['website'] = Input::post('website');
+		$arg['facebook']= str_replace('http://facebook.com/','',Input::post('facebook'));
+		$arg['twitter'] = str_replace('http://twitter.com/','',Input::post('twitter'));
+		$arg['website'] = str_replace('http://','',Input::post('website'));
 		
 		$arg['width']		= 1280;
 		$arg['photo_name']	= Input::post('photo_name',null);

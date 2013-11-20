@@ -7,6 +7,23 @@
 #ec-admin-nav ul li a:hover {
   background-color: #3f3f3f;
 }
+#ec-admin-nav ul li a:focus {
+  background-color: #3f3f3f;
+}
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li.uk-open > a {
+  background-color: #3f3f3f;
+}
+.ec-dropdown {
+  background-color: #252525;
+}
+.ec-dropdown div {
+  border-top: 1px solid #AB1F2B;
+  background-color: inherit;
+}
+.ec-dropdown div ul {
+  background: inherit;
+}
 .ec-event-table-header {
   padding: 0.5em 0em 0.5em 0em;
 }

@@ -65,22 +65,51 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		asort($categories);
 		asort($guest_type);
 		
-		$view			= $this->_db('event_manage');
-		$view->q		= Model_Event_list::read_list();
-		$view->orgs		= Model_Organization::admin_ll_index();
-		$view->title	= 'Edit Event Information';
-		$view->regions	= Model_region::region_index();
-		$view->cats		= $categories;
-		$view->g_type	= $guest_type;
+		$q		= Model_Event_list::read_list();
+		$org	= Model_Organization::admin_ll_index();
 		
-		$view->edit_action		= Uri::create('api/admin/event/edit.json');
-		$view->venue_action		= Uri::create('api/admin/event/venue.json');
-		$view->poster_action	= Uri::create('ajax/admin/event/add_poster.json');
-		$view->poster_d_action	= Uri::create('api/admin/event/del_poster.json');
-		$view->ticket_action	= Uri::create('ajax/admin/event/add_ticket');
+		$view			= $this->_db('event_manage');
+		$view->q		= $q;
+		
+		$cat				= $this->_em('categories');
+		$cat->cats			= $categories;
+		$cat->q				= $q;
+		$view->category_edit= $cat;
+		
+		$edit				= $this->_em('edit');
+		$edit->q			= $q;
+		$edit->edit_action	= Uri::create('api/admin/event/edit.json');
+		$edit->title		= 'Edit Event Information';
+		$edit->orgs			= $org;
+		$view->event_edit	= $edit;
+		
+		$venue				= $this->_em('venue');
+		$venue->regions		= Model_region::region_index();
+		$venue->venue_action= Uri::create('api/admin/event/venue.json');
+		$venue->q			= $q;
+		$view->venue_edit	= $venue;
+		
+		$poster					= $this->_em('posters');
+		$poster->poster_action	= Uri::create('ajax/admin/event/add_poster.json');
+		$poster->q				= $q;
+		$view->poster_edit		= $poster;
+		
+		$detail					= $this->_em('details');
+		$detail->q				= $q;
+		$detail->ticket_action	= Uri::create('ajax/admin/event/add_ticket');
+		$detail->guest_action	= Uri::create('ajax/admin/event/add_guest');
+		$detail->g_type			= $guest_type;
+		$view->detail_edit		= $detail;
+		
+		$hashtag				= $this->_em('hashtags');
+		$hashtag->hashtag_action= Uri::create('ajax/admin/event/add_hashtag');
+		$hashtag->q				= $q;
+		$view->hashtag_edit		= $hashtag;
+		
 		$view->ticket_d_action	= Uri::create('api/admin/event/del_ticket');
-		$view->guest_action		= Uri::create('ajax/admin/event/add_guest');
+		$view->poster_d_action	= Uri::create('api/admin/event/del_poster.json');
 		$view->guest_d_action	= Uri::create('api/admin/event/del_guest');
+		$view->hashtag_d_action = Uri::create('api/admin/event/del_hashtag');
 		$view->cat_action		= Uri::create('api/admin/event/toggle_cat.json');
 		
 		$this->template->content = $view;
@@ -164,6 +193,11 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	private function _db($view)
 	{
 		return \Fuel\Core\View::forge("admin/dashboard/$view");
+	}
+	
+	private function _em($view)
+	{
+		return View::forge("admin/dashboard/manage/$view");
 	}
 }
 

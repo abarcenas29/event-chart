@@ -90,11 +90,18 @@ $(document).ready(function(){
 	});
 	$pagination.click(function(e)
 	{
-		page+=1;
-		console.log(page);
+		page = page + 1;
+
+		var $page = $(this);
+		$page.hide();
 		$.post(urlPagination,{event_id:eventId,page:page},function(d)
 		{
-			$('#ec-instagram-canvas').append(d);
+			console.log(d.length);
+			if(d.length !== 0)
+			{
+				$('#ec-instagram-canvas').append(d);
+				$page.show();
+			}
 		});
 		e.preventDefault();
 	});
