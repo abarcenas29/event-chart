@@ -1,6 +1,7 @@
 <!-- JQuery Leaflet -->
 <?php print \Fuel\Core\Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');?>
 <?php print \Fuel\Core\Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');?>
+<?php print Asset::js('jquery.form.min.js');?>
 <article class="uk-width-1-1">
 <section class="uk-width-large-9-10
 				uk-width-medium-1-1
@@ -66,7 +67,8 @@
 		</div>
 	</div>
 	<div class="uk-width-1-1 uk-margin-top uk-text-center">
-	<a href="" 
+	<a href="#ec-share-twitter"
+	   data-uk-modal
 	   class="uk-button ec-twitter" 
 	   style="width:35px">
 	<i class="uk-icon-twitter"></i>
@@ -226,11 +228,70 @@
 	</section>
 </article>
 
+<!-- Modal Twitter Share -->
+<article id="ec-share-twitter" class="uk-modal">
+<div class="uk-modal-dialog
+			uk-modal-dialog-slide">
+<div class="uk-panel">
+<header class="uk-panel-title">
+<h2 class="uk-panel-header">
+	Share on twitter
+	<span id="ec-share-modal-header" style="display:none;">
+		(Tweet Sent!)
+	</span>
+</h2>
+</header>
+<?php if(!Twitter\Twitter::logged_in()): ?>
+<section class="uk-width-1-1
+				uk-text-center">
+	<a href="<?php print Uri::create('redirect/twitter'); ?>"
+	   class="uk-button ec-twitter">
+	<i class="uk-icon-twitter"></i>
+	Sign-in Twitter
+	</a>
+</section>
+<?php else:?>
+<form action="<?php print Uri::create('api/share/twitter.json') ?>"
+	  id="ec-form-share-twitter"
+	  method="POST"
+<section class="uk-width-1-1 uk-grid">
+<div class="uk-width-3-10 uk-text-center">
+<div class="uk-thumbnail">
+	<img src="<?php print Session::get('twitter_avatar'); ?>"/>
+	<div class="uk-thumbnail-caption">
+	<?php print Session::get('twitter_access_token')['screen_name']; ?>
+	</div>
+</div>
+</div>
+<div class="uk-width-7-10">
+	<textarea
+		name="content"
+		rows="3"
+		class="uk-width-1-1">Check this out! <?php print $q['name'] . ' '. $url ?></textarea>
+<div class="uk-width-1-1 uk-float-right uk-margin-top">
+	<button
+		type="submit"
+		class="uk-button
+			   uk-button-primary">
+	<i class="uk-icon-twitter"></i>
+	Tweet
+	</button>
+</div>
+</div>
+</section>
+</form>
+<?php endif;?>
+</div>
+</div>
+</article>
+
 <script>
 var geoLocation = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
 var osmTileMap  = 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
 var venue		= "<?php print $q['venue']?>";
 var attribution = 'Event Chart Map is Powered by Cloudmade OSM.'
+
+var $tweetHeader = $('#ec-share-modal-header');
 $(document).ready(function(){
 	$('.ec-poster-link').click(function(){
 		var image = $(this).data('image');
@@ -240,5 +301,15 @@ $(document).ready(function(){
 	var map = L.map('ec-view-map').setView(geoLocation,13)
 	L.tileLayer(osmTileMap,{attribution:attribution}).addTo(map);
 	L.marker(geoLocation).addTo(map).bindPopup(venue).openPopup();
+
+	$('#ec-form-share-twitter').ajaxForm(
+	{
+		success:function(d)
+		{
+			$tweetHeader.show();
+			setTimeout(function(){$tweetHeader.hide()},2000);
+			console.log(d);
+		}
+	});
 });
 </script>

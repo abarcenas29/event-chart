@@ -19,9 +19,9 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		
 		$t = new \stwitter\twitter($settings);
 		*/
-		$cfg = Config::get('ec.facebook');
-		$f = new facebook\fb($cfg);
-		$user = $f->getUser();
+		$cfg	= Config::get('ec.facebook');
+		$f		= new facebook\fb($cfg);
+		$user	= $f->getUser();
 		
 		
 		$view = $this->_db('social');

@@ -21,6 +21,7 @@ class Controller_View extends Controller_AppCore
 		$view		= $this->_vg('event');
 		$view->q	= Model_Event_list::read_public_list($event_id);
 		$view->qr	= $rsp->body;
+		$view->url	= $url;
 		$this->template->content = $view;
 		
 		$menu		= $this->_vmg('event');
@@ -42,9 +43,12 @@ class Controller_View extends Controller_AppCore
 		$parameter['type']	  = 'url';
 		$rsp = \unirest\unirest::get($rest_cfg['url'], $headers, $parameter);
 		
+		Session::set('callback_url',$url);
+		
 		$view			= $this->_vg('organization');
 		$view->q		= $q;
 		$view->qr		= $rsp->body;
+		$view->url		= $url;
 		$view->cat		= Model_View::org_unique_cat($q['event_lists']);
 		$view->guests	= Model_View::org_guest_list($q['event_lists']);
 		$view->price	= Model_View::org_ticket_stat($q['event_lists']);

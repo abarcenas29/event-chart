@@ -15,6 +15,7 @@ class Controller_Redirect extends \Fuel\Core\Controller
 		$profile_img = implode('_',$profile_img);
 		
 		Session::set('twitter_avatar',$profile_img.'.'.end($mime));
+		Response::redirect(Session::get('callback_url'));
 	}
 	
 	public function action_clean_twitter_session()
