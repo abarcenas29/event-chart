@@ -29,7 +29,7 @@
 <div class="uk-form-controls uk-float-right">
 	<button class="uk-button uk-button-success ec-submit">
 	<i class="uk-icon-save"></i>
-	Save Ticket
+	Save Hashtag
 	</button>
 </div>
 </div>

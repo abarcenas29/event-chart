@@ -24,11 +24,18 @@
 	 Instagram
 	</a>
 	</li>
+	<li>
+	<a href="#" id="ec-twitter-tab">
+	<i class="uk-icon-twitter"></i>
+	 Twitter
+	</a>
+	</li>
 </ul>
 </nav>
 <section id="ec-social-content">
 	
 </section>
+	
 <section id="ec-social-loader" style="display:none;">
 	<div class="uk-width-3-10 uk-container-center uk-margin-top">
 		Collating Images. This may take a while ... 
@@ -38,18 +45,34 @@
 	
 </article>
 <script>
-var eventId		 = "<?php print $event_id; ?>";
-var $socialLoader= $('#ec-social-loader');
-var urlInstagram = "<?php print Uri::create('ajax/view/instagram'); ?>";
+var eventId			= "<?php print $event_id; ?>";
+var $socialLoader	= $('#ec-social-loader');
+var $socialContent	= $('#ec-social-content');
+var urlInstagram	= "<?php print Uri::create('ajax/view/instagram'); ?>";
+var urlTwitter		= "<?php print Uri::create('ajax/view/twitter');?>";
 $(document).ready(function(){
-	$('#ec-instagram-tab').click(function()
+	$('#ec-instagram-tab').click(function(e)
 	{
 		$socialLoader.show();
+		$socialContent.empty();
 		$.post(urlInstagram,{event_id:eventId},function(d)
 		{
 			$socialLoader.hide();
-			$('#ec-social-content').html(d);
+			$socialContent.html(d);
 		});
+		e.preventDefault()
+	});
+	
+	$('#ec-twitter-tab').click(function(e)
+	{
+		$socialLoader.show();
+		$socialContent.empty();
+		$.post(urlTwitter,{event_id:eventId},function(d)
+		{
+			$socialLoader.hide();
+			$socialContent.html(d);
+		});
+		e.preventDefault();
 	});
 });
 </script>

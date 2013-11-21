@@ -8,30 +8,21 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	 */
 	public function action_social()
 	{
-		/*
+		
 		$settings = Config::get('ec.twitter');
 		$url	  = 'https://api.twitter.com/1.1/search/tweets.json';
 		$rm		  = 'GET';
 		//$field	  = '?q=%23BestofAnime2013&rpp=5&include_entities=true&result_type=mixed';
-		$field	  = '?q=#bestofanime2013';
+		$field	  = '?q=%23otakuexporeload&count=100';
 		
-		https://graph.facebook.com/UPAME
-		
-		$t = new \stwitter\twitter($settings);
-		*/
-		$cfg	= Config::get('ec.facebook');
-		$f		= new facebook\fb($cfg);
-		$user	= $f->getUser();
-		
-		if(!$user)
-		{
-			Response::redirect($f->getLoginUrl());
-		}
-		
-		$view = $this->_db('social');
-		$q = urlencode('upame');
-		$view->content = $f->api('/me');
-		$view->url	   = ($user)?$f->getLogoutUrl():'';
+		$t		= new \stwitter\twitter($settings);
+		$rsp	=  $t->setGetfield($field)->buildOauth($url,$rm)->performRequest();
+
+		$decode = json_decode($rsp,true);
+
+		$view		   = $this->_db('social');
+		$view->content = $decode;
+		$view->url	   = '';
 		$this->template->content = $view;
 	}
 	

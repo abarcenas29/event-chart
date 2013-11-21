@@ -26,5 +26,29 @@ class Controller_Ajax_View extends Controller_Ajax_AjaxCore
 		
 		return $view;
 	}
+	
+	public function post_twitter()
+	{
+		$arg['event_id']	= Input::post('event_id');
+		$arg['page']		= Input::post('page',0);
+		
+		Model_Event_Twitter::insert_twitter($arg);
+		$rsp = Model_Event_Twitter::read_feed($arg);
+		
+		$view		= View::forge('view/ajax/twitter');
+		$view->rsp	= $rsp;
+		return $view;
+	}
+	
+	public function post_page_twitter()
+	{
+		$arg['event_id']	= Input::post('event_id');
+		$arg['page']		= Input::post('page',0);
+		
+		$rsp = Model_Event_Twitter::read_feed($arg);
+		$view= View::forge('view/ajax/twitter_page');
+		$view->rsp = $rsp;
+		return $view;
+	}
 }
 

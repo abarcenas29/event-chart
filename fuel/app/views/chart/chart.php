@@ -45,7 +45,9 @@
 <section class="uk-width-large-9-10
 				uk-width-medium-1-1
 				uk-container-center
-				uk-margin-top" style="position:relative;">
+				uk-margin-top"
+		id="ec-chart-canvas"
+		style="position:relative;">
 
 <div>
 <ul id="ec-charts">
@@ -184,7 +186,8 @@ $(document).ready(function(){
 			itemWidth: 200,
 			autoResize: true,
 			offset:30,
-			outerOffset:20
+			outerOffset:20,
+			container:$('#ec-chart-canvas'),
 		};
 		$('#ec-charts li').wookmark(opt);
 	});
@@ -195,7 +198,8 @@ $(document).ready(function(){
 			itemWidth: 200,
 			autoResize: true,
 			offset:30,
-			outerOffset:20
+			outerOffset:20,
+			container:$('#ec-chart-canvas'),
 		};
 		$('#ec-charts-now li').wookmark(opt);
 	});
