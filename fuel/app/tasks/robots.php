@@ -42,6 +42,7 @@ class Robots
 	 */
 	public static function run($speech = null)
 	{
+		\Log::info('I Ran');
 		if ( ! isset($speech))
 		{
 			$speech = 'KILL ALL HUMANS!';
