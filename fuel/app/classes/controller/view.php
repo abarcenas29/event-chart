@@ -31,6 +31,10 @@ class Controller_View extends Controller_AppCore
 		$menu		= $this->_vmg('event');
 		$menu->id	= $event_id;
 		$this->template->menu	= $menu;
+		
+		$this->template->org	= $view->q['organization']['name'];
+		$this->template->desc	= $view->q['description'];
+		$this->template->title  = $view->q['name'];
 	}
 	
 	public function action_org($org_id)
@@ -64,6 +68,10 @@ class Controller_View extends Controller_AppCore
 		
 		$menu = $this->_vmg('organization');
 		$this->template->menu	= $menu;
+		
+		$this->template->org	= $view->q['name'];
+		$this->template->desc	= $view->q['description'];
+		$this->template->title  = $view->q['name'];
 	}
 	
 	public function action_social($event_id)

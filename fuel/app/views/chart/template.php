@@ -1,5 +1,5 @@
 <!DOCtype html>
-<html>
+<html class="uk-height-1-1">
 <head>
 <meta http-equiv="Content-Type" 
 	  content="text/html; charset=UTF-8"/>
@@ -8,16 +8,19 @@
 <meta name="viewport" 
 	  content="width=device-width, initial-scale=1"/>
 
-<title></title>
+<title>Event Charts -A Deremoe service: All Events Belong To Everyone!</title>
 
 <meta name="description" 
-	  content="">
+	  content="A Chart of Events Happending or has Happened around the Philippines.">
 <meta name="author" 
-	  content="">
+	  content="Aldrich Allen Barcenas">
 <meta name="keywords" 
-	  content="">
+	  content="Events,Organizations,Anime,Cosplay,Otaku">
 <meta name="robots" 
-	  content="">
+	  content="index, follow">
+<meta name="copyright" 
+	  content="Aldrich Allen Barcenas">
+
 
 <link rel="shortcut icon" 
 	  type="image/x-icon" 
@@ -32,7 +35,8 @@
 	print Asset::js('uikit.min.js');
 ?>
 </head>
-<body>
+<body class="uk-height-1-1">
+<div id="wrap">
 <header class="uk-width-1-1" style="background-color:#252525;" id="ec-main-header">
 <section class="uk-grid">
 <div class="uk-width-large-4-10
@@ -50,7 +54,7 @@
 <div class="uk-navbar-flip">
 	<ul class="uk-navbar-nav">
 	<li><a href="<?php print Uri::create('chart/archive') ?>">
-		<i class="uk-icon-list"></i>
+		<i class="uk-icon-archive"></i>
 			Archive</a></li>
 	<li><a href="#">
 		<i class="uk-icon-info-sign"></i>
@@ -62,6 +66,28 @@
 </div>
 </nav>
 </header>
+<div id="main">
 <?php print $content; ?>
+</div>
+</div>
+
+<footer id="ec-main-footer" 
+		class="uk-width-1-1 uk-text-center">
+	<section class="uk-width-7-10 uk-container-center">
+		&copy; Events Chart <?php print date('Y'); ?> | 
+		Deremoe Service Created by Aldrich Allen Barcenas.
+		All Rights to content belongs to their respective owners.
+	</section>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45950930-1', 'deremoe.com');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>
