@@ -85,7 +85,7 @@ class Model_Event_Twitter extends Model_ModelCore
 				
 				try
 				{
-					//Db::start_transaction();
+					Db::start_transaction();
 					foreach($json['statuses'] as $tweet)
 					{
 						$dt = strtotime($tweet['created_at']);
@@ -119,7 +119,7 @@ class Model_Event_Twitter extends Model_ModelCore
 							$next_tag = $tweet['id'];
 						}
 					}
-					//Db::commit_transaction();
+					Db::commit_transaction();
 				}  
 				catch (Exception $e)
 				{

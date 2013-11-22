@@ -97,8 +97,6 @@ class Model_Event_Instagram extends Model_ModelCore
 				$counter++;
 			}
 		}
-		
-		return $json_data;
 	}
 	
 	public static function read_photos($arg)
