@@ -5,6 +5,7 @@ class twitter
 {
 	public static function run()
 	{
+		\Fuel::$env = \Fuel::STAGING;
 		\Package::load('orm');
 		\Log::info('Twitter Operation Starting');
 		

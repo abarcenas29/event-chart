@@ -5,6 +5,7 @@ class instagram
 {
 	public static function run()
 	{
+		\Fuel::$env = \Fuel::STAGING;
 		\Package::load('orm');
 		\Log::info('Instagram Operation Starting');
 		
