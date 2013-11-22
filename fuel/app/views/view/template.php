@@ -21,6 +21,14 @@
 <meta name="copyright" 
 	  content="<?php print $org;?>">
 
+<meta property="og:title" 
+	  content="<?php print $title; ?>"/>
+<meta property="og:site_name" 
+	  content="Event Charts Deremoe - <?php print $title; ?>"/>
+<meta property="og:description" 
+	  content="<?php print $desc; ?>"/>
+
+
 <link rel="shortcut icon" 
 	  type="image/x-icon" 
 	  href="">

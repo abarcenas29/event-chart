@@ -6,7 +6,6 @@ class Controller_Ajax_View extends Controller_Ajax_AjaxCore
 		$arg['event_id'] = Input::post('event_id');
 		$arg['page']	 = Input::post('page',0);
 		
-		Model_Event_Instagram::insert_photos($arg);
 		$rsp = Model_Event_Instagram::read_photos($arg);
 		
 		$view = View::forge('view/ajax/instagram');
@@ -32,7 +31,6 @@ class Controller_Ajax_View extends Controller_Ajax_AjaxCore
 		$arg['event_id']	= Input::post('event_id');
 		$arg['page']		= Input::post('page',0);
 		
-		Model_Event_Twitter::insert_twitter($arg);
 		$rsp = Model_Event_Twitter::read_feed($arg);
 		
 		$view		= View::forge('view/ajax/twitter');

@@ -1,7 +1,7 @@
 $(document).ready(function() {	
 	var z = -40;
 	// The number of images to display
-	var maxFiles   = 5;
+	var maxFiles   = 10;
 	
 	// Get all of the data URIs and put them in an array
 	var dataArray = [];
@@ -16,7 +16,7 @@ $(document).ready(function() {
 		
 		if(files.length > maxFiles)
 		{
-			$('#drop-files').html('You can only upload 5 photos at a time');
+			$('#drop-files').html('You can only upload 10 photos at a time');
 			return false;
 		}
 		
