@@ -108,29 +108,40 @@ Event <span>Chart</span>
 		Beyond Objective Network
 	</h2>
 	<ul class="uk-list uk-list-line">
-	<li><a href="#">Deremoe</a></li>
-	<li><a href="#">TechRant</a></li>
+	<li><a href="http://deremoe.com">
+			Deremoe
+		</a>
+	</li>
+	<li><a href="http://techrant.beyondobjective.com">
+			TechRant
+		</a>
+	</li>
 	</ul>
 	
 	<h2 class="uk-margin-remove">
 		Supported Sites
 	</h2>
 	<ul class="uk-list uk-list-line">
-	<li><a href="#">AnimePH Project</a></li>
+	<li><a href="http://animephproject.wordpress.com">
+			AnimePH Project
+		</a>
+	</li>
 	</ul>
 </div>
 	
 <div class="uk-width-1-2 uk-margin-bottom">
 	<h2>Social</h2>
 	<div class="uk-width-1-1">
-	<a href="" 
+	<a href="http://twitter.com/event.deremoe"
+	   target="_new"
 	   class="uk-button 
 			  ec-twitter 
 			  ec-social">
 		<i class="uk-icon-twitter"></i>
 	</a>
 	
-	<a href="" 
+	<a href="http://facebook.com/event.deremoe"
+	   target="_new"
 	   class="uk-button 
 			  ec-facebook 
 			  ec-social">
