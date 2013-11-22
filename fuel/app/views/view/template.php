@@ -108,11 +108,13 @@ Event <span>Chart</span>
 		Beyond Objective Network
 	</h2>
 	<ul class="uk-list uk-list-line">
-	<li><a href="http://deremoe.com">
+	<li><a href="http://deremoe.com"
+		   target="_new">
 			Deremoe
 		</a>
 	</li>
-	<li><a href="http://techrant.beyondobjective.com">
+	<li><a href="http://techrant.beyondobjective.com"
+		   target="_new">
 			TechRant
 		</a>
 	</li>
@@ -122,7 +124,8 @@ Event <span>Chart</span>
 		Supported Sites
 	</h2>
 	<ul class="uk-list uk-list-line">
-	<li><a href="http://animephproject.wordpress.com">
+	<li><a href="http://animephproject.wordpress.com"
+		   target="_new">
 			AnimePH Project
 		</a>
 	</li>
