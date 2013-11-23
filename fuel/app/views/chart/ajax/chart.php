@@ -43,7 +43,7 @@
    class="uk-button ec-facebook"
    target="_new">
 	<i class="uk-icon-facebook"></i>
-	 Facebbok
+	 Facebook
 </a>
 <?php endif; ?>
 <?php if(!empty($q['twitter'])): ?>

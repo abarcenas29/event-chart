@@ -2,7 +2,7 @@
 	<li class="uk-nav-header">Event Menu</li>
 	<li>
 	<a href="<?php print Uri::create('view/social/'.$id); ?>">
-		<i class="uk-icon-instagram"></i>
+		<i class="uk-icon-camera-retro"></i>
 		Social Media
 	</a>
 	</li>
@@ -18,5 +18,5 @@
 		<i class="uk-icon-archive"></i>
 		Chart Archives
 	</a>
-	</li> 
+	</li>
 </ul>

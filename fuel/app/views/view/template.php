@@ -8,7 +8,7 @@
 <meta name="viewport" 
 	  content="width=device-width,initial-scale=1"/>
 
-<title>Event Charts Deremoe - <?php print $title; ?></title>
+<title><?php print $title; ?> - Deremoe Events Chart</title>
 
 <meta name="description" 
 	  content="<?php print $desc; ?>">
@@ -48,11 +48,11 @@
 <nav class="uk-navbar" id="ec-main-event-bar">
 <a href="<?php print Uri::base(); ?>" 
    class="uk-navbar-brand">
-Event <span>Chart</span>
+<span>Events</span> Chart
 </a>
 <ul class="uk-navbar-nav">
 <li><a href="#">Deremoe</a></li>
-<li><a href="#">Techrant</a></li>
+<li><a href="#">Tech Rant</a></li>
 </ul>
 	
 <div class="uk-navbar-flip">
@@ -93,10 +93,9 @@ Event <span>Chart</span>
 
 <div class="uk-vertical-align-middle ec-footer-title">
 	<h1><a href="<?php print Uri::base(); ?>">
-		Event <span>Charts</span>
+		<span>Events</span> Chart
 	</a></h1>
-	<p>Event Charts is a Deremoe service that aims to collate 
-		all the events in the country. 
+	<p>Events Chart is a Deremoe service that aims to gather all the events in the country. 
 		We serve to deliver all events, so that You can have more choices.</p>
 </div>
 
@@ -113,7 +112,7 @@ Event <span>Chart</span>
 	
 <div class="uk-width-1-2 ec-network">
 	<h2 class="uk-margin-remove">
-		Beyond Objective Network
+		Beyond Objective
 	</h2>
 	<ul class="uk-list uk-list-line">
 	<li><a href="http://deremoe.com"
@@ -123,7 +122,7 @@ Event <span>Chart</span>
 	</li>
 	<li><a href="http://techrant.beyondobjective.com"
 		   target="_new">
-			TechRant
+			Tech Rant
 		</a>
 	</li>
 	</ul>
@@ -143,7 +142,7 @@ Event <span>Chart</span>
 <div class="uk-width-1-2 uk-margin-bottom">
 	<h2>Social</h2>
 	<div class="uk-width-1-1">
-	<a href="http://twitter.com/event.deremoe"
+	<a href="http://twitter.com/DMEvents"
 	   target="_new"
 	   class="uk-button 
 			  ec-twitter 
@@ -151,16 +150,16 @@ Event <span>Chart</span>
 		<i class="uk-icon-twitter"></i>
 	</a>
 	
-	<a href="http://facebook.com/event.deremoe"
+	<a href="http://facebook.com/DMEvents"
 	   target="_new"
 	   class="uk-button 
 			  ec-facebook 
 			  ec-social">
 		<i class="uk-icon-facebook"></i>
 	</a>
-	<p class="ec-copyright">&COPY; <?php print date('Y') ?> | Created by Aldrich Allen Barcenas. 
-		All media contents placed in this site are the property of their 
-		respected owners.</p>
+	<p class="ec-copyright">&COPY; <?php print date('Y') ?> | Created by Aldrich Allen Barcenas and Team Deremoe. 
+		All media content placed in this site are the property of their 
+		respective owners.</p>
 </div>
 </div>
 	

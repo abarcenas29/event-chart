@@ -242,7 +242,7 @@
 <div class="uk-panel">
 <header class="uk-panel-title">
 <h2 class="uk-panel-header">
-	Share on twitter
+	Tweet This
 	<span class="ec-share-modal-header" style="display:none;">
 		(Tweet Sent!)
 	</span>
@@ -254,7 +254,7 @@
 	<a href="<?php print Uri::create('redirect/twitter'); ?>"
 	   class="uk-button ec-twitter">
 	<i class="uk-icon-twitter"></i>
-	Sign-in Twitter
+	Log-in with Twitter
 	</a>
 </section>
 <?php else:?>
@@ -301,7 +301,7 @@
 <h2 class="uk-panel-header">
 	Share on Facebook
 	<span class="ec-share-modal-header" style="display:none;">
-		(Facebook Post Sent!)
+		(Done!)
 	</span>
 </h2>
 </header>
@@ -311,7 +311,7 @@
 	<a href="<?php print Uri::create('redirect/facebook'); ?>"
 	   class="uk-button ec-facebook">
 	<i class="uk-icon-facebook-sign"></i>
-	Sign-in Facebook
+	Log-in with Facebook
 	</a>
 </section>
 <?php else:?>
@@ -341,7 +341,7 @@
 		class="uk-button
 			   ec-facebook">
 	<i class="uk-icon-facebook"></i>
-	 Post Facebook
+	 Post to Facebook
 	</button>
 </div>
 </div>
@@ -356,7 +356,7 @@
 var geoLocation = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
 var osmTileMap  = 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
 var venue		= "<?php print $q['venue']?>";
-var attribution = 'Event Chart Map is Powered by Cloudmade OSM.'
+var attribution = 'Event Chart Map Powered by Cloudmade OSM.'
 
 var $tweetHeader = $('.ec-share-modal-header');
 $(document).ready(function(){

@@ -8,18 +8,18 @@
 <meta name="viewport" 
 	  content="width=device-width, initial-scale=1"/>
 
-<title>Event Charts -A Deremoe service: All Events Belong To Everyone!</title>
+<title>Deremoe Events Chart</title>
 
 <meta name="description" 
-	  content="A Chart of Events Happending or has Happened around the Philippines.">
+	  content="A chart of Otaku-related events happending or has happened around the Philippines.">
 <meta name="author" 
-	  content="Aldrich Allen Barcenas">
+	  content="Team Deremoe">
 <meta name="keywords" 
 	  content="Events,Organizations,Anime,Cosplay,Otaku">
 <meta name="robots" 
 	  content="index, follow">
 <meta name="copyright" 
-	  content="Aldrich Allen Barcenas">
+	  content="Team Deremoe">
 
 
 <link rel="shortcut icon" 
@@ -44,9 +44,8 @@
 			uk-margin-bottom" 
 			id="ec-header-title">
 	<a href="<?php print Uri::base(); ?>">
-	<h1 class="uk-margin-left"><span>Event</span> Charts</h1>
+	<h1 class="uk-margin-left"><span>Events</span> Chart</h1>
 	</a>
-	<p class="uk-margin-left">A Deremoe Events Service</p>
 </div>
 </section>
 	
@@ -72,11 +71,10 @@
 </div>
 
 <footer id="ec-main-footer" 
-		class="uk-width-1-1 uk-text-center">
+		class="uk-width-1-1 uk-text-center uk-margin-bottom">
 	<section class="uk-width-7-10 uk-container-center">
-		&copy; Events Chart <?php print date('Y'); ?> | 
-		Deremoe Service Created by Aldrich Allen Barcenas.
-		All Rights to content belongs to their respective owners.
+		&copy; <?php print date('Y'); ?> | 
+		A <a href="http://deremoe.com">Deremoe</a> Service. All Rights to content belongs to their respective owners.
 	</section>
 </footer>
 <script>

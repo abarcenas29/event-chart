@@ -12,7 +12,7 @@
 </section>
 <section>
 	This page shows a collection of photos taken from different social media accounts.
-	(For this release, only instagram photos are working right now).
+	(For this release, only Instagram photos and tweets are working right now).
 </section>
 </div>
 </header>
@@ -38,7 +38,7 @@
 	
 <section id="ec-social-loader" style="display:none;">
 	<div class="uk-width-3-10 uk-container-center uk-margin-top">
-		Collating Images. This may take a while ... 
+		Gathering Data. This may take a while ... 
 		<i class="uk-icon-spinner uk-icon-spin"></i>
 	</div>
 </section>
