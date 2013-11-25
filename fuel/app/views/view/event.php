@@ -50,6 +50,18 @@
 	</dl>
 </div>
 	
+<div class="uk-width-1-1 uk-margin-top uk-text-center">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- event view sidebar -->
+	<ins class="adsbygoogle"
+		 style="display:inline-block;width:250px;height:250px"
+		 data-ad-client="ca-pub-9145483045815058"
+		 data-ad-slot="8922697521"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+	
 <div class="uk-width-1-1 uk-margin-top">
 	<div class="uk-panel">
 	<div class="uk-panel-header">
@@ -156,6 +168,18 @@
 	</a>
 	<?php endif;?>
 </section>
+</article>
+	
+<article class="uk-panel ec-view-content uk-text-center">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- title ad bar -->
+	<ins class="adsbygoogle"
+		 style="display:inline-block;width:468px;height:60px"
+		 data-ad-client="ca-pub-9145483045815058"
+		 data-ad-slot="3434567127"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
 </article>
 	
 <!-- Ticket Prices and Guest List -->

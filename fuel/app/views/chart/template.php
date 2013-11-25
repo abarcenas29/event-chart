@@ -38,7 +38,7 @@
 <body class="uk-height-1-1">
 <div id="wrap">
 <header class="uk-width-1-1" style="background-color:#252525;" id="ec-main-header">
-<section class="uk-grid">
+<section class="uk-grid" data-uk-grid-match>
 <div class="uk-width-large-4-10
 			uk-width-medium-1-1 
 			uk-margin-bottom" 
@@ -47,6 +47,22 @@
 	<h1 class="uk-margin-left"><span>Event</span> Charts</h1>
 	</a>
 	<p class="uk-margin-left">A Deremoe Events Service</p>
+</div>
+<div class="uk-width-large-6-10 
+			uk-hidden-small
+			uk-vertical-align" style="padding-top:2px;">
+	<div class="uk-vertical-align-middle">
+	<!-- Google Ad Sense title -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- title ad bar -->
+	<ins class="adsbygoogle"
+		 style="display:inline-block;width:468px;height:60px"
+		 data-ad-client="ca-pub-9145483045815058"
+		 data-ad-slot="3434567127"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	</div>
 </div>
 </section>
 	
@@ -73,6 +89,17 @@
 
 <footer id="ec-main-footer" 
 		class="uk-width-1-1 uk-text-center">
+	<section class="uk-width-7-10 uk-container-center">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- chart bottom title -->
+		<ins class="adsbygoogle"
+			 style="display:inline-block;width:728px;height:90px"
+			 data-ad-client="ca-pub-9145483045815058"
+			 data-ad-slot="7445964323"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</section> 
 	<section class="uk-width-7-10 uk-container-center">
 		&copy; Events Chart <?php print date('Y'); ?> | 
 		Deremoe Service Created by Aldrich Allen Barcenas.
