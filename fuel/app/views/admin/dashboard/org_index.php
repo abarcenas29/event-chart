@@ -57,7 +57,7 @@
 	<div class="uk-width-2-10 
 				ec-event-table-header 
 				uk-text-center">
-		10
+		<?php print count($row['event_lists']); ?>
 	</div>
 	
 	<div class="uk-width-2-10 
