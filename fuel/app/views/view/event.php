@@ -40,7 +40,7 @@
 <div class="uk-width-1-1 uk-margin-top">
 	<dl class="uk-description-list uk-description-list-line">
 		<dt class="uk-text-center">
-		Organization:
+		<span class="uk-text-bold">Organization:</span>
 		</dt>
 		<dd class="uk-text-center">
 		<a href="<?php print Uri::create('view/org/'.$q['organization']['id']); ?>">
@@ -49,6 +49,22 @@
 		</dd>
 	</dl>
 </div>
+	
+<?php if(count($q['sub_org']) > 0): ?>
+<div class="uk-width-1-1 uk-margin-top">
+	<div class="uk-text-center">
+	<h4 class="uk-text-bold">With Participating Organizations:</h4>
+	</div>
+	<div class="uk-margin-top uk-text-center">
+	<?php foreach($q['sub_org'] as $row):  ?>
+	<a href="<?php print Uri::create('view/org/'.$row['org_id']); ?>"
+	   class="uk-margin-bottom">
+		   <?php $row['org']['name'] ?>
+	</a>
+	<?php endforeach;?>
+	</div>
+</div>
+<?php endif; ?>
 	
 <div class="uk-width-1-1 uk-margin-top uk-text-center">
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
