@@ -13,7 +13,7 @@ class Model_chart extends Model
 				->where('private','=',false)
 				->where('start_at','>=',date('Y-m-d'))
 				->where('end_at','<=',date('Y-m-d',$half_year))
-				->order_by('start_at','desc')
+				->order_by('start_at','asc')
 				->get();
 		return Model_chart::_prepare_chart($q);
 	}
@@ -25,7 +25,7 @@ class Model_chart extends Model
 				->where('start_at','<=',date('Y-m-d'))
 				->where('end_at','>=',date('Y-m-d'))
 				->where('private','=',false)
-				->order_by('start_at','desc')
+				->order_by('start_at','asc')
 				->get();
 		return Model_chart::_prepare_chart($q);
 	}
@@ -36,7 +36,7 @@ class Model_chart extends Model
 				->related('photo')
 				->where('private','=',false)
 				->where('end_at','<=',date('Y-m-d'))
-				->order_by('start_at','desc')
+				->order_by('start_at','asc')
 				->get();
 		return Model_chart::_prepare_chart($q);
 	}
@@ -50,7 +50,7 @@ class Model_chart extends Model
 				->where('end_at','>=',date('Y-m-d'))
 				->where('private','=',false)
 				->where('category.category','=',$category)
-				->order_by('start_at','desc')
+				->order_by('start_at','asc')
 				->get();
 		
 		return Model_chart::_prepare_chart($q);
@@ -66,7 +66,7 @@ class Model_chart extends Model
 				->where('private','=',false)
 				->where('category.category','=',$category)
 				->where('end_at','<=',date('Y-m-d',$half_year))
-				->order_by('start_at','desc')
+				->order_by('start_at','asc')
 				->get();
 		
 		return Model_chart::_prepare_chart($q);
