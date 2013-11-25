@@ -35,11 +35,6 @@ class Model_Organization extends Model_ModelCore
 			'key_from'	=> 'main_org',
 			'key_to'	=> 'id',
 			'model_to'	=> 'Model_Event_List'
-		),
-		'event_organization' => array(
-			'key_from'	=> 'org_id',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Organization'
 		)
 	);
 	

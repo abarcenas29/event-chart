@@ -43,6 +43,11 @@
 		Hashtags
 		</a>
 	</li>
+	<li><a href="#">
+		<i class="uk-icon-user"></i>
+		Sub Organization
+		</a>
+	</li>
 </ul>
 </nav>
 </section>
@@ -72,6 +77,10 @@
 <li>
 <?php print $hashtag_edit; ?>
 </li>
+<!-- Event Organization -->
+<li>
+<?php print $org_edit; ?>
+</li>
 
 </ul>
 
@@ -97,6 +106,7 @@ var urlDelTicket  = "<?php print $ticket_d_action ?>";
 var urlDelGuest	  = "<?php print $guest_d_action?>";
 var urlCategory	  = "<?php print $cat_action; ?>";
 var urlHashtag	  = "<?php print $hashtag_d_action?>";
+var urlOrg		  = "<?php print $org_action?>";
 
 var $response	  = $('.ec-message');
 var $ecPriceTable = $('#ec-price-table');
@@ -109,11 +119,12 @@ $(document).ready(function(){
 	$('select[name="main_org"]').children('option[value="'+ mainOrg +'"]').attr('selected','');
 });
 </script>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.venue.js'); ?>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.edit.js'); ?>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.poster.js');?>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.gallery.js');?>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.ticket.js');?>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.guest.js');?>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.category.js');?>
-<?php print Fuel\Core\Asset::js('jq.dashboard.event.manage.hashtag.js');?>
+<?php print Asset::js('jq.dashboard.event.manage.venue.js'); ?>
+<?php print Asset::js('jq.dashboard.event.manage.edit.js'); ?>
+<?php print Asset::js('jq.dashboard.event.manage.poster.js');?>
+<?php print Asset::js('jq.dashboard.event.manage.gallery.js');?>
+<?php print Asset::js('jq.dashboard.event.manage.ticket.js');?>
+<?php print Asset::js('jq.dashboard.event.manage.guest.js');?>
+<?php print Asset::js('jq.dashboard.event.manage.category.js');?>
+<?php print Asset::js('jq.dashboard.event.manage.hashtag.js');?>
+<?php print Asset::js('jq.dashboard.event.manage.org.js');?>

@@ -9,8 +9,8 @@ class Model_Event_Organization extends Model_ModelCore
 	);
 	
 	protected static $_has_one = array(
-		'organization' => array(
-			'key_from'	=> 'main_org',
+		'org' => array(
+			'key_from'	=> 'org_id',
 			'key_to'	=> 'id',
 			'model_to'	=> 'Model_Organization'
 		)
@@ -26,15 +26,25 @@ class Model_Event_Organization extends Model_ModelCore
 	
 	public static function insert_org($arg)
 	{
-		\Fuel\Core\DB::start_transaction();
-		foreach($arg['org_ids'] as $org_id)
-		{
-			$q = new Model_Event_Organization();
-			$q->event_id = $arg['event_id'];
-			$q->org_id	 = $org_id;
-			$q->save();
-		}
-		\Fuel\Core\DB::commit_transaction();
+		$q = new Model_Event_Organization();
+		$q->event_id = $arg['event_id'];
+		$q->org_id	 = $arg['org'];
+		$q->save();
+		return $q->id;
+	}
+	
+	public static function remove_org($arg)
+	{
+		try {
+			$q = Model_Event_Organization::query()
+				->where('event_id','=',$arg['event_id'])
+				->where('id','=',$arg['eorg'])
+				->get_one();
+			$q->delete();
+		} catch (Exception $exc) {
+			
+		}		
+		return 0;
 	}
 	
 	public static function remove_org_by_event($event_id)

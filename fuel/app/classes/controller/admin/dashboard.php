@@ -97,11 +97,17 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$hashtag->q				= $q;
 		$view->hashtag_edit		= $hashtag;
 		
+		$org					= $this->_em('organization');
+		$org->q					= $q;
+		$org->orgs				= Model_Organization::admin_ll_index();
+		$view->org_edit			= $org;
+		
 		$view->ticket_d_action	= Uri::create('api/admin/event/del_ticket');
 		$view->poster_d_action	= Uri::create('api/admin/event/del_poster.json');
 		$view->guest_d_action	= Uri::create('api/admin/event/del_guest');
 		$view->hashtag_d_action = Uri::create('api/admin/event/del_hashtag');
 		$view->cat_action		= Uri::create('api/admin/event/toggle_cat.json');
+		$view->org_action		= Uri::create('api/admin/event/toggle_org.json');
 		
 		$this->template->content = $view;
 	}

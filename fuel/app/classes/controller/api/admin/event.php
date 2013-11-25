@@ -84,6 +84,23 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		return $this->response($response);
 	}
 	
+	public function post_toggle_org()
+	{
+		$arg = array();
+		$arg['org']			= Input::post('org');
+		$arg['eorg']		= Input::post('eorg');
+		$arg['event_id']	= Session::get('event_id');
+		if($arg['eorg'] == 0)
+		{
+			$response['id'] = Model_Event_Organization::insert_org($arg);
+		}
+		else
+		{
+			$response['id'] = Model_Event_Organization::remove_org($arg);
+		}
+		return $this->response($response);
+	}
+	
 	private function _set_arg()
 	{
 		$arg			= array();
