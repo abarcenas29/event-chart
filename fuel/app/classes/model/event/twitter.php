@@ -37,6 +37,13 @@ class Model_Event_Twitter extends Model_ModelCore
 		return false;
 	}
 	
+	public static function remove_twitter_by_event($event_id)
+	{
+		$q = Model_Event_Twitter::query()
+				->where('event_id','=',$event_id)
+				->delete();
+	}
+	
 	public static function insert_twitter($arg)
 	{
 		$url_api	= 'https://api.twitter.com/1.1/search/tweets.json';

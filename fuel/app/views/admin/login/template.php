@@ -8,16 +8,9 @@
 <meta name="viewport" 
 	  content="width=device-width, initial-scale=1"/>
 
-<title></title>
-
-<meta name="description" 
-	  content="">
-<meta name="author" 
-	  content="">
-<meta name="keywords" 
-	  content="">
+<title>Admin Login</title>
 <meta name="robots" 
-	  content="">
+	  content="NOINDEX, NOFOLLOW">
 
 <link rel="shortcut icon" 
 	  type="image/x-icon" 

@@ -29,7 +29,7 @@
 			
 		<div class="uk-form-row">
 			This is a restricted area - for now. 
-			Ask the admin to add you to the user list
+			Ask the Admin to add you to the user list
 		</div>
 			
 		<div class="uk-form-row">
@@ -50,7 +50,7 @@
 		</div>
 			
 		<div class="uk-form-row" id="ec-form-response">
-		<div class="uk-panel uk-panel-box uk-panel-box-primary">
+		<div class="uk-alert">
 			
 		</div>
 		</div>
@@ -80,11 +80,11 @@ $(document).ready(function(){
 		beforeSubmit:function()
 		{
 			$body.fadeIn(200);
-			$res.html('Validating user');
+			
+			$res.html('Validating User');
 		},
 		success:function(data)
 		{
-			console.log(data);
 			if(data.success)
 			{
 				setTimeout(function(){window.location = urlDb;},2000);

@@ -8,16 +8,10 @@
 <meta name="viewport" 
 	  content="width=device-width, initial-scale=1"/>
 
-<title></title>
+<title>Admin dashboard - Deremoe Events Chart</title>
 
-<meta name="description" 
-	  content="">
-<meta name="author" 
-	  content="">
-<meta name="keywords" 
-	  content="">
 <meta name="robots" 
-	  content="">
+	  content="NOINDEX, NOFOLLOW">
 
 <link rel="shortcut icon" 
 	  type="image/x-icon" 

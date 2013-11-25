@@ -226,6 +226,8 @@ class Model_Event_list extends Model_ModelCore
 		Model_Event_Guest::remove_guest_by_event($event_id);
 		//Instagram Events
 		Model_Event_Instagram::remove_instagram_by_event($event_id);
+		//Twitter Events
+		Model_Event_Twitter::remove_twitter_by_event($event_id);
 		//Sub-Org Events
 		Model_Event_Organization::remove_org_by_event($event_id);
 		//Poster Events
