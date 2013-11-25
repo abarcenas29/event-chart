@@ -59,7 +59,7 @@
 	<?php foreach($q['sub_org'] as $row):  ?>
 	<a href="<?php print Uri::create('view/org/'.$row['org_id']); ?>"
 	   class="uk-margin-bottom">
-		   <?php $row['org']['name'] ?>
+		   <?php print $row['org']['name'] ?>
 	</a>
 	<?php endforeach;?>
 	</div>
