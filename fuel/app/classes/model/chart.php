@@ -92,28 +92,9 @@ class Model_chart extends Model
 			$chart[$c]['event_id']		= $row['id'];
 			$chart[$c]['venue']			= $row['venue'];
 			
-			$fb_data   = Model_chart::_facebook_info($row['facebook']);
-			if(!is_null($fb_data))
-			{
-				$chart[$c]['cover_image'] = $fb_data['cover']['source'];
-			}
-			
 			$c++;
 		}
 		return $chart;
-	}
-	
-	private static function _facebook_info($fb)
-	{
-		if(!empty($fb))
-		{
-			try {
-				$raw_data	= file_get_contents("https://graph.facebook.com/$fb");
-				$json_data	= json_decode($raw_data,true);
-				return $json_data;
-			} catch (Exception $exc) {}
-			return null;
-		}
 	}
 
 	private static function _poster_uri($p,$type = '')

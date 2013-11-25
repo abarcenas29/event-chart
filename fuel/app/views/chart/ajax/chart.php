@@ -16,7 +16,6 @@
 <div class="uk-panel uk-margin-top ec-modal-desc">
 	<h3>Ticket Information</h3>
 </div>
-<?php if(count($q['ticket']) > 0): ?>
 <div class="uk-panel ec-modal-cont uk-margin-top" id="ec-event-venue">
 <table class="uk-width-1-1">
 <?php foreach($q['ticket'] as $row):?>
@@ -27,15 +26,6 @@
 <?php endforeach;?>
 </table>
 </div>
-<?php else: ?>
-
-<div class="uk-panel ec-modal-cont uk-margin-top">
-<div class="uk-text-center">
-	Free!!!
-</div>
-</div>
-
-<?php endif;?>
 
 <div class="uk-panel ec-modal-cont uk-margin-top">
 <?php if(!empty($q['facebook'])): ?>
