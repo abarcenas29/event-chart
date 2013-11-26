@@ -36,7 +36,12 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 			Response::redirect($f->getLoginUrl($permission));
 		}
 		$at	= $f->getAccessToken();
-		print $at;
+		
+		$view			= $this->_db('social');
+		$view->content  = $at;
+		$view->url		= '';
+		$this->template->content = $view;
+		//print $at;
 		//Response::redirect('admin/dashboard/index');
 	}
 	
