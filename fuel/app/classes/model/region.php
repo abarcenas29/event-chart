@@ -9,6 +9,15 @@ class Model_region extends Model_ModelCore
 		'created_at'
 	);
 	
+	public static function insert_region($arg)
+	{
+		$q = new Model_region();
+		$q->location = $arg['location'];
+		$q->lat		 = $arg['lat'];
+		$q->long	 = $arg['long'];
+		$q->save();
+	}
+	
 	public static function region_index()
 	{
 		$q = Model_region::query()

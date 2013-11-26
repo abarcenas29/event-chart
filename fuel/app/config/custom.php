@@ -27,5 +27,6 @@ return array(
 	'qr_generator' => array(
 		'key'	=> 'q7kiZlPhOsvwSFQxoayfhZoIDlyhvNh7',
 		'url'	=> 'https://mutationevent-qr-code-generator.p.mashape.com/generate.php?',
-	)
+	),
+	'fb_page_id' => '711725652174076'
 );

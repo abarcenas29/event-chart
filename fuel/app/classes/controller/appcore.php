@@ -19,5 +19,13 @@ class Controller_AppCore extends \Fuel\Core\Controller_Template
 		$q = Model_Organization::read_organization($id);
 		if(!isset($q['id']))Response::redirect(Uri::base());
 	}
+	
+	public function check_fb()
+	{
+		$fb_cfg = Config::get('ec.facebook');
+		$f		= new facebook\fb($fb_cfg);
+		$user	= $f->getUser();
+		return $user;
+	}
 }
 

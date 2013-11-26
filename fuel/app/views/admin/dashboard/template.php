@@ -47,6 +47,10 @@
 		<i class="uk-icon-twitter"></i> Social
 		</a>
 	</li>
+	<li><a href="<?php print Fuel\Core\Uri::create('admin/dashboard/facebook'); ?>">
+		<i class="uk-icon-facebook"></i> Facebook
+		</a>
+	</li>
 </ul>
 <div class="uk-navbar-flip">
 <ul class="uk-navbar-nav">

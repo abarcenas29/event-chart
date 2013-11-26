@@ -26,6 +26,20 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$this->template->content = $view;
 	}
 	
+	public function action_facebook()
+	{
+		$cfg = Config::get('ec.facebook');
+		$f	 = new facebook\fb($cfg);
+		if(!$f->getUser())
+		{
+			$permission['scope'] = 'publish_stream'; 
+			Response::redirect($f->getLoginUrl($permission));
+		}
+		$at	= $f->getAccessToken();
+		print $at;
+		//Response::redirect('admin/dashboard/index');
+	}
+	
 	/*
 	 * Event Function set
 	 */
