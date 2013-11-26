@@ -30,19 +30,29 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	{
 		$cfg = Config::get('ec.facebook');
 		$f	 = new facebook\fb($cfg);
+		
 		if(!$f->getUser())
 		{
 			$permission['scope'] = 'publish_stream'; 
 			Response::redirect($f->getLoginUrl($permission));
 		}
-		$at	= $f->getAccessToken();
 		
-		$view			= $this->_db('social');
-		$view->content  = $at;
-		$view->url		= '';
-		$this->template->content = $view;
-		//print $at;
-		//Response::redirect('admin/dashboard/index');
+		$arg		  = array();
+		$arg['key']	  = 'fb_access_token';
+		$arg['value'] = $f->getAccessToken();
+		
+		$q = Model_const::read_key($arg);
+		
+		if(count($q) == 0)
+		{
+			Model_const::make_key($arg);
+		}
+		else
+		{
+			Model_const::edit_key($arg);
+		}
+		
+		Response::redirect('admin/dashboard/index');
 	}
 	
 	/*

@@ -8,10 +8,10 @@ class Model_const extends Model_ModelCore
 		'created_at'
 	);
 	
-	public static function read_key($key)
+	public static function read_key($arg)
 	{
 		$q = Model_const::query()
-				->where('key','=',$key)
+				->where('key','=',$arg['key'])
 				->get_one();
 		return $q;
 	}
@@ -22,7 +22,18 @@ class Model_const extends Model_ModelCore
 		$q->key		= $arg['key'];
 		$q->value	= $arg['value'];
 		$q->save();
-		return $q;
+	}
+	
+	public static function edit_key($arg)
+	{
+		$q = Model_const::query()
+				->where('key','=',$arg['key']);
+		if($q->count() == 1)
+		{
+			$row			= $q->get_one();
+			$row->value		= $arg['value'];
+			$row->save();
+		}
 	}
 }
 
