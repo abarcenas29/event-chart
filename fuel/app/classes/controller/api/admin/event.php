@@ -121,7 +121,8 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		$cfg	= Config::get('ec.facebook');
 		$fb_id	= Config::get('fb_page_id');
 		
-		$access = Model_const::read_key('fb_access_token');
+		$fb_key['key'] = 'fb_access_token';
+		$access = Model_const::read_key($fb_key);
 		$f		= new facebook\fb($cfg);
 		$f->setAccessToken($access['value']);
 		
