@@ -101,6 +101,47 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		return $this->response($response);
 	}
 	
+	public function post_share_event()
+	{
+		$cfg = Config::get('ec.twitter');
+		$uri = Uri::create('view/event/event'.Input::post('event_id'));
+		
+		$arg			= array();
+		$arg['status']	= Input::post('content').' '.$uri;
+		
+		//twitter
+		$t_url  = 'https://api.twitter.com/1.1/statuses/update.json';
+		$rm		= 'POST';
+		$t		= new \stwitter\twitter($cfg);
+		
+		$t->buildOauth($t_url,$rm)->setPostfields($arg)->performRequest();
+		
+		
+		//facebook
+		$cfg	= Config::get('ec.facebook');
+		$fb_id	= Config::get('fb_page_id');
+		
+		$access = Model_const::read_key('fb_access_token');
+		$f		= new facebook\fb($cfg);
+		$f->setAccessToken($access['value']);
+		
+		$p = 'User is not logged in';
+		if($f->getUser())
+		{
+			$f->getAccessToken();
+			
+			$fb				= array();
+			$fb['link']		= $uri;
+			$fb['message']	= Input::post('content');
+
+			$p = $f->api("$fb_id/feed",'POST',$fb);
+		}
+		
+		$rsp['success'] = true;
+		$rsp['response']= $p;
+		return $this->response($rsp);
+	}
+	
 	private function _set_arg()
 	{
 		$arg			= array();

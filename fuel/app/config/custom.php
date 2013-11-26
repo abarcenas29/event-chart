@@ -15,8 +15,8 @@ return array(
 						'band artists'
 						),
 	'twitter'		=> array(
-		'oauth_access_token'			=> '14996204-R4EZ40FbfRqnA8wHHYslzfdcyz3fbmRvGdtgzSM7o',
-		'oauth_access_token_secret'		=> 'q2aBiHItufsXvqLHh7fs7IKz620Xv5rjFURtfQBBAd8SC',
+		'oauth_access_token'			=> '14996204-XMwTIEhduGuqwy8rCHfQflvfQgxZySRcGNMHa3DsZ',
+		'oauth_access_token_secret'		=> 'k1d85ufbTYclccnI42l70p9AsyR2UeLUIWTPc1y7QdpUA',
 		'consumer_key'					=> 'O9LqjnACD64rfnjNYBMiQ',
 		'consumer_secret'				=> 'uj3UtOfP1Dhuj29tl2Kj1FNd5ZHAx06jUbyeplHTvc'
 	),

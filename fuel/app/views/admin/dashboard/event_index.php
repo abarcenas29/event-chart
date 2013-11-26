@@ -1,3 +1,4 @@
+<?php print \Fuel\Core\Asset::js('jquery.form.min.js'); ?>
 <!-- Event Table Main Controls -->
 <section class="uk-margin-top
 				ec-admin-container
@@ -95,6 +96,7 @@
 	<i class="uk-icon-pencil"></i>
 		Manage
 	</a>
+		
 	<button class="uk-button 
 				   uk-button-danger
 				   ec-delete-button"
@@ -103,11 +105,48 @@
 	<i class="uk-icon-trash"></i>
 		Delete
 	</button>
+		
+	<button class="uk-button uk-button-primary" 
+			data-uk-modal="{target:'#ec-share-update'}">
+		<i class="uk-icon-globe"></i>
+		 Share Update
+	</button>
 	</div>
 </div>
 <?php endforeach; ?>
 </section>
 
+<!-- Share Modal -->
+<article id="ec-share-update" class="uk-modal">
+<div class="uk-modal-dialog uk-modal-dialog-slide">
+<form 
+	action="<?php print Uri::create('api/admin/event/share_event.json'); ?>"
+	method="POST"
+	id="ec-form-share"
+	class="uk-form uk-form-horizontal">
+	<legend>
+		Share Update 
+		<span id="ec-share-msg" style="display:none">(Sent!)</span> 
+	</legend>
+	<div class="uk-form-row">
+	<textarea name="content"
+			  class="uk-width-1-1"
+			  rows="5"></textarea>
+	<input type="hidden" name="event_id" value="<?php print $row['id']; ?>"/>
+	</div>
+	<div class="uk-form-row">	
+	<div class="uk-form-controls">
+		<button type="submit" 
+				class="uk-button uk-button-primary">
+			Post Update
+		</button>
+	</div>
+	</div>
+</form>
+</div>
+</article>
+
+<!-- Delete Modal -->
 <article id="ec-modal-delete" class="uk-modal">
 <div class="uk-modal-dialog uk-modal-dialog-slide">
 <section class="uk-panel">
@@ -131,12 +170,21 @@
 </div>
 </article>
 <script>
+var $shareMsg = $('#ec-share-msg');
 $(document).ready(function()
 {
 	$('.ec-delete-button').click(function()
 	{
 		var url = $(this).data('url');
 		$('#ec-delete-button').attr('href',url);
+	});
+	$('#ec-form-share').ajaxForm({
+		success:function(d)
+		{
+			console.log(d);
+			$shareMsg.show();
+			setTimeout(function(){$shareMsg.hide()},2000);
+		}
 	});
 });
 </script>
