@@ -10,7 +10,7 @@ class Model_chart extends Model
 	
 		$q = Model_Event_list::query()
 				->related('photo')
-				->where('private','=',false)
+				->where('status','=','live')
 				->where('start_at','>=',date('Y-m-d'))
 				->where('end_at','<=',date('Y-m-d',$half_year))
 				->order_by('start_at','asc')
@@ -24,7 +24,7 @@ class Model_chart extends Model
 				->related('photo')
 				->where('start_at','<=',date('Y-m-d'))
 				->where('end_at','>=',date('Y-m-d'))
-				->where('private','=',false)
+				->where('status','=','live')
 				->order_by('start_at','asc')
 				->get();
 		return Model_chart::_prepare_chart($q);
@@ -34,7 +34,7 @@ class Model_chart extends Model
 	{
 		$q = Model_Event_list::query()
 				->related('photo')
-				->where('private','=',false)
+				->where('status','=','live')
 				->where('end_at','<=',date('Y-m-d'))
 				->order_by('start_at','asc')
 				->get();
@@ -48,7 +48,7 @@ class Model_chart extends Model
 				->related('category')
 				->where('start_at','<=',date('Y-m-d'))
 				->where('end_at','>=',date('Y-m-d'))
-				->where('private','=',false)
+				->where('status','=','live')
 				->where('category.category','=',$category)
 				->order_by('start_at','asc')
 				->get();
@@ -63,7 +63,7 @@ class Model_chart extends Model
 		$q = Model_Event_list::query()
 				->related('category')
 				->related('photo')
-				->where('private','=',false)
+				->where('status','=','live')
 				->where('category.category','=',$category)
 				->where('end_at','<=',date('Y-m-d',$half_year))
 				->order_by('start_at','asc')
