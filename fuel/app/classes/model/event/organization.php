@@ -13,14 +13,24 @@ class Model_Event_Organization extends Model_ModelCore
 			'key_from'	=> 'org_id',
 			'key_to'	=> 'id',
 			'model_to'	=> 'Model_Organization'
+		),
+		'event' => array(
+			'key_from'	=> 'event_id',
+			'key_to'	=> 'id',
+			'model_to'	=> 'Model_Event_List'
 		)
 	);
 	
 	protected static $_belongs_to = array(
-		'event_list' => array(
+		'event_list'	=> array(
 			'key_from'	=> 'event_id',
 			'key_to'	=> 'id',
 			'model_to'	=> 'Model_Event_List'
+		),
+		'organization'	=> array(
+			'key_from'	=> 'org_id',
+			'key_to'	=> 'id',
+			'model_to'	=> 'Model_Organization'
 		)
 	);
 	

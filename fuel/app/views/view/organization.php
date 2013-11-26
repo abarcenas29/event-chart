@@ -193,6 +193,22 @@
 	</article>
 </div>
 	
+<div class="uk-width-1-1 uk-margin-top">
+	<article class="uk-panel ec-view-content">
+	<header class="uk-panel-header">
+		<h2 class="uk-panel-title">Events Assisted</h2>
+	</header>
+	<section class="uk-text-center">
+	<?php foreach($q['sub_orgs'] as $row): ?>
+	<a href="<?php print Uri::create('view/event/'.$row['id']); ?>">
+	<img class="uk-thumbnail"
+		 src="<?php print Uri::create('uploads/'.$row['event']['photo']['date'].'/thumb-'.$row['event']['photo']['filename']); ?>">
+	<?php endforeach;?>
+	</a>
+	</section>
+	</article>
+</div>
+	
 </section>
 	
 </section>

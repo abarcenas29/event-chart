@@ -56,12 +56,16 @@
 	<h4 class="uk-text-bold">With Participating Organizations:</h4>
 	</div>
 	<div class="uk-margin-top uk-text-center">
+	<ul style="padding:0em;">
 	<?php foreach($q['sub_org'] as $row):  ?>
+	<li style="list-style-type:none;">
 	<a href="<?php print Uri::create('view/org/'.$row['org_id']); ?>"
 	   class="uk-margin-bottom">
 		   <?php print $row['org']['name'] ?>
 	</a>
+	</li>
 	<?php endforeach;?>
+	</ul>
 	</div>
 </div>
 <?php endif; ?>

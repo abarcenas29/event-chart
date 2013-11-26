@@ -74,10 +74,15 @@ class Model_Event_list extends Model_ModelCore
 	);
 	
 	protected static $_belongs_to = array(
-		'organiztion' => array(
+		'organization'	=> array(
 			'key_from'	=> 'main_org',
 			'key_to'	=> 'id',
 			'model_to'	=> 'Model_Organization'
+		),
+		'sub_org'		=> array(
+			'key_from'	=> 'id',
+			'key_to'	=> 'event_id',
+			'model_to'	=> 'Model_Event_Organization'
 		)
 	);
 	

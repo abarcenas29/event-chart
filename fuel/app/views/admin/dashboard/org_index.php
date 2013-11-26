@@ -63,7 +63,7 @@
 	<div class="uk-width-2-10 
 				ec-event-table-header
 				uk-text-center">
-		2
+		<?php print count($row['sub_orgs']); ?>
 	</div>
 	
 	<div class="uk-width-3-10 ec-event-table-header">
