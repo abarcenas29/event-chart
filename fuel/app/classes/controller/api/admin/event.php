@@ -130,11 +130,13 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		if($f->getUser())
 		{
 			$f->getAccessToken();
+			$page_info = $f->api("/$fb_id?fields=access_token");
 			
-			$fb				= array();
-			$fb['link']		= $uri;
-			$fb['message']	= Input::post('content');
-
+			$fb					= array();
+			$fb['link']			= $uri;
+			$fb['message']		= Input::post('content');
+			$fb['access_token']	= $page_info;
+			
 			$p = $f->api("$fb_id/feed",'POST',$fb);
 		}
 		
