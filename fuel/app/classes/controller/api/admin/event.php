@@ -104,7 +104,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 	public function post_share_event()
 	{
 		$cfg = Config::get('ec.twitter');
-		$uri = Uri::create('view/event/event'.Input::post('event_id'));
+		$uri = Uri::create('view/event/event/'.Input::post('event_id'));
 		
 		$arg			= array();
 		$arg['status']	= Input::post('content').' '.$uri;
@@ -129,13 +129,14 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		$p = 'User is not logged in';
 		if($f->getUser())
 		{
-			$f->getAccessToken();
-			$page_info = $f->api("/$fb_id?fields=access_token");
+			$page_arg['access_token'] = $f->getAccessToken();
+			$page_arg['fields']		  = 'access_token';
+			$page_info = $f->api("/$fb_id",'get',$page_arg);
 			
 			$fb					= array();
 			$fb['link']			= $uri;
 			$fb['message']		= Input::post('content');
-			$fb['access_token']	= $page_info;
+			$fb['access_token']	= $page_info['access_token'];
 			
 			$p = $f->api("$fb_id/feed",'POST',$fb);
 		}
