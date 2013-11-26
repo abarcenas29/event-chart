@@ -17,7 +17,7 @@ class Model_Event_list extends Model_ModelCore
 		'facebook',
 		'twitter',
 		'website',
-		'private',
+		'status',
 		'created_by',
 		'created_at'
 	);
@@ -133,7 +133,7 @@ class Model_Event_list extends Model_ModelCore
 			$q->facebook	= $arg['facebook'];
 			$q->twitter		= $arg['twitter'];
 			$q->website		= $arg['website'];
-			$q->private		= true;
+			$q->status		= 'Pending';
 			$q->created_by	= \Fuel\Core\Session::get('email');
 			$q->save();
 			$rsp['success'] = true;
@@ -163,7 +163,6 @@ class Model_Event_list extends Model_ModelCore
 		$q->facebook	= $arg['facebook'];
 		$q->twitter		= $arg['twitter'];
 		$q->website		= $arg['website'];
-		$q->private		= true;
 		$q->created_by	= \Fuel\Core\Session::get('email');
 		$q->save();
 		$rsp['success'] = true;
@@ -192,13 +191,12 @@ class Model_Event_list extends Model_ModelCore
 		return $response;
 	}
 	
-	public static function toggle_visibility($id)
+	public static function toggle_visibility($arg)
 	{
 		$q = Model_Event_list::query()
-				->where('id','=',$id)
+				->where('id','=',$arg['event_id'])
 				->get_one();
-		$value = $q['private'];
-		$q->private = ($value == 0)?1:0;
+		$q->status = $arg['status'];
 		$q->save();
 	}
 	
@@ -215,7 +213,7 @@ class Model_Event_list extends Model_ModelCore
 		$q = Model_Event_list::query()
 				->related('photo')
 				->related('organization')
-				->where('private','=',false)
+				->where('status','=','live')
 				->where('id','=',$event_id);
 		return $q->get_one();
 	}

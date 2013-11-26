@@ -118,9 +118,33 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		Response::redirect('admin/dashboard/index');
 	}
 	
-	public function action_event_visibility($id)
+	public function action_event_live($id)
 	{
-		Model_Event_list::toggle_visibility($id);
+		$arg				= array();
+		$arg['event_id']	= $id;
+		$arg['status']		= 'live';
+		
+		Model_Event_list::toggle_visibility($arg);
+		Response::redirect('admin/dashboard/index');
+	}
+	
+	public function action_event_pending($id)
+	{
+		$arg				= array();
+		$arg['event_id']	= $id;
+		$arg['status']		= 'pending';
+		
+		Model_Event_list::toggle_visibility($arg);
+		Response::redirect('admin/dashboard/index');
+	}
+	
+	public function action_event_cancel($id)
+	{
+		$arg				= array();
+		$arg['event_id']	= $id;
+		$arg['status']		= 'canceled';
+		
+		Model_Event_list::toggle_visibility($arg);
 		Response::redirect('admin/dashboard/index');
 	}
 	

@@ -60,19 +60,36 @@
 		<?php print $row['end_at']; ?>
 	</div>
 	<div class="uk-width-4-10 ec-event-table-header">
-	<?php if($row['private']): ?>
-	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_visibility/'.$row['id']); ?>" 
-	   class="uk-button">
-	<i class="uk-icon-eye-close"></i>
-		Private
-	</a>
-	<?php else:?>
-	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_visibility/'.$row['id']); ?>" 
-	   class="uk-button uk-button-primary">
-	<i class="uk-icon-eye-open"></i>	
-		Public
-	</a>
-	<?php endif;?>
+	
+	<div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+		<button class="uk-button" type="submit">
+			<?php print $row['status']; ?> 
+			<i class="uk-icon-caret-down"></i>
+		</button>
+		<div class="uk-dropdown">
+		<ul class="uk-nav uk-nav-dropdown">
+		
+		<li>
+		<a href="<?php print Uri::create('admin/dashboard/event_live/'.$row['id']) ?>">
+			Live
+		</a>
+		</li>
+		
+		<li>
+		<a href="<?php print Uri::create('admin/dashboard/event_Pending/'.$row['id']) ?>">
+			Pending
+		</a>
+		</li>
+		
+		<li>
+		<a href="<?php print Uri::create('admin/dashboard/event_cancel/'.$row['id']) ?>">
+			Canceled
+		</a>
+		</li>
+		</ul>
+		</div>
+	</div>
+	
 	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/event_manage/'.$row['id']); ?>" 
 	   class="uk-button uk-button-success">
 	<i class="uk-icon-pencil"></i>
