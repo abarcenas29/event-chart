@@ -6,7 +6,11 @@ return array(
 							 'Anime',
 							 'Manga',
 							 'Figma',
-							 'K-Pop'),
+							 'K-Pop',
+							 'Japan Culture',
+							 'Japan Pop-Culture',
+							 'Korean Culture',
+							 'Korean Pop-Culture'),
 	'guest_type'	=> array(
 						'cosplayer',
 						'manga artist',

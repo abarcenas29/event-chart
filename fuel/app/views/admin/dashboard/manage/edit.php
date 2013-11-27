@@ -24,7 +24,6 @@
 	<div class="uk-form-controls">
 		<input type="text" 
 			   name="name"
-			   disabled
 			   value="<?php print $q['name']; ?>"
 			   class="uk-width-1-1" />
 	</div>

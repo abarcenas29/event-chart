@@ -91,7 +91,8 @@ class Model_Event_list extends Model_ModelCore
 		$limit	= 25;
 		$page	= abs($page)-1;
 		
-		$q			= Model_Event_list::query();
+		$q			= Model_Event_list::query()
+						->order_by('start_at','desc');
 		$total_page = ceil($q->count()/$limit);
 		$arg['page']= ($page > $total_page)?$total_page:$page;
 		
@@ -155,6 +156,7 @@ class Model_Event_list extends Model_ModelCore
 			$q->photo_id = Model_Photo::insert_picture($arg);
 		}
 
+		$q->name		= $arg['name'];
 		$q->description = $arg['desc'];
 		$q->email		= $arg['email'];
 		$q->main_org	= $arg['main_org'];
