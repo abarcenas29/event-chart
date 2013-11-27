@@ -133,7 +133,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 			$p = $f->api('/'.$u['id'].'/accounts');
 			
 			$page_info = array();
-			foreach($p as $page)
+			foreach($p['data'] as $page)
 			{
 				if($page['id'] == $fb_id)
 				{
