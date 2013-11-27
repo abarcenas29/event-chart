@@ -4,7 +4,18 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	public $template = 'admin/dashboard/template';
 	
 	/*
-	 * Socail API testing
+	 * Social Facebook Logout
+	 */
+	public function action_logout()
+	{
+		$access = Model_const::read_key($fb_key);
+		$f		= new facebook\fb($cfg);
+		$f->setAccessToken($access['value']);
+		Response::redirect($f->getLogoutUrl());
+	}
+	
+	/*
+	 * Social API testing
 	 */
 	public function action_social()
 	{
