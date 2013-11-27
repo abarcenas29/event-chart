@@ -129,9 +129,18 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		$p = 'User is not logged in';
 		if($f->getUser())
 		{
-			$page_arg['access_token'] = $f->getAccessToken();
-			$page_arg['fields']		  = 'access_token';
-			$page_info = $f->api("/$fb_id",'get',$page_arg);
+			$u = $f->api('/me');
+			$p = $f->api('/'.$u['id'].'/accounts');
+			
+			$page_info = array();
+			foreach($p as $page)
+			{
+				if($page['id'] == $fb_id)
+				{
+					$page_info = $page;
+				}
+			}
+			$f->api("/$fb_id?fields=".$page_info['access_token']);
 			
 			$fb					= array();
 			$fb['link']			= $uri;
