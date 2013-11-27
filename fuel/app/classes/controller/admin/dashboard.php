@@ -67,7 +67,7 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		
 		if(!$f->getUser())
 		{
-			$permission['scope'] = 'publish_stream'; 
+			$permission['scope'] = 'publish_stream, manage_pages'; 
 			Response::redirect($f->getLoginUrl($permission));
 		}
 		
