@@ -8,20 +8,37 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	 */
 	public function action_social()
 	{
-		
+		/*
 		$settings = Config::get('ec.twitter');
 		$url	  = 'https://api.twitter.com/1.1/search/tweets.json';
 		$rm		  = 'GET';
-		//$field	  = '?q=%23BestofAnime2013&rpp=5&include_entities=true&result_type=mixed';
+		$field	  = '?q=%23BestofAnime2013&rpp=5&include_entities=true&result_type=mixed';
 		$field	  = '?q=%23otakuexporeload&count=100';
 		
 		$t		= new \stwitter\twitter($settings);
 		$rsp	=  $t->setGetfield($field)->buildOauth($url,$rm)->performRequest();
 
 		$decode = json_decode($rsp,true);
-
+		*/
+		$cfg	= Config::get('ec.facebook');
+		$fb_id	= Config::get('fb_page_id');
+		
+		$fb_key['key'] = 'fb_access_token';
+		$access = Model_const::read_key($fb_key);
+		$f		= new facebook\fb($cfg);
+		$f->setAccessToken($access['value']);
+		
+		$p = 'User is not logged in';
+		if($f->getUser())
+		{
+			$page_arg['access_token'] = $f->getAccessToken();
+			$page_arg['fields']		  = 'access_token';
+			$p						  = $f->api('/me');
+			//$page_info = $f->api("/$fb_id",'get',$page_arg);
+		}
+		
 		$view		   = $this->_db('social');
-		$view->content = $decode;
+		$view->content = $p;
 		$view->url	   = '';
 		$this->template->content = $view;
 	}
