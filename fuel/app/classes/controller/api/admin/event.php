@@ -104,7 +104,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 	public function post_share_event()
 	{
 		$cfg = Config::get('ec.twitter');
-		$uri = Uri::create('view/event/event/'.Input::post('event_id'));
+		$uri = Uri::create('view/event/'.Input::post('event_id'));
 		
 		$arg			= array();
 		$arg['status']	= Input::post('content').' '.$uri;
@@ -139,8 +139,6 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 					break;
 				}
 			}
-			
-			$f->api("/$fb_id?fields=".$page['access_token']);
 			
 			$fb					= array();
 			$fb['link']			= $uri;
