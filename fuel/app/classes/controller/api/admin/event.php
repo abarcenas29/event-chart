@@ -119,7 +119,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		
 		//facebook
 		$cfg	= Config::get('ec.facebook');
-		$fb_id	= Config::get('fb_page_id');
+		$fb_id	= Config::get('ec.fb_page_id');
 		
 		$fb_key['key'] = 'fb_access_token';
 		$access = Model_const::read_key($fb_key);
@@ -129,23 +129,23 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		$p = 'User is not logged in';
 		if($f->getUser())
 		{
-			$u = $f->api('/me');
-			$p = $f->api('/'.$u['id'].'/accounts');
+			$u			= $f->api('/me');
+			$fb_page	= $f->api('/'.$u['id'].'/accounts');
 			
-			$page_info = array();
-			foreach($p['data'] as $page)
+			foreach($fb_page['data'] as $page)
 			{
 				if($page['id'] == $fb_id)
 				{
-					$page_info = $page;
+					break;
 				}
 			}
-			$f->api("/$fb_id?fields=".$page_info['access_token']);
+			
+			$f->api("/$fb_id?fields=".$page['access_token']);
 			
 			$fb					= array();
 			$fb['link']			= $uri;
 			$fb['message']		= Input::post('content');
-			$fb['access_token']	= $page_info['access_token'];
+			$fb['access_token']	= $page['access_token'];
 			
 			$p = $f->api("$fb_id/feed",'POST',$fb);
 		}
