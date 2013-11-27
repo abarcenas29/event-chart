@@ -29,12 +29,6 @@
 <!-- Main Navigation -->
 <nav class="uk-navbar" id="ec-admin-nav">
 <ul class="uk-navbar-nav">
-	<?php if(Fuel\Core\Session::get('su')): ?>
-	<li>
-	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/user_index'); ?>">
-		<i class="uk-icon-user"></i> Users</a>
-	</li>
-	<?php endif; ?>
 	<li>
 	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard'); ?>"/>
 		<i class="uk-icon-calendar"></i> Events</a>
@@ -47,13 +41,19 @@
 		<i class="uk-icon-twitter"></i> Social
 		</a>
 	</li>
+</ul>
+<div class="uk-navbar-flip">
+<ul class="uk-navbar-nav">
+	<?php if(Fuel\Core\Session::get('su')): ?>
+	<li>
+	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/user_index'); ?>">
+		<i class="uk-icon-user"></i> Users</a>
+	</li>
 	<li><a href="<?php print Fuel\Core\Uri::create('admin/dashboard/facebook'); ?>">
 		<i class="uk-icon-facebook"></i> Facebook
 		</a>
 	</li>
-</ul>
-<div class="uk-navbar-flip">
-<ul class="uk-navbar-nav">
+	<?php endif; ?>
 	<li class="uk-parent ec-dropdown" data-uk-dropdown>
 		<a href="#">
 			<i class="uk-icon-user"></i>

@@ -106,7 +106,8 @@
 		Delete
 	</button>
 		
-	<button class="uk-button uk-button-primary" 
+	<button class="uk-button uk-button-primary ec-share-link" 
+			data-event-id="<?php print $row['id']; ?>"
 			data-uk-modal="{target:'#ec-share-update'}">
 		<i class="uk-icon-globe"></i>
 		 Share Update
@@ -132,7 +133,7 @@
 	<textarea name="content"
 			  class="uk-width-1-1"
 			  rows="5"></textarea>
-	<input type="hidden" name="event_id" value="<?php print $row['id']; ?>"/>
+	<input type="hidden" name="event_id" value=""/>
 	</div>
 	<div class="uk-form-row">	
 	<div class="uk-form-controls">
@@ -178,6 +179,12 @@ $(document).ready(function()
 		var url = $(this).data('url');
 		$('#ec-delete-button').attr('href',url);
 	});
+	
+	$('.ec-share-link').click(function()
+	{
+		$('input[name="event_id"]').val($(this).data('event-id'));
+	});
+	
 	$('#ec-form-share').ajaxForm({
 		success:function(d)
 		{
