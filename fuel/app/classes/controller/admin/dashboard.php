@@ -8,7 +8,11 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	 */
 	public function action_logout()
 	{
+		$cfg	= Config::get('ec.facebook');
+		$fb_key['key'] = 'fb_access_token';
+		
 		$access = Model_const::read_key($fb_key);
+		
 		$f		= new facebook\fb($cfg);
 		$f->setAccessToken($access['value']);
 		Response::redirect($f->getLogoutUrl());
