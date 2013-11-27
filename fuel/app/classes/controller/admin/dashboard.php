@@ -33,7 +33,9 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		{
 			$page_arg['access_token'] = $f->getAccessToken();
 			$page_arg['fields']		  = 'access_token';
-			$p						  = $f->api('/me');
+			
+			$u = $f->api('/me');
+			$p = $f->api('/'.$u['id'].'/accounts');
 			//$page_info = $f->api("/$fb_id",'get',$page_arg);
 		}
 		
