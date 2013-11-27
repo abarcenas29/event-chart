@@ -3,7 +3,7 @@
 		 uk-container-center">
 <?php foreach($content['data'] as $row): ?>
 <pre>
-<?php print $row; ?>
+<?php print_r($row); ?>
 </pre>
 <?php endforeach;?>
 	
