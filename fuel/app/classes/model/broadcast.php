@@ -14,7 +14,7 @@ class Model_broadcast extends Model
 		
 		$t = new stwitter\twitter($cfg);
 		$p = $t->buildOauth(Model_broadcast::$_twitter_url,'POST')
-				->setPostfields($arg)
+				->setPostfields($update)
 				->performRequest();
 		return $p;
 	}
@@ -39,9 +39,11 @@ class Model_broadcast extends Model
 		{
 			if($page['id'] == $fb_page_id)break;
 		}
-		$post			= array();
-		$post['link']	= $uri;
-		$post['message']= $arg['content'];
+		
+		$post					= array();
+		$post['link']			= $uri;
+		$post['message']		= $arg['content'];
+		$post['access_token']	= $page['access_token'];
 		
 		$p = $f->api("$fb_page_id/feed",'POST',$post);
 		return $p;
