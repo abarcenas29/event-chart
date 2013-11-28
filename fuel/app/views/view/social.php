@@ -16,6 +16,8 @@
 </section>
 </div>
 </header>
+
+<?php if((int) $is_allowed <= 0): ?>
 <nav class="uk-navbar">
 <ul class="uk-navbar-nav">
 	<li>
@@ -32,6 +34,31 @@
 	</li>
 </ul>
 </nav>
+<?php else: ?>
+<section class="uk-width-1-1 uk-margin-bottom">
+<div class="uk-panel uk-panel-box uk-alert-warning">
+	<i class="uk-icon-exclamation"></i>
+	Event Has not started yet. 
+	You will be able to get social data during or after the event has passed.
+</div>
+</section>
+<nav class="uk-navbar">
+<ul class="uk-navbar-nav">
+	<li>
+	<a href="#" id="ec-instagram-tab">
+	<i class="uk-icon-instagram"></i>
+	 Instagram
+	</a>
+	</li>
+	<li>
+	<a href="#" id="ec-twitter-tab">
+	<i class="uk-icon-twitter"></i>
+	 Twitter
+	</a>
+	</li>
+</ul>
+</nav>
+<?php endif;?>
 <section id="ec-social-content">
 	
 </section>
@@ -44,6 +71,7 @@
 </section>
 	
 </article>
+<?php if((int) $is_allowed <= 0): ?>
 <script>
 var eventId			= "<?php print $event_id; ?>";
 var $socialLoader	= $('#ec-social-loader');
@@ -76,3 +104,4 @@ $(document).ready(function(){
 	});
 });
 </script>
+<?php endif; ?>

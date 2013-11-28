@@ -103,53 +103,13 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 	
 	public function post_share_event()
 	{
-		$cfg = Config::get('ec.twitter');
-		$uri = Uri::create('view/event/'.Input::post('event_id'));
-		
 		$arg			= array();
-		$arg['status']	= Input::post('content').' '.$uri;
-		
-		//twitter
-		$t_url  = 'https://api.twitter.com/1.1/statuses/update.json';
-		$rm		= 'POST';
-		$t		= new \stwitter\twitter($cfg);
-		
-		$t->buildOauth($t_url,$rm)->setPostfields($arg)->performRequest();
-		
-		
-		//facebook
-		$cfg	= Config::get('ec.facebook');
-		$fb_id	= Config::get('ec.fb_page_id');
-		
-		$fb_key['key'] = 'fb_access_token';
-		$access = Model_const::read_key($fb_key);
-		$f		= new facebook\fb($cfg);
-		$f->setAccessToken($access['value']);
-		
-		$p = 'User is not logged in';
-		if($f->getUser())
-		{
-			$u			= $f->api('/me');
-			$fb_page	= $f->api('/'.$u['id'].'/accounts');
-			
-			foreach($fb_page['data'] as $page)
-			{
-				if($page['id'] == $fb_id)
-				{
-					break;
-				}
-			}
-			
-			$fb					= array();
-			$fb['link']			= $uri;
-			$fb['message']		= Input::post('content');
-			$fb['access_token']	= $page['access_token'];
-			
-			$p = $f->api("$fb_id/feed",'POST',$fb);
-		}
+		$arg['content'] = Input::post('content');
+		$arg['event_id']= Input::post('event_id');
+		Model_broadcast::post_twitter($arg);
+		Model_broadcast::post_facebook($arg);
 		
 		$rsp['success'] = true;
-		$rsp['response']= $p;
 		return $this->response($rsp);
 	}
 	

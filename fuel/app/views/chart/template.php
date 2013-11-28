@@ -47,22 +47,6 @@
 	<h1 class="uk-margin-left"><span>Events</span> Chart</h1>
 	</a>
 </div>
-<div class="uk-width-large-6-10 
-			uk-hidden-small
-			uk-vertical-align" style="padding-top:2px;">
-	<div class="uk-vertical-align-middle">
-	<!-- Google Ad Sense title -->
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<!-- title ad bar -->
-	<ins class="adsbygoogle"
-		 style="display:inline-block;width:468px;height:60px"
-		 data-ad-client="ca-pub-9145483045815058"
-		 data-ad-slot="3434567127"></ins>
-	<script>
-	(adsbygoogle = window.adsbygoogle || []).push({});
-	</script>
-	</div>
-</div>
 </section>
 	
 <nav class="uk-navbar" id="ec-chart-nav">
@@ -89,19 +73,8 @@
 <footer id="ec-main-footer" 
 		class="uk-width-1-1 uk-text-center uk-margin-bottom">
 	<section class="uk-width-7-10 uk-container-center">
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- chart bottom title -->
-		<ins class="adsbygoogle"
-			 style="display:inline-block;width:728px;height:90px"
-			 data-ad-client="ca-pub-9145483045815058"
-			 data-ad-slot="7445964323"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-	</section> 
-	<section class="uk-width-7-10 uk-container-center">
 		&copy; <?php print date('Y'); ?> | 
-		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service with partnership with
+		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service with partnership of
 		<a href="http://animephproject.wordpress.com" target="_new">AnimePH Project</a> and
 		<a href="https://www.facebook.com/OtakuEvent/events" target="_new">Otaku Events</a>.
 		This service will take every effort to keep this information accurate 

@@ -74,9 +74,15 @@ class Controller_View extends Controller_AppCore
 		$this->_check_vaild_event($event_id);
 		
 		$q = Model_Event_list::read_public_list($event_id);
+		
+		$rawDate = new DateTime($q['start_at']);
+		$tdDate	 = new DateTime(date('Y-m-d'));
+		$ans	 = $tdDate->diff($rawDate);
+		
 		$view = $this->_vg('social');
-		$view->event_id	= $event_id;
-		$view->title	= $q['name'];
+		$view->event_id		= $event_id;
+		$view->title		= $q['name'];
+		$view->is_allowed	= $ans->format('%R%a');
 		$this->template->content = $view;
 		
 		

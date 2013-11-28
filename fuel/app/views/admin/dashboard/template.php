@@ -37,14 +37,14 @@
 		<i class="uk-icon-group"></i> Organization
 		</a>
 	</li>
-	<li><a href="<?php print Fuel\Core\Uri::create('admin/dashboard/social'); ?>">
-		<i class="uk-icon-twitter"></i> Social
-		</a>
-	</li>
 </ul>
 <div class="uk-navbar-flip">
 <ul class="uk-navbar-nav">
 	<?php if(Fuel\Core\Session::get('su')): ?>
+	<li><a href="<?php print Fuel\Core\Uri::create('admin/dashboard/social'); ?>">
+		<i class="uk-icon-twitter"></i> Social
+		</a>
+	</li>
 	<li>
 	<a href="<?php print \Fuel\Core\Uri::create('admin/dashboard/user_index'); ?>">
 		<i class="uk-icon-user"></i> Users</a>
