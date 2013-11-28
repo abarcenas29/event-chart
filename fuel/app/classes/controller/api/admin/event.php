@@ -104,7 +104,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 	public function post_share_event()
 	{
 		$arg			= array();
-		$arg['content'] = Input::post('content');
+		$arg['content'] = stripslashes(Input::post('content'));
 		$arg['event_id']= Input::post('event_id');
 		
 		$rsp['twitter'] = Model_broadcast::post_twitter($arg);
