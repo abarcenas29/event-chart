@@ -7,10 +7,9 @@ class Model_broadcast extends Model
 	public static function post_twitter($arg)
 	{
 		$cfg = Config::get('ec.twitter');
-		$uri = Uri::create('view/event/'.$arg['event_id']);
 		
 		$update				= array();
-		$update['status']	= $arg['content'].' '.$uri;
+		$update['status']	= $arg['content'].' '.$arg['url'];
 		
 		$t = new stwitter\twitter($cfg);
 		$p = $t->buildOauth(Model_broadcast::$_twitter_url,'POST')
@@ -21,8 +20,6 @@ class Model_broadcast extends Model
 	
 	public static function post_facebook($arg)
 	{
-		$uri = Uri::create('view/event/'.$arg['event_id']);
-		
 		$cfg		= Config::get('ec.facebook');
 		$fb_page_id = Config::get('ec.fb_page_id');
 		
@@ -41,7 +38,7 @@ class Model_broadcast extends Model
 		}
 		
 		$post					= array();
-		$post['link']			= $uri;
+		$post['link']			= $arg['url'];
 		$post['message']		= $arg['content'];
 		$post['access_token']	= $page['access_token'];
 		

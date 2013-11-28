@@ -18,6 +18,14 @@ class Controller_chart extends Controller_AppCore
 		$this->template->content = $view;
 	}
 	
+	public function action_preview($days = null)
+	{
+		if(is_null($days))Response::redirect('chart/index');
+		$view	 = $this->_cg('chart');
+		$view->c = Model_chart::event_preview($days);
+		$this->template->content = $view;
+	}
+	
 	public function action_category($category = null)
 	{
 		if(is_null($category))Response::redirect('chart/index');

@@ -30,6 +30,20 @@ class Model_chart extends Model
 		return Model_chart::_prepare_chart($q);
 	}
 	
+	public static function event_preview($day)
+	{
+		$preview = strtotime("+$day days");
+		
+		$q = Model_Event_list::query()
+				->related('photo')
+				->where('start_at','<=',date('Y-m-d',$preview))
+				->where('end_at','>=',date('Y-m-d',$preview))
+				->where('status','=','live')
+				->order_by('start_at','asc')
+				->get();
+		return Model_chart::_prepare_chart($q);
+	}
+	
 	public static function event_archive()
 	{
 		$q = Model_Event_list::query()

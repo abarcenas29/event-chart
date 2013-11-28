@@ -40,6 +40,7 @@
   position: absolute;
   top: 1em;
   right: 1em;
+  z-index: 10;
 }
 @media (max-width: 1024px) {
   .ec-admin-container {
