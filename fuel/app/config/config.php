@@ -145,7 +145,7 @@ return array(
 		 * WARNING: Using xss_clean will cause a performance hit.
 		 * How much is dependant on how much input data there is.
 		 */
-		 'input_filter'  => array('htmlentities'),
+		 'input_filter'  => null,
 
 		/**
 		 * This output filter can be any normal PHP function as well as 'xss_clean'
