@@ -27,6 +27,7 @@ class Controller_Api_Share extends Controller_Api_ApiCore
 			$rsp['success']	= true;
 			$rsp['response']= $post;
 		}
+		
 		return $rsp;
 	}
 }
