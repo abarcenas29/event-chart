@@ -13,9 +13,10 @@ class Model_broadcast extends Model
 		$update['status']	= $arg['content'].' '.$uri;
 		
 		$t = new stwitter\twitter($cfg);
-		$t->buildOauth(Model_broadcast::$_twitter_url,'POST')
-			->setPostfields($arg)
-			->performRequest();
+		$p = $t->buildOauth(Model_broadcast::$_twitter_url,'POST')
+				->setPostfields($arg)
+				->performRequest();
+		return $p;
 	}
 	
 	public static function post_facebook($arg)
@@ -42,7 +43,8 @@ class Model_broadcast extends Model
 		$post['link']	= $uri;
 		$post['message']= $arg['content'];
 		
-		$f->api("$fb_page_id/feed",'POST',$post);
+		$p = $f->api("$fb_page_id/feed",'POST',$post);
+		return $p;
 	}
 }
 

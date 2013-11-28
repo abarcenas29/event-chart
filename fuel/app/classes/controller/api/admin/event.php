@@ -106,8 +106,9 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		$arg			= array();
 		$arg['content'] = Input::post('content');
 		$arg['event_id']= Input::post('event_id');
-		Model_broadcast::post_twitter($arg);
-		Model_broadcast::post_facebook($arg);
+		
+		$rsp['twitter'] = Model_broadcast::post_twitter($arg);
+		$rsp['facebook']= Model_broadcast::post_facebook($arg);
 		
 		$rsp['success'] = true;
 		return $this->response($rsp);
