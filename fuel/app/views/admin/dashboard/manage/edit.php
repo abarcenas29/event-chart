@@ -129,12 +129,17 @@
 </form>
 </section>
 
-<section class="uk-width-1-2" id="ec-drag-n-drop" ondragover="return false">
-<?php if(is_null($q['photo_id'])): ?>
-	<p class="uk-text-center">Image Upload</p>
-<?php else: ?>
-	<img src="<?php print \Fuel\Core\Uri::create('uploads/'.$q['photo']['date'].'/'.$q['photo']['filename']); ?>"/>
-<?php endif; ?>
+<section class="uk-width-1-2">
+	<div class="uk-panel" 
+		 id="ec-drag-n-drop"
+		 style="border: 0.5em dotted #252525;"
+		 ondragover="return false">
+		<?php if(is_null($q['photo_id'])): ?>
+	<p class="uk-text-center">Drag your Image Here.</p>
+	<?php else: ?>
+		<img src="<?php print \Fuel\Core\Uri::create('uploads/'.$q['photo']['date'].'/'.$q['photo']['filename']); ?>"/>
+	<?php endif; ?>
+	</div>
 </section>
 </div>
 

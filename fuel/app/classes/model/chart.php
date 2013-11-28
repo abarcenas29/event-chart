@@ -86,7 +86,8 @@ class Model_chart extends Model
 			$chart[$c]['poster_thumb']	= Model_chart::_poster_uri($row,'thumb-');
 			$chart[$c]['poster_flow']	= Model_chart::_poster_uri($row,'flow-');
 			$chart[$c]['start_at']		= date('d M y',  strtotime($row['start_at']));
-			$chart[$c]['end_at']		= date('d M y',  strtotime($row['end_at']));
+			$chart[$c]['end_at']		= date('d M y',strtotime($row['end_at']));
+			$chart[$c]['raw_date']		= $row['start_at'];
 			$chart[$c]['duration']		= "$no_days days";
 			$chart[$c]['title']			= $row['name'];
 			$chart[$c]['event_id']		= $row['id'];

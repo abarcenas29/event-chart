@@ -1,5 +1,6 @@
-<?php print Asset::js('jquery.wookmark.min.js'); ?>
+<?php print Asset::js('jquery.wookmark.min.js');?>
 <?php print Asset::js('jquery.imageloaded.js'); ?>
+<?php print Asset::js('jquery.countdown.min.js');  ?>
 
 <?php if(isset($now) && count($now) != 0):?>
 <!-- Any Event Happening Today -->
@@ -24,12 +25,11 @@
    data-event="<?php print $row['event_id'];?>"
    data-uk-modal>
 <div class="uk-panel ec-chart-title">
-	<div class="uk-text-center">
+	<div class="uk-text-center uk-text-truncate">
 	<?php print $row['title']; ?>
 	</div>
 </div>
 <div class="uk-panel" style="padding:0.5em;background-color:#E2E3E5;">
-<div class="uk-panel-badge uk-badge"><?php print $row['start_at']. ' ('. $row['duration'] .')'; ?></div>
 <img src="<?php print $row['poster_thumb'] ?>"/>
 </div>
 </a>
@@ -63,12 +63,16 @@
    data-event="<?php print $row['event_id'];?>"
    data-uk-modal>
 <div class="uk-panel ec-chart-title">
-	<div class="uk-text-center">
+	<div class="uk-text-center uk-text-truncate">
 	<?php print $row['title']; ?>
 	</div>
 </div>
 <div class="uk-panel" style="padding:0.5em;background-color:#E2E3E5;">
-<div class="uk-panel-badge uk-badge"><?php print $row['start_at']. ' ('. $row['duration'] .')'; ?></div>
+<div class="uk-panel-badge uk-badge">
+	<?php print $row['start_at']; ?>
+	(<span class="ec-countdown"
+		   data-date="<?php print $row['raw_date']; ?>"></span>)
+</div>
 <img src="<?php print $row['poster_thumb'] ?>"/>
 </div>
 </a>
@@ -139,13 +143,27 @@
 </article>
 
 <script>
-var urlDetail = "<?php print Uri::create('ajax/chart/load_chart_detail'); ?>";
-var $modalLoad= $('#ec-modal-loading');
-var $modalInfo= $('#ec-event-details');
+var urlDetail		= "<?php print Uri::create('ajax/chart/load_chart_detail'); ?>";
+var $modalLoad		= $('#ec-modal-loading');
+var $modalInfo		= $('#ec-event-details');
 var $modalCover		= $('#ec-cover-image');
 var $modalNoCover	= $('#ec-no-fb-cover');
 var urlEventPage	= "<?php print Uri::create('view/event/'); ?>";
+
 $(document).ready(function(){
+	$('.ec-countdown').each(function(i)
+	{
+		var stringDate = $(this).data('date');
+		var dateArr	   = stringDate.split('-');
+		var year	   = parseInt(dateArr[0]);
+		var month	   = parseInt(dateArr[1]);
+		var day		   = parseInt(dateArr[2]);
+		$(this).countdown({
+			until:new Date(year,month-1,day),
+			layout:'{dnn}d:{hnn}H:{mnn}M:{snn}S'
+		});
+	});
+	
 	$('.ec-chart-modal-link').click(function(e)
 	{
 		var title = $(this).data('title');
