@@ -1,4 +1,6 @@
 <?php
+namespace Fuel\Tasks;
+
 class preview 
 {
 	public static function run($day)
