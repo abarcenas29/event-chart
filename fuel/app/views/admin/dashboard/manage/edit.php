@@ -132,7 +132,7 @@
 <section class="uk-width-1-2">
 	<div class="uk-panel" 
 		 id="ec-drag-n-drop"
-		 style="border: 0.5em dotted #252525;"
+		 style="border: 0.5em dotted #252525;min-height:496px;"
 		 ondragover="return false">
 		<?php if(is_null($q['photo_id'])): ?>
 	<p class="uk-text-center">Drag your Image Here.</p>

@@ -37,8 +37,7 @@
 	<div class="uk-form-row">
 	<label class="uk-form-label">Description</label>
 	<div class="uk-form-controls">
-		<textarea name="description" class="uk-width-1-1" rows="5"><?php print (isset($q))?trim($q['description']):''; ?>
-	</textarea>
+		<textarea name="description" class="uk-width-1-1" rows="5"><?php print (isset($q))?trim($q['description']):''; ?></textarea>
 	</div>
 	</div>
 	

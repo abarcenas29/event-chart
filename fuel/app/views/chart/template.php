@@ -101,7 +101,12 @@
 	</section> 
 	<section class="uk-width-7-10 uk-container-center">
 		&copy; <?php print date('Y'); ?> | 
-		A <a href="http://deremoe.com">Deremoe</a> Service. All Rights to		        content belongs to their respective owners.
+		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service with partnership with
+		<a href="http://animephproject.wordpress.com" target="_new">AnimePH Project</a> and
+		<a href="https://www.facebook.com/OtakuEvent/events" target="_new">Otaku Events</a>.
+		This service will take every effort to keep this information accurate 
+		and up to date but there is no guarantee for correctness. All information is subject to 
+		change without notice. All Rights to content belongs to their respective owners.
 	</section>
 </footer>
 <script>

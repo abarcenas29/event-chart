@@ -19,10 +19,10 @@ return array(
 						'band artists'
 						),
 	'twitter'		=> array(
-		'oauth_access_token'			=> '14996204-XMwTIEhduGuqwy8rCHfQflvfQgxZySRcGNMHa3DsZ',
-		'oauth_access_token_secret'		=> 'k1d85ufbTYclccnI42l70p9AsyR2UeLUIWTPc1y7QdpUA',
-		'consumer_key'					=> 'O9LqjnACD64rfnjNYBMiQ',
-		'consumer_secret'				=> 'uj3UtOfP1Dhuj29tl2Kj1FNd5ZHAx06jUbyeplHTvc'
+		'oauth_access_token'			=> '1196190907-ckbQWjGHEZS5QqetN93G3RhkP5hLXBoGfLOSJfi',
+		'oauth_access_token_secret'		=> 'cMT2P3SfkfVdthl65Et9mNcLGkQHIDoe7odvxzqdIsyEp',
+		'consumer_key'					=> '9O4EBJmSSTk1CAeELBUV3g',
+		'consumer_secret'				=> 'gK3C6J7bxCwAmICsFiMYZBSGKRkxKS0omuGlpJ0rr3I'
 	),
 	'facebook'		=> array(
 		'appId' => '479421232080499',
@@ -32,5 +32,5 @@ return array(
 		'key'	=> 'q7kiZlPhOsvwSFQxoayfhZoIDlyhvNh7',
 		'url'	=> 'https://mutationevent-qr-code-generator.p.mashape.com/generate.php?',
 	),
-	'fb_page_id' => '711725652174076'
+	'fb_page_id' => '118866964809920'
 );

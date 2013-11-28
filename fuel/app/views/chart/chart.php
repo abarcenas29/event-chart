@@ -62,12 +62,12 @@
    data-venue="<?php print $row['venue']?>"
    data-event="<?php print $row['event_id'];?>"
    data-uk-modal>
-<div class="uk-panel ec-chart-title">
+<div class="uk-panel ec-chart-title" style="width:200px;">
 	<div class="uk-text-center uk-text-truncate">
 	<?php print $row['title']; ?>
 	</div>
 </div>
-<div class="uk-panel" style="padding:0.5em;background-color:#E2E3E5;">
+<div class="uk-panel" style="padding:0.5em;background-color:#252525;">
 <div class="uk-panel-badge uk-badge">
 	<?php print $row['start_at']; ?>
 	(<span class="ec-countdown"
