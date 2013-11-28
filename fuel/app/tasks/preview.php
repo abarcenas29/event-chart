@@ -26,7 +26,7 @@ class preview
 			{
 				$arg['content'] = "Heads UP! There are $qty Event(s) lined up for the next $day days.";
 			}
-			$arg['url'] = Uri::create("chart/preview/$day");
+			$arg['url'] = \Uri::create("chart/preview/$day");
 			\Model_broadcast::post_twitter($arg);
 			\Model_broadcast::post_twitter($arg);
 		}
