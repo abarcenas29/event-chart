@@ -16,17 +16,17 @@ class preview
 			$arg = array();
 			if($day == 0)
 			{
-				$arg['content'] = "Heads UP! $qty Event(s) are happening right NOW. Link for more info:";
+				$arg['content'] = "Heads UP! $qty Event(s) are happening right NOW. Link for more info:".date('y-m-d');
 			}
 			else if ($day == 1)
 			{
-				$arg['content'] = "Heads UP! There are $qty Event(s) lined up for tomorrow";
+				$arg['content'] = "Heads UP! There are $qty Event(s) lined up for tomorrow".date('y-m-d');
 			}
 			else
 			{
-				$arg['content'] = "Heads UP! There are $qty Event(s) lined up for the next $day days.";
+				$arg['content'] = "Heads UP! There are $qty Event(s) lined up for the next $day days.".date('y-m-d');
 			}
-			$arg['url'] = \Fuel\Core\Uri::create("chart/preview/$day");
+			$arg['url'] = "http://event.deremoe.com/chart/preview/$day";
 			\Model_broadcast::post_twitter($arg);
 			\Model_broadcast::post_facebook($arg);
 		}
