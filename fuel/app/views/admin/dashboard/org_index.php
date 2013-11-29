@@ -72,7 +72,7 @@
 			<i class="uk-icon-edit"></i> Edit
 		</a>
 		<a href="<?php print \Fuel\Core\Uri::create("view/org/".$row['id']);?>" 
-		   class="uk-button uk-button-link"
+		   class="uk-button uk-button-success"
 		   target="_new">
 			<i class="uk-icon-gears"></i> View Page</a>
 	</div>
