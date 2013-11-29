@@ -35,7 +35,7 @@
 	print Asset::js('uikit.min.js');
 ?>
 </head>
-<body class="uk-height-1-1">
+<body>
 <div id="wrap">
 <header class="uk-width-1-1" style="background-color:#252525;" id="ec-main-header">
 <section class="uk-grid" data-uk-grid-match>

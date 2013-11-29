@@ -90,7 +90,7 @@ class Model_Organization extends Model_ModelCore
 	
 	public static function admin_index($page)
 	{
-		$limit	= 25;
+		$limit	= 10;
 		$page	= abs($page)-1;
 		
 		$q			= Model_Organization::query();

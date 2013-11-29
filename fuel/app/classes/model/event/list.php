@@ -88,7 +88,7 @@ class Model_Event_list extends Model_ModelCore
 	
 	public static function admin_index_event($page)
 	{
-		$limit	= 25;
+		$limit	= 15;
 		$page	= abs($page)-1;
 		
 		$q			= Model_Event_list::query()

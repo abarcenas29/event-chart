@@ -208,6 +208,7 @@ $(document).ready(function(){
 			container:$('#ec-chart-canvas'),
 		};
 		$('#ec-charts li').wookmark(opt);
+		$('body').addClass('uk-height-1-1');
 	});
 	
 <?php if(isset($now) && count($now) != 0):?>
