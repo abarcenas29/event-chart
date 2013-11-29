@@ -24,7 +24,7 @@
 
 <link rel="shortcut icon" 
 	  type="image/x-icon" 
-	  href="">
+	  href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
 
 <?php 
 	print Asset::css('uikit.min.css');
@@ -44,7 +44,9 @@
 			uk-margin-bottom" 
 			id="ec-header-title">
 	<a href="<?php print Uri::base(); ?>">
-	<h1 class="uk-margin-left"><span>Events</span> Chart</h1>
+	<h1 class="uk-margin-left">
+		<img src="<?php print Uri::create('assets/img/logo.png') ?>" width="50px"/>
+		<span>Events</span> Chart</h1>
 	</a>
 </div>
 </section>

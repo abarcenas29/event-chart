@@ -31,7 +31,7 @@
 
 <link rel="shortcut icon" 
 	  type="image/x-icon" 
-	  href="">
+	  href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
 
 <?php 
 	print Asset::css('uikit.min.css');
@@ -98,7 +98,9 @@
 	 style="height:20em;">
 
 <div class="uk-vertical-align-middle ec-footer-title">
-	<h1><a href="<?php print Uri::base(); ?>">
+	<h1>
+		<a href="<?php print Uri::base(); ?>">
+		<img src="<?php print Uri::create('assets/img/logo.png') ?>" width="50px"/>
 		<span>Events</span> Chart
 	</a></h1>
 	<p>Events Chart is a Deremoe service that aims to gather all the events in the country. 

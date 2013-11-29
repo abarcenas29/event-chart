@@ -15,7 +15,7 @@
 
 <link rel="shortcut icon" 
 	  type="image/x-icon" 
-	  href="">
+	  href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
 <?php 
 	print Fuel\Core\Asset::css('uikit.min.css');
 	print Fuel\Core\Asset::css('fonts.css');
