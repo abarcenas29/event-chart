@@ -71,9 +71,10 @@
 		   class="uk-button uk-button-primary">
 			<i class="uk-icon-edit"></i> Edit
 		</a>
-		<a href="<?php print \Fuel\Core\Uri::create("admin/dashboard/statistic/".$row['id']);?>" 
-		   class="uk-button uk-button-success">
-			<i class="uk-icon-gears"></i> Statistics</a>
+		<a href="<?php print \Fuel\Core\Uri::create("view/org/".$row['id']);?>" 
+		   class="uk-button uk-button-link"
+		   target="_new">
+			<i class="uk-icon-gears"></i> View Page</a>
 	</div>
 	
 </div>
