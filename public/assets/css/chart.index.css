@@ -102,3 +102,29 @@ body #ec-main-footer {
   background-color: #3a92c8;
   color: whitesmoke;
 }
+#ec-contact-modal .uk-modal-dialog {
+  background-color: #252525;
+  border-bottom: 2px solid #ac1f2b;
+  color: #e6e6e6;
+}
+#ec-contact-modal .uk-modal-dialog h2 {
+  color: whitesmoke;
+  font-family: 'Oswald', sans-serif;
+}
+#ec-contact-modal .uk-modal-dialog .uk-grid .ec-contact-info {
+  font-family: 'Conv_weblysleekuil';
+}
+#ec-contact-modal .uk-modal-dialog .uk-grid .ec-contact-info p:nth-child(1) {
+  font-family: 'Conv_weblysleekuisb';
+  margin-bottom: 0em;
+}
+#ec-contact-modal .uk-modal-dialog .uk-grid .ec-contact-info p:nth-child(2) {
+  font-family: 'Conv_weblysleekuili';
+  margin: 0em;
+}
+#ec-contact-modal .uk-modal-dialog .uk-grid .ec-contact-info p:nth-child(3) {
+  margin: 0em;
+}
+#ec-contact-modal .uk-modal-dialog:nth-child(2) {
+  border-bottom: none;
+}

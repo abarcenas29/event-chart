@@ -51,8 +51,14 @@
 <span>Events</span> Chart
 </a>
 <ul class="uk-navbar-nav">
-<li><a href="#">Deremoe</a></li>
-<li><a href="#">Tech Rant</a></li>
+<li>
+	<a href="http://deremoe.com" 
+	   target="_new">Deremoe</a>
+</li>
+<li>
+	<a href="http://techrant.beyondobjective.com" 
+	   target="_new">Tech Rant</a>
+</li>
 </ul>
 	
 <div class="uk-navbar-flip">
@@ -97,6 +103,9 @@
 	</a></h1>
 	<p>Events Chart is a Deremoe service that aims to gather all the events in the country. 
 		We serve to deliver all events, so that You can have more choices.</p>
+	<p>This service will take every effort to keep this information accurate 
+		and up to date but there is no guarantee for correctness. All information is subject to 
+		change without notice. All Rights to content belongs to their respective owners.</p>
 </div>
 
 </div>
@@ -136,13 +145,18 @@
 			AnimePH Project
 		</a>
 	</li>
+	<li><a href="https://www.facebook.com/OtakuEvent/events"
+		   target="_new">
+			Otaku Events
+		</a>
+	</li>
 	</ul>
 </div>
 	
 <div class="uk-width-1-2 uk-margin-bottom">
 	<h2>Social</h2>
 	<div class="uk-width-1-1">
-	<a href="http://twitter.com/DMEvents"
+	<a href="http://twitter.com/team_deremoe"
 	   target="_new"
 	   class="uk-button 
 			  ec-twitter 
@@ -150,17 +164,16 @@
 		<i class="uk-icon-twitter"></i>
 	</a>
 	
-	<a href="http://facebook.com/DMEvents"
+	<a href="http://facebook.com/deremoe"
 	   target="_new"
 	   class="uk-button 
 			  ec-facebook 
 			  ec-social">
 		<i class="uk-icon-facebook"></i>
 	</a>
-	<p class="ec-copyright">&COPY; <?php print date('Y') ?> | Created by Aldrich Allen Barcenas and Team Deremoe. 
-		All media content placed in this site are the property of their 
-		respective owners.</p>
-</div>
+	<p class="ec-copyright">
+		&COPY; <?php print date('Y') ?> | Created by Aldrich Allen Barcenas and Team Deremoe.</p>
+	</div>
 </div>
 	
 </div>
@@ -177,7 +190,6 @@
 
   ga('create', 'UA-45950930-1', 'deremoe.com');
   ga('send', 'pageview');
-
 </script>
 </body>
 </html>

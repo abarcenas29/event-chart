@@ -58,7 +58,7 @@
 	<li><a href="#">
 		<i class="uk-icon-info-sign"></i>
 			About</a></li>
-	<li><a href="#">
+	<li><a href="#ec-contact-modal" data-uk-modal>
 		<i class="uk-icon-phone"></i>
 			Contact</a></li>
 	</ul>
@@ -69,12 +69,52 @@
 <?php print $content; ?>
 </div>
 </div>
+	
+<!-- Contact Modal -->
+<article id="ec-contact-modal" class="uk-modal">
+<div class="uk-modal-dialog uk-modal-dialog-slide">
+	<h2>
+		<i class="uk-icon-phone"></i>
+		 Contact Information
+	</h2>
+</div>
+<div class="uk-modal-dialog uk-modal-dialog-slide">
+<div class="uk-width-1-1">
+If you have any inquiries with regards to the 
+information indicated in the service. Or would like 
+to have your event posted in our site. You can use
+the contact information provided.
+</div>
+<section class="uk-grid">
+<div class="uk-width-1-2">
+	
+<div class="ec-contact-info 
+			uk-margin-top">
+<p>Aldrich Allen Barcenas</p>
+<p>Technical (Beyond Objective)</p>
+<p><i class="uk-icon-envelope"></i> aldrich.barcenas@gmail.com</p>
+</div>
+	
+</div>
+<div class="uk-width-1-2">
+
+<div class="ec-contact-info 
+			uk-margin-top">
+<p>Jay Paul Agonoy</p>
+<p>Editor (Beyond Objective)</p>
+<p><i class="uk-icon-envelope"></i> tcmanila@gmail.com</p>
+</div>
+	
+</div>
+</section>
+</div>
+</article>
 
 <footer id="ec-main-footer" 
 		class="uk-width-1-1 uk-text-center uk-margin-bottom">
 	<section class="uk-width-7-10 uk-container-center">
 		&copy; <?php print date('Y'); ?> | 
-		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service with partnership of
+		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service in partnership of
 		<a href="http://animephproject.wordpress.com" target="_new">AnimePH Project</a> and
 		<a href="https://www.facebook.com/OtakuEvent/events" target="_new">Otaku Events</a>.
 		This service will take every effort to keep this information accurate 
