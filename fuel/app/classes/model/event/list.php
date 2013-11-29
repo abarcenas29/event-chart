@@ -89,6 +89,7 @@ class Model_Event_list extends Model_ModelCore
 	public static function admin_index_event($page)
 	{
 		$limit	= 15;
+		$page   = $page - 1;
 		
 		$q			= Model_Event_list::query()
 						->order_by('start_at','desc');
