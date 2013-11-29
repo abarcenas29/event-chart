@@ -1,13 +1,16 @@
+<?php print Asset::css('font-awesome.css'); ?>
+<!-- Jquery UI -->
+<?php print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');?>
+<?php print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js'); ?>
+
+<?php print Asset::js('rangy-core.js');?>
+<?php print Asset::js('hallo.js');?>
+
 <section class="uk-margin-top
 				ec-admin-container
 				uk-container-center">
 <div class="uk-grid" data-uk-grid-match>
 
-<!--	
-	
-	Edit Event Information
-
--->
 <section class="uk-width-1-2">
 <form 
 	action="<?php print $edit_action; ?>"
@@ -40,9 +43,14 @@
 	</div>
 
 	<div class="uk-form-row">
-	<label class="uk-form-label">Description</label>
-	<div class="uk-form-controls">
-		<textarea name="description" class="uk-width-1-1" rows="5"><?php print (isset($q))?trim($q['description']):''; ?></textarea>
+	<label class="uk-form-label"
+		   style="float:none;">
+		Description:
+	</label>
+	<div class="uk-width-1-1 uk-margin-top"
+		 style="border:1px solid #ddd;min-height:10em;padding:0.5em;"
+		 id="ec-description">
+		<?php print $desc; ?>
 	</div>
 	</div>
 	
@@ -142,5 +150,21 @@
 	</div>
 </section>
 </div>
-
 </section>
+<script>
+$(document).ready(function(){
+	
+	$('#ec-description').hallo(
+	{
+		plugins: {
+            'halloformat': {},
+            'halloblock': {},
+            'hallojustify': {},
+            'hallolists': {},
+            'hallolink': {}
+          },
+          editable: true,
+          placeholder: 'Type your description here.'
+	});
+});
+</script>

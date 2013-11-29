@@ -1,3 +1,10 @@
+<?php print Asset::css('font-awesome.css'); ?>
+<?php print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');?>
+
+<?php print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js'); ?>
+<?php print Asset::js('rangy-core.js');?>
+<?php print Asset::js('hallo.js');?>
+
 <?php print \Fuel\Core\Asset::js('jquery.form.min.js'); ?>
 <section class="uk-margin-top
 		 ec-admin-container
@@ -35,10 +42,20 @@
 	</div>
 
 	<div class="uk-form-row">
-	<label class="uk-form-label">Description</label>
-	<div class="uk-form-controls">
-		<textarea name="description" class="uk-width-1-1" rows="5"><?php print (isset($q))?trim($q['description']):''; ?>
-	</textarea>
+	<label class="uk-form-label"
+		   style="float:none;">
+		Description:
+	</label>
+	<div class="uk-width-1-1 uk-margin-top"
+		 style="border:1px solid #ddd;min-height:10em;padding:0.5em;"
+		 id="ec-description">
+		<?php 
+		if(isset($desc)): 
+		print $desc;	
+		?>
+		<?php else:?>
+		Type your Description here.
+		<?php endif;?>
 	</div>
 	</div>
 	
@@ -132,6 +149,19 @@ $(document).ready(function(){
 		};
 	}
 	
+	$('#ec-description').hallo(
+	{
+		plugins: {
+            'halloformat': {},
+            'halloblock': {},
+            'hallojustify': {},
+            'hallolists': {},
+            'hallolink': {}
+          },
+          editable: true,
+          placeholder: 'Type your description here.'
+	});
+	
 	$responseCont.hide();
 	jQuery.event.props.push('dataTransfer');
 	$('#ec-drag-n-drop').bind('drop',function(e)
@@ -174,11 +204,13 @@ $(document).ready(function(){
 	{
 	beforeSubmit:function(arr)
 	{
+		var desc = $('#ec-description').html();
 		if(dataArray.photo_name !== '|none|')
 		{
 			arr.push(pushObject('photo_name',dataArray.photo_name));
 			arr.push(pushObject('file',dataArray.file));
 		}
+		arr.push(pushObject('description',desc));
 		$responseCont.show();
 		$responseChild.html('Sending Data ... <i class="uk-icon-spinner"></i> ');
 		$submitBtn.attr('disabled');

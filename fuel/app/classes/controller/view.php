@@ -19,7 +19,7 @@ class Controller_View extends Controller_AppCore
 		Session::set('callback_url',$url);
 		
 		$view			= $this->_vg('event');
-		$view->q		= Model_Event_list::read_public_list($event_id);
+		$view->set_safe('q',Model_Event_list::read_public_list($event_id)); 
 		$view->qr		= $rsp->body;
 		$view->url		= $url;
 		$view->fb_user	= $this->check_fb();
@@ -52,7 +52,7 @@ class Controller_View extends Controller_AppCore
 		Session::set('callback_url',$url);
 		
 		$view			= $this->_vg('organization');
-		$view->q		= $q;
+		$view->set_safe('q',$q);
 		$view->qr		= $rsp->body;
 		$view->url		= $url;
 		$view->fb_user	= $this->check_fb();

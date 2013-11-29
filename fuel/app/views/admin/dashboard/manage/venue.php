@@ -1,3 +1,6 @@
+<!-- JQuery Leaflet -->
+<?php print \Fuel\Core\Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');?>
+<?php print \Fuel\Core\Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');?>
 <section class="uk-margin-top
 				ec-admin-container
 				uk-container-center">

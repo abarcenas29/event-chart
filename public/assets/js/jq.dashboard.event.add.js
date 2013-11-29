@@ -55,13 +55,16 @@ $(document).ready(function()
 	{
 	beforeSubmit:function(arr)
 	{
+		var desc = $('#ec-description').html();
 		if(dataArray.photo_name !== '|none|')
 		{
 			arr.push(pushObject('photo_name',dataArray.photo_name));
 			arr.push(pushObject('file',dataArray.file));
 		}
+		arr.push(pushObject('description',desc));
+		console.log(arr);
 		$responseCont.show();
-		$responseChild.html('Sending Data ... <i class="uk-icon-spinner"></i> ');
+		$responseChild.html('Sending Data ... <i class="uk-icon-spinner uk-icon-spin"></i> ');
 		$submitBtn.attr('disabled');
 	},
 	success:function(data)

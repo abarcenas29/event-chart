@@ -118,7 +118,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 	{
 		$arg			= array();
 		$arg['name']	= Input::post('name');
-		$arg['desc']	= Input::post('description');
+		$arg['desc']	= trim(Input::post('description'));
 		$arg['email']	= Input::post('email');
 		$arg['main_org']= Input::post('main_org');
 		$arg['start_at']= Input::post('start_at');

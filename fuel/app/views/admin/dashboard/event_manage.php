@@ -1,12 +1,3 @@
-<?php print Fuel\Core\Asset::css('jquery.dropfile.css'); ?>
-<!-- JQuery Leaflet -->
-<?php print \Fuel\Core\Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');?>
-<?php print \Fuel\Core\Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');?>
-
-<!-- Jquery UI -->
-<?php print \Fuel\Core\Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');?>
-<?php print \Fuel\Core\Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js'); ?>
-
 <?php print \Fuel\Core\Asset::js('jquery.form.min.js');?>
 <section class="uk-margin-top
 		 ec-admin-container

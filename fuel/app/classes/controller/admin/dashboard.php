@@ -23,18 +23,6 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	 */
 	public function action_social()
 	{
-		/*
-		$settings = Config::get('ec.twitter');
-		$url	  = 'https://api.twitter.com/1.1/search/tweets.json';
-		$rm		  = 'GET';
-		$field	  = '?q=%23BestofAnime2013&rpp=5&include_entities=true&result_type=mixed';
-		$field	  = '?q=%23otakuexporeload&count=100';
-		
-		$t		= new \stwitter\twitter($settings);
-		$rsp	=  $t->setGetfield($field)->buildOauth($url,$rm)->performRequest();
-
-		$decode = json_decode($rsp,true);
-		*/
 		$cfg	= Config::get('ec.facebook');
 		$fb_id	= Config::get('fb_page_id');
 		
@@ -122,7 +110,7 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$q		= Model_Event_list::read_list();
 		$org	= Model_Organization::admin_ll_index();
 		
-		$view			= $this->_db('event_manage');
+		$view			= $this->_db('event_manage',false);
 		$view->q		= $q;
 		
 		$cat				= $this->_em('categories');
@@ -135,6 +123,7 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$edit->edit_action	= Uri::create('api/admin/event/edit.json');
 		$edit->title		= 'Edit Event Information';
 		$edit->orgs			= $org;
+		$edit->set_safe('desc',$q['description']);
 		$view->event_edit	= $edit;
 		
 		$venue				= $this->_em('venue');
@@ -235,10 +224,12 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	public function action_org_edit($id)
 	{
 		\Fuel\Core\Session::set('org_id',$id);
+		$q = Model_Organization::read_organization($id);
 		$view		 = $this->_db('org_form');
 		$view->title = ' Edit Organization';
 		$view->action= Fuel\Core\Uri::create('api/admin/org/edit.json');
-		$view->q	 = Model_Organization::read_organization($id);
+		$view->q	 = $q;
+		$view->set_safe('desc',$q['description']);
 		$this->template->content = $view;
 	}
 	
@@ -281,7 +272,7 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 	
 	private function _em($view)
 	{
-		return View::forge("admin/dashboard/manage/$view");
+		return View::forge("admin/dashboard/manage/$view",FALSE);
 	}
 }
 

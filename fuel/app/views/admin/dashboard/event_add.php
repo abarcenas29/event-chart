@@ -1,6 +1,11 @@
-<?php print \Fuel\Core\Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');?>
-<?php print \Fuel\Core\Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js'); ?>
-<?php print \Fuel\Core\Asset::js('jquery.form.min.js'); ?>
+<?php print Asset::css('font-awesome.css'); ?>
+<?php print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');?>
+
+<?php print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js'); ?>
+<?php print Asset::js('rangy-core.js');?>
+<?php print Asset::js('hallo.js');?>
+
+<?php print Asset::js('jquery.form.min.js'); ?>
 <section class="uk-margin-top
 		 ec-admin-container
 		 uk-container-center">
@@ -35,9 +40,14 @@
 	</div>
 
 	<div class="uk-form-row">
-	<label class="uk-form-label">Description</label>
-	<div class="uk-form-controls">
-		<textarea name="description" class="uk-width-1-1" rows="5"><?php print (isset($q))?trim($q['description']):''; ?></textarea>
+	<label class="uk-form-label"
+		   style="float:none;">
+		Description:
+	</label>
+	<div class="uk-width-1-1 uk-margin-top"
+		 style="border:1px solid #ddd;min-height:10em;padding:0.5em;"
+		 id="ec-description">
+		Type your Description here.
 	</div>
 	</div>
 	
@@ -141,5 +151,19 @@ var $responseCont	= $('#ec-message');
 var $responseChild	= $('#ec-message div');
 var $submitBtn		= $('button[type="submit"]');
 var urlEventIndex	= "<?php print \Fuel\Core\Uri::create('admin/dashboard'); ?>";
+$(document).ready(function(){
+	$('#ec-description').hallo(
+	{
+		plugins: {
+            'halloformat': {},
+            'halloblock': {},
+            'hallojustify': {},
+            'hallolists': {},
+            'hallolink': {}
+          },
+          editable: true,
+          placeholder: 'Type your description here.'
+	});
+});
 </script>
 <?php print \Fuel\Core\Asset::js('jq.dashboard.event.add.js'); ?>

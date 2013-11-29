@@ -1,3 +1,4 @@
+<?php print Fuel\Core\Asset::css('jquery.dropfile.css'); ?>
 <section class="uk-margin-top
 			ec-admin-container
 			uk-container-center">
