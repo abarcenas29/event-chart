@@ -15,7 +15,7 @@
 <ul id="ec-charts-now">
 
 <?php foreach($now as $row): ?>
-<li class="ec-events">
+<li class="ec-events" style="width:214px;height:248px;">
 <a href="#ec-chart-modal"
    class="ec-chart-modal-link"
    data-title="<?php print $row['title']; ?>"
@@ -53,7 +53,7 @@
 <ul id="ec-charts">
 
 <?php foreach($c as $row): ?>
-<li class="ec-events">
+<li class="ec-events" style="width:214px;height:248px;">
 <a href="#ec-chart-modal"
    class="ec-chart-modal-link"
    data-title="<?php print $row['title']; ?>"
