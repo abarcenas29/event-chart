@@ -45,11 +45,9 @@
 <section class="uk-width-large-9-10
 				uk-width-medium-1-1
 				uk-container-center
-				uk-margin-top"
-		id="ec-chart-canvas"
-		style="position:relative;">
+				uk-margin-top">
 
-<div>
+<div id="ec-chart-canvas">
 <ul id="ec-charts">
 
 <?php foreach($c as $row): ?>
