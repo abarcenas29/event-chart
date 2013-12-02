@@ -70,7 +70,7 @@
 </div>
 <?php endif; ?>
 	
-<div class="uk-width-1-1 uk-margin-top">
+<div class="uk-width-1-1 uk-margin-top ec-margin">
 	<div class="uk-panel">
 	<div class="uk-panel-header">
 	<h4 class="uk-panel-title">
@@ -143,7 +143,7 @@
 </section>
 </article>
 
-<article class="uk-panel ec-view-content">
+<article class="uk-panel ec-view-content ec-margin">
 <header class="uk-panel-header">
 	<h2 class="uk-panel-title">Description</h2>
 </header>
@@ -183,7 +183,7 @@
 <section class="uk-grid">
 	
 <div class="uk-width-1-2">
-	<article class="uk-panel ec-view-content">
+	<article class="uk-panel ec-view-content ec-margin">
 	<header class="uk-panel-header">
 		<h2 class="uk-panel-title">Ticket Prices</h2>
 	</header>
@@ -202,7 +202,7 @@
 </div>
 	
 	<div class="uk-width-1-2">
-	<article class="uk-panel ec-view-content">
+	<article class="uk-panel ec-view-content ec-margin">
 	<header class="uk-panel-header">
 		<h2 class="uk-panel-title">Guests</h2>
 	</header>
@@ -223,7 +223,7 @@
 	
 <!-- Posters -->
 <div class="uk-width-1-1 uk-margin-top">
-	<article class="uk-panel ec-view-content">
+	<article class="uk-panel ec-view-content ec-margin">
 	<header class="uk-panel-header">
 		<h2 class="uk-panel-title">Posters</h2>
 	</header>

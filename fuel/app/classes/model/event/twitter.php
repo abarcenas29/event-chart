@@ -24,10 +24,13 @@ class Model_Event_Twitter extends Model_ModelCore
 	
 	public static function read_feed($arg)
 	{
+		$timestamp  = Model_ModelCore::_get_timestamp($arg['event_id']);
 		$limit = 50;
 		$q = Model_Event_Twitter::query()
+				->where('timestamp','>=',$timestamp)
 				->where('event_id','=',$arg['event_id'])
-				->limit($limit);
+				->limit($limit)
+				->order_by('timestamp','desc');
 		$max_page = ceil($q->count()/$limit);
 		if($arg['page'] <= $max_page)
 		{

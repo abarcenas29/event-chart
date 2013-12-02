@@ -28,6 +28,8 @@ class Model_Event_Instagram extends Model_ModelCore
 		$event	= Model_Event_list::read_public_list($arg['event_id']);
 		foreach($event['hashtags'] as $row)
 		{
+			$timestamp = Model_ModelCore::_get_timestamp($arg['event_id']);
+			
 			$hashtag= $row['hashtag'];
 			$max	= Model_Event_Instagram::query()
 						->where('event_id','=',$event['id'])
@@ -77,7 +79,8 @@ class Model_Event_Instagram extends Model_ModelCore
 				\Fuel\Core\DB::start_transaction();
 				foreach($json_data as $row)
 				{
-					if((int) $row->created_time > $max_timestamp)
+					if((int) $row->created_time > $max_timestamp && 
+							 $row->created_time >= $timestamp)
 					{
 						$q = new Model_Event_Instagram();
 						$q->event_id	= $arg['event_id'];
@@ -102,8 +105,11 @@ class Model_Event_Instagram extends Model_ModelCore
 	public static function read_photos($arg)
 	{
 		$limit = 50;
+		$timestamp = Model_ModelCore::_get_timestamp($arg['event_id']);
+		
 		$q = Model_Event_Instagram::query()
 				->where('event_id','=',$arg['event_id'])
+				->where('timestamp','>=',$timestamp)
 				->order_by('timestamp','desc')
 				->limit($limit);
 		

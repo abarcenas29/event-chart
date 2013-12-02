@@ -29,6 +29,7 @@
 <?php 
 	print Asset::css('uikit.min.css');
 	print Asset::css('fonts.css');
+	print Asset::css('kore.css');
 	print Asset::css('chart.index.css');
 	
 	print Asset::js('jquery-2.0.3.min.js');

@@ -36,6 +36,7 @@
 <?php 
 	print Asset::css('uikit.min.css');
 	print Asset::css('fonts.css');
+	print Asset::css('kore.css');
 	print Asset::css('view.event.css');
 	
 	print Asset::js('jquery-2.0.3.min.js');
@@ -90,7 +91,7 @@
 <section class="uk-width-large-9-10
 				uk-width-medium-1-1
 				uk-container-center">
-<div class="uk-grid" data-uk-grid-match>
+<div class="uk-grid ec-margin" data-uk-grid-match>
 <!-- Footer Title -->
 <div class="uk-width-large-4-10
 			uk-width-medium-6-10

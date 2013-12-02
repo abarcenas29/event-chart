@@ -49,7 +49,7 @@ class Model_chart extends Model
 		$q = Model_Event_list::query()
 				->related('photo')
 				->where('status','=','live')
-				->where('end_at','<=',date('Y-m-d'))
+				->where('end_at','<',date('Y-m-d'))
 				->order_by('start_at','asc')
 				->get();
 		return Model_chart::_prepare_chart($q);
@@ -79,7 +79,7 @@ class Model_chart extends Model
 				->related('photo')
 				->where('status','=','live')
 				->where('category.category','=',$category)
-				->where('end_at','<=',date('Y-m-d',$half_year))
+				->where('end_at','<',date('Y-m-d',$half_year))
 				->order_by('start_at','asc')
 				->get();
 		
