@@ -108,6 +108,7 @@ class Model_Organization extends Model_ModelCore
 			$q->rows_offset($total_page*$limit);
 			$arg['page'] = $total_page;
 		}
+		$q->order_by('name');
 		
 		$arg['total_page']	= $total_page;
 		$arg['data']		= $q->get();
