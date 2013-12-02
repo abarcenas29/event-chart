@@ -100,12 +100,12 @@ class Model_Organization extends Model_ModelCore
 		if($arg['page'] <= $total_page)
 		{
 			$q->rows_limit($limit);
-			$q->rows_offset(abs($arg['page']));
+			$q->rows_offset(abs($arg['page'])*$limit);
 		}
 		else
 		{
 			$q->rows_limit($limit);
-			$q->rows_offset($total_page);
+			$q->rows_offset($total_page*$limit);
 			$arg['page'] = $total_page;
 		}
 		

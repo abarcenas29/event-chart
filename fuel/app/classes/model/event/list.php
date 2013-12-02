@@ -98,13 +98,13 @@ class Model_Event_list extends Model_ModelCore
 		
 		if($arg['page'] <= $total_page)
 		{
-			$q->limit($limit);
-			$q->offset(abs($arg['page']));
+			$q->rows_limit($limit);
+			$q->rows_offset(abs($arg['page'])*$limit);
 		}
 		else
 		{
-			$q->limit($limit);
-			$q->offset($total_page);
+			$q->rows_limit($limit);
+			$q->rows_offset($total_page*$limit);
 			$arg['page'] = $total_page;
 		}
 		
