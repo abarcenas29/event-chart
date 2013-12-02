@@ -8,14 +8,15 @@
 				uk-width-medium-1-1
 				uk-container-center
 				uk-margin-top" style="position:relative;min-height:20em;">
-<div class="uk-panel uk-panel-box uk-panel-box-primary" style="min-height:19em;">
+<div class="uk-panel uk-panel-box uk-panel-box-primary">
 <div class="uk-panel-badge uk-badge uk-badge-danger">
 	Events Happening Right Now
 </div>
+<div id="ec-chart-canvas-now" style="min-height:19em;position:relative;">
 <ul id="ec-charts-now">
 
 <?php foreach($now as $row): ?>
-<li class="ec-events">
+<li class="ec-events" style="width:214px;height:248px;">
 <a href="#ec-chart-modal"
    class="ec-chart-modal-link"
    data-title="<?php print $row['title']; ?>"
@@ -38,6 +39,7 @@
 
 </ul>
 </div>
+</div>
 </section>
 <?php endif; ?>
 
@@ -45,15 +47,13 @@
 <section class="uk-width-large-9-10
 				uk-width-medium-1-1
 				uk-container-center
-				uk-margin-top"
-		id="ec-chart-canvas"
-		style="position:relative;">
+				uk-margin-top">
 
-<div>
+<div id="ec-chart-canvas" style="position:relative;">
 <ul id="ec-charts">
 
 <?php foreach($c as $row): ?>
-<li class="ec-events">
+<li class="ec-events" style="width:214px;height:248px;">
 <a href="#ec-chart-modal"
    class="ec-chart-modal-link"
    data-title="<?php print $row['title']; ?>"
@@ -218,7 +218,7 @@ $(document).ready(function(){
 			autoResize: true,
 			offset:30,
 			outerOffset:20,
-			container:$('#ec-chart-canvas'),
+			container:$('#ec-chart-canvas-now')
 		};
 		$('#ec-charts-now li').wookmark(opt);
 	});
