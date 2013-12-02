@@ -10,7 +10,8 @@ return array(
 							 'Japan Culture',
 							 'Japan Pop-Culture',
 							 'Korean Culture',
-							 'Korean Pop-Culture'),
+							 'Korean Pop-Culture',
+							 'Charity'),
 	'guest_type'	=> array(
 						'cosplayer',
 						'manga artist',
