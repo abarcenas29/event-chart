@@ -72,3 +72,8 @@ body #ec-main-footer .ec-footer-detail .ec-network ul li:nth-child(n+2) {
   font-family: 'Oswald', sans-serif;
   padding: 0.5em;
 }
+@media (max-width: 768px) {
+  #ec-main-footer {
+    height: 100%;
+  }
+}

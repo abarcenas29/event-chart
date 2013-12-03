@@ -55,15 +55,20 @@
 <nav class="uk-navbar" id="ec-chart-nav">
 <div class="uk-navbar-flip">
 	<ul class="uk-navbar-nav">
-	<li><a href="<?php print Uri::create('chart/archive') ?>">
+	<li class="uk-hidden-small"><a href="<?php print Uri::create('chart/archive') ?>">
 		<i class="uk-icon-archive"></i>
 			Archive</a></li>
-	<li><a href="#">
+	<li class="uk-hidden-small"><a href="#">
 		<i class="uk-icon-info-sign"></i>
 			About</a></li>
-	<li><a href="#ec-contact-modal" data-uk-modal>
+	<li class="uk-hidden-small"><a href="#ec-contact-modal" data-uk-modal>
 		<i class="uk-icon-phone"></i>
 			Contact</a></li>
+	<li class="uk-visible-small">
+		<a href="#ec-off-canvas" data-uk-offcanvas>
+			<i class="uk-icon-reorder"></i>
+		</a>
+	</li>
 	</ul>
 </div>
 </nav>
@@ -72,7 +77,36 @@
 <?php print $content; ?>
 </div>
 </div>
+<!-- Off-canvas Menu -->
+<article id="ec-off-canvas" class="uk-offcanvas">
+<div class="uk-offcanvas-bar">
+<ul class="uk-nav uk-nav-offcanvas">
+	<li class="uk-nav-header">Main Menu</li>
 	
+	<li>
+	<a href="<?php print Uri::create('chart/archive') ?>">
+		<i class="uk-icon-archive"></i>
+		Archive
+	</a>
+	</li>
+	
+	<li>
+	<a href="#">
+		<i class="uk-icon-info-sign"></i>
+		About
+	</a>
+	</li>
+	
+	<li>
+	<a href="#ec-contact-modal" data-uk-modal>
+		<i class="uk-icon-archive"></i>
+		Contact
+	</a>
+	</li>
+</ul>
+</div>
+</article>
+
 <!-- Contact Modal -->
 <article id="ec-contact-modal" class="uk-modal">
 <div class="uk-modal-dialog uk-modal-dialog-slide">
@@ -104,8 +138,8 @@ the contact information provided.
 <div class="ec-contact-info 
 			uk-margin-top">
 <p>Jay Paul Agonoy</p>
-<p>Editor (Beyond Objective)</p>
-<p><i class="uk-icon-envelope"></i> tcmanila@gmail.com</p>
+<p>Event Relations (Beyond Objective)</p>
+<p><i class="uk-icon-envelope"></i> events@deremoe.com</p>
 </div>
 	
 </div>

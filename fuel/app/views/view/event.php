@@ -182,7 +182,8 @@
 <div class="uk-width-1-1 uk-margin-top">
 <section class="uk-grid">
 	
-<div class="uk-width-1-2">
+<div class="uk-width-large-1-2
+			uk-width-medium-1-1">
 	<article class="uk-panel ec-view-content ec-margin">
 	<header class="uk-panel-header">
 		<h2 class="uk-panel-title">Ticket Prices</h2>
@@ -201,7 +202,8 @@
 	</article>
 </div>
 	
-	<div class="uk-width-1-2">
+	<div class="uk-width-large-1-2
+				uk-width-medium-1-1">
 	<article class="uk-panel ec-view-content ec-margin">
 	<header class="uk-panel-header">
 		<h2 class="uk-panel-title">Guests</h2>

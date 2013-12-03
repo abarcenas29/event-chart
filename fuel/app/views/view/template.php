@@ -51,7 +51,8 @@
    class="uk-navbar-brand">
 <span>Events</span> Chart
 </a>
-<ul class="uk-navbar-nav">
+<ul class="uk-navbar-nav 
+		   uk-hidden-small">
 <li>
 	<a href="http://deremoe.com" 
 	   target="_new">Deremoe</a>
@@ -122,7 +123,9 @@
 			uk-width-1-1">
 <div class="uk-grid">
 	
-<div class="uk-width-1-2 ec-network">
+<div class="uk-width-large-1-2 
+			uk-width-medium-1-1
+			ec-network">
 	<h2 class="uk-margin-remove">
 		Beyond Objective
 	</h2>
@@ -132,7 +135,8 @@
 			Deremoe
 		</a>
 	</li>
-	<li><a href="http://techrant.beyondobjective.com"
+	<li style="width:50%;">
+		<a href="http://techrant.beyondobjective.com"
 		   target="_new">
 			Tech Rant
 		</a>
@@ -148,7 +152,8 @@
 			AnimePH Project
 		</a>
 	</li>
-	<li><a href="https://www.facebook.com/OtakuEvent/events"
+	<li style="width:50%;">
+		<a href="https://www.facebook.com/OtakuEvent/events"
 		   target="_new">
 			Otaku Events
 		</a>
@@ -156,7 +161,10 @@
 	</ul>
 </div>
 	
-<div class="uk-width-1-2 uk-margin-bottom">
+<div class="uk-width-large-1-2 
+			uk-width-medium-1-1
+			uk-margin-top
+			uk-margin-bottom">
 	<h2>Social</h2>
 	<div class="uk-width-1-1">
 	<a href="http://twitter.com/team_deremoe"
