@@ -103,7 +103,7 @@
 </div>
 </section>
 <script>
-var city = "<?php $q['region']; ?>";
+var city = "<?php print $q['region']; ?>";
 $(document).ready(function(){
 	$('select[name="city"]').children('option[value="'+ city +'"]').attr('selected','');
 });
