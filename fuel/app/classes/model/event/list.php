@@ -245,7 +245,12 @@ class Model_Event_list extends Model_ModelCore
 		Model_Event_Hashtag::remove_hashtag_by_event($event_id);
 		//Remove picture
 		$photo = $q->get_one();
-		Model_Photo::delete_picture($photo['photo_id']);
+		
+		if(!is_null($photo['photo_id']))
+		{
+			Model_Photo::delete_picture($photo['photo_id']);
+		}
+		
 		Fuel\Core\DB::commit_transaction();
 		$q->delete();
 	}
