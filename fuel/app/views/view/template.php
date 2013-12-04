@@ -11,7 +11,8 @@
 <title><?php print $title; ?> - Deremoe Events Chart</title>
 
 <meta name="description" 
-	  content="<?php print $desc; ?>">
+	  content="Events Chart is a Deremoe service that aims to gather all the events in the country. 
+			   We serve to deliver all events, so that You can have more choices.">
 <meta name="author" 
 	  content="<?php print $org;?>">
 <meta name="keywords" 
@@ -26,7 +27,8 @@
 <meta property="og:site_name" 
 	  content="Event Charts Deremoe - <?php print $title; ?>"/>
 <meta property="og:description" 
-	  content="<?php print $desc; ?>"/>
+	  content="Events Chart is a Deremoe service that aims to gather all the events in the country. 
+			   We serve to deliver all events, so that You can have more choices."/>
 
 
 <link rel="shortcut icon" 

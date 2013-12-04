@@ -129,6 +129,7 @@ class Controller_Admin_Dashboard extends Controller_Admin_AdminCore
 		$venue				= $this->_em('venue');
 		$venue->regions		= Model_region::region_index();
 		$venue->venue_action= Uri::create('api/admin/event/venue.json');
+		$venue->cities		= Model_city::read_area();
 		$venue->q			= $q;
 		$view->venue_edit	= $venue;
 		

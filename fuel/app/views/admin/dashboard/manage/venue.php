@@ -42,6 +42,20 @@
 	<legend>Venue Location</legend>
 <div class="uk-form-row">
 	<label class="uk-form-label">
+		City
+	</label>
+	<div class="uk-form-controls">
+	<select name="city">
+	<?php foreach($cities as $city): ?>
+		<option value="<?php print $city['major_area'] ?>">
+		<?php print $city['major_area']; ?>
+		</option>
+	<?php endforeach; ?>
+	</select>
+	</div>
+</div>
+<div class="uk-form-row">
+	<label class="uk-form-label">
 		Location
 	</label>
 	<div class="uk-form-controls">

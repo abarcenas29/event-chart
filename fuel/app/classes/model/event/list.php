@@ -8,6 +8,7 @@ class Model_Event_list extends Model_ModelCore
 		'name',
 		'description',
 		'email',
+		'region',
 		'venue',
 		'main_org',
 		'lat',
@@ -186,6 +187,7 @@ class Model_Event_list extends Model_ModelCore
 			$s->lat		= $arg['lat'];
 			$s->long	= $arg['long'];
 			$s->venue	= $arg['venue'];
+			$s->region	= $arg['city'];
 			$s->save();
 			$response['success'] = true;
 			$response['response']= 'Venue set';

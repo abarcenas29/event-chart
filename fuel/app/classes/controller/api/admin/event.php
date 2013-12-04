@@ -24,7 +24,8 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 		$arg['lat']		= Input::post('lat');
 		$arg['long']	= Input::post('long');
 		$arg['venue']	= Input::post('venue');
-		$arg['event_id']= Fuel\Core\Session::get('event_id');
+		$arg['city']	= Input::post('city');
+		$arg['event_id']= Session::get('event_id');
 		$response		= Model_Event_list::write_venue($arg);
 		return $this->response($response);
 	}
