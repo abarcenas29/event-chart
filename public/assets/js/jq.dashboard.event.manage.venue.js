@@ -25,7 +25,6 @@ function mapLoad()
 	});
 	
 	$('#ec-venue-search').on('click','.ec-coordinate',function(){
-		console.log('fire');
 		map.panTo([$(this).data('lat'),$(this).data('long')],{zoom:14});
 	});
 }
