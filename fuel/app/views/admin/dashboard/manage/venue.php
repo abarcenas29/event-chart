@@ -102,3 +102,9 @@
 
 </div>
 </section>
+<script>
+var city = "<?php $q['region']; ?>";
+$(document).ready(function(){
+	$('select[name="city"]').children('option[value="'+ city +'"]').attr('selected','');
+});
+</script>

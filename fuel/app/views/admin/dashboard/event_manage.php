@@ -107,7 +107,6 @@ var $ecHashTable  = $('#ec-hashtag-table');
 jQuery.event.props.push('dataTransfer');
 $(document).ready(function(){
 	$response.hide();
-	$('select[name="main_org"]').children('option[value="'+ mainOrg +'"]').attr('selected','');
 });
 </script>
 <?php print Asset::js('jq.dashboard.event.manage.venue.js'); ?>

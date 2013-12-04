@@ -153,7 +153,7 @@
 </section>
 <script>
 $(document).ready(function(){
-	
+	$('select[name="main_org"]').children('option[value="'+ mainOrg +'"]').attr('selected','');
 	$('#ec-description').hallo(
 	{
 		plugins: {
