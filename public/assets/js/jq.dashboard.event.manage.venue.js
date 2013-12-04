@@ -24,9 +24,9 @@ function mapLoad()
 		layer = L.layerGroup(marker).addTo(map);        
 	});
 	
-	$('.ec-coordinate').click(function()
-	{
-			map.panTo([$(this).data('lat'),$(this).data('long')],{zoom:14});
+	$('#ec-venue-search').on('click','.ec-coordinate',function(){
+		console.log('fire');
+		map.panTo([$(this).data('lat'),$(this).data('long')],{zoom:14});
 	});
 }
 
@@ -34,7 +34,19 @@ $(document).ready(function(){
 	$('#ec-venue').click(function(){
 		setTimeout(mapLoad,1000);
 	});
-	 $('#ec-form-venue').ajaxForm({
+	
+	$('#ec-form-search-venue').ajaxForm({
+		beforeSubmit:function()
+		{
+			$venueLoader.show();
+		},
+		success:function(d)
+		{
+			$venueLoader.hide();
+			$('#ec-venue-search').html(d);
+		}
+	});
+	$('#ec-form-venue').ajaxForm({
 		beforeSubmit:function()
 		{
 			$('.ec-submit').attr('disabled','');

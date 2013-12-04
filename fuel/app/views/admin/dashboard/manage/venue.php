@@ -9,30 +9,9 @@
 <div id="ec-map-cont">
 <div id="ec-map" class="uk-width-1-1" style="height:400px"></div>        
 
-<div id="ec-region">
-<div data-uk-dropdown="{mode:'click'}">
-        <button class="uk-button">
-                Regions <i class="uk-icon-caret-down"></i>
-        </button>
-        <div class="uk-dropdown">
-        <ul class="uk-nav uk-nav-dropdown">
-        <?php foreach($regions as $r): ?>
-        <li>
-                <a href="#"
-                   class="ec-coordinate"
-                   data-lat="<?php print $r['lat'] ?>"
-                   data-long="<?php print $r['long'] ?>">
-                        <?php print $r['location']; ?>
-                </a>
-        </li>
-        <?php endforeach; ?>
-        </ul>
-        </div>
 </div>
-</div>
-</div>
-</section>	
-
+</section>
+		
 <section class="uk-width-1-2">
 <form 
 	action="<?php print $venue_action; ?>"
@@ -99,11 +78,39 @@
 	
 </form>
 </section>
-
+	
+<section class="uk-width-1-2">
+<form 
+	action="<?php print Uri::create('ajax/admin/event/search_venue'); ?>"
+	method="POST"
+	id="ec-form-search-venue"
+	class="uk-form uk-form-horizontal">
+	<legend>
+	<i class="uk-icon-map-marker"></i>
+		Serach Venue
+	</legend>
+	<div class="uk-form-row">
+	<input type="text" name="search" class="uk-width-9-10"/>
+	<button type="submit" 
+			class="uk-button uk-button-primary uk-float-right">
+		<i class="uk-icon-search"></i>
+	</button>
+	</div>
+</form>
+<ul id="ec-venue-search"
+	class="uk-list uk-list-line">
+</ul>
+<div id="ec-venue-loader" style="display:none;">
+	Searching venue ...
+	<i class="uk-icon-spin uk-icon-spinner"></i>
+</div>
+</section>
+	
 </div>
 </section>
 <script>
 var city = "<?php print $q['region']; ?>";
+var $venueLoader = $('#ec-venue-loader');
 $(document).ready(function(){
 	$('select[name="city"]').children('option[value="'+ city +'"]').attr('selected','');
 });

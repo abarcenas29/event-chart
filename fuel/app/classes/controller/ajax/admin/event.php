@@ -53,5 +53,15 @@ class Controller_Ajax_Admin_Event extends Controller_Ajax_PrivateCore
 		$view->args = $arg;
 		return $view;
 	}
+	
+	public function post_search_venue()
+	{
+		$arg = array();
+		$arg['search'] = Input::post('search');
+		
+		$view = View::forge('admin/dashboard/ajax/venue-list');
+		$view->venues = Model_region::search_venue($arg);
+		return $view;
+	}
 }
 
