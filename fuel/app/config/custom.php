@@ -11,7 +11,7 @@ return array(
 							 'Japan Pop-Culture',
 							 'Korean Culture',
 							 'Korean Pop-Culture',
-							 'Gamning',
+							 'Gaming',
 							 'Charity'),
 	'guest_type'	=> array(
 						'cosplayer',
