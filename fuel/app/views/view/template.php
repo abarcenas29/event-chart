@@ -66,7 +66,7 @@
 </ul>
 	
 <div class="uk-navbar-flip">
-<ul class="uk-navbar-nav">
+<ul class="uk-navbar-nav" id="ec-event-bar">
 	<li>
 	<a href="#ec-view-offcanvas"
 	   data-uk-offcanvas>
@@ -196,6 +196,18 @@
 </section>
 </footer>
 <script>
+$(document).ready(function(){
+	var urlListed	= window.location.pathname;
+	var split		= urlListed.replace('http://','').split('/');
+	
+	console.log(split[1]);
+	if(split[1] === 'view')
+	{
+		var urlSocial = $('#ec-event-social').attr('href');
+		$('#ec-event-bar')
+				.prepend('<li><a href="'+ urlSocial +'" title="social"><i class="uk-icon-camera-retro"></i></li>');
+	}
+});
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

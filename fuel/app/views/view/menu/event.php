@@ -1,7 +1,8 @@
 <ul class="uk-nav uk-nav-offcanvas">
 	<li class="uk-nav-header">Event Menu</li>
 	<li>
-	<a href="<?php print Uri::create('view/social/'.$id); ?>">
+	<a href="<?php print Uri::create('view/social/'.$id); ?>" 
+	   id="ec-event-social">
 		<i class="uk-icon-camera-retro"></i>
 		Social Media
 	</a>

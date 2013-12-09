@@ -58,7 +58,7 @@
 	<li class="uk-hidden-small"><a href="<?php print Uri::create('chart/archive') ?>">
 		<i class="uk-icon-archive"></i>
 			Archive</a></li>
-	<li class="uk-hidden-small"><a href="#">
+	<li class="uk-hidden-small"><a href="http://deremoe.com/?page_id=17583" target="_new">
 		<i class="uk-icon-info-sign"></i>
 			About</a></li>
 	<li class="uk-hidden-small"><a href="#ec-contact-modal" data-uk-modal>
