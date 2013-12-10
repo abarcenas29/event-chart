@@ -41,7 +41,9 @@
 		</div>
 		<div class="uk-width-1-1 uk-text-center uk-visible-large">
 			<div class="uk-thumbnail">
+			<?php if(isset($qr->image_url)): ?>
 			<img src="<?php print $qr->image_url ?>"/>
+			<?php endif; ?>
 			</div>
 		</div>
 		<div class="uk-width-1-1 uk-margin-top uk-text-center">

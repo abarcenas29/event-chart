@@ -18,6 +18,7 @@ class Controller_View extends Controller_AppCore
 		
 		Session::set('callback_url',$url);
 		
+		
 		$view			= $this->_vg('event');
 		$view->set_safe('q',Model_Event_list::read_public_list($event_id)); 
 		$view->qr		= $rsp->body;
