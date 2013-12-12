@@ -87,7 +87,7 @@
 	class="uk-form uk-form-horizontal">
 	<legend>
 	<i class="uk-icon-map-marker"></i>
-		Serach Venue
+		Search Venue
 	</legend>
 	<div class="uk-form-row">
 	<input type="text" name="search" class="uk-width-9-10"/>
