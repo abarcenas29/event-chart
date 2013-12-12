@@ -16,9 +16,13 @@ return array(
 	'guest_type'	=> array(
 						'cosplayer',
 						'manga artist',
+						'illustrators',
+						'director',
+						'voice talent',
+						'dance group',
 						'idol',
 						'singer artist',
-						'band artists'
+						'band artist'
 						),
 	'twitter'		=> array(
 		'oauth_access_token'			=> '1196190907-ckbQWjGHEZS5QqetN93G3RhkP5hLXBoGfLOSJfi',
