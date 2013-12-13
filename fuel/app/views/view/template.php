@@ -200,7 +200,7 @@ $(document).ready(function(){
 	var urlListed	= window.location.pathname;
 	var split		= urlListed.replace('http://','').split('/');
 	
-	if(split[1] === 'view')
+	if(split[2] === 'event')
 	{
 		var urlSocial = $('#ec-event-social').attr('href');
 		$('#ec-event-bar')

@@ -150,7 +150,11 @@ the contact information provided.
 <footer id="ec-main-footer" 
 		class="uk-width-1-1 uk-text-center uk-margin-bottom">
 	<section class="uk-width-7-10 uk-container-center">
-		&copy; <?php print date('Y'); ?> | 
+		&copy; <?php print date('Y'); ?> 
+		(<a href="http://www.iubenda.com/privacy-policy/215152"
+			target="_new"
+			class="iubenda-white iubenda-embed" 
+			title="Privacy Policy">Privacy Policy</a>) | 
 		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service in partnership of
 		<a href="http://animephproject.wordpress.com" target="_new">AnimePH Project</a> and
 		<a href="https://www.facebook.com/OtakuEvent/events" target="_new">Otaku Events</a>.
@@ -168,6 +172,27 @@ the contact information provided.
   ga('create', 'UA-45950930-1', 'deremoe.com');
   ga('send', 'pageview');
 
+(function (w,d) 
+{
+	var loader	= function (){
+		var s		= d.createElement("script"), 
+			tag		= d.getElementsByTagName("script")[0]; 
+			s.src	= "http://cdn.iubenda.com/iubenda.js"; 
+			tag.parentNode.insertBefore(s,tag);
+	}; 
+	if(w.addEventListener)
+	{
+		w.addEventListener("load", loader, false);
+	}
+	else if(w.attachEvent)
+	{
+		w.attachEvent("onload", loader);
+	}
+	else
+	{
+		w.onload = loader;
+	}
+})(window, document);
 </script>
 </body>
 </html>
