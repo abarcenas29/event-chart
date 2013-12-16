@@ -5,7 +5,7 @@
 		 style="position:relative;"
 		 id="ec-twitter-canvas">
 <ul id="ec-twitter" style="padding:0;margin:0;">
-<?php foreach($rsp as $row): ?>
+<?php foreach(array_reverse($rsp) as $row): ?>
 <li style="list-style-type:none;">
 	<article class="uk-panel uk-panel-box uk-panel-box-primary">
 	<header class="uk-panel-title">
@@ -15,7 +15,7 @@
 	</div>
 	<div class="uk-width-7-10 uk-vertical-align" style="height:73px;">
 		<p class="uk-vertical-align-middle">
-		<?php print $row['username'] ?>
+			<?php print $row['username'] ?>
 		</p>
 	</div>
 	</div>

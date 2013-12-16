@@ -155,7 +155,7 @@ the contact information provided.
 			target="_new"
 			class="iubenda-white iubenda-embed" 
 			title="Privacy Policy">Privacy Policy</a>) | 
-		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service in partnership of
+		A <a href="http://deremoe.com" target="_new">Deremoe</a> Service in partnership with
 		<a href="http://animephproject.wordpress.com" target="_new">AnimePH Project</a> and
 		<a href="https://www.facebook.com/OtakuEvent/events" target="_new">Otaku Events</a>.
 		This service will take every effort to keep this information accurate 

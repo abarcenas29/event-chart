@@ -50,7 +50,7 @@ class Model_chart extends Model
 				->related('photo')
 				->where('status','=','live')
 				->where('end_at','<',date('Y-m-d'))
-				->order_by('start_at','asc')
+				->order_by('start_at','desc')
 				->get();
 		return Model_chart::_prepare_chart($q);
 	}
