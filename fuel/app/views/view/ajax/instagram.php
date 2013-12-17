@@ -1,4 +1,4 @@
-<section class="uk-width-1-1 uk-margin-top uk-text-center"
+w<section class="uk-width-1-1 uk-margin-top uk-text-center"
 		 id="ec-instagram-canvas">
 <?php if($rsp !== false): ?>
 <?php foreach($rsp as $photos):?>
