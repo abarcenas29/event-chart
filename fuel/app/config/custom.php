@@ -23,7 +23,8 @@ return array(
 						'dance group',
 						'idol',
 						'singer artist',
-						'band artist'
+						'band artist',
+						'celebrity'
 						),
 	'twitter'		=> array(
 		'oauth_access_token'			=> '1196190907-ckbQWjGHEZS5QqetN93G3RhkP5hLXBoGfLOSJfi',
