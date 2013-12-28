@@ -66,7 +66,6 @@ class Model_Event_Instagram extends Model_ModelCore
 					$url = "https://api.instagram.com/v1/tags/$hashtag/media/recent?client_id=bf41a820d25e43708b1755b15f818443";
 				}
                                 
-                                \Log::info('URL for Instagram:'.$url);
 				$rsp		= \unirest\unirest::get($url);
 
 				if(!isset($rsp->body->pagination->next_max_tag_id))
