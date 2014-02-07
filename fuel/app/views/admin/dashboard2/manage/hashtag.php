@@ -79,7 +79,7 @@ $(document).ready(function()
                     $resultHashtag.prepend(d);
 		}
 	});
-	$result.on('click','.ec-delete-hashtag',function()
+	$resultHashtag.on('click','.ec-delete-hashtag',function()
 	{
 		$container = $(this);
 		$container.parent().parent().remove();

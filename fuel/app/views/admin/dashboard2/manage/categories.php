@@ -82,7 +82,7 @@ $(document).ready(function()
                     $resultCategory.prepend(d);
 		}
 	});
-	$result.on('click','.ec-delete-categories',function()
+	$resultCategory.on('click','.ec-delete-categories',function()
 	{
 		$container = $(this);
 		$container.parent().parent().remove();

@@ -82,7 +82,7 @@ $(document).ready(function()
                     $resultOrg.prepend(d);
 		}
 	});
-	$result.on('click','.ec-delete-org',function()
+	$resultOrg.on('click','.ec-delete-org',function()
 	{
 		$container = $(this);
 		$container.parent().parent().remove();

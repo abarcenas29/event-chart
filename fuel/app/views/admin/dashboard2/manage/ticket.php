@@ -69,7 +69,7 @@ Ticket Information
 </table>
 </div>
 
-</section>
+</section>  
 </div>
 </article>
 <script>
@@ -88,7 +88,7 @@ $(document).ready(function()
                     $resultTicket.prepend(d);
 		}
 	});
-	$result.on('click','.ec-delete-ticket',function()
+	$resultTicket.on('click','.ec-delete-ticket',function()
 	{
 		$container = $(this);
 		$container.parent().parent().remove();

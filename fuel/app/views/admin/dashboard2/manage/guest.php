@@ -91,7 +91,7 @@ $(document).ready(function()
                     $resultGuest.prepend(d);
 		}
 	});
-	$result.on('click','.ec-delete-guest',function()
+	$resultGuest.on('click','.ec-delete-guest',function()
 	{
 		$container = $(this);
 		$container.parent().parent().remove();
