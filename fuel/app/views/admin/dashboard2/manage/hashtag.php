@@ -71,11 +71,9 @@ $(document).ready(function()
 	$('#ec-form-hashtag').ajaxForm({
 		beforeSubmit:function()
 		{
-                    $.UIkit.notify('Crunching Hashtag ...',{status:'info'});
                 },
 		success:function(d)
 		{
-                    $.UIkit.notify('Hashtag Added. Refresh Page to See change ...',{status:'success'});
                     $resultHashtag.prepend(d);
 		}
 	});

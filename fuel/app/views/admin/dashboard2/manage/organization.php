@@ -73,12 +73,9 @@ $(document).ready(function()
 {
 	$('#ec-form-organization').ajaxForm({
 		beforeSubmit:function()
-		{
-                    $.UIkit.notify('Crunching Sub-Org ...',{status:'info'});
-                },
+		{},
 		success:function(d)
 		{
-                    $.UIkit.notify('Sub-Org Added. Refresh Page to See change ...',{status:'success'});
                     $resultOrg.prepend(d);
 		}
 	});

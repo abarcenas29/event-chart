@@ -57,8 +57,8 @@ Ticket Information
 	<td><?php print $row['note']; ?></td>
 	<td><a href="#" 
 		   class="uk-button 
-				  uk-button-danger
-				  ec-delete-ticket"
+                          uk-button-danger
+                          ec-delete-ticket"
 		   data-ticket-id="<?php print $row['id']; ?>">
 		<i class="uk-icon-minus-circle"></i>
 		</a>
@@ -79,18 +79,16 @@ $(document).ready(function()
 {
 	$('#ec-form-ticket').ajaxForm({
 		beforeSubmit:function()
-		{
-                    $.UIkit.notify('Crunching Ticket Price ...',{status:'info'});
-                },
+		{},
 		success:function(d)
 		{
-                    $.UIkit.notify('Ticket Price Added. Refresh Page to See change ...',{status:'success'});
                     $resultTicket.prepend(d);
 		}
 	});
 	$resultTicket.on('click','.ec-delete-ticket',function()
 	{
-		$container = $(this);
+		console.log(urlDeleteTicket);
+                $container = $(this);
 		$container.parent().parent().remove();
 		$.post(urlDeleteTicket,
 			  {ticketid:$(this).data('ticket-id')},

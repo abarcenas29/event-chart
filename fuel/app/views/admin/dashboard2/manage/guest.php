@@ -82,12 +82,9 @@ $(document).ready(function()
 {
 	$('#ec-form-guest').ajaxForm({
 		beforeSubmit:function()
-		{
-                    $.UIkit.notify('Crunching Guest ...',{status:'info'});
-                },
+		{},
 		success:function(d)
 		{
-                    $.UIkit.notify('Guest Added. Refresh Page to See change ...',{status:'success'});
                     $resultGuest.prepend(d);
 		}
 	});

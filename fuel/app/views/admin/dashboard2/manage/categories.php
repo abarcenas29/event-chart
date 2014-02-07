@@ -73,12 +73,9 @@ $(document).ready(function()
 {
 	$('#ec-form-category').ajaxForm({
 		beforeSubmit:function()
-		{
-                    $.UIkit.notify('Crunching Category ...',{status:'info'});
-                },
+		{},
 		success:function(d)
 		{
-                    $.UIkit.notify('Category Added. Refresh Page to See change ...',{status:'success'});
                     $resultCategory.prepend(d);
 		}
 	});
