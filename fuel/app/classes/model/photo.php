@@ -88,6 +88,12 @@ class Model_Photo extends Model_ModelCore
 		{
 			$arg['rand_name']  = substr_replace(sha1(microtime(true)),'',25);
 			$arg['org_file']   = $arg['upload_dir'].date('Y-m-d').'/'.$arg['rand_name'].'.'.$arg['mime'];
+			
+			try
+			{
+				\Fuel\Core\File::create_dir($arg['upload_dir'],date('Y-m-d'));
+			}catch(Exception $e){}
+			
 			if($arg['mime'] == 'jpeg' || $arg['mime'] == 'jpg')
 			{
 				$img = imagecreatefromjpeg($arg['url']);
