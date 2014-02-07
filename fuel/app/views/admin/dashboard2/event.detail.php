@@ -65,7 +65,7 @@
 	<div class="uk-form-row">
 	<label class="uk-form-label">Organizers</label>
 	<div class="uk-form-controls">
-		<select name="main_org">
+		<select name="main_org" style="width:59%;">
 		<?php foreach($orgs as $row):  ?>
 			<option value="<?php print $row['id'] ?>">
 			<?php print $row['name']; ?>
