@@ -40,7 +40,9 @@
 <div class="uk-navbar-content">
 	<form class="uk-search" 
 		  data-uk-search="{source:'<?php print Uri::create('api/admin/search/event.json'); ?>'}">
-	<input class="uk-search-field" type="search" placeholder="">
+	<input class="uk-search-field" 
+		   type="search" 
+		   placeholder="Search">
     <button class="uk-search-close" type="reset"></button>
 	</form>
 </div>
