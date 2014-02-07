@@ -200,7 +200,7 @@ function pushObject(name,value)
 }
 var $logo	 = $('#ec-org-logo');
 var orgLogo  = "<?php print Uri::create('ajax/admin/gallery/org_logo'); ?>";
-var urlAdmin = "<?php print Uri::create('admin/dashboard2/org_index'); ?>";
+var urlManage = "<?php print Uri::create('admin/dashboard2/org_manage/'); ?>";
 var imgArray = [];
 
 $(document).ready(function(e)
@@ -251,7 +251,7 @@ $(document).ready(function(e)
 			if(d.success === true)
 			{
 				$.UIkit.notify('Organization added',{status:'success'});
-				setTimeout(function(){window.location = urlAdmin;},3000);
+				setTimeout(function(){window.location = urlManage;},3000);
 			}
 			else
 			{

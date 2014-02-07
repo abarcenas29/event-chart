@@ -16,7 +16,7 @@
 <?php foreach($q as $row): ?>
 	<div class="uk-width-large-1-3 uk-margin-top">
 	<div class="uk-panel uk-panel-box ec-event-card uk-panel-header">
-		<h1 class="uk-panel-title uk-text-truncate">
+		<h1 class="uk-panel-title uk-text-truncate" title="<?php print $row['name']; ?>">
 			<?php print $row['name']; ?>
 		</h1>
 	<div class="uk-width-1-1">
@@ -32,7 +32,8 @@
 		</div>
 		<div class="uk-width-large-2-3">
 			<i><?php print $row['start_at'].' - '.$row['end_at']; ?></i>
-			<p class="uk-margin-remove">
+			<p class="uk-margin-remove uk-text-truncate" 
+			   title="<?php print $row['organization']['name']; ?>">
 			<?php print $row['organization']['name']; ?>
 			</p>
 			
