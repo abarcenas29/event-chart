@@ -19,7 +19,6 @@
 <?php 
 	print Asset::css('uikit.min.css');
 	print Asset::css('fonts.css');
-	print Asset::css('admin.dashboard.event.css');
 	print Asset::css('fonts.css');
 	
 	print Asset::js('jquery-2.0.3.min.js');

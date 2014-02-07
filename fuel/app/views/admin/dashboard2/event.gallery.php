@@ -230,6 +230,7 @@ $(document).ready(function()
 		{
 			var id  = $('#ec-form-url').data('id');
 			var $id = $('#'+id);
+			console.log(id);
 			
 			if(id === 'ec-main-gallery')
 			{

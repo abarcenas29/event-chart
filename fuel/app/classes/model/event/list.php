@@ -284,6 +284,25 @@ class Model_Event_list extends Model_ModelCore
 		return $q->get_one();
 	}
 	
+	public static function search_event($arg)
+	{
+		$q = Model_Event_list::query()
+				->related('organization')
+				->where('name','like',$arg['search'].'%')
+				->get();
+		
+		$rsp = array();
+		$x	 = 0;
+		foreach($q as $row)
+		{
+			$rsp[$x]['title'] = '[Event] '. $row['name'];
+			$rsp[$x]['url']	  = Uri::create('admin/dashboard2/event_manage/'.$row['id']);
+			$rsp[$x]['text']  = $row['organization']['name'];
+			$x++;
+		}
+		return $rsp; 
+	}
+	
 	public static function delete_event($event_id)
 	{
 		$q = Model_Event_list::query()

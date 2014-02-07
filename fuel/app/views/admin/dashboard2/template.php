@@ -37,8 +37,14 @@
 	<?php print (isset($menu))?$menu:''; ?>
 </ul>
 <div class="uk-navbar-flip">
+<div class="uk-navbar-content">
+	<form class="uk-search" 
+		  data-uk-search="{source:'<?php print Uri::create('api/admin/search/event.json'); ?>'}">
+	<input class="uk-search-field" type="search" placeholder="">
+    <button class="uk-search-close" type="reset"></button>
+	</form>
+</div>
 <ul class="uk-navbar-nav">
-	
 	<!-- MANAGEMENT -->
 	<li class="uk-parent" data-uk-dropdown>
 	<a href="#">
@@ -108,6 +114,7 @@
 <!-- CONTENT -->
 <?php print (isset($content))?$content:''; ?>
 
+<!-- Change Password -->
 <article id="ec-change-password" 
 		 class="uk-modal">
 <div class="uk-modal-dialog">
