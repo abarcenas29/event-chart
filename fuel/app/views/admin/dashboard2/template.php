@@ -146,6 +146,7 @@
 	<div class="uk-form-row">
 	<div class="uk-float-right">
 		<button type="submit"
+				id="ec-change-password-btn"
 				data-url="<?php print Uri::create('api/admin/maintinance/change_password.json'); ?>"
 				class="uk-button
 					   uk-button-success">
@@ -160,7 +161,7 @@
 <script>
 $(document).ready(function(e)
 {
-	$('button[type="submit"]').click(function(e)
+	$('#ec-change-password-btn').click(function(e)
 	{
 		var url	= $(this).data('url');
 		var data = {
