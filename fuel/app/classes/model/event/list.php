@@ -133,7 +133,7 @@ class Model_Event_list extends Model_ModelCore
 		
 		if($nme->count() == 0)
 		{
-			$q			=	new Model_Event_list();
+			$q				= new Model_Event_list();
 			$q->name		= $arg['name'];
 			$q->email		= $arg['email'];
 			$q->main_org	= $arg['main_org'];
@@ -153,6 +153,7 @@ class Model_Event_list extends Model_ModelCore
 			$q->save();
 			$rsp['success'] = true;
 			$rsp['response']= 'Data Submitted';
+			$rsp['id']		= $q->id;
 		}
 		return $rsp;
 	}

@@ -23,7 +23,7 @@ $(document).ready(function()
 			if(d.success == true)
 			{
 				$.UIkit.notify(d.response,{status:'success'});
-				setTimeout(function(){window.location = urlDashboard},3000);
+				setTimeout(function(){window.location = urlManage + d.id},3000);
 			}
 			else
 			{

@@ -213,7 +213,7 @@
 	</div>
 	<div class="uk-form-row">
 	<div class="uk-width-1-1"
-		 style="border:1px solid #ddd;min-height:10em;padding:0.5em;"
+		 style="border:1px solid #ddd;max-height:10em;padding:0.5em;overflow-y:scroll"
 		 id="description">
 	<?php print (isset($desc))?$desc:''; ?>
 	</div>
@@ -280,8 +280,8 @@ var $inputLong = $('input[name="lng"]');
 var $inputLat  = $('input[name="lat"]');
 var $eventForm = $('#ec-event-detail-form');
 
-var urlDashboard = "<?php print Uri::create('admin/dashboard2/index'); ?>";
-var layer = null;
+var urlManage = "<?php print Uri::create('admin/dashboard2/event_manage/'); ?>";
+var layer	  = null;
 
 venueCoords.push($inputLat.val());
 venueCoords.push($inputLong.val());
