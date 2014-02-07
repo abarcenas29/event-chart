@@ -1,7 +1,7 @@
 <li>
 <a href="<?php print Uri::create('admin/dashboard2/event_manage/'.$q['id']); ?>">
 	<i class="uk-icon-edit"></i>
-	Add Event
+	Edit Event
 </a>
 </li>
 <li>
