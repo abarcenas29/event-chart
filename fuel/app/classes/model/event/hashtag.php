@@ -22,7 +22,7 @@ class Model_Event_Hashtag extends Model_ModelCore
 		$q->event_id	= $arg['event_id'];
 		$q->hashtag		= $arg['hashtag'];
 		$q->save();
-		return $q->id;
+		return $q;
 	}
 	
 	public static function delete_hashtag($arg)

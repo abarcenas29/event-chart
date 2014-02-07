@@ -28,7 +28,7 @@ class Model_Event_Ticket extends Model_ModelCore
 		$q->price	 = $arg['price'];
 		$q->note	 = $arg['note'];
 		$q->save();
-		return $q->id;
+		return $q;
 	}
 	
 	public static function delete_price($arg)

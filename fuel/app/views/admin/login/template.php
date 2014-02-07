@@ -1,5 +1,5 @@
 <!DOCtype html>
-<html class="uk-height-1-1">
+<html class="uk-height-1-1 uk-width-1-1">
 <head>
 <meta http-equiv="Content-Type" 
 	  content="text/html; charset=UTF-8"/>
@@ -17,16 +17,17 @@
 	  href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
 
 <?php 
-	print Fuel\Core\Asset::css('uikit.min.css');
-	print Fuel\Core\Asset::css('fonts.css');
-	print Fuel\Core\Asset::css('admin.dashboard.event.css');
+	print Asset::css('uikit.min.css');
+	print Asset::css('fonts.css');
+	print Asset::css('admin.dashboard.event.css');
+	print Asset::css('fonts.css');
 	
-	print Fuel\Core\Asset::js('jquery-2.0.3.min.js');
-	print Fuel\Core\Asset::js('uikit.min.js');
+	print Asset::js('jquery-2.0.3.min.js');
+	print Asset::js('uikit.min.js');
 ?>
 
 </head>
-<body class="uk-height-1-1">
+<body class="uk-height-1-1 uk-width-1-1">
 	<?php print $content; ?>
 </body>
 </html>

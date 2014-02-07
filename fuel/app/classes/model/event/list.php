@@ -5,6 +5,7 @@ class Model_Event_list extends Model_ModelCore
 	protected static $_properties = array(
 		'id',
 		'photo_id',
+		'cover_id',
 		'name',
 		'description',
 		'email',
@@ -31,6 +32,11 @@ class Model_Event_list extends Model_ModelCore
 		),
 		'photo' => array(
 			'key_from'	=> 'photo_id',
+			'key_to'	=> 'id',
+			'model_to'	=> 'Model_Photo'
+		),
+		'cover' => array(
+			'key_from'	=> 'cover_id',
 			'key_to'	=> 'id',
 			'model_to'	=> 'Model_Photo'
 		)
@@ -93,6 +99,8 @@ class Model_Event_list extends Model_ModelCore
 		$page   = $page - 1;
 		
 		$q			= Model_Event_list::query()
+						->related('organization')
+						->related('photo')
 						->order_by('start_at','desc');
 		$total_page = ceil($q->count()/$limit);
 		$arg['page']= ($page > $total_page)?$total_page:$page;
@@ -114,32 +122,37 @@ class Model_Event_list extends Model_ModelCore
 		return $arg;
 	}
 	
-	// DESCRIPTION: Register the event
 	public static function write_event($arg)
 	{
-		$arg = Model_Event_list::_reverse_date($arg);;
+		$arg = Model_Event_list::_reverse_date($arg);
+		$arg = Model_Event_list::_remove_http($arg);
 		$nme = Model_Event_list::_check_name($arg);
 		
 		$rsp['success'] = false;
-		$rsp['response']= 'Same Event Already Exsist in the system';
+		$rsp['response']= 'Same Event is Already Exsist in the System';
+		
 		if($nme->count() == 0)
 		{
-			$q				= new Model_Event_list();
-			$q->photo_id	= (!is_null($arg['file']))?Model_Photo::insert_picture($arg):null;
+			$q			=	new Model_Event_list();
 			$q->name		= $arg['name'];
-			$q->description = $arg['desc'];
 			$q->email		= $arg['email'];
 			$q->main_org	= $arg['main_org'];
 			$q->start_at	= $arg['start_at'];
 			$q->end_at		= $arg['end_at'];
+			$q->venue		= $arg['venue'];
+			$q->region		= $arg['city'];
+			$q->lat			= $arg['lat'];
+			$q->long		= $arg['lng'];
 			$q->facebook	= $arg['facebook'];
 			$q->twitter		= $arg['twitter'];
 			$q->website		= $arg['website'];
+			$q->description = $arg['desc'];
+			
 			$q->status		= 'Pending';
-			$q->created_by	= \Fuel\Core\Session::get('email');
+			$q->created_by	= Session::get('email');
 			$q->save();
 			$rsp['success'] = true;
-			$rsp['response']= 'Data submitted';
+			$rsp['response']= 'Data Submitted';
 		}
 		return $rsp;
 	}
@@ -151,48 +164,96 @@ class Model_Event_list extends Model_ModelCore
 					->get_one();
 		
 		$arg = Model_Event_list::_reverse_date($arg);
+		$arg = Model_Event_list::_remove_http($arg);
 	
-		if(!is_null($arg['file']))
-		{
-			$q->photo_id = Model_Photo::insert_picture($arg);
-		}
-
 		$q->name		= $arg['name'];
-		$q->description = $arg['desc'];
 		$q->email		= $arg['email'];
 		$q->main_org	= $arg['main_org'];
 		$q->start_at	= $arg['start_at'];
 		$q->end_at		= $arg['end_at'];
+		$q->venue		= $arg['venue'];
+		$q->region		= $arg['city'];
+		$q->lat			= $arg['lat'];
+		$q->long		= $arg['lng'];
 		$q->facebook	= $arg['facebook'];
 		$q->twitter		= $arg['twitter'];
 		$q->website		= $arg['website'];
-		$q->created_by	= \Fuel\Core\Session::get('email');
+		$q->description = $arg['desc'];
+		
 		$q->save();
 		$rsp['success'] = true;
-		$rsp['response']= 'Data submitted';
+		$rsp['response']= 'Data Edited';
 		
 		return $rsp;
 	}
 	
-	public static function write_venue($arg)
+	public static function insert_main_picture($arg)
 	{
 		$q = Model_Event_list::query()
-				->where('id','=',$arg['event_id']);
+				->where('id','=',$arg['event_id'])
+				->get_one();
 		
-		$response['success'] = false;
-		$response['response']= $q->count();
-		if($q->count() == 1)
-		{
-			$s			= $q->get_one();
-			$s->lat		= $arg['lat'];
-			$s->long	= $arg['long'];
-			$s->venue	= $arg['venue'];
-			$s->region	= $arg['city'];
-			$s->save();
-			$response['success'] = true;
-			$response['response']= 'Venue set';
-		}
-		return $response;
+		if(!is_null($q['photo_id']))
+			Model_Photo::delete_picture($q['photo_id']);
+		$q->photo_id = Model_Photo::insert_picture($arg);
+		$q->save();
+	}
+	
+	public static function insert_cover_picture($arg)
+	{
+		$q = Model_Event_list::query()
+				->where('id','=',$arg['event_id'])
+				->get_one();
+		
+		if(!is_null($q['cover_id']))
+			Model_Photo::delete_picture($q['cover_id']);
+		$q->cover_id = Model_Photo::insert_picture($arg);
+		$q->save();
+	}
+	
+	public static function insert_main_picture_url($arg)
+	{
+		$q = Model_Event_list::query()
+				->where('id','=',$arg['event_id'])
+				->get_one();
+		if(!is_null($q['photo_id']))
+			Model_Photo::delete_picture($q['photo_id']);
+		$q->photo_id = Model_Photo::insert_picture_url($arg);
+		$q->save();
+	}
+	
+	public static function insert_cover_picture_url($arg)
+	{
+		$q = Model_Event_list::query()
+				->where('id','=',$arg['event_id'])
+				->get_one();
+		if(!is_null($q['cover_id']))
+			Model_Photo::delete_picture($q['cover_id']);
+		$q->cover_id = Model_Photo::insert_picture_url($arg);
+		$q->save();
+	}
+	
+	public static function delete_main_picture($arg)
+	{
+		$q = Model_Event_list::query()
+				->where('id','=',$arg['event_id'])
+				->get_one();
+		if(!is_null($q['photo_id']))
+			Model_Photo::delete_picture ($q['photo_id']);
+		$q->photo_id = null;
+		$q->save();
+	}
+	
+	public static function delete_cover_picture($arg)
+	{
+		$q = Model_Event_list::query()
+				->where('id','=',$arg['event_id'])
+				->get_one();
+		
+		if(!is_null($q['cover_id']))
+			Model_Photo::delete_picture($q['cover_id']);
+		$q->cover_id = null;
+		$q->save();
 	}
 	
 	public static function toggle_visibility($arg)
@@ -208,7 +269,7 @@ class Model_Event_list extends Model_ModelCore
 	{
 		$q = Model_Event_list::query()
 				->related('photo')
-				->where('id','=',Fuel\Core\Session::get('event_id'));
+				->where('id','=',Session::get('event_id'));
 		return $q->get_one();
 	}
 	
@@ -273,6 +334,14 @@ class Model_Event_list extends Model_ModelCore
 			$arg['start_at']	= $arg['end_at'];
 			$arg['end_at']		= $temp;
 		}
+		return $arg;
+	}
+	
+	private static function _remove_http($arg)
+	{
+		$arg['website'] = str_replace('http://','',$arg['website']);
+		$arg['facebook'] = str_replace('http://','',$arg['facebook']);
+		$arg['twitter'] = str_replace('http://','',$arg['twitter']);
 		return $arg;
 	}
 }

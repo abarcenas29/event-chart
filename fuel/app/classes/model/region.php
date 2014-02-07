@@ -15,13 +15,17 @@ class Model_region extends Model
 		{
 			foreach($rsp->body->results as $venue)
 			{
-				$result[$x]['address'] = $venue->formatted_address;
-				$result[$x]['long']	   = $venue->geometry->location->lng;
-				$result[$x]['lat']	   = $venue->geometry->location->lat;
+				$result[$x]['title']	= $venue->formatted_address;
+				$result[$x]['url']		= '#';
+				$result[$x]['text']		= $venue->geometry->location->lat 
+										  .'|'.
+										  $venue->geometry->location->lng;
 				$x++;
 			}
 		}
-		return $result;
+		$response = array();
+		$response['results'] = $result;
+		return $response;
 	}
 }
 

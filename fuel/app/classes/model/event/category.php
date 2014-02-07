@@ -19,19 +19,19 @@ class Model_Event_Category extends Model_ModelCore
 		)
 	);
 	
-	public static function insert_org($arg)
+	public static function insert_cat($arg)
 	{
 			$q = new Model_Event_Category();
 			$q->event_id	= $arg['event_id'];
 			$q->category	= $arg['cat'];
 			$q->save();
-			return $q->id;
+			return $q;
 	}
 	
-	public static function remove_org($arg)
+	public static function remove_cat($arg)
 	{
 		$q = Model_Event_Category::query()
-				->where('id','=',$arg['cat_id'])
+				->where('id','=',$arg['id'])
 				->where('event_id','=',$arg['event_id'])
 				->get_one();
 		$q->delete();

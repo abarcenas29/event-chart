@@ -42,7 +42,7 @@ class Model_User extends Model_ModelCore
 		$res['success'] = false;
 		$res['response']= 'Password does not match';
 		
-		if(strcmp($arg['password'],$arg['password']) == 0)
+		if(strcmp($arg['password'],$arg['password2']) == 0)
 		{
 			$q = Model_User::query()
 				->where('id','=',\Fuel\Core\Session::get('user_id'))
@@ -98,14 +98,6 @@ class Model_User extends Model_ModelCore
 				Session::set('username',$cred['username']);
 				Session::set('su',$cred['su']);
 				
-				/*
-				session_start();
-				$_SESSION['email']		= $cred['email'];
-				$_SESSION['type']		= $cred['type'];
-				$_SESSION['user_id']	= $cred['id'];
-				$_SESSION['username']	= $cred['username'];
-				$_SESSION['su']			= $cred['su'];
-				*/
 				$res['response'] = 'account verfied';
 			}
 			$res['success'] = $verified;

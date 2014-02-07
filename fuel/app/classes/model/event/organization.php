@@ -40,21 +40,16 @@ class Model_Event_Organization extends Model_ModelCore
 		$q->event_id = $arg['event_id'];
 		$q->org_id	 = $arg['org'];
 		$q->save();
-		return $q->id;
+		return $q;
 	}
 	
 	public static function remove_org($arg)
 	{
-		try {
-			$q = Model_Event_Organization::query()
+		$q = Model_Event_Organization::query()
 				->where('event_id','=',$arg['event_id'])
-				->where('id','=',$arg['eorg'])
+				->where('org_id','=',$arg['org'])
 				->get_one();
-			$q->delete();
-		} catch (Exception $exc) {
-			
-		}		
-		return 0;
+		$q->delete();
 	}
 	
 	public static function remove_org_by_event($event_id)

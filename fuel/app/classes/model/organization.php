@@ -45,39 +45,72 @@ class Model_Organization extends Model_ModelCore
 	
 	public static function insert_organization($arg)
 	{
-		$q		= Model_Organization::_add_or_edit($arg);
-		$nme	= ($arg['action'] == 'edit')?0:Model_Organization::_check_name($arg)->count();
+		$c = Model_Organization::_check_name($arg);
 		
-		$rsp['success'] = false;
-		$rsp['response']= 'Error in DB write';
-		if($nme == 0)
+		if($c->count() == 0 && !empty($arg['name']))
 		{
-			if(!is_null($arg['file']))
+			$q = new Model_Organization();
+		
+			$q->name			= $arg['name'];
+			$q->email			= $arg['email'];
+			$q->description		= $arg['description'];
+			$q->facebook		= $arg['facebook'];
+			$q->twitter			= $arg['twitter'];
+			$q->website			= $arg['website'];
+			$q->created_by		= Session::get('email');
+
+			if(!is_null($arg['filename']) && !is_null($arg['value']))
 			{
-				if($arg['action'] == 'edit')
-				{
-					
-					$q->photo_id = Model_Photo::insert_picture($arg,$q);
-				}
-				else
-				{
-					$q->photo_id = Model_Photo::insert_picture($arg);
-				}
+				$q->photo_id = Model_Photo::insert_picture($arg);
 			}
-			
-			$q->name		 = $arg['name'];
-			$q->description	 = $arg['description'];
-			$q->facebook	 = $arg['facebook'];
-			$q->twitter		 = $arg['twitter'];
-			$q->website		 = $arg['website'];
-			$q->email		 = $arg['email'];
-			$q->created_by	 = \Fuel\Core\Session::get('email');
 			$q->save();
-			
+
 			$rsp['success'] = true;
-			$rsp['response']= 'Request complete.';
+			return $rsp;
 		}
+		$rsp['success'] = false;
 		return $rsp;
+	}
+	
+	public static function edit_organization($arg)
+	{
+		$q = Model_Organization::query()
+				->where('id','=',$arg['org_id'])
+				->get_one();
+		
+		$q->name			= $arg['name'];
+		$q->email			= $arg['email'];
+		$q->description		= $arg['description'];
+		$q->facebook		= $arg['facebook'];
+		$q->twitter			= $arg['twitter'];
+		$q->website			= $arg['website'];
+		$q->created_by		= Session::get('email');
+		
+		if(!is_null($arg['filename']) && !is_null($arg['value']))
+		{
+			if(!is_null($q['photo_id']))
+				Model_Photo::delete_picture($q['photo_id']);
+			$q->photo_id = Model_Photo::insert_picture($arg);
+		}
+		
+		$q->save();
+		
+		$rsp['success'] = true;
+		return $rsp;
+	}
+	
+	public static function insert_org_logo_url($arg)
+	{
+		$q = Model_Organization::query()
+				->where('id','=',$arg['org_id'])
+				->get_one();
+		
+		if(!is_null($q['photo_id']))
+			Model_Photo::delete_picture($q['photo_id']);
+		
+		$q->photo_id = Model_Photo::insert_picture_url($arg);
+		$q->save();
+		return $q;
 	}
 	
 	public static function read_organization($id)
@@ -126,19 +159,6 @@ class Model_Organization extends Model_ModelCore
 	{
 		$q = Model_Organization::query()
 				->where('name','=',$arg['name']);
-		return $q;
-	}
-	
-	private static function _add_or_edit($arg)
-	{
-		if($arg['action'] == 'add')
-		{
-			$q = new Model_Organization();
-		}
-		else
-		{
-			$q = Model_Organization::find($arg['org_id']);
-		}
 		return $q;
 	}
 }

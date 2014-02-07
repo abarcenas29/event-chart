@@ -24,34 +24,33 @@ class Model_Event_Poster extends Model_ModelCore
 		)
 	);
 	
-	//edit later for jquery file drop
+	
 	public static function write_poster($arg)
 	{
-		$arg['action'] = 'add';
-		
-		$photo_id = Model_Photo::insert_picture($arg);
-		
 		$q = new Model_Event_Poster();
 		$q->event_id = $arg['event_id'];
-		$q->photo_id = $photo_id;
+		$q->photo_id = Model_Photo::insert_picture($arg);
 		$q->save();
 		
-		$photo = Model_Photo::get_picture_by_id($photo_id);
-		$photo_thumb = $photo['date'].'/thumb-'.$photo['filename'];
-		$photo_full	 = $photo['date'].'/'.$photo['filename'];
+		return $q;
+	}
+	
+	public static function write_poster_url($arg)
+	{
+		$q = new Model_Event_Poster();
+		$q->event_id = $arg['event_id'];
+		$q->photo_id = Model_Photo::insert_picture_url($arg);
+		$q->save();
 		
-		$res['thumb'] = \Fuel\Core\Uri::create('uploads/'.$photo_thumb);
-		$res['full']  = \Fuel\Core\Uri::create('uploads/'.$photo_full);	
-		$res['p_id']  = $photo_id;
-		return $res;
+		return $q;
 	}
 	
 	public static function delete_poster($arg)
 	{
 		$q = Model_Event_Poster::query()
-				->where('photo_id','=',$arg['photo_id'])
-				->where('event_id','=',$arg['event_id']);
-		Model_Photo::delete_picture($arg['photo_id']);
+				->where('id','=',$arg['poster_id'])
+				->get_one();
+		Model_Photo::delete_picture($q['photo_id']);
 		return $q->delete();
 	}
 	

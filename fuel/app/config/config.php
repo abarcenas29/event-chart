@@ -276,7 +276,8 @@ return array(
 			'stwitter',
 			'facebook',
 			'unirest',
-			'twitter'
+			'twitter',
+			'email'
 		 ),
 
 		/**

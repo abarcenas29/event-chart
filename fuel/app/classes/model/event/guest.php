@@ -28,7 +28,7 @@ class Model_Event_Guest extends Model_ModelCore
 		$q->name	= $arg['name'];
 		$q->type	= $arg['type'];
 		$q->save();
-		return $q->id;
+		return $q;
 	}
 	
 	public static function delete_guest($arg)

@@ -1,37 +1,47 @@
-<?php print Fuel\Core\Asset::js('jquery.form.min.js'); ?>
-<section class="uk-vertical-align uk-height-1-1">
-	<article class="uk-vertical-align-middle 
-					uk-container-center
-					uk-width-1-1">
-	<div class="uk-width-custom 
-				uk-container-center" 
-		 style="width:640px;">
+<style>
+body
+{
+	background-color:#252525;
+	background-position: center center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-image:url('<?php print Uri::create("assets/img/login/$image"); ?>');
+}
+</style>
+<?php print Asset::js('jquery.form.min.js');?>
+<?php print Asset::js('notify.min.js');?>
+<?php print Asset::css('admin.login.css');?>
+<?php print Asset::css('notify.min.css');?>
+<article class="uk-width-1-1 uk-vertical-align" 
+		 style="height:inherit;">
+	<section class="uk-width-1-1" 
+			 id="ec-login-bg">
 		
-	<div class="uk-grid">
-	<div class="uk-width-1-2"></div>
-	<div class="uk-width-1-2">
-	<h1 class="uk-margin-bottom-remove">
-		<i class="uk-icon-lock"></i> Admin Login
-	</h1>
-	<hr class="uk-margin-remove">
+	</section>
+	<section class="uk-vertical-align-middle uk-width-1-1"
+			 id="ec-login-modal-container">
+	<div class="uk-grid uk-width-1-1">
+	<div class="uk-width-1-2" id="ec-login-title">
+		<h1 class="uk-text-center">
+			Event Charts Admin Login
+		</h1>
 	</div>
-	</div>
-		
-	<div class="uk-grid">
-		<div class="uk-width-1-2"></div>
-		<div class="uk-width-1-2">
-			
+	<div class="uk-width-1-2" 
+		 id="ec-login-modal-space">
+		<div class="uk-panel 
+					uk-panel-box 
+					uk-container-center">
 		<form 
 			action="<?php print \Fuel\Core\Uri::create('api/admin/login/validate.json'); ?>"
 			method="POST"
 			class="uk-form"
 			id="ec-form-validation">
-			
 		<div class="uk-form-row">
 			This is a restricted area - for now. 
 			Ask the Admin to add you to the user list
 		</div>
-			
+		
+		<!-- Email -->
 		<div class="uk-form-row">
 		<div class="uk-form-controls">
 			<input type="text"
@@ -39,7 +49,9 @@
 				   class="uk-width-1-1"
 				   placeholder="example@email.com"/>
 		</div>
+		</div>
 			
+		<!-- Password -->
 		<div class="uk-form-row">
 		<div class="uk-form-controls">
 			<input type="password"
@@ -48,48 +60,42 @@
 				   placeholder="Password"/>
 		</div>
 		</div>
-			
-		<div class="uk-form-row" id="ec-form-response">
-		<div class="uk-alert">
-			
-		</div>
-		</div>
-			
-		<div class="uk-form-row">
-		<div class="uk-form-controls uk-float-right">
-			<button type="submit" class="uk-button uk-button-primary">
+		
+		<div class="uk-form-row uk-text-center">
+			<button type="submit" 
+					class="uk-button 
+						   uk-button-primary
+						   uk-button-large">
+				<i class="uk-icon-unlock"></i>
 				Login
 			</button>
 		</div>
-		</div>
-		</div>
-		</form>
 			
-		</div>
+		</form>
 	</div>
 	</div>
-	</article>
-</section>
+	</section>
+</article>
 <script>
-var $body	= $('#ec-form-response');
-var $res	= $('#ec-form-response div');
-var urlDb	= "<?php print \Fuel\Core\Uri::create('admin/dashboard/index'); ?>";
+var urlDb	= "<?php print \Fuel\Core\Uri::create('admin/dashboard2/index'); ?>";
 $(document).ready(function(){
-	$body.hide();
 	$('#ec-form-validation').ajaxForm({
 		beforeSubmit:function()
 		{
-			$body.fadeIn(200);
-			
-			$res.html('Validating User');
+			$.UIkit.notify('Validating User ...',{status:'info'});
 		},
-		success:function(data)
+		success:function(d)
 		{
-			if(data.success)
+			console.log(d);
+			if(d.success)
 			{
+				$.UIkit.notify(d.response,{status:'success'});
 				setTimeout(function(){window.location = urlDb;},2000);
 			}
-			$res.html(data.response);
+			else
+			{
+				$.UIkit.notify(d.response,{status:'danger'});
+			}
 		}
 	});
 });
