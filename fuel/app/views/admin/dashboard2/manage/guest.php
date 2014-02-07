@@ -77,15 +77,18 @@ Guest Information
 </article>
 <script>
 var urlDeleteTicket = $('#ec-guest').data('url-delete');
-var $result			= $('#ec-guest-result');
+var $resultGuest    = $('#ec-guest-result');
 $(document).ready(function()
 {
 	$('#ec-form-guest').ajaxForm({
 		beforeSubmit:function()
-		{},
+		{
+                    $.UIkit.notify('Crunching Guest ...',{status:'info'});
+                },
 		success:function(d)
 		{
-			$result.prepend(d);
+                    $.UIkit.notify('Guest Added. Refresh Page to See change ...',{status:'success'});
+                    $resultGuest.prepend(d);
 		}
 	});
 	$result.on('click','.ec-delete-guest',function()

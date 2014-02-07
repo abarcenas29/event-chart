@@ -67,16 +67,19 @@ Event Categories
 </div>
 </article>
 <script>
-var urlDeleteCat = $('#ec-sub-categories').data('url-delete');
-var $result		 = $('#ec-sub-categories-result');
+var urlDeleteCat        = $('#ec-sub-categories').data('url-delete');
+var $resultCategory     = $('#ec-sub-categories-result');
 $(document).ready(function()
 {
 	$('#ec-form-category').ajaxForm({
 		beforeSubmit:function()
-		{},
+		{
+                    $.UIkit.notify('Crunching Category ...',{status:'info'});
+                },
 		success:function(d)
 		{
-			$result.prepend(d);
+                    $.UIkit.notify('Category Added. Refresh Page to See change ...',{status:'success'});
+                    $resultCategory.prepend(d);
 		}
 	});
 	$result.on('click','.ec-delete-categories',function()

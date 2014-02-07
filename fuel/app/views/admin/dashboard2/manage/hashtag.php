@@ -65,15 +65,18 @@ Hashtag Information
 </article>
 <script>
 var urlDeleteHashtag = $('#ec-hashtag').data('url-delete');
-var $result			 = $('#ec-hashtag-result');
+var $resultHashtag   = $('#ec-hashtag-result');
 $(document).ready(function()
 {
 	$('#ec-form-hashtag').ajaxForm({
 		beforeSubmit:function()
-		{},
+		{
+                    $.UIkit.notify('Crunching Hashtag ...',{status:'info'});
+                },
 		success:function(d)
 		{
-			$result.prepend(d);
+                    $.UIkit.notify('Hashtag Added. Refresh Page to See change ...',{status:'success'});
+                    $resultHashtag.prepend(d);
 		}
 	});
 	$result.on('click','.ec-delete-hashtag',function()

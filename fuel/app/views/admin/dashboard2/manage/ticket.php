@@ -74,15 +74,18 @@ Ticket Information
 </article>
 <script>
 var urlDeleteTicket = $('#ec-ticket').data('url-delete');
-var $result			= $('#ec-ticket-result');
+var $resultTicket   = $('#ec-ticket-result');
 $(document).ready(function()
 {
 	$('#ec-form-ticket').ajaxForm({
 		beforeSubmit:function()
-		{},
+		{
+                    $.UIkit.notify('Crunching Ticket Price ...',{status:'info'});
+                },
 		success:function(d)
 		{
-			$result.prepend(d);
+                    $.UIkit.notify('Ticket Price Added. Refresh Page to See change ...',{status:'success'});
+                    $resultTicket.prepend(d);
 		}
 	});
 	$result.on('click','.ec-delete-ticket',function()

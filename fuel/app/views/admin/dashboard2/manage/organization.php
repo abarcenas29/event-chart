@@ -67,16 +67,19 @@ Participating Organizations
 </div>
 </article>
 <script>
-var urlDelete = $('#ec-sub-organization').data('url-delete');
-var $result	  = $('#ec-sub-org-result');
+var urlDelete   = $('#ec-sub-organization').data('url-delete');
+var $resultOrg	= $('#ec-sub-org-result');
 $(document).ready(function()
 {
 	$('#ec-form-organization').ajaxForm({
 		beforeSubmit:function()
-		{},
+		{
+                    $.UIkit.notify('Crunching Sub-Org ...',{status:'info'});
+                },
 		success:function(d)
 		{
-			$result.prepend(d);
+                    $.UIkit.notify('Sub-Org Added. Refresh Page to See change ...',{status:'success'});
+                    $resultOrg.prepend(d);
 		}
 	});
 	$result.on('click','.ec-delete-org',function()
