@@ -18,7 +18,7 @@ Participating Organizations
 	<div class="uk-form-row">
 	<label class="uk-form-label">Organization List</label>
 	<div class="uk-form-controls">
-	<select name="org">
+	<select name="org" style="width:80%;">
 	<?php foreach($orgs as $row):  ?>
 			<option value="<?php print $row['id'] ?>">
 			<?php print $row['name']; ?>
