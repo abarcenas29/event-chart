@@ -109,7 +109,7 @@
 			   placeholder="type the venue address here"
 			   value="<?php print (isset($q['venue']))?$q['venue']:''; ?>"
 			   class="uk-width-1-1"/>
-		<?php if(isset($q)): ?>
+		
 		<input type="hidden"
 			   name="lng"
 			   value="<?php print (isset($q['long']))?$q['long']:'120.988328'; ?>"
@@ -118,16 +118,6 @@
 			   name="lat"
 			   value="<?php print (isset($q['lat']))?$q['lat']:'14.564779'; ?>"
 			   />
-		<?php else: ?>
-		<input type="hidden"
-			   name="lng"
-			   value="120.988328"
-			   />
-		<input type="hidden"
-			   name="lat"
-			   value="14.564779"
-			   />
-		<?php endif; ?>
 	</div>
 	</div>
 		
