@@ -76,7 +76,7 @@ Guest Information
 </div>
 </article>
 <script>
-var urlDeleteTicket = $('#ec-guest').data('url-delete');
+var urlDeleteGuest  = $('#ec-guest').data('url-delete');
 var $resultGuest    = $('#ec-guest-result');
 $(document).ready(function()
 {
@@ -85,14 +85,14 @@ $(document).ready(function()
 		{},
 		success:function(d)
 		{
-                    $resultGuest.prepend(d);
+           $resultGuest.prepend(d);
 		}
 	});
 	$resultGuest.on('click','.ec-delete-guest',function()
 	{
 		$container = $(this);
 		$container.parent().parent().remove();
-		$.post(urlDeleteTicket,
+		$.post(urlDeleteGuest,
 			  {guestid:$(this).data('guest-id')},
 			  function(d)
 			  {});
