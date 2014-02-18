@@ -9,9 +9,9 @@ body
 }
 </style>
 <?php print Asset::js('jquery.form.min.js');?>
-<?php print Asset::js('notify.min.js');?>
-<?php print Asset::css('admin.login.css');?>
-<?php print Asset::css('notify.min.css');?>
+<?php print Asset::js('uikit/notify.min.js');?>
+<?php print Asset::css('admin/login.css');?>
+<?php print Asset::css('uikit/notify.min.css');?>
 <article class="uk-width-1-1 uk-vertical-align" 
 		 style="height:inherit;">
 	<section class="uk-width-1-1" 

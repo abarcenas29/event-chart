@@ -1,4 +1,4 @@
-<?php print Asset::css('admin.dashboard.event.2.css'); ?>
+<?php print Asset::css('admin/dashboard.event.2.css'); ?>
 <article class="uk-width-1-1 uk-margin-top">
 	<ul class="uk-pagination">
 	<?php for($x = 1;$x <= $total_page;$x++): ?>

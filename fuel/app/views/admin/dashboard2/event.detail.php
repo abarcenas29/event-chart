@@ -2,9 +2,9 @@
 	print Asset::css('font-awesome.css');
 	print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 
-	print Asset::css('admin.dashboard.event.add.css');
-	print Asset::css('datepicker.min.css');
-	print Asset::js('datepicker.min.js');
+	print Asset::css('admin/dashboard.event.add.css');
+	print Asset::css('uikit/datepicker.min.css');
+	print Asset::js('uikit/datepicker.min.js');
 	
 	print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
 	print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
@@ -15,8 +15,8 @@
 	
 	print Asset::js('jquery.form.min.js');
 	
-	print Asset::css('notify.min.css');
-	print Asset::js('notify.min.js');
+	print Asset::css('uikit/notify.min.css');
+	print Asset::js('uikit/notify.min.js');
 ?>
 <article class="uk-width-1-1 uk-height-1-1" id="ec-event-detail-manage">
 <div class="uk-grid uk-height-1-1">

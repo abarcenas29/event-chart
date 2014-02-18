@@ -1,0 +1,24 @@
+body {
+  background-color: #F2F2F7;
+}
+body #ec-chart-navbar .uk-navbar {
+  background-color: #fff;
+}
+body #ec-chart-navbar .uk-navbar .uk-navbar-brand {
+  background-color: #AB1F2B;
+}
+body #ec-chart-navbar .uk-navbar .uk-navbar-brand img {
+  width: 8em;
+}
+body #ec-chart-navbar .uk-navbar .uk-navbar-nav > li > a {
+  font-family: 'Conv_weblysleekuisb';
+}
+body #ec-chart-navbar .uk-navbar .uk-navbar-nav > li > a:hover {
+  background-color: #C24A46;
+  color: #fff;
+  font-family: 'Conv_weblysleekuisb';
+}
+body #ec-chart-navbar .uk-navbar .uk-navbar-nav li.uk-parent.uk-open > a {
+  color: #fff;
+  background-color: #C24A46;
+}

@@ -1,0 +1,27 @@
+html {
+  height: 100%;
+}
+html body {
+  height: inherit;
+}
+html body #ec-event-detail-manage {
+  height: 95%;
+}
+html body #ec-event-detail-manage .uk-grid #ec-event-manage-form-container .uk-vertical-align-middle {
+  padding: 0.5em;
+}
+html body #ec-event-detail-manage .uk-grid #ec-event-manage-form-container .uk-vertical-align-middle .uk-panel-box {
+  background-color: #fff;
+}
+html body #ec-event-detail-manage .uk-grid #ec-event-manage-map {
+  position: relative;
+}
+html body #ec-event-detail-manage .uk-grid #ec-event-manage-map #ec-venue-search {
+  position: absolute;
+  top: 1em;
+  right: 5em;
+  z-index: 10;
+}
+html body #ec-event-detail-manage .uk-grid #ec-event-manage-map #ec-venue-search form {
+  background-color: #fff;
+}

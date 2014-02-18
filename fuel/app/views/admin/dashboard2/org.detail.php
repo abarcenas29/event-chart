@@ -1,6 +1,6 @@
 <?php
 	print Asset::css('font-awesome.css');
-	print Asset::css('admin.dashboard.org.detail.css');
+	print Asset::css('admin/dashboard.org.detail.css');
 	print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 
 	print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
@@ -9,8 +9,8 @@
 	
 	print Asset::js('jquery.form.min.js');
 	
-	print Asset::css('notify.min.css');
-	print Asset::js('notify.min.js');
+	print Asset::css('uikit/notify.min.css');
+	print Asset::js('uikit/notify.min.js');
 ?>
 <article class="uk-width-1-1 uk-height-1-1 uk-margin-top"
 		 id="ec-org-detail-manage">
