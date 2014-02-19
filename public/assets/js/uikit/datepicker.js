@@ -106,7 +106,10 @@
         pick: function(initdate) {
 
             var offset = this.element.offset(),
-                css    = {"top": offset.top + this.element.outerHeight() + this.options.offsettop, "left": offset.left, "right":""};
+                css    = {"top": offset.top + this.element.outerHeight() + this.options.offsettop, 
+						  "left": offset.left, 
+						  "right":"",
+						  "z-index":10000};
 
             this.current  = initdate ? moment(initdate, this.options.format):moment();
             this.initdate = this.current.format("YYYY-MM-DD");

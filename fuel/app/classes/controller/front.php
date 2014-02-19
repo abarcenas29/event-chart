@@ -38,29 +38,22 @@ class Controller_Front extends Controller_AppCore
 			'Valenzuela City'
 		);
 		
-		$this->_set_cookie($region);
+		$this->_set_cookie('ncr');
 	}
 	
 	public function action_davao()
 	{
-		$region = array(
-			'Davao Del Norte',
-			'Davao del Sur'
-		);
-		$this->_set_cookie($region);
+		$this->_set_cookie('davao');
 	}
 	
 	public function action_cebu()
 	{
-		$region = array(
-			'Cebu'
-		);
-		$this->_set_cookie($region);
+		$this->_set_cookie('cebu');
 	}
 	
 	private function _set_cookie($region)
 	{
-		Cookie::set('region',json_encode($region),null,'/chart2');
+		Cookie::set('region',$region,null,'/chart2');
 		Response::redirect('chart2');
 	}
 	

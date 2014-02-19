@@ -5,6 +5,9 @@
 <?php print $head; ?>
 <?php print Asset::css('chart2/chart2.css');?>
 
+<?php print Asset::js('uikit/datepicker.js');?>
+<?php print Asset::css('datepicker.min.css');?>
+
 <?php print Asset::js('jquery.cookie.js');?>
 </head>
 <body class="uk-width-1-1">
@@ -36,14 +39,14 @@
 			</li>
 			
 			<li>
-			<a href="#">
+			<a href="#ec-filter-date" data-uk-modal>
 				<i class="uk-icon-calendar"></i>
 				Date
 			</a>
 			</li>
 			
 			<li>
-			<a href="#">
+			<a href="#ec-filter-price" data-uk-modal>
 				<i class="uk-icon-filter"></i>
 				Price
 			</a>
@@ -69,14 +72,14 @@
 	</li>
 	
 	<li>
-		<a href="#">
+		<a href="#ec-filter-date" data-uk-modal>
 		<i class="uk-icon-calendar"></i>
 		Date
 		</a>
 	</li>
 	
 	<li>
-		<a href="#">
+		<a href="#ec-filter-price" data-uk-modal>
 		<i class="uk-icon-filter"></i>
 		Price
 		</a>
@@ -133,6 +136,8 @@
 <?php 
 	print $category;
 	print $region;
+	print $date;
+	print $price;
 ?>
 
 <?php print $content; ?>

@@ -17,6 +17,10 @@
 	</label>
 	<div class="uk-form-controls">
 		<select name="city">
+		<option value="ncr">NCR</option>
+		<option value="cebu">Cebu</option>
+		<option value="davao">Davao</option>
+		<optgroup label="-----"></optgroup>
 		<?php foreach($city as $row): ?>
 		<option value="<?php print $row['major_area'] ?>">
 		<?php print $row['major_area']; ?>
@@ -30,22 +34,11 @@
 	</div>
 		
 	</form>
-	<div class="uk-width-1-1 uk-margin-top">
-	<table class="uk-table uk-table-condensed">
-	<tbody>
-	<?php foreach($currentVal as $row): ?>
-	<tr>
-	<td><?php print $row; ?></td>
-	<td>
-		<button class="uk-button uk-button-danger">
-			<i class="uk-icon-minus"></i>
-		</button>
-	</td>
-	</tr>
-	<?php endforeach;?>
-	</tbody>
-	</table>
-	</div>
 	</section>
 </div>
 </article>
+<script>
+var currentCityVal = "<?php print $currentVal; ?>";
+$('select[name="city"]').find('option[value="'+ currentCityVal +'"]')
+						.attr('selected','selected');
+</script>

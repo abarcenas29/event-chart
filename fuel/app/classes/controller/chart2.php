@@ -4,31 +4,27 @@ class Controller_chart2 extends Controller_AppCore
 	public $template = 'chart2/template';
 	
 	public function action_index()
-	{
-		$currentCategory = array();
-		if(!is_null(Cookie::get('category',null)))
-		{
-			$currentCategory = json_decode(Cookie::get('category'),true);
-		}
-		
-		$currentRegion = array();
-		if(!is_null(Cookie::get('region',null)))
-		{
-			$currentRegion = json_decode(Cookie::get('region'),true);
-		}
-		
+	{	
 		$mCategory				= $this->_cm('category');
 		$mCategory->cat			= Model_const::read_key('event_category');
-		$mCategory->currentVal	= $currentCategory;
+		$mCategory->currentVal	= Cookie::get('category',null);
 		
 		$mRegion				= $this->_cm('region');
 		$mRegion->city			= Model_city::read_area();
-		$mRegion->currentVal	= $currentRegion;
+		$mRegion->currentVal	= Cookie::get('region',null);
+		
+		$mDate					= $this->_cm('date');
+		$mDate->currentVal		= Cookie::get('date',null);
+		
+		$mPrice					= $this->_cm('price');
 		
 		$view = $this->_cg('chart');
 		
 		$this->template->category	= $mCategory;
 		$this->template->region		= $mRegion;
+		$this->template->date		= $mDate;
+		$this->template->price		= $mPrice;
+		
 		$this->template->content	= $view;
 	}
 	
