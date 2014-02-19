@@ -17,7 +17,7 @@ include 'sdk/sdk.class.php';
 
 class s3 
 {
-    private $bucket = 'sqlbackup';
+    private $bucket = 'eventderemoe';
 
     protected function upload_object($filePath,$target)
     {
