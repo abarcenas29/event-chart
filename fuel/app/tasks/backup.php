@@ -15,7 +15,7 @@ class backup
 		\s3\upload::upload_sql_file($sqlDeremoe,'deremoe');
 		
 		$sqlEChart	= $path . 'bo_echart2.sql.gz';
-		\s3\upload::upload_sql_file($sqlDeremoe,'echart');
+		\s3\upload::upload_sql_file($sqlEChart,'echart');
 	}
 }
 
