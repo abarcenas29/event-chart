@@ -11,7 +11,7 @@ class backup
 		
 		$path = DS."mysql-backup".DS;
 		$sqlDeremoe = $path . 'deremoe_wp_db.sql.gz';
-		print \s3\upload::upload_sql_file($sqlDeremoe,'deremoe');
+		print_r(\s3\upload::upload_sql_file($sqlDeremoe,'deremoe'));
 	}
 }
 
