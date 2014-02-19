@@ -22,9 +22,9 @@ class s3
     protected function upload_object($filePath,$target)
     {
         $s3 = new \AmazonS3();
-        $bucket         = $this->bucket;
+        $bucket   = $this->bucket;
         $response = $s3->create_object($bucket,$filePath,
-                array('fileUpload' => $target, 'acl'=>$s3::ACL_PRIVATE));
+                array('fileUpload' => $target, 'acl'=>$s3::ACL_PUBLIC));
         return $response;
     }
     

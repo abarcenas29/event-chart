@@ -18,7 +18,7 @@ Class upload extends s3
 	
 	public static function upload_sql_file($path,$name)
 	{
-		$filePath = self::$_sql_folder . $name . '-' . date('Y-m-d').'sql.gz'; 
+		$filePath = self::$_sql_folder . $name . '-' . date('Y-m-d').'.sql.gz'; 
 		$s3 = new \s3\s3();
 		return $s3->upload_object($filePath, $path);
 	}
