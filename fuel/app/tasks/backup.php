@@ -10,8 +10,12 @@ class backup
 		\Log::info('Backup operation starting');
 		
 		$path = DS."mysql-backup".DS;
+		
 		$sqlDeremoe = $path . 'deremoe_wp_db.sql.gz';
-		print_r(\s3\upload::upload_sql_file($sqlDeremoe,'deremoe'));
+		\s3\upload::upload_sql_file($sqlDeremoe,'deremoe');
+		
+		$sqlEChart	= $path . 'bo_echart2.sql.gz';
+		\s3\upload::upload_sql_file($sqlDeremoe,'echart');
 	}
 }
 
