@@ -1,6 +1,11 @@
 body {
   background-color: #F2F2F7;
 }
+body #ec-chart-navbar {
+  position: fixed;
+  z-index: 10;
+  top: 0em;
+}
 body #ec-chart-navbar .uk-navbar {
   background-color: #fff;
 }
@@ -21,4 +26,34 @@ body #ec-chart-navbar .uk-navbar .uk-navbar-nav > li > a:hover {
 body #ec-chart-navbar .uk-navbar .uk-navbar-nav li.uk-parent.uk-open > a {
   color: #fff;
   background-color: #C24A46;
+}
+body .ec-chart-container {
+  margin-top: 4em;
+  padding: 0.5em;
+  overflow: hidden;
+}
+body .ec-chart-cycle {
+  position: relative;
+}
+body .ec-chart-cycle .uk-width-1-3 img {
+  width: 100%;
+}
+body .ec-chart-cycle .uk-width-2-3 {
+  position: relative;
+  left: -2.5em;
+}
+body .ec-chart-cycle .uk-width-2-3 .uk-panel {
+  min-height: inherit;
+  background-color: #fff;
+}
+body .ec-chart-cycle .uk-width-2-3 .uk-panel .uk-panel-title {
+  position: relative;
+}
+body .ec-chart-cycle .uk-width-2-3 .uk-panel .uk-panel-title div {
+  position: absolute;
+  right: 0em;
+  top: 0em;
+}
+body .ec-chart-cycle .uk-width-2-3 .uk-panel p {
+  margin: 0em;
 }

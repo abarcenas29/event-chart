@@ -9,6 +9,7 @@
 <?php print Asset::css('datepicker.min.css');?>
 
 <?php print Asset::js('jquery.cookie.js');?>
+<?php print Asset::css('animate.css');?>
 </head>
 <body class="uk-width-1-1">
 	

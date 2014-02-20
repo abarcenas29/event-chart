@@ -3,6 +3,9 @@ body
 	background-color:#F2F2F7;
 	#ec-chart-navbar
 	{
+		position:fixed;
+		z-index:10;
+		top:0em;
 		.uk-navbar
 		{
 			background-color:#fff;
@@ -30,6 +33,49 @@ body
 				{
 					color:#fff;
 					background-color:#C24A46;
+				}
+			}
+		}
+	}
+	.ec-chart-container
+	{
+		margin-top:4em;
+		padding:0.5em;
+		overflow:hidden;
+	}
+	
+	.ec-chart-cycle
+	{
+		position:relative;
+		.uk-width-1-3
+		{
+			img
+			{
+				width:100%;
+			}
+		}
+		.uk-width-2-3
+		{
+			position:relative;
+			left:-2.5em;
+			.uk-panel
+			{
+				.uk-panel-title
+				{
+					position:relative;
+					div
+					{
+						position:absolute;
+						right:0em;
+						top:0em;
+					}
+				}
+				
+				min-height:inherit;
+				background-color:#fff;
+				p
+				{
+					margin:0em;
 				}
 			}
 		}
