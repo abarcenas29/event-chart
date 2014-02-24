@@ -57,3 +57,55 @@ body .ec-chart-cycle .uk-width-2-3 .uk-panel .uk-panel-title div {
 body .ec-chart-cycle .uk-width-2-3 .uk-panel p {
   margin: 0em;
 }
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info {
+  min-height: 40.61em;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info img {
+  height: 142px;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .ec-event-info-main-title {
+  position: relative;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .ec-event-info-main-title div {
+  position: absolute;
+  right: 0em;
+  top: 0em;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel {
+  min-height: 40.61em;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-category-list,
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-ticket-list {
+  padding-left: 0em;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-category-list li,
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-ticket-list li {
+  display: inline;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div {
+  position: relative;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li {
+  text-align: center;
+  display: inline;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li a {
+  color: #fff;
+  width: 3em;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li .facebook {
+  background-color: #45619D;
+}
+body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li .twitter {
+  background-color: #3A92C8;
+}
+@media (min-width: 1020px) {
+  #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info {
+    padding-left: 0em;
+  }
+}

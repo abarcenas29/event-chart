@@ -18,7 +18,7 @@
 			<div class="uk-panel-title uk-text-truncate">
 				Event Name
 				<div>
-				<a href="#" class="uk-button">
+				<a href="#ec-event-info" class="uk-button" data-bo-modal>
 					<i class="uk-icon-info-circle"></i>
 				</a>
 				</div>

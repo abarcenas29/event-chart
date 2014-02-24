@@ -80,4 +80,86 @@ body
 			}
 		}
 	}
+	
+	#ec-event-info
+	{
+		.bo-modal-dialog > .uk-grid
+		{
+			.ec-event-info
+			{
+				min-height:40.61em;
+				
+				img
+				{
+					height:142px;
+				}
+				
+				.ec-event-info-main-title
+				{
+					position:relative;
+					div
+					{
+						position:absolute;
+						right:0em;
+						top:0em;
+					}
+				}
+				
+				.uk-panel
+				{
+					min-height:40.61em;
+					.ec-category-list,.ec-ticket-list
+					{
+						li
+						{
+							display:inline;
+						}
+						padding-left:0em;
+					}
+				}
+			}
+			.ec-event-info-image > div
+			{
+				position:relative;
+				div
+				{
+					position:absolute;
+					top:1em;
+					right:1em;
+					ul > li
+					{
+						text-align:center;
+						display:inline;
+						a
+						{
+							color:#fff;
+							width:3em;
+						}
+						.facebook
+						{
+							background-color:#45619D;
+						}
+						.twitter
+						{
+							background-color:#3A92C8;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media(min-width:1020px)
+{
+	#ec-event-info
+	{
+		.bo-modal-dialog > .uk-grid
+		{
+			.ec-event-info
+			{
+				padding-left:0em;
+			}
+		}
+	}
 }
