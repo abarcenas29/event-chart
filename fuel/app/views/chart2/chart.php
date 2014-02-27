@@ -1,13 +1,13 @@
 <article class="uk-width-1-1
-				ec-chart-container">
+		ec-chart-container">
 	<section class="uk-grid">
 		
 		<?php for($x = 0; $x < 20; $x++): ?>
 		<div class="uk-width-large-1-3
-					uk-width-medium-1-2
-					ec-chart-cycle 
-					uk-margin-bottom
-					animated bounceIn">
+                            uk-width-medium-1-2
+                            ec-chart-cycle 
+                            uk-margin-bottom
+                            animated bounceIn">
 		<div class="uk-grid" data-uk-grid-match>
 			<div class="uk-width-1-3">
 			<img src="http://placehold.it/200x200"/>
@@ -18,8 +18,10 @@
 			<div class="uk-panel-title uk-text-truncate">
 				Event Name
 				<div>
-				<a href="#ec-event-info" class="uk-button" data-bo-modal>
-					<i class="uk-icon-info-circle"></i>
+				<a href="#ec-event-info" 
+                                   class="uk-button ec-event-info-dialog" 
+                                   data-bo-modal>
+				<i class="uk-icon-info-circle"></i>
 				</a>
 				</div>
 			</div>

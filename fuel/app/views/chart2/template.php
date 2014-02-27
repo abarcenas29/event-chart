@@ -149,12 +149,12 @@
 
 
 <div id="ec-event-info" 
-	 class="bo-modal bo-modal-open">
+     class="bo-modal bo-modal-open">
 	<article class="bo-modal-dialog">
-	<div class="uk-grid uk-width-1-1">
+	<div class="uk-grid uk-width-1-1" data-uk-grid-match>
 		<div class="uk-width-large-1-2
-					uk-width-medium-1-1
-					ec-event-info-image">
+                            uk-width-medium-1-1
+                            ec-event-info-image">
 			
 		<div>
 		<div class="uk-eveint-info-social">
@@ -180,16 +180,15 @@
 			 class="uk-visible-large"
 			 style="width:100%;"/>
 			<img src="http://placehold.it/546x307"
-				 class="uk-hidden-large"
-				 style="width:100%;"/>
+                             class="uk-hidden-large"
+                             style="width:100%;"/>
 		</div>
 		
 		</div>
 		<div class="uk-width-large-1-2
-					uk-width-medium-1-1
-					ec-event-info">
-		<div class="uk-panel uk-panel-header uk-panel-box"
-			 style="min-height:inherit;">
+                            uk-width-medium-1-1
+                            ec-event-info">
+		<div class="uk-panel uk-panel-header uk-panel-box">
 		<div class="uk-panel-title 
 					ec-event-info-main-title">
 			<p class="uk-text-truncate uk-margin-remove">
@@ -253,7 +252,18 @@
 	</div>
 	</article>
 </div>
-
+<script>
+$(document).ready(function()
+{
+    $(document).on('click','.ec-event-info-dialog',function()
+    {
+        var $dialog = $("#ec-event-info");
+        var height = $dialog.find('.uk-grid').height();
+        
+        $dialog.find('.uk-panel').css('height',height - 30 + 'px');
+    });
+});
+</script>
 
 </body>
 </html>

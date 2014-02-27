@@ -27,6 +27,6 @@
 	
 	print Asset::css('kore.css');
 	
-	print Asset::js('jquery-2.0.3.min.js');
+	print Asset::js('https://code.jquery.com/jquery-2.1.0.min.js');
 	print Asset::js('uikit.min.js');
 ?>
