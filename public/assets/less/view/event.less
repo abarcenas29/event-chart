@@ -1,0 +1,152 @@
+body
+{
+    background-color:lighten(#252525,79%);
+}
+
+#ec-view-container
+{
+    position:relative;
+    top:2.9em;
+    
+    .padding
+    {
+        padding:1em;
+    }
+    
+    .bg-white
+    {
+        background-color:#fff;
+    }
+    
+    #ec-cover-image
+    {
+        height:20em;
+        background-size:cover;
+        background-position:0em -2em;
+        background-repeat:no-repeat;
+        
+        position:relative;
+        section
+        {
+            background-color:rgba(30,30,30,0.4);
+            width:inherit;
+            height:inherit;
+            position:absolute;
+            #ec-cover-title
+            {
+                color:#fff;
+                font-family: 'Conv_weblysleekuili';
+                font-size:2.5em;
+            }
+            #ec-org-logo
+            {
+                position:absolute;
+                bottom:5em;
+                left:3em;
+                width:10em;
+                img
+                {
+                    width:10em;
+                }
+            }
+        }
+    }
+    
+    #ec-cover-small-detail
+    {
+        .ec-detail
+        {
+            .ec-title
+            {
+                font-family: 'Conv_weblysleekuisb';
+                font-size:1em
+            }
+            .ec-value
+            {
+                font-family: 'Conv_weblysleekuil';
+                padding-bottom:0.5em;
+                border-bottom:2px solid lighten(#252525,70%);
+                font-size:1.2em;
+            }
+            
+        }
+        .ec-detail:hover
+        {
+            .ec-value
+            {
+                border-bottom:2px solid lighten(#252525,40%);
+            }
+        }
+    }
+    
+    #ec-view-poster-images
+    {
+        position:relative;
+        top:6em;
+        section > .uk-panel
+        {
+            min-height:20em;
+        }
+    }
+    
+    #ec-link-reference > .uk-grid
+    {
+        .ec-link
+        {
+            .uk-panel
+            {
+                color:#fff;
+                font-size:5em;
+            }
+        }
+    }
+    
+    #ec-view-map-container
+    {
+        #ec-map
+        {
+            height:20em;
+        }
+    }
+    
+    #ec-view-share-container > .uk-panel
+    {
+        div
+        {
+            width:44.9%;
+            color:#fff;
+            i
+            {
+                font-size:2em;
+            }
+            font-family: 'Conv_weblysleekuil';
+        }
+    }
+    
+    #ec-minor-details
+    {
+        .ec-detail-category
+        {
+            ul > li
+            {
+                list-style-type:none;
+                display:inline;
+            }
+        }
+    }
+    
+    #ec-social-tweet
+    {
+        section > .uk-panel
+        {
+            background-color:#3498db;
+            color:#fff;
+            font-family: 'Conv_weblysleekuil';
+            .uk-panel-title
+            {
+                font-family: 'Conv_weblysleekuil';
+                color:#fff;
+            }
+        }
+    }
+}

@@ -5,18 +5,18 @@ class Controller_chart2 extends Controller_AppCore
 	
 	public function action_index()
 	{	
-		$mCategory				= $this->_cm('category');
-		$mCategory->cat			= Model_const::read_key('event_category');
+                $mCategory		= $this->_cm('category');
+		$mCategory->cat		= Model_const::read_key('event_category');
 		$mCategory->currentVal	= Cookie::get('category',null);
 		
-		$mRegion				= $this->_cm('region');
-		$mRegion->city			= Model_city::read_area();
+		$mRegion		= $this->_cm('region');
+		$mRegion->city		= Model_city::read_area();
 		$mRegion->currentVal	= Cookie::get('region',null);
 		
-		$mDate					= $this->_cm('date');
-		$mDate->currentVal		= Cookie::get('date',null);
+		$mDate			= $this->_cm('date');
+		$mDate->currentVal	= Cookie::get('date',null);
 		
-		$mPrice					= $this->_cm('price');
+		$mPrice			= $this->_cm('price');
 		
 		$view = $this->_cg('chart');
 		
