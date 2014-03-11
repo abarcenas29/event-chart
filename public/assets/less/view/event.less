@@ -1,3 +1,15 @@
+.animation-duration(@duration)
+{
+    position:relative;
+    -webkit-animation-duration: 100ms;
+    -moz-animation-delay: 100ms;
+    animation-delay:100ms;
+
+    -webkit-animation-delay:@duration;
+    -moz-animation-delay:@duration;
+    animation-delay:@duration;
+}
+
 body
 {
     background-color:lighten(#252525,79%);
@@ -87,6 +99,15 @@ body
         {
             min-height:20em;
         }
+        
+        .uk-alert
+        {
+            -webkit-animation-duration: 100ms;
+            -moz-animation-delay: 100ms;
+            animation-delay:100ms;
+            
+            positon:relative;
+        }
     }
     
     #ec-link-reference > .uk-grid
@@ -98,6 +119,7 @@ body
                 color:#fff;
                 font-size:5em;
             }
+            position:relative;
         }
     }
     
@@ -109,11 +131,11 @@ body
         }
     }
     
-    #ec-view-share-container > .uk-panel
+    #ec-share-container
     {
-        div
+        .ec-share
         {
-            width:44.9%;
+            width:89%;
             color:#fff;
             i
             {
@@ -148,5 +170,13 @@ body
                 color:#fff;
             }
         }
+    }
+}
+
+@media all and (max-width:767px)
+{
+     #ec-aside-container
+    {
+        padding-left:3em !important;
     }
 }

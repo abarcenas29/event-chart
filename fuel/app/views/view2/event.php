@@ -1,5 +1,6 @@
 <?php 
     print Asset::css('view/event.css'); 
+    print Asset::css('animate.css');
     
     print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
     print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
@@ -36,25 +37,35 @@
         <div class="uk-grid">
             
         <section class="ec-detail uk-width-2-6">
-            <div class="ec-title uk-text-center">
+            <div class="ec-title 
+                        uk-text-center
+                        uk-text-truncate">
                 Organization
             </div>
-            <div class="ec-value uk-text-center uk-text-truncate">
+            <div class="ec-value 
+                        uk-text-center 
+                        uk-text-truncate">
                 Ozine Anime Magazine
             </div>
         </section>
         
         <section class="ec-detail uk-width-1-6">
-            <div class="ec-title uk-text-center">
+            <div class="ec-title 
+                        uk-text-center 
+                        uk-text-truncate">
                 Region
             </div>
-            <div class="ec-value uk-text-center">
+            <div class="ec-value 
+                        uk-text-center 
+                        uk-text-truncate">
                 Location
             </div>
         </section>
             
         <section class="ec-detail uk-width-1-6">
-            <div class="ec-title uk-text-center">
+            <div class="ec-title 
+                        uk-text-center 
+                        uk-text-truncate">
                 Rating
             </div>
             <div class="ec-value uk-text-center">
@@ -63,10 +74,14 @@
         </section>
             
         <section class="ec-detail uk-width-2-6">
-            <div class="ec-title uk-text-center">
+            <div class="ec-title 
+                        uk-text-center 
+                        uk-text-truncate">
                 Start Date
             </div>
-            <div class="ec-value uk-text-center">
+            <div class="ec-value 
+                        uk-text-center 
+                        uk-text-truncate">
                 Tue, April 01, 2014
             </div>
         </section>
@@ -75,26 +90,56 @@
         
     </article>
     
+    
     <!-- POSTER IMAGES -->
     <article id="ec-view-poster-images"
              class="padding">
-    <section>
         
+    <section>
+        <!-- Event Alerts -->
+        <article class="uk-width-1-1">
+            <div class="uk-alert uk-alert-warning animated bounceIn"
+                 style="background-color:#f39c12;color:#fff;">
+                <i class="uk-icon-info-circle"></i>
+                Event Has not started yet.
+            </div>
+            
+            <div class="uk-alert uk-alert-success animated bounceIn"
+                 style="background-color:#2ecc71;color:#fff;">
+                <i class="uk-icon-info-circle"></i>
+                Event Has Concluded
+            </div>
+            
+            <div class="uk-alert uk-alert-danger animated bounceIn"
+                 style="background-color:#e74c3c;color:#fff;">
+                <i class="uk-icon-info-circle"></i>
+                Event Is On-Going
+            </div>
+        </article>
+    </section>
+        
+    <section> 
+        <!-- DESCRIPTION -->
         <article class="uk-panel
                         uk-panel-box
                         uk-panel-header
                         bg-white
-                        uk-margin-bottom">
+                        uk-margin-bottom"
+                 data-uk-scrollspy="{cls:'animated slideInLeft'}"
+                 id="ec-description">
         <header class="uk-panel-title">
             <i class="uk-icon-info"></i>
             Description
         </header>
         </article>
         
+        <!-- POSTER IMAGES -->
         <article class="uk-panel 
                         uk-panel-box 
                         uk-panel-header
-                        bg-white">
+                        bg-white"
+                 id="ec-poster-images"
+                 data-uk-scrollspy="{cls:'animated slideInLeft'}">
         <header class="uk-panel-title">
             <i class="uk-icon-picture-o"></i>
             Posters
@@ -118,7 +163,11 @@
                         uk-panel-box
                         uk-panel-header
                         bg-white
-                        uk-margin-top">
+                        uk-margin-top
+                        animated
+                        bounceIn"
+                 id="ec-instagram"
+                 data-uk-scrollspy="{cls:'animated slideInLeft'}">
         <header class="uk-panel-title">
             <i class="uk-icon-instagram"></i>
             Instagram Pictures
@@ -141,12 +190,16 @@
     </section>
     
     <!-- ASIDE -->
-    <section class="uk-width-large-4-10 padding">
+    <section class="uk-width-large-4-10 padding"
+             id="ec-aside-container">
         
     <!-- FACEBOOK REFERENCE -->
     <article class="uk-width-1-1"
              id="ec-link-reference">
     <div class="uk-grid">
+        <div class="uk-hidden-large">
+        <br><br><br><br>
+        </div>
         
         <article class="uk-width-1-4 ec-link">
         <div class="uk-panel uk-panel-box uk-text-center"
@@ -186,51 +239,50 @@
              id="ec-map"></div>
     </article>
     
-    <!-- MAP EXTRA -->
-    <article class="uk-width-1-1 uk-margin-top"
-             id="ec-view-share-container">
-    <section class="uk-panel">
-        <div class="ec-share
-                    uk-float-left
-                    padding"
-             style="background-color:#3498db;">
-            <i class="uk-icon-crosshairs"></i>
-            &nbsp; Send To Waze
-        </div>
-        <div class="ec-share
-                    uk-float-left
-                    padding"
-             style="background-color:#e74c3c">
-            <i class="uk-icon-map-marker"></i>
-            &nbsp; See on Google Maps
-        </div>
-    </section>
-    </article>
-    
-    <!-- SHARE CONTENT -->
-    <article class="uk-width-1-1 uk-margin-top"
-             id="ec-view-share-container">
-    <section class="uk-panel">
-        <div class="ec-share
-                    uk-float-left
-                    padding"
+    <div class="uk-width-1-1 uk-margin-top"
+         data-uk-scrollspy="{cls:'animated slideInRight'}"
+         id="ec-share-container">
+    <div class="uk-grid">
+        <article class="uk-width-1-2">
+            <div class="ec-share
+                        uk-float-left
+                        padding"
              style="background-color:#45619D">
             <i class="uk-icon-facebook-square"></i>
             &nbsp; Share on Facebook
-        </div>
-        <div class="ec-share
-                    uk-float-left
-                    padding"
-             style="background-color:#3A92C8;">
+            </div>
+            <div class="ec-share
+                        uk-float-left
+                        padding"
+                 style="background-color:#3A92C8;">
             <i class="uk-icon-twitter-square"></i>
             &nbsp; Share on Twitter
-        </div>
-    </section>
-    </article>
+            </div>
+        </article>
+        
+        <article class="uk-width-1-2">
+            <div class="ec-share
+                        uk-float-left
+                        padding"
+             style="background-color:#3498db;">
+            <i class="uk-icon-crosshairs"></i>
+            &nbsp; Send To Waze
+            </div>
+            <div class="ec-share
+                        uk-float-left
+                        padding"
+                 style="background-color:#e74c3c">
+                <i class="uk-icon-map-marker"></i>
+                &nbsp; See on Google Maps
+            </div>
+        </article>
+    </div>
+    </div>
     
     <!-- LAST TWEET -->
     <article class="uk-width-1-1 uk-margin-top"
-             id="ec-social-tweet">
+             id="ec-social-tweet"
+             data-uk-scrollspy="{cls:'animated slideInRight'}">
     <section class="uk-width-1-1">
          <article class="uk-panel
                          uk-panel-box
@@ -260,15 +312,44 @@
     </section>
     </article>
     
-    <!-- CATEGORY -->
+    <!-- MINOR DETAILS -->
     <article class="uk-width-1-1 uk-margin-top"
              id="ec-minor-details">
     <section class="uk-width-1-1">
+        
+        <!-- CATEGORY -->
         <article class="uk-panel
                         uk-panel-box
                         uk-panel-header
                         bg-white
-                        ec-detail-category">
+                        ec-detail-category
+                        uk-margin-bottom"
+                 data-uk-scrollspy="{cls:'animated slideInRight'}">
+        <header class="uk-panel-title">
+            <i class="uk-icon-signal"></i>
+            Hashtags
+        </header>
+        <ul>
+            <?php for($x = 0; $x < 5; $x ++): ?>
+            <li>
+            <a href="#" 
+               class="uk-button
+                      uk-margin-bottom"
+               style="background-color:#1abc9c;color:#fff;">
+            # Hashtag
+            </a>
+            </li>
+            <?php endfor; ?>
+        </ul>
+        </article>
+        
+        <!-- CATEGORY -->
+        <article class="uk-panel
+                        uk-panel-box
+                        uk-panel-header
+                        bg-white
+                        ec-detail-category"
+                data-uk-scrollspy="{cls:'animated slideInRight'}">
         <header class="uk-panel-title">
             <i class="uk-icon-tags"></i>
             Category
@@ -288,12 +369,14 @@
         </ul>
         </article>
         
+        <!-- TICKET -->
         <article class="uk-panel
                         uk-panel-box
                         uk-panel-header
                         bg-white
                         uk-margin-top
-                        ec-detail-category">
+                        ec-detail-category"
+                 data-uk-scrollspy="{cls:'animated slideInRight'}">
         <header class="uk-panel-title">
             <i class="uk-icon-ticket"></i>
             Ticket
@@ -314,12 +397,14 @@
         </ul>
         </article>
         
+        <!-- GUEST LIST -->
         <article class="uk-panel
                         uk-panel-box
                         uk-panel-header
                         uk-margin-top
                         bg-white
-                        ec-detail-guest">
+                        ec-detail-guest"
+                 data-uk-scrollspy="{cls:'animated slideInRight'}">
         <header class="uk-panel-title">
             <i class="uk-icon-users"></i>
             Guests List
@@ -357,5 +442,11 @@ $(document).ready(function(e)
     var map = L.map('ec-map').setView(geoLocation,13);
     L.tileLayer(osmTileMap,{attribution:attr}).addTo(map);
     L.marker(geoLocation).addTo(map).bindPopup(venue).openPopup();
+    
+    $('.ec-link').addClass('animated bounceIn');
+    $('.ec-link').each(function(i)
+    {
+        $(this).css('animation-delay',i * 400 + 'ms');
+    });
 });
 </script>
