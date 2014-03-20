@@ -1,9 +1,7 @@
 <?php 
     print Asset::css('view/event.css'); 
+    print Asset::css('view/org.css');
     print Asset::css('animate.css');
-    
-    print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
-    print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
 ?>
 <article class="uk-width-1-1" id="ec-view-container">
 <div class="uk-grid">
@@ -21,7 +19,7 @@
                         uk-width-1-1
                         uk-text-center"
                  id="ec-cover-title">
-        Event Name View
+        Organization Name
         </article>
         <article id="ec-org-logo">
             <section class="uk-thumbnail">
@@ -35,25 +33,12 @@
     <article class="uk-width-7-10 uk-float-right padding"
              id="ec-cover-small-detail">
         <div class="uk-grid">
-            
+        
         <section class="ec-detail uk-width-2-6">
             <div class="ec-title 
-                        uk-text-center
-                        uk-text-truncate">
-                Organization
-            </div>
-            <div class="ec-value 
                         uk-text-center 
                         uk-text-truncate">
-                Ozine Anime Magazine
-            </div>
-        </section>
-        
-        <section class="ec-detail uk-width-1-6">
-            <div class="ec-title 
-                        uk-text-center 
-                        uk-text-truncate">
-                Region
+                Common Region
             </div>
             <div class="ec-value 
                         uk-text-center 
@@ -62,11 +47,11 @@
             </div>
         </section>
             
-        <section class="ec-detail uk-width-1-6">
+        <section class="ec-detail uk-width-2-6">
             <div class="ec-title 
                         uk-text-center 
                         uk-text-truncate">
-                Rating
+                Avg Rating
             </div>
             <div class="ec-value uk-text-center">
                 4/5
@@ -77,7 +62,7 @@
             <div class="ec-title 
                         uk-text-center 
                         uk-text-truncate">
-                Start Date
+                Avg Price
             </div>
             <div class="ec-value 
                         uk-text-center 
@@ -94,29 +79,6 @@
     <!-- POSTER IMAGES -->
     <article id="ec-view-poster-images"
              class="padding">
-        
-    <section>
-        <!-- Event Alerts -->
-        <article class="uk-width-1-1">
-            <div class="uk-alert uk-alert-warning animated bounceIn"
-                 style="background-color:#f39c12;color:#fff;">
-                <i class="uk-icon-info-circle"></i>
-                Event Has not started yet.
-            </div>
-            
-            <div class="uk-alert uk-alert-success animated bounceIn"
-                 style="background-color:#2ecc71;color:#fff;">
-                <i class="uk-icon-info-circle"></i>
-                Event Has Concluded
-            </div>
-            
-            <div class="uk-alert uk-alert-danger animated bounceIn"
-                 style="background-color:#e74c3c;color:#fff;">
-                <i class="uk-icon-info-circle"></i>
-                Event Is On-Going
-            </div>
-        </article>
-    </section>
         
     <section> 
         <!-- DESCRIPTION -->
@@ -141,8 +103,8 @@
                  id="ec-poster-images"
                  data-uk-scrollspy="{cls:'animated slideInLeft'}">
         <header class="uk-panel-title">
-            <i class="uk-icon-picture-o"></i>
-            Posters
+            <i class="uk-icon-calendar"></i>
+            Events Organized
         </header>
         <section class="uk-panel">
         <div class="uk-grid">
@@ -169,8 +131,8 @@
                  id="ec-instagram"
                  data-uk-scrollspy="{cls:'animated slideInLeft'}">
         <header class="uk-panel-title">
-            <i class="uk-icon-instagram"></i>
-            Instagram Pictures
+            <i class="uk-icon-calendar"></i>
+            Events Assisted
         </header>
         <section class="uk-width-1-1">
         <div class="uk-grid">
@@ -232,64 +194,17 @@
     </div>
     </article>
     
-    <!-- PANEL -->
-    <article class="uk-width-1-1 uk-margin-top"
-             id="ec-view-map-container">
-        <div class="uk-panel"
-             id="ec-map"></div>
-    </article>
-    
-    <div class="uk-width-1-1 uk-margin-top"
-         data-uk-scrollspy="{cls:'animated slideInRight'}"
-         id="ec-share-container">
-    <div class="uk-grid">
-        <article class="uk-width-1-2">
-            <div class="ec-share
-                        uk-float-left
-                        padding"
-             style="background-color:#45619D">
-            <i class="uk-icon-facebook-square"></i>
-            &nbsp; Share on Facebook
-            </div>
-            <div class="ec-share
-                        uk-float-left
-                        padding"
-                 style="background-color:#3A92C8;">
-            <i class="uk-icon-twitter-square"></i>
-            &nbsp; Share on Twitter
-            </div>
-        </article>
-        
-        <article class="uk-width-1-2">
-            <div class="ec-share
-                        uk-float-left
-                        padding"
-             style="background-color:#3498db;">
-            <i class="uk-icon-crosshairs"></i>
-            &nbsp; Send To Waze
-            </div>
-            <div class="ec-share
-                        uk-float-left
-                        padding"
-                 style="background-color:#e74c3c">
-                <i class="uk-icon-map-marker"></i>
-                &nbsp; See on Google Maps
-            </div>
-        </article>
-    </div>
-    </div>
-    
-    <!-- LAST TWEET -->
-    <article class="uk-width-1-1 uk-margin-top"
-             id="ec-social-tweet"
+    <!-- Last Positive Review -->
+    <article class="uk-width-1-1 uk-margin-top ec-review"
+             id="ec-review-pos"
              data-uk-scrollspy="{cls:'animated slideInRight'}">
     <section class="uk-width-1-1">
          <article class="uk-panel
                          uk-panel-box
                          uk-panel-header">
          <header class="uk-panel-title">
-             <i class="uk-icon-twitter"></i>
-             Latest Tweet
+             <i class="uk-icon-comment"></i>
+             Most Positive Review
          </header>
          
          <section class="uk-grid" data-uk-grid-match>
@@ -312,36 +227,54 @@
     </section>
     </article>
     
+    <!-- Last Negative Review -->
+    <article class="uk-width-1-1 uk-margin-top ec-review"
+             id="ec-review-neg"
+             data-uk-scrollspy="{cls:'animated slideInRight'}">
+    <section class="uk-width-1-1">
+         <article class="uk-panel
+                         uk-panel-box
+                         uk-panel-header">
+         <header class="uk-panel-title">
+             <i class="uk-icon-comment"></i>
+             Most Negative Review
+         </header>
+         
+         <section class="uk-grid" data-uk-grid-match>
+         <div class="uk-width-1-4">
+         <div class="uk-thumbnail">
+             <img src="http://placehold.it/400x400"/>
+         </div>
+         </div>
+         <div class="uk-width-3-4">
+         <p>blah blah blah blah blah blah blah blah blah 
+         blah blah blah blah blah blah blah blah blah 
+         blah blah blah blah blah blah blah blah blah blah</p>
+         <p class="uk-text-small">
+             Tuesday, April 01, 2014 HH:SS
+         </p>
+         </div>
+         </section>
+             
+         </article>
+    </section>
+    </article>
+    
+    <article class="uk-width-1-1 uk-margin-top"
+             data-uk-scrollspy="{cls:'animated slideInRight'}">
+        <a href="#" 
+           class="uk-width-1-1 
+                  uk-button 
+                  uk-button-primary">
+           <i class="uk-icon-comment-o"></i>
+           View All Feedback
+        </a>
+    </article>
+    
     <!-- MINOR DETAILS -->
     <article class="uk-width-1-1 uk-margin-top"
              id="ec-minor-details">
     <section class="uk-width-1-1">
-        
-        <!-- Hashtags -->
-        <article class="uk-panel
-                        uk-panel-box
-                        uk-panel-header
-                        bg-white
-                        ec-detail-category
-                        uk-margin-bottom"
-                 data-uk-scrollspy="{cls:'animated slideInRight'}">
-        <header class="uk-panel-title">
-            <i class="uk-icon-signal"></i>
-            Hashtags
-        </header>
-        <ul>
-            <?php for($x = 0; $x < 5; $x ++): ?>
-            <li>
-            <a href="#" 
-               class="uk-button
-                      uk-margin-bottom"
-               style="background-color:#1abc9c;color:#fff;">
-            # Hashtag
-            </a>
-            </li>
-            <?php endfor; ?>
-        </ul>
-        </article>
         
          <!-- URL LIST -->
         <article class="uk-panel
@@ -386,34 +319,6 @@
             </a>
             </li>
             <?php endfor; ?>
-        </ul>
-        </article>
-        
-        <!-- TICKET -->
-        <article class="uk-panel
-                        uk-panel-box
-                        uk-panel-header
-                        bg-white
-                        uk-margin-top
-                        ec-detail-category"
-                 data-uk-scrollspy="{cls:'animated slideInRight'}">
-        <header class="uk-panel-title">
-            <i class="uk-icon-ticket"></i>
-            Ticket
-        </header>
-        <ul>
-        <?php for($x = 0; $x < 10; $x ++): ?>
-            <li>
-            <a href="#" 
-               class="uk-button
-                      uk-margin-bottom"
-               data-uk-tooltip="{pos:'top'}" 
-               title="Blah Blah Ticket Description">
-            <i class="uk-icon-rouble"></i>
-            <?php print $x * 100; ?>
-            </a>
-            </li>
-        <?php endfor; ?>
         </ul>
         </article>
         

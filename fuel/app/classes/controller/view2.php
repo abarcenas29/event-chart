@@ -7,6 +7,11 @@ class Controller_View2 extends Controller_AppCore
     {
         $this->template->content = $this->_vg('event');
     }
+    
+    public function action_org()
+    {
+        $this->template->content = $this->_vg('organization');
+    }
 
     private function _vg($view)
     {

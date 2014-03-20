@@ -11,7 +11,8 @@
 <!-- NAV Links -->
 <article class="uk-width-1-1" id="ec-chart-navbar">
 	<nav class="uk-navbar">
-	<a href="#" class="uk-navbar-brand uk-margin-left">
+        <a href="<?php print Uri::create('/chart2') ?>" 
+           class="uk-navbar-brand uk-margin-left">
 	<img src="<?php print Uri::create('assets/img/ec-logo.svg'); ?>"/>
 	</a>
 		
@@ -20,7 +21,7 @@
 	<form class="uk-form uk-margin-remove uk-display-inline-block">
 		<input type="text" value="" placeholder="Search"/>
 		<button class="uk-button uk-button-primary">
-			<i class="uk-icon-search"></i>
+		<i class="uk-icon-search"></i>
 		</button>
 	</form>
 	</div>

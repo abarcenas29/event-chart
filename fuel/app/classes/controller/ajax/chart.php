@@ -4,6 +4,7 @@ class Controller_Ajax_Chart extends Controller_Ajax_AjaxCore
     public function post_init()
     {
         $view = $this->_cg2('chart');
+        
         return $view;
     }
     
