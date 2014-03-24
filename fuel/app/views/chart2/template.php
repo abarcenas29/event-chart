@@ -176,12 +176,14 @@
 				</a></li>
 			</ul>
 		</div>
-			<img src="http://placehold.it/640x843"
-			 class="uk-visible-large"
-			 style="width:100%;"/>
-			<img src="http://placehold.it/546x307"
-                             class="uk-hidden-large"
-                             style="width:100%;"/>
+                    <img src="http://placehold.it/640x843"
+                         class="uk-visible-large"
+                         id="ec-event-info-poster"
+                         style="width:100%;height:48em;"/>
+                    <img src="http://placehold.it/546x307"
+                         class="uk-hidden-large"
+                         id="ec-event-info-poster"
+                         style="width:100%;"/>
 		</div>
 		
 		</div>
@@ -201,13 +203,17 @@
 			</div>
 		</div>
 		<img src="http://staticmap.openstreetmap.de/staticmap.php?center=14.323332344997763,120.95918297767638&zoom=18&markers=14.323332344997763,120.95918297767638,ltblu-pushpin&size=546x168"
-			 class="uk-width-1-1"/>
+                     class="uk-width-1-1"
+                     id="ec-event-info-map"/>
 		
 		<div class="uk-panel-title uk-margin-top">
-			<i class="uk-icon-map-marker"></i>
-			Venue Title
+		<i class="uk-icon-map-marker"></i>
+                    Venue Title
 		</div>
-		De La Salle University - Dasmarinas
+                <div id="ec-event-info-venue">
+                    De La Salle University - Dasmarinas
+                </div>
+		
 		
 		<div class="uk-panel-title uk-margin-top">
 			<i class="uk-icon-tags"></i>
@@ -219,8 +225,8 @@
 		<li>
 		<a href="#" 
 		   class="uk-button 
-				  uk-button-primary 
-				  uk-margin-bottom">
+                          uk-button-primary 
+			  uk-margin-bottom">
 		<i class="uk-icon-tag"></i>
 			Category
 		</a>
@@ -236,15 +242,6 @@
 		</div>
 		
 		<ul class="ec-ticket-list">
-		<li>
-		<a href="#"
-		   class="uk-button"
-		   data-uk-tooltip
-		   title="This is the ticket information">
-		<i class="uk-icon-rub"></i>
-		100.00
-		</a>
-		</li>
 		</ul>
 		
 		</div>
@@ -261,6 +258,35 @@ $(document).ready(function()
         var height = $dialog.find('.uk-grid').height();
         
         $dialog.find('.uk-panel').css('height',height - 30 + 'px');
+    });
+    
+    $(document).on('click','a[href="#ec-event-info"]',function(e)
+    {
+        var flowImg         = $(this).data('flow-poster');
+        var venue           = $(this).data('venue');
+        var coordinate      = $(this).data('coord');
+        var tickets         = $(this).data('tickets');
+        var categories      = $(this).data('category');
+        var eventTitle      = $(this).data('event-title');
+        
+        console.log(categories);
+        var $eventModal     = $("#ec-event-info");
+        
+        $eventModal.find("#ec-event-info-poster").attr('src',flowImg);
+        $eventModal.find('#ec-event-info-venue').html(venue);
+        $eventModal.find('#ec-event-info-map').attr('src','http://staticmap.openstreetmap.de/staticmap.php?center='+coordinate+'&zoom=18&markers='+coordinate+',ltblu-pushpin&size=546x168');
+        
+        $eventModal.find('.ec-ticket-list').html('');
+        for(var i = 0; i < tickets.length; i++)
+        {
+            $eventModal.find(".ec-ticket-list").append('<a href="#" class="uk-button" data-uk-tooltip title="'+ tickets[i].note +'"><i class="uk-icon-rub"></i>'+ tickets[i].price +'</a>');
+        }
+        
+        $eventModal.find('.ec-category-list').html('');
+        for(var i = 0; i < categories.length; i++)
+        {
+            $eventModal.find(".ec-category-list").append('<li><a href="#" class="uk-button uk-button-primary uk-margin-left uk-margin-bottom"><i class="uk-icon-tag"></i>'+ categories[i].category +'</a></li>');
+        }
     });
 });
 </script>

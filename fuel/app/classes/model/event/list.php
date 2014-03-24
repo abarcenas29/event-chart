@@ -350,9 +350,9 @@ class Model_Event_list extends Model_ModelCore
 		$end_date		= DateTime::createFromFormat($format,$arg['end_at']);
 		if($start_date > $end_date)
 		{
-			$temp				= $arg['start_at'];
-			$arg['start_at']	= $arg['end_at'];
-			$arg['end_at']		= $temp;
+			$temp               = $arg['start_at'];
+			$arg['start_at']    = $arg['end_at'];
+			$arg['end_at']      = $temp;
 		}
 		return $arg;
 	}

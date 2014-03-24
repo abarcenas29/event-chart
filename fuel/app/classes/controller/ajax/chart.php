@@ -3,7 +3,8 @@ class Controller_Ajax_Chart extends Controller_Ajax_AjaxCore
 {
     public function post_init()
     {
-        $view = $this->_cg2('chart');
+        $view    = $this->_cg2('chart');
+        $view->q = Model_chart::format_chart();
         
         return $view;
     }
