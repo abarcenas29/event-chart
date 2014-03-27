@@ -153,17 +153,17 @@ class Model_Organization extends Model_ModelCore
 	public static function search_organization($arg)
 	{
 		$q = Model_Organization::query()
-				->where('name','like',$arg['search'].'%')
-				->get();
+                        ->where('name','like',$arg['search'].'%')
+                        ->get();
 		
 		$rsp = array();
 		$x	 = 0;
 		foreach($q as $row)
 		{
-			$rsp[$x]['title'] = '[Org] '. $row['name'];
-			$rsp[$x]['url']	  = Uri::create('admin/dashboard2/org_manage/'.$row['id']);
-			$rsp[$x]['text']  = '';
-			$x++;
+                    $rsp[$x]['title'] = '[Org] '. $row['name'];
+                    $rsp[$x]['url']   = Uri::create('admin/dashboard2/org_manage/'.$row['id']);
+                    $rsp[$x]['text']  = '';
+                    $x++;
 		}
 		return $rsp; 
 	}

@@ -25,59 +25,59 @@ class Model_Event_list extends Model_ModelCore
 	);
 	
 	protected static $_has_one = array(
-		'organization' => array(
-			'key_from'	=> 'main_org',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Organization'
-		),
-		'photo' => array(
-			'key_from'	=> 'photo_id',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Photo'
-		),
-		'cover' => array(
-			'key_from'	=> 'cover_id',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Photo'
-		)
+            'organization' => array(
+                    'key_from'	=> 'main_org',
+                    'key_to'	=> 'id',
+                    'model_to'	=> 'Model_Organization'
+            ),
+            'photo' => array(
+                    'key_from'	=> 'photo_id',
+                    'key_to'	=> 'id',
+                    'model_to'	=> 'Model_Photo'
+            ),
+            'cover' => array(
+                    'key_from'	=> 'cover_id',
+                    'key_to'	=> 'id',
+                    'model_to'	=> 'Model_Photo'
+            )
 	);
 	
 	protected static $_has_many = array(
-		'sub_org'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Organization'
-		),
-		'ticket'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Ticket'
-		),
-		'category'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Category'
-		),
-		'poster'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Poster'
-		),
-		'guest'		=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Guest'
-		),
-		'instagram' => array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Instagram'
-		),
-		'hashtags'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Hashtag'
-		)
+            'sub_org'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Organization'
+            ),
+            'ticket'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Ticket'
+            ),
+            'category'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Category'
+            ),
+            'poster'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Poster'
+            ),
+            'guest'		=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Guest'
+            ),
+            'instagram' => array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Instagram'
+            ),
+            'hashtags'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Hashtag'
+            )
 	);
 	
 	protected static $_belongs_to = array(
@@ -277,31 +277,51 @@ class Model_Event_list extends Model_ModelCore
 	public static function read_public_list($event_id)
 	{
 		$q = Model_Event_list::query()
-				->related('photo')
-				->related('organization')
-				->where('status','=','live')
-				->where('id','=',$event_id);
+                        ->related('photo')
+                        ->related('organization')
+                        ->where('status','=','live')
+                        ->where('id','=',$event_id);
 		return $q->get_one();
 	}
 	
 	public static function search_event($arg)
 	{
-		$q = Model_Event_list::query()
-				->related('organization')
-				->where('name','like',$arg['search'].'%')
-				->get();
-		
-		$rsp = array();
-		$x	 = 0;
-		foreach($q as $row)
-		{
-			$rsp[$x]['title'] = '[Event] '. $row['name'];
-			$rsp[$x]['url']	  = Uri::create('admin/dashboard2/event_manage/'.$row['id']);
-			$rsp[$x]['text']  = $row['organization']['name'];
-			$x++;
-		}
-		return $rsp; 
+            $q = Model_Event_list::query()
+                    ->related('organization')
+                    ->where('name','like',$arg['search'].'%')
+                    ->get();
+
+            $rsp = array();
+            $x	 = 0;
+            foreach($q as $row)
+            {
+                $rsp[$x]['title'] = '[Event] '. $row['name'];
+                $rsp[$x]['url']	  = Uri::create('admin/dashboard2/event_manage/'.$row['id']);
+                $rsp[$x]['text']  = $row['organization']['name'];
+                $x++;
+            }
+            return $rsp;
 	}
+        
+        public static function public_search_event($arg)
+        {
+            $q = Model_Event_list::query()
+                    ->related('organization')
+                    ->where('name','like',$arg['search'].'%')
+                    ->where('status','=','live')
+                    ->get();
+
+            $rsp = array();
+            $x	 = 0;
+            foreach($q as $row)
+            {
+                $rsp[$x]['title'] = '[Event] '. $row['name'];
+                $rsp[$x]['url']	  = Uri::create('view/event/'.$row['id']);
+                $rsp[$x]['text']  = $row['organization']['name'];
+                $x++;
+            }
+            return $rsp;
+        }
 	
 	public static function delete_event($event_id)
 	{

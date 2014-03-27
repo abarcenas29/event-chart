@@ -31,6 +31,5 @@ $(document).ready(function()
 	$('.bo-modal-dialog').click(function(e)
 	{
 		e.stopPropagation();
-		e.preventDefault();
 	});
 });

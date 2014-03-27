@@ -23,11 +23,13 @@
                 
                 <div>
                 <a href="#ec-event-info"
-                   data-event-id="<?php print $row['event_id']; ?>"
+                   data-event-id="<?php print Uri::create('view2/event/'.$row['event_id']); ?>"
                    data-flow-poster="<?php print $row['poster_flow']; ?>"
+                   data-cover-uri="<?php print $row['cover_flow']; ?>"
                    data-venue="<?php print $row['venue']; ?>"
                    data-facebook="<?php print $row['facebook']; ?>"
                    data-twitter="<?php print $row['twitter']; ?>"
+                   data-website="<?php print $row['website']; ?>"
                    data-coord="<?php print $row['coordinate']; ?>"
                    data-tickets='<?php print $row['tickets']; ?>'
                    data-category='<?php print $row['category']; ?>'
@@ -51,7 +53,7 @@ var animationDelayWebkit = '-webkit-animation-delay';
 var animationDelay	 = 'animation-delay';
 $('.ec-chart-cycle').each(function(i)
 {
-	$(this).css(animationDelayWebkit, i*200 + 'ms');
-	$(this).css(animationDelay,i*200 + 'ms');
+    $(this).css(animationDelayWebkit, i*200 + 'ms');
+    $(this).css(animationDelay,i*200 + 'ms');
 });
 </script>

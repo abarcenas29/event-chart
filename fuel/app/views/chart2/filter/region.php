@@ -1,5 +1,5 @@
 <article id="ec-filter-region" 
-		 class="uk-modal">
+         class="uk-modal">
 <div class="uk-modal-dialog">
 	<a class="uk-modal-close uk-close"></a>
 	<section class="uk-panel uk-panel-header">
@@ -8,8 +8,9 @@
 		Event Region
 	</header>
 	<form class="uk-width-1-1 uk-form uk-form-horizontal"
-		  action="#"
-		  method="POST">
+              action="#"
+              method="POST"
+              id="ec-filter-region-form">
 	
 	<div class="uk-form-row">
 	<label class="uk-form-label">
@@ -27,8 +28,9 @@
 		</option>
 		<?php endforeach; ?>
 		</select>
-		<button class="uk-button uk-button-primary">
-			<i class="uk-icon-filter"></i>
+		<button class="uk-button uk-button-primary"
+                        type="submit">
+                    <i class="uk-icon-filter"></i>
 		</button>
 	</div>
 	</div>

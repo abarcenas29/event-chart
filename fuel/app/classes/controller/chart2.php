@@ -24,11 +24,18 @@ class Controller_chart2 extends Controller_AppCore
 		$this->template->region		= $mRegion;
 		$this->template->date		= $mDate;
 		$this->template->price		= $mPrice;
-		
+		$this->template->modal          = $this->_cmd('event');
+                
 		$this->template->content	= $view;
 	}
 	
-	private function _cm($view)
+        private function _cmd($view)
+        {
+            $view = View::forge("chart2/modal/$view");
+            return $view;
+        }
+
+        private function _cm($view)
 	{
 		$view = View::forge("chart2/filter/$view");
 		return $view;

@@ -6,6 +6,9 @@
 <?php print Asset::css('chart2/chart2.css');?>
 
 <?php print Asset::js('uikit/datepicker.js');?>
+<?php print Asset::js('chart/jquery.chart.modal.js');?>
+<?php print Asset::js('jquery.form.min.js');?>
+
 <?php print Asset::css('datepicker.min.css');?>
 
 <?php print Asset::js('jquery.cookie.js');?>
@@ -13,56 +16,58 @@
 
 <?php print Asset::css('modal.css'); ?>
 <?php print Asset::js('jquery.modal.js');?>
-
 </head>
 <body class="uk-width-1-1">
 	
 <!-- NAV -->
 <article class="uk-width-1-1" id="ec-chart-navbar">
 	<nav class="uk-navbar">
-	<a href="#" class="uk-navbar-brand uk-margin-left">
-		<img src="<?php print Uri::create('assets/img/ec-logo.svg'); ?>"/>
+	<a href="#ec-menu-main" class="uk-navbar-brand uk-margin-left">
+            <img src="<?php print Uri::create('assets/img/ec-logo.svg'); ?>"/>
 	</a>
+        <!-- Mobile Version -->
 	<ul class="uk-navbar-nav uk-hidden-large">
-		<li class="uk-parent" data-uk-dropdown>
-			<a href="#">Filter <i class="uk-icon-caret-down"></i></a>
-			<div class="uk-dropdown uk-dropdown-navbar">
-			<ul class="uk-nav uk-nav-navbar">
-			
-			<li>
-			<a href="#ec-filter-menu" data-uk-modal>
-				<i class="uk-icon-filter"></i>
-				Event Category
-			</a>
-			</li>
-			
-			<li>
-			<a href="#ec-filter-region" data-uk-modal>
-				<i class="uk-icon-filter"></i>
-				Region
-			</a>
-			</li>
-			
-			<li>
-			<a href="#ec-filter-date" data-uk-modal>
-				<i class="uk-icon-calendar"></i>
-				Date
-			</a>
-			</li>
-			
-			<li>
-			<a href="#ec-filter-price" data-uk-modal>
-				<i class="uk-icon-filter"></i>
-				Price
-			</a>
-			</li>
-			
-			</ul>
-			</div>
-		</li>
+            <li class="uk-parent" data-uk-dropdown>
+                <a href="#">Filter <i class="uk-icon-caret-down"></i></a>
+                <div class="uk-dropdown uk-dropdown-navbar">
+                <ul class="uk-nav uk-nav-navbar">
+
+                <li class="uk-hidden">
+                <a href="#ec-filter-menu" data-uk-modal>
+                        <i class="uk-icon-filter"></i>
+                        Event Category
+                </a>
+                </li>
+
+                <li>
+                <a href="#ec-filter-region" data-uk-modal>
+                        <i class="uk-icon-filter"></i>
+                        Region
+                </a>
+                </li>
+
+                <li class="uk-hidden">
+                <a href="#ec-filter-date" data-uk-modal>
+                        <i class="uk-icon-calendar"></i>
+                        Date
+                </a>
+                </li>
+
+                <li class="uk-hidden">
+                <a href="#ec-filter-price" data-uk-modal>
+                        <i class="uk-icon-filter"></i>
+                        Price
+                </a>
+                </li>
+
+                </ul>
+                </div>
+            </li>
 	</ul>
+        
+        <!-- Desktop Version -->
 	<ul class="uk-navbar-nav uk-visible-large">
-	<li>
+	<li class="uk-hidden">
 		<a href="#ec-filter-menu" data-uk-modal>
 		<i class="uk-icon-filter"></i>
 		Event Category
@@ -76,14 +81,14 @@
 		</a>
 	</li>
 	
-	<li>
+	<li class="uk-hidden">
 		<a href="#ec-filter-date" data-uk-modal>
 		<i class="uk-icon-calendar"></i>
 		Date
 		</a>
 	</li>
 	
-	<li>
+	<li class="uk-hidden">
 		<a href="#ec-filter-price" data-uk-modal>
 		<i class="uk-icon-filter"></i>
 		Price
@@ -94,43 +99,46 @@
 		
 	<div class="uk-navbar-flip">
 	<div class="uk-navbar-content">
-	<form class="uk-form uk-margin-remove uk-display-inline-block">
-		<input type="text" value="" placeholder="Search"/>
-		<button class="uk-button uk-button-primary">
-			<i class="uk-icon-search"></i>
+	<form class="uk-search"
+              data-uk-search="{source:'<?php print Uri::create('api/search/search.json'); ?>'">
+		<input type="search"
+                       class="uk-search-field"
+                       placeholder="Search"/>
+		<button class="uk-search-close"
+                        type="reset">
 		</button>
 	</form>
 	</div>
 	<ul class="uk-navbar-nav uk-hidden-large">
-		<li class="uk-parent" data-uk-dropdown>
-			<a href="#"><i class="uk-icon-bars"></i></a>
-			<div class="uk-dropdown uk-dropdown-navbar">
-			<ul class="uk-nav uk-nav-navbar">
-			
-			<li>
-			<a href="#">
-				Archive
-			</a>
-			</li>
-			
-			<li>
-			<a href="#">
-				About
-			</a>
-			</li>
-			
-			<li>
-			<a href="#">
-				Contact
-			</a>
-			</li>
-			
-			</ul>
-			</div>
-		</li>
+            <li class="uk-parent" data-uk-dropdown>
+                <a href="#"><i class="uk-icon-bars"></i></a>
+                <div class="uk-dropdown uk-dropdown-navbar">
+                <ul class="uk-nav uk-nav-navbar">
+
+                <li>
+                <a href="#ec-menu-archive">
+                    Archive
+                </a>
+                </li>
+
+                <li>
+                <a href="#">
+                    About
+                </a>
+                </li>
+
+                <li>
+                <a href="#">
+                    Contact
+                </a>
+                </li>
+
+                </ul>
+                </div>
+            </li>
 	</ul>
 	<ul class="uk-navbar-nav uk-visible-large">
-		<li><a href="#">Archive</a></li>
+		<li><a href="#ec-menu-archive">Archive</a></li>
 		<li><a href="#">About</a></li>
 		<li><a href="#">Contact</a></li>
 	</ul>
@@ -145,110 +153,10 @@
 	print $price;
 ?>
 
-<?php print $content; ?>
-
-
-<div id="ec-event-info" 
-     class="bo-modal bo-modal-open">
-	<article class="bo-modal-dialog">
-	<div class="uk-grid uk-width-1-1" data-uk-grid-match>
-		<div class="uk-width-large-1-2
-                            uk-width-medium-1-1
-                            ec-event-info-image">
-			
-		<div>
-		<div class="uk-eveint-info-social">
-			<ul>
-			<li><a href="#"
-				   class="uk-button facebook">
-				<i class="uk-icon-facebook"></i>
-				</a></li>
-				
-			<li><a href="#"
-				   class="uk-button twitter">
-				<i class="uk-icon-twitter"></i>
-				</a></li>
-				
-			<li><a href="#"
-				   class="uk-button
-						  uk-button-success">
-				<i class="uk-icon-globe"></i>	  
-				</a></li>
-			</ul>
-		</div>
-                    <img src="http://placehold.it/640x843"
-                         class="uk-visible-large"
-                         id="ec-event-info-poster"
-                         style="width:100%;height:48em;"/>
-                    <img src="http://placehold.it/546x307"
-                         class="uk-hidden-large"
-                         id="ec-event-info-poster"
-                         style="width:100%;"/>
-		</div>
-		
-		</div>
-		<div class="uk-width-large-1-2
-                            uk-width-medium-1-1
-                            ec-event-info">
-		<div class="uk-panel uk-panel-header uk-panel-box">
-		<div class="uk-panel-title 
-					ec-event-info-main-title">
-			<p class="uk-text-truncate uk-margin-remove">
-			Event Information
-			</p>
-			<div>
-			<a href="#" class="uk-button uk-button-success">
-				<i class="uk-icon-info-circle"></i>
-			</a>
-			</div>
-		</div>
-		<img src="http://staticmap.openstreetmap.de/staticmap.php?center=14.323332344997763,120.95918297767638&zoom=18&markers=14.323332344997763,120.95918297767638,ltblu-pushpin&size=546x168"
-                     class="uk-width-1-1"
-                     id="ec-event-info-map"/>
-		
-		<div class="uk-panel-title uk-margin-top">
-		<i class="uk-icon-map-marker"></i>
-                    Venue Title
-		</div>
-                <div id="ec-event-info-venue">
-                    De La Salle University - Dasmarinas
-                </div>
-		
-		
-		<div class="uk-panel-title uk-margin-top">
-			<i class="uk-icon-tags"></i>
-			Categories
-		</div>
-		<ul class="ec-category-list">
-		
-		<?php for($x = 0; $x < 5; $x++): ?>
-		<li>
-		<a href="#" 
-		   class="uk-button 
-                          uk-button-primary 
-			  uk-margin-bottom">
-		<i class="uk-icon-tag"></i>
-			Category
-		</a>
-		</li>
-		<?php endfor; ?>
-		
-		</ul>
-		
-		<div class="uk-panel-title 
-					uk-margin-top">
-			<i class="uk-icon-ticket"></i>
-			Ticket Information
-		</div>
-		
-		<ul class="ec-ticket-list">
-		</ul>
-		
-		</div>
-		</div>
-	</div>
-	</article>
-</div>
+<?php 
+    print $content; 
+    print $modal;
+?>
 <script>
 $(document).ready(function()
 {
@@ -258,35 +166,6 @@ $(document).ready(function()
         var height = $dialog.find('.uk-grid').height();
         
         $dialog.find('.uk-panel').css('height',height - 30 + 'px');
-    });
-    
-    $(document).on('click','a[href="#ec-event-info"]',function(e)
-    {
-        var flowImg         = $(this).data('flow-poster');
-        var venue           = $(this).data('venue');
-        var coordinate      = $(this).data('coord');
-        var tickets         = $(this).data('tickets');
-        var categories      = $(this).data('category');
-        var eventTitle      = $(this).data('event-title');
-        
-        console.log(categories);
-        var $eventModal     = $("#ec-event-info");
-        
-        $eventModal.find("#ec-event-info-poster").attr('src',flowImg);
-        $eventModal.find('#ec-event-info-venue').html(venue);
-        $eventModal.find('#ec-event-info-map').attr('src','http://staticmap.openstreetmap.de/staticmap.php?center='+coordinate+'&zoom=18&markers='+coordinate+',ltblu-pushpin&size=546x168');
-        
-        $eventModal.find('.ec-ticket-list').html('');
-        for(var i = 0; i < tickets.length; i++)
-        {
-            $eventModal.find(".ec-ticket-list").append('<a href="#" class="uk-button" data-uk-tooltip title="'+ tickets[i].note +'"><i class="uk-icon-rub"></i>'+ tickets[i].price +'</a>');
-        }
-        
-        $eventModal.find('.ec-category-list').html('');
-        for(var i = 0; i < categories.length; i++)
-        {
-            $eventModal.find(".ec-category-list").append('<li><a href="#" class="uk-button uk-button-primary uk-margin-left uk-margin-bottom"><i class="uk-icon-tag"></i>'+ categories[i].category +'</a></li>');
-        }
     });
 });
 </script>
