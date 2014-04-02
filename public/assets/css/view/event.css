@@ -101,7 +101,7 @@ body {
 }
 /* line 117, event.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003117}}
-#ec-view-container #ec-link-reference > .uk-grid .ec-link .uk-panel {
+#ec-view-container #ec-link-reference > .uk-grid .ec-link .uk-panel > a {
   color: #fff;
   font-size: 5em;
 }
@@ -112,14 +112,14 @@ body {
 }
 /* line 136, event.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003136}}
-#ec-view-container #ec-share-container .ec-share {
+#ec-view-container #ec-share-container a > .ec-share {
   width: 89%;
   color: #fff;
   font-family: 'Conv_weblysleekuil';
 }
 /* line 140, event.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003140}}
-#ec-view-container #ec-share-container .ec-share i {
+#ec-view-container #ec-share-container a > .ec-share i {
   font-size: 2em;
 }
 /* line 152, event.less */

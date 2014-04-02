@@ -17,9 +17,9 @@ class Model_Event_Instagram extends Model_ModelCore
 	
 	protected static $_belongs_to = array(
 		'event_list' => array(
-			'key_from'	=> 'event_id',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Event_List'
+                    'key_from'	=> 'event_id',
+                    'key_to'	=> 'id',
+                    'model_to'	=> 'Model_Event_List'
 		)
 	);
 	

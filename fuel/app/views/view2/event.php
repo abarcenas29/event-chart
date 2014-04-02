@@ -12,7 +12,7 @@
     <style>
     #ec-cover-image
     {
-        background:url(http://event.deremoe.com/uploads/2014-01-28/ee14ed110b3897c970763eea0.jpg);
+        background:url(<?php print $cover; ?>);
     }
     </style>
     <article class="uk-width-1-1" id="ec-cover-image">
@@ -21,11 +21,11 @@
                         uk-width-1-1
                         uk-text-center"
                  id="ec-cover-title">
-        Event Name View
+        <?php print $q['name']; ?>
         </article>
         <article id="ec-org-logo">
             <section class="uk-thumbnail">
-            <img src="http://placehold.it/400x400"/>
+            <img src="<?php print $org_img; ?>"/>
             </section>
         </article>
     </section>
@@ -44,8 +44,9 @@
             </div>
             <div class="ec-value 
                         uk-text-center 
-                        uk-text-truncate">
-                Ozine Anime Magazine
+                        uk-text-truncate"
+                 title="<?php print $q['organization']['name']; ?>">
+                <?php print $q['organization']['name']; ?>
             </div>
         </section>
         
@@ -57,8 +58,9 @@
             </div>
             <div class="ec-value 
                         uk-text-center 
-                        uk-text-truncate">
-                Location
+                        uk-text-truncate"
+                 title="<?php print $q['region']; ?>">
+                <?php print $q['region']; ?>
             </div>
         </section>
             
@@ -69,7 +71,7 @@
                 Rating
             </div>
             <div class="ec-value uk-text-center">
-                4/5
+                ?/5
             </div>
         </section>
             
@@ -82,7 +84,7 @@
             <div class="ec-value 
                         uk-text-center 
                         uk-text-truncate">
-                Tue, April 01, 2014
+                <?php print $start_date; ?>
             </div>
         </section>
             
@@ -131,6 +133,9 @@
             <i class="uk-icon-info"></i>
             Description
         </header>
+        <section>
+        <?php print $sq['description']; ?>
+        </section>
         </article>
         
         <!-- POSTER IMAGES -->
@@ -146,15 +151,15 @@
         </header>
         <section class="uk-panel">
         <div class="uk-grid">
-            <?php for($x = 0; $x < 8; $x++): ?>
+            <?php foreach($q['poster'] as $row): ?>
         
             <a href="#" class="uk-width-1-4 uk-margin-bottom">
             <div class="uk-thumbnail">
-                <img src="http://placehold.it/400x400"/>
+                <img src="<?php print Uri::create('uploads/'.$row['photo']['date']."/thumb-".$row['photo']['filename']); ?>"/>
             </div>
             </a>
 
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </div>
         </section>
         </article>
@@ -174,13 +179,17 @@
         </header>
         <section class="uk-width-1-1">
         <div class="uk-grid">
-        <?php for($x = 0; $x < 8; $x++): ?>
+        <?php foreach($q['instagram'] as $row): ?>
+        <?php if($instagram_limit < 10): ?>
             <div class="uk-width-1-4 uk-margin-bottom">
             <div class="uk-thumbnail">
-                <img src="http://placehold.it/400x400"/>
+                <img src="<?php print $row['img_thumb']; ?>"/>
             </div>
             </div>
-        <?php endfor;?>
+        <?php $instagram_limit++; ?>
+        <?php else: break; ?>
+        <?php endif; ?>
+        <?php endforeach; ?>
         </div>
         </section>
         </article>
@@ -204,28 +213,41 @@
         <article class="uk-width-1-4 ec-link">
         <div class="uk-panel uk-panel-box uk-text-center"
              style="background-color:#45619D;">
+            <a href="<?php print Uri::create('http://facebook/'.$q['facebook']); ?>"
+               target="_new">
             <i class="uk-icon-facebook"></i>
+            </a>
         </div>
         </article>
         
         <article class="uk-width-1-4 ec-link">
         <div class="uk-panel uk-panel-box uk-text-center"
              style="background-color:#3A92C8;">
+            <a href="<?php print Uri::create('http://twitter/'.$q['twitter']); ?>"
+               target="_new">
             <i class="uk-icon-twitter"></i>
+            </a>
         </div>
         </article>
         
+        <?php if(!empty($q['email'])): ?>
         <article class="uk-width-1-4 ec-link">
         <div class="uk-panel uk-panel-box uk-text-center"
              style="background-color:#34495e;">
+            <a href="#email" data-email="<?php print $q['email']; ?>">
             <i class="uk-icon-envelope"></i>
+            </a>
         </div>
         </article>
+        <?php endif; ?>
         
         <article class="uk-width-1-4 ec-link">
         <div class="uk-panel uk-panel-box uk-text-center"
              style="background-color:#2ecc71;">
+            <a href="<?php print Uri::create('http://'.$q['website']); ?>"
+               target="_new">
             <i class="uk-icon-globe"></i>
+            </a>
         </div>
         </article>
         
@@ -244,37 +266,52 @@
          id="ec-share-container">
     <div class="uk-grid">
         <article class="uk-width-1-2">
+            <a href="#">
             <div class="ec-share
                         uk-float-left
                         padding"
              style="background-color:#45619D">
             <i class="uk-icon-facebook-square"></i>
             &nbsp; Share on Facebook
+            
             </div>
+            </a>
+                
+            <a href="#">
             <div class="ec-share
                         uk-float-left
                         padding"
                  style="background-color:#3A92C8;">
+            
             <i class="uk-icon-twitter-square"></i>
             &nbsp; Share on Twitter
             </div>
+            </a>
         </article>
         
         <article class="uk-width-1-2">
+            <a href="<?php print 'waze://?ll='. $q['lat'].','.$q['long'];?>">
             <div class="ec-share
                         uk-float-left
                         padding"
              style="background-color:#3498db;">
+            
             <i class="uk-icon-crosshairs"></i>
             &nbsp; Send To Waze
             </div>
+            </a>
+            
+            <a href="<?php print 'http://maps.google.com/?ie=UTF8&q='.urlencode($q['venue']).'@'.$q['lat'].','.$q['long']; ?>"
+                   target="_new">
             <div class="ec-share
                         uk-float-left
                         padding"
                  style="background-color:#e74c3c">
+                
                 <i class="uk-icon-map-marker"></i>
                 &nbsp; See on Google Maps
             </div>
+            </a>
         </article>
     </div>
     </div>
@@ -330,16 +367,16 @@
             Hashtags
         </header>
         <ul>
-            <?php for($x = 0; $x < 5; $x ++): ?>
+            <?php foreach($q['hashtags'] as $row):?>
             <li>
             <a href="#" 
                class="uk-button
                       uk-margin-bottom"
                style="background-color:#1abc9c;color:#fff;">
-            # Hashtag
+            # <?php print $row['hashtag']; ?>
             </a>
             </li>
-            <?php endfor; ?>
+            <?php endforeach;?>
         </ul>
         </article>
         
@@ -375,17 +412,17 @@
             Category
         </header>
         <ul>
-            <?php for($x = 0; $x < 10; $x ++): ?>
+            <?php foreach($q['category'] as $row): ?>
             <li>
             <a href="#" 
                class="uk-button 
                       uk-button-primary
                       uk-margin-bottom">
             <i class="uk-icon-tag"></i>
-            Category
+            <?php print $q['category']; ?>
             </a>
             </li>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </ul>
         </article>
         
@@ -402,21 +439,22 @@
             Ticket
         </header>
         <ul>
-        <?php for($x = 0; $x < 10; $x ++): ?>
+        <?php foreach($q['ticket'] as $row): ?>
             <li>
             <a href="#" 
                class="uk-button
                       uk-margin-bottom"
                data-uk-tooltip="{pos:'top'}" 
-               title="Blah Blah Ticket Description">
+               title="<?php print $row['note']; ?>">
             <i class="uk-icon-rouble"></i>
-            <?php print $x * 100; ?>
+            <?php print $row['price']; ?>
             </a>
             </li>
-        <?php endfor; ?>
+        <?php endforeach;?>
         </ul>
         </article>
         
+        <?php if(count($q['guest']) > 0): ?>
         <!-- GUEST LIST -->
         <article class="uk-panel
                         uk-panel-box
@@ -437,15 +475,16 @@
         </tr>
         </thead>
         <tbody>
-        <?php for($x=0;$x < 5;$x++): ?>
+        <?php foreach($q['guest'] as $row): ?>
         <tr>
-        <td>Guest Name</td>
-        <td>Guest Type</td>
-        </tr>
-        <?php endfor; ?>
+        <td><?php print $q['name']; ?></td>
+        <td><?php print $q['guest_type']; ?></td>
+        </tr>  
+        <?php endforeach; ?>
         </tbody>
         </table>
         </article>
+        <?php endif; ?>
     </section>
     </article>
     
@@ -453,15 +492,22 @@
 </div>
 </article>
 <script>
-var geoLocation = [51.505, -0.09];
+var geoLocation = <?php print '['.$q['lat'].','.$q['long'].']'; ?>;
 var osmTileMap  = 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
-var venue       = 'This is a location';
+var venue       = '<?php print $q['venue']; ?>';
 var attr        = 'Event Chart Map Powered by Cloudmade OSM.';
 $(document).ready(function(e)
 {
     var map = L.map('ec-map').setView(geoLocation,13);
     L.tileLayer(osmTileMap,{attribution:attr}).addTo(map);
     L.marker(geoLocation).addTo(map).bindPopup(venue).openPopup();
+    
+    $('a[href="#email"]').click(function(e)
+    {
+        var email = $(this).data('email');
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", email);
+        e.preventDefault();
+    });
     
     $('.ec-link').addClass('animated bounceIn');
     $('.ec-link').each(function(i)
