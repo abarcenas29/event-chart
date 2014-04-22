@@ -23,19 +23,61 @@
 	
 <!-- Event Create/Edit Form Container -->
 <div class="uk-width-1-2 
-			uk-height-1-1 
-			uk-vertical-align"
+            uk-height-1-1 
+            uk-vertical-align"
 	 id="ec-event-manage-form-container">
 
 	<section class="uk-vertical-align-middle
-					uk-width-1-1">
+                        uk-width-1-1">
 
 	<article class="uk-panel 
-					uk-panel-box
-					uk-panel-header
-					uk-width-1-1">
+                        uk-panel-box
+                        uk-panel-header
+                        uk-width-1-1">
 	<h1 class="uk-panel-title">Create Event Detail</h1>
-	<form class="uk-form uk-form-horizontal"
+        
+        <div class="uk-panel uk-panel-box-primary uk-margin"
+             style="padding:1em;">
+        <form class="uk-form uk-form-horizontal"
+              method="POST"
+              action="<?php print Uri::create('api/admin/event/event_data.json'); ?>"
+              id="ec-facebook-event-form">
+        <fieldset>
+        <div class="uk-form-row">
+        <label class="uk-form-label">Facebook Event Id</label>
+        <div class="uk-form-controls">
+            <input type="text"
+                   name="fbid"
+                   placeholder="621129704608422"
+                   value="<?php print (isset($q['fb_event_id']))?$q['fb_event_id']:''; ?>"
+                   class="uk-width-8-10"
+                   />
+            <button class="uk-button 
+                           uk-button-primary
+                           uk-width-1-10"
+                    type="submit">
+                <i class="uk-icon-refresh"></i>
+            </button>
+        </div>
+        </div>
+        
+        <div class="uk-form-row">
+        
+        <div class="uk-form-controls">
+            <label class="uk-form-label 
+                          uk-margin-remove">
+                Create A New Organization
+            </label>
+            <input type="checkbox"
+                   name="fb_create_group"/>
+        </div>
+        </div>
+            
+        </fieldset>
+        </form>    
+        </div>
+        
+        <form class="uk-form uk-form-horizontal"
 		  method="POST"
 		  action="<?php print $action ?>"
 		  id="ec-event-detail-form">
@@ -221,17 +263,25 @@
 		
 	<div class="uk-form-row">
 	<div class="uk-float-right">
+                <input type="hidden"
+                       name="fbid"
+                       value="<?php print (isset($q['fb_event_id']))?$q['fb_event_id']:''; ?>"
+                       />
+                <input type="hidden"
+                       name="fb-update"
+                       value="<?php print (isset($q['fb_last_update']))?$q['fb_last_update']:''; ?>"
+                       />
 		<button class="uk-button 
-					   uk-button-success"
-				type="submit">
+                               uk-button-success"
+                        type="submit">
 			<i class="uk-icon-save"></i>
 			Save
 		</button>
 		<a href="#" 
 		   class="uk-button
-				  uk-button-primary">
+                          uk-button-primary">
 		<i class="uk-icon-arrow-circle-left"></i>
-			Back
+                    Back
 		</a>
 	</div>
 	</div>
@@ -273,19 +323,19 @@ if(isset($q))
 }?>
 <script>
 var venueCoords		= [];
-var $map			= $('#ec-event-manage-map');
+var $map		= $('#ec-event-manage-map');
 var OpenStreetMap	= 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
 
 var $inputLong = $('input[name="lng"]');
 var $inputLat  = $('input[name="lat"]');
 var $eventForm = $('#ec-event-detail-form');
+var $eventFb   = $('#ec-facebook-event-form');
 
 var urlManage = "<?php print Uri::create('admin/dashboard2/event_manage/'); ?>";
-var layer	  = null;
+var layer     = null;
 
 venueCoords.push($inputLat.val());
 venueCoords.push($inputLong.val());
-
 
 $(document).ready(function()
 {
@@ -313,6 +363,7 @@ $(document).ready(function()
 </script>
 <?php 
 	print Asset::js('dashboard/jq.event.manage.venue.js');
+        print Asset::js('dashboard/jq.event.facebook.js');
 	if(isset($q)):
 		print Asset::js('dashboard/jq.event.manage.edit.js');
 	else:

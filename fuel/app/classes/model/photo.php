@@ -28,38 +28,38 @@ class Model_Photo extends Model_ModelCore
 	
 	public static function insert_picture_url($arg)
 	{
-		$q = new Model_Photo();
-		$q->date	= date('Y-m-d');
-		$q->filename= Model_Photo::_upload_url($arg);
-		$q->save();
-		return $q->id;
+            $q              = new Model_Photo();
+            $q->date	= date('Y-m-d');
+            $q->filename= Model_Photo::_upload_url($arg);
+            $q->save();
+            return $q->id;
 	}
 	
 	public static function insert_picture($arg)
 	{
-		$q = new Model_Photo();
-		$q->date		= date('Y-m-d');
-		$q->filename	= Model_Photo::_upload($arg);
-		$q->save();
-		return $q->id;
+            $q = new Model_Photo();
+            $q->date		= date('Y-m-d');
+            $q->filename	= Model_Photo::_upload($arg);
+            $q->save();
+            return $q->id;
 	}
 	
 	public static function get_picture_by_id($id)
 	{
-		$q = Model_Photo::query()
-				->where('id','=',$id);
-		return $q->get_one();
+            $q = Model_Photo::query()
+                    ->where('id','=',$id);
+            return $q->get_one();
 	}
 	
 	public static function delete_picture($photo_id)
 	{
-		$q	= Model_Photo::query()
-				->where('id','=',$photo_id)
-				->get_one();
-		$arg['date']	= $q['date'];
-		$arg['filename']= $q['filename'];
-		Model_Photo::_delete_file($arg);
-		$q->delete(); 
+            $q	= Model_Photo::query()
+                    ->where('id','=',$photo_id)
+                    ->get_one();
+            $arg['date']	= $q['date'];
+            $arg['filename']= $q['filename'];
+            Model_Photo::_delete_file($arg);
+            $q->delete(); 
 	}
 	
 	private static function _delete_file($arg)
@@ -79,7 +79,7 @@ class Model_Photo extends Model_ModelCore
 	public static function _upload_url($arg)
 	{
 		$arg['upload_dir'] = Config::get('ec.upload');
-		$get_mime		   = explode('.',$arg['url']);
+                $get_mime          = explode('.',$arg['url']);
 		$arg['mime']	   = end($get_mime);
 		
 		if($arg['mime'] == 'jpeg' || 
