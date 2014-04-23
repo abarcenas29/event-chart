@@ -4,13 +4,19 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
     public function post_event_data()
     {
         $event_id = Input::post('fbid');
-        $new_org  = Input::post('fb_create_group');
         
         $data = Model_Event_Engine::event_data($event_id);
         $data['start_time'] = $this->_convert_date($data['start_time']);
         $data['end_time']   = $this->_convert_date($data['end_time']);
         
         return $this->response($data);
+    }
+    
+    public function post_org_contact_info()
+    {
+        $org_id = Input::post('org_id');
+        $q      = Model_Organization::read_organization($org_id);
+        
     }
 
     //new	

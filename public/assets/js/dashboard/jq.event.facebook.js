@@ -16,6 +16,7 @@ $(document).ready(function()
             $form.find('input[name="lng"]').val(d.venue.longitude);
             $form.find('input[name="start_at"]').val(d.start_time);
             $form.find('input[name="end_at"]').val(d.end_time);
+            $form.find('input[name="city-input"]').val(d.venue.city);
             $form.find('#description').html(d.description);
             
             $form.find('input[name="fbid"]').val(fbid);

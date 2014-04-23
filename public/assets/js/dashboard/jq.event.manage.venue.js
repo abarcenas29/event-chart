@@ -1,6 +1,5 @@
 $(document).ready(function()
 {
-	var map = L.map('ec-event-manage-map').setView(venueCoords,20);
         L.tileLayer(OpenStreetMap,{attribution:'Map Powered by Open Street Map'}).addTo(map);
 
         var marker = [L.marker(venueCoords)];
@@ -17,7 +16,7 @@ $(document).ready(function()
             $inputLong.val(e.latlng.lng);
 
             var marker = [L.marker(e.latlng)];
-            layer	   = L.layerGroup(marker).addTo(map);
+            layer      = L.layerGroup(marker).addTo(map);
 	});
 	
 	$('.uk-search').on('click','li > a ',function(e){

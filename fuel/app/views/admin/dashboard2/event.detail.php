@@ -60,36 +60,24 @@
             </button>
         </div>
         </div>
-        
-        <div class="uk-form-row">
-        
-        <div class="uk-form-controls">
-            <label class="uk-form-label 
-                          uk-margin-remove">
-                Create A New Organization
-            </label>
-            <input type="checkbox"
-                   name="fb_create_group"/>
-        </div>
-        </div>
             
         </fieldset>
         </form>    
         </div>
         
         <form class="uk-form uk-form-horizontal"
-		  method="POST"
-		  action="<?php print $action ?>"
-		  id="ec-event-detail-form">
+              method="POST"
+              action="<?php print $action ?>"
+              id="ec-event-detail-form">
 	<fieldset>
 		
 	<div class="uk-form-row">
 	<label class="uk-form-label">Name</label>
 	<div class="uk-form-controls">
 		<input type="text"
-			   name="name"
-			   value="<?php print (isset($q['name']))?$q['name']:''; ?>"
-			   class="uk-width-1-1"/>
+                       name="name"
+                       value="<?php print (isset($q['name']))?$q['name']:''; ?>"
+                       class="uk-width-1-1"/>
 	</div>
 	</div>
 		
@@ -97,17 +85,19 @@
 	<label class="uk-form-label">Email</label>
 	<div class="uk-form-controls">
 		<input type="email"
-			   name="email"
-			   value="<?php print (isset($q['email']))?$q['email']:''; ?>"
-			   placeholder="example@email.com"
-			   class="uk-width-1-1"/>
+                       name="email"
+                       value="<?php print (isset($q['email']))?$q['email']:''; ?>"
+                       placeholder="example@email.com"
+                       class="uk-width-1-1"/>
 	</div>
 	</div>
 		
 	<div class="uk-form-row">
 	<label class="uk-form-label">Organizers</label>
 	<div class="uk-form-controls">
-		<select name="main_org" style="width:59%;">
+		<select name="main_org" 
+                        style="width:59%;"
+                        data-uri="<?php print Uri::create('api/admin/event/org_contact_info.json'); ?>">
 		<?php foreach($orgs as $row):  ?>
 			<option value="<?php print $row['id'] ?>">
 			<?php print $row['name']; ?>
@@ -166,13 +156,16 @@
 	<div class="uk-form-row">
 	<label class="uk-form-label">City</label>
 	<div class="uk-form-controls">
-		<select name="city">
-		<?php foreach($cities as $city): ?>
-			<option value="<?php print $city['major_area'] ?>">
-			<?php print $city['major_area']; ?>
-			</option>
-		<?php endforeach; ?>
-		</select>
+            <select name="city">
+            <?php foreach($cities as $city): ?>
+                    <option value="<?php print $city['major_area'] ?>">
+                    <?php print $city['major_area']; ?>
+                    </option>
+            <?php endforeach; ?>
+            </select>
+            <input class="uk-width-1-2"
+                   name="city-input"
+                   value="<?php print (isset($q['region']))?$q['region']:''; ?>"/>
 	</div>
 	</div>
 		
@@ -337,36 +330,39 @@ var layer     = null;
 venueCoords.push($inputLat.val());
 venueCoords.push($inputLong.val());
 
+var map = L.map('ec-event-manage-map').setView(venueCoords,20);
+
 $(document).ready(function()
 {
-	$('#description').hallo(
-	{
-		plugins: {
-            'halloformat': {},
-            'halloblock': {},
-            'hallojustify': {},
-            'hallolists': {},
-            'hallolink': {}
-          },
-          editable: true,
-          placeholder: 'Type your description here.'
-	});
-	
-	<?php if(isset($q) && !is_null($q['region'])): ?>
-	$('select[name="city"]').find('option[value="<?php print $q['region']; ?>"]').attr('selected','');
-	<?php endif; ?>
-		
-	<?php if(isset($q)): ?>
-	$('select[name="main_org"]').find('option[value="<?php print $q['main_org']; ?>"]').attr('selected','');
-	<?php endif; ?>
+    $('#description').hallo(
+    {
+            plugins: {
+        'halloformat': {},
+        'halloblock': {},
+        'hallojustify': {},
+        'hallolists': {},
+        'hallolink': {}
+      },
+      editable: true,
+      placeholder: 'Type your description here.'
+    });
+    
+    $('select[name="city"]').change(function(e){
+        var value = $(this).find('option:selected').val();
+        $('input[name="city-input"]').val(value);
+    });
+
+    <?php if(isset($q)): ?>
+    $('select[name="main_org"]').find('option[value="<?php print $q['main_org']; ?>"]').attr('selected','');
+    <?php endif; ?>
 });
 </script>
 <?php 
 	print Asset::js('dashboard/jq.event.manage.venue.js');
         print Asset::js('dashboard/jq.event.facebook.js');
 	if(isset($q)):
-		print Asset::js('dashboard/jq.event.manage.edit.js');
+            print Asset::js('dashboard/jq.event.manage.edit.js');
 	else:
-		print Asset::js('dashboard/jq.event.manage.add.js');
+            print Asset::js('dashboard/jq.event.manage.add.js');
 	endif;
 ?>
