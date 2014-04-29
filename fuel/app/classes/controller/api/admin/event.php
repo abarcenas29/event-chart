@@ -15,8 +15,16 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
     public function post_org_contact_info()
     {
         $org_id = Input::post('org_id');
+        
         $q      = Model_Organization::read_organization($org_id);
         
+        $response = array();
+        $response['email']      = $q['email'];
+        $response['facebook']   = $q['facebook'];
+        $response['twitter']    = $q['twitter'];
+        $response['website']    = $q['website'];
+        
+        return $this->response($response);
     }
 
     //new	

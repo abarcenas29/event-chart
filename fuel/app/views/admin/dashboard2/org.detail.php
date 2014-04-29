@@ -15,10 +15,10 @@
 <article class="uk-width-1-1 uk-height-1-1 uk-margin-top"
 		 id="ec-org-detail-manage">
 <div class="uk-grid 
-			uk-width-1-1 
-			uk-height-1-1">
-	<div class="uk-width-1-2 uk-height-1-1">
-	
+            uk-width-1-1 
+            uk-height-1-1">
+    <div class="uk-width-1-2 uk-height-1-1">
+        
 	<article class="uk-panel uk-panel-box uk-panel-header"
 			 style="height:260px;"
 			 id="ec-org-logo"
@@ -60,9 +60,10 @@
 	<label class="uk-form-label">Name</label>
 	<div class="uk-form-controls">
 		<input type="text"
-			   name="name"
-			   value="<?php print (isset($q['name']))?$q['name']:''; ?>"
-			   class="uk-width-1-1"/>
+                       name="name"
+                       value="<?php print (isset($q['name']))?$q['name']:''; ?>"
+                       placeholder="Blah Blah Organization"
+                       class="uk-width-1-1"/>
 	</div>
 	</div>
 		
@@ -70,9 +71,10 @@
 	<label class="uk-form-label">Email</label>
 	<div class="uk-form-controls">
 		<input type="email"
-			   name="email"
-			   value="<?php print (isset($q['email']))?$q['email']:''; ?>"
-			   class="uk-width-1-1"/>
+                       name="email"
+                       value="<?php print (isset($q['email']))?$q['email']:''; ?>"
+                       placeholder="example@example.com"
+                       class="uk-width-1-1"/>
 	</div>
 	</div>
 		
@@ -80,9 +82,17 @@
 	<label class="uk-form-label">Facebook</label>
 	<div class="uk-form-controls">
 		<input type="text"
-			   name="facebook"
-			   value="<?php print (isset($q['facebook']))?$q['facebook']:''; ?>"
-			   class="uk-width-1-1"/>
+                       name="facebook"
+                       value="<?php print (isset($q['facebook']))?$q['facebook']:''; ?>"
+                       placeholder="http://facebook.com/<name of organization>"
+                       class="uk-width-8-10"/>
+                <a class="uk-button 
+                          uk-button-primary"
+                   id="ec-facebook-id"
+                   data-uri="<?php print Uri::create('api/admin/org/event_data.json'); ?>"
+                   title="Get Facebook Org Data">
+                    <i class="uk-icon-refresh"></i>
+                </a>
 	</div>
 	</div>
 		
@@ -90,9 +100,10 @@
 	<label class="uk-form-label">Twitter</label>
 	<div class="uk-form-controls">
 		<input type="text"
-			   name="twitter"
-			   value="<?php print (isset($q['twitter']))?$q['twitter']:''; ?>"
-			   class="uk-width-1-1"/>
+                       name="twitter"
+                       value="<?php print (isset($q['twitter']))?$q['twitter']:''; ?>"
+                       placeholder="http://twitter.com/<username>"
+                       class="uk-width-1-1"/>
 	</div>
 	</div>
 		
@@ -100,16 +111,17 @@
 	<label class="uk-form-label">Website</label>
 	<div class="uk-form-controls">
 		<input type="text"
-			   name="website"
-			   value="<?php print (isset($q['website']))?$q['website']:''; ?>"
-			   class="uk-width-1-1"/>
+                       name="website"
+                       placeholder="http://example.com"
+                       value="<?php print (isset($q['website']))?$q['website']:''; ?>"
+                       class="uk-width-1-1"/>
 	</div>
 	</div>
 		
 	<div class="uk-form-row">
 	<div class="uk-float-right">
 		<button type="submit" 
-				class="uk-button uk-button-success">
+                        class="uk-button uk-button-success">
 			<i class="uk-icon-save"></i>
 			Save
 		</button>
@@ -145,9 +157,9 @@
 		Save Image via URL
 	</div>
 	<form action="<?php print Uri::create('ajax/admin/org/logo_url'); ?>"
-		  method="post"
-		  class="uk-form uk-form-horizontal"
-		  id="ec-form-url">
+              method="post"
+              class="uk-form uk-form-horizontal"
+              id="ec-form-url">
 		
 	<div class="uk-form-row">
 	<label class="uk-form-label">
@@ -161,7 +173,7 @@
 	<div class="uk-form-row">
 	<div class="uk-float-right">
 		<button type="submit" 
-				class="uk-button uk-button-success">
+                        class="uk-button uk-button-success">
 			<i class="uk-icon-save"></i>
 			Save
 		</button>
@@ -175,15 +187,15 @@
 $(document).ready(function(e)
 {
 	$('#ec-form-url').ajaxForm({
-		beforeSubmit:function()
-		{
-			$.UIkit.notify('Crunching Image ...',{status:'info'});
-		},
-		success:function(d)
-		{
-			$.UIkit.notify('Logo Added',{status:'success'});
-			$('#ec-org-logo').find('section').html(d);
-		}
+            beforeSubmit:function()
+            {
+                $.UIkit.notify('Crunching Image ...',{status:'info'});
+            },
+            success:function(d)
+            {
+                $.UIkit.notify('Logo Added',{status:'success'});
+                $('#ec-org-logo').find('section').html(d);
+            }
 	});
 });
 </script>
@@ -191,12 +203,12 @@ $(document).ready(function(e)
 <script>
 function pushObject(name,value)
 {
-	return{
-		name:		name,
-		required:	false,
-		type:		'hidden',
-		value:		value
-	}
+    return {
+        name:name,
+        required:false,
+        type:'hidden',
+        value:value
+    }
 }
 var $logo	 = $('#ec-org-logo');
 var orgLogo  = "<?php print Uri::create('ajax/admin/gallery/org_logo'); ?>";
@@ -205,60 +217,75 @@ var imgArray = [];
 
 $(document).ready(function(e)
 {
-	$('#description').hallo(
-	{
-		plugins: {
-            'halloformat': {},
-            'halloblock': {},
-            'hallojustify': {},
-            'hallolists': {},
-            'hallolink': {}
-          },
-          editable: true,
-          placeholder: 'Type your description here.'
-	});
-	
-	$logo.bind('dragover',function(e)
-	{
-		$(this).css('box-shadow','1px 1px 30px 0px rgba(171, 31, 43, 0.78)');
-		
-		e.stopPropagation();
-		e.preventDefault();
-	});
-	
-	$logo.bind('dragleave',function(e)
-	{
-		$(this).css('box-shadow','none');
-	});
-	
-	$('#ec-form-organization').ajaxForm(
-	{
-		beforeSubmit:function(arr)
-		{
-			$.UIkit.notify('Crunching Data ...',{status:'info'});
-			
-			var desc = $('#description').html();
-			arr.push(pushObject('description',desc));
-			
-			if(imgArray.length == 1)
-			{
-				arr.push(pushObject('filename',imgArray[0].name));
-				arr.push(pushObject('value',imgArray[0].value));
-			}
-		},
-		success:function(d)
-		{
-			if(d.success === true)
-			{
-				$.UIkit.notify('Organization added',{status:'success'});
-				setTimeout(function(){window.location = urlManage;},3000);
-			}
-			else
-			{
-				$.UIkit.notify('Something went wrong',{status:'danger'});
-			}
-		}
-	});
+    $('#ec-facebook-id').click(function(e)
+    {
+        var $form   = $('#ec-form-organization');
+        var fbid    = $form.find('input[name="facebook"]').val();
+        var uri     = $(this).data('uri');
+        
+        $.UIkit.notify('Fetching Facebook Event Data',{status:'info'});
+        $.post(uri,{fbid:fbid},function(d){
+            $form.find('input[name="name"]').val(d.name);
+            $('#description').html(d.about);
+            $.UIkit.notify('Fetch Complete',{status:'success'});
+        });
+        e.preventDefault();
+    });
+    
+    $('#description').hallo(
+    {
+      plugins: {
+        'halloformat': {},
+        'halloblock': {},
+        'hallojustify': {},
+        'hallolists': {},
+        'hallolink': {}
+      },
+      editable: true,
+      placeholder: 'Type your description here.'
+    });
+
+    $logo.bind('dragover',function(e)
+    {
+        $(this).css('box-shadow','1px 1px 30px 0px rgba(171, 31, 43, 0.78)');
+
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    $logo.bind('dragleave',function(e)
+    {
+        $(this).css('box-shadow','none');
+    });
+
+    $('#ec-form-organization').ajaxForm(
+    {
+        beforeSubmit:function(arr)
+        {
+            $.UIkit.notify('Crunching Data ...',{status:'info'});
+
+            var desc = $('#description').html();
+            arr.push(pushObject('description',desc));
+
+            if(imgArray.length == 1)
+            {
+                arr.push(pushObject('filename',imgArray[0].name));
+                arr.push(pushObject('value',imgArray[0].value));
+            }
+        },
+        success:function(d)
+        {
+            if(d.success === true)
+            {
+                $.UIkit.notify('Organization added',{status:'success'});
+                setTimeout(function(){window.location = urlManage;},3000);
+            }
+            else
+            {
+                $.UIkit.notify('Something went wrong',{status:'danger'});
+            }
+        }
+    });
 });
 </script>
 <?php 

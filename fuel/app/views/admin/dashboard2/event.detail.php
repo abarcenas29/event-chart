@@ -336,7 +336,7 @@ $(document).ready(function()
 {
     $('#description').hallo(
     {
-            plugins: {
+         plugins: {
         'halloformat': {},
         'halloblock': {},
         'hallojustify': {},
@@ -350,6 +350,23 @@ $(document).ready(function()
     $('select[name="city"]').change(function(e){
         var value = $(this).find('option:selected').val();
         $('input[name="city-input"]').val(value);
+    });
+    $('select[name="main_org"]').change(function(e)
+    {
+        var value = $(this).find('option:selected').val();
+        var uri   = $(this).data('uri');
+        $.UIkit.notify('Fetching Organization Data ...',{status:'info'});
+        $.post(uri,{org_id:value},function(d)
+        {
+            var $form = $eventForm;
+            $form.find('input[name="email"]').val(d.email);
+            $form.find('input[name="facebook"]').val(d.facebook);
+            $form.find('input[name="twitter"]').val(d.twitter);
+            $form.find('input[name="website"]').val(d.website);
+            $.UIkit.notify('Fetching Organization Data Complete',{status:'success'});
+            
+            console.log(d);
+        });
     });
 
     <?php if(isset($q)): ?>
