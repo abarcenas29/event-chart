@@ -25,7 +25,8 @@
 <div class="uk-width-1-2 
             uk-height-1-1 
             uk-vertical-align"
-	 id="ec-event-manage-form-container">
+     id="ec-event-manage-form-container"
+     style="overflow-y: scroll;">
 
 	<section class="uk-vertical-align-middle
                         uk-width-1-1">
@@ -35,35 +36,6 @@
                         uk-panel-header
                         uk-width-1-1">
 	<h1 class="uk-panel-title">Create Event Detail</h1>
-        
-        <div class="uk-panel uk-panel-box-primary uk-margin"
-             style="padding:1em;">
-        <form class="uk-form uk-form-horizontal"
-              method="POST"
-              action="<?php print Uri::create('api/admin/event/event_data.json'); ?>"
-              id="ec-facebook-event-form">
-        <fieldset>
-        <div class="uk-form-row">
-        <label class="uk-form-label">Facebook Event Id</label>
-        <div class="uk-form-controls">
-            <input type="text"
-                   name="fbid"
-                   placeholder="621129704608422"
-                   value="<?php print (isset($q['fb_event_id']))?$q['fb_event_id']:''; ?>"
-                   class="uk-width-8-10"
-                   />
-            <button class="uk-button 
-                           uk-button-primary
-                           uk-width-1-10"
-                    type="submit">
-                <i class="uk-icon-refresh"></i>
-            </button>
-        </div>
-        </div>
-            
-        </fieldset>
-        </form>    
-        </div>
         
         <form class="uk-form uk-form-horizontal"
               method="POST"
@@ -195,12 +167,42 @@
 	<label class="uk-form-label">Website</label>
 	<div class="uk-form-controls">
 		<input type="text"
-			   name="website"
-			   value="<?php print (isset($q['website']))?$q['website']:''; ?>"
-			   placeholder="http://myawesomewebsite.com"
-			   class="uk-width-1-1"/>
+                       name="website"
+                       value="<?php print (isset($q['website']))?$q['website']:''; ?>"
+                       placeholder="http://myawesomewebsite.com"
+                       class="uk-width-1-1"/>
 	</div>
 	</div>
+            
+        <div class="uk-form-row">
+        <label class="uk-form-label">Facebook Event Id</label>
+        <div class="uk-form-controls">
+            <input type="text"
+                   name="fbid"
+                   placeholder="621129704608422"
+                   value="<?php print (isset($q['fb_event_id']))?$q['fb_event_id']:''; ?>"
+                   class="uk-width-8-10"
+                   />
+            <a class="uk-button 
+                      uk-button-primary
+                      uk-width-1-10"
+               id="ec-facebook-event-form"
+               data-url="<?php print Uri::create('api/admin/event/event_data.json'); ?>"
+               type="submit">
+            <i class="uk-icon-refresh"></i>
+            </a>
+        </div>
+        </div>
+            
+        <div class="uk-form-row">
+        <label class="uk-form-label">Official Facebook Event Page</label>
+        <div class="uk-form-controls">
+            <select name="fb-offical-id">
+                <option value="1">Official</option>
+                <option value="0">Non-Official (Otaku Event Chart)</option>
+            </select>
+        </div>
+        </div>
 	
 	<?php if(isset($q)): ?>
 	<div class="uk-form-row">
@@ -256,26 +258,22 @@
 		
 	<div class="uk-form-row">
 	<div class="uk-float-right">
-                <input type="hidden"
-                       name="fbid"
-                       value="<?php print (isset($q['fb_event_id']))?$q['fb_event_id']:''; ?>"
-                       />
-                <input type="hidden"
-                       name="fb-update"
-                       value="<?php print (isset($q['fb_last_update']))?$q['fb_last_update']:''; ?>"
-                       />
-		<button class="uk-button 
-                               uk-button-success"
-                        type="submit">
-			<i class="uk-icon-save"></i>
-			Save
-		</button>
-		<a href="#" 
-		   class="uk-button
-                          uk-button-primary">
-		<i class="uk-icon-arrow-circle-left"></i>
-                    Back
-		</a>
+            <input type="hidden"
+                   name="fb-update"
+                   value="<?php print (isset($q['fb_last_update']))?$q['fb_last_update']:''; ?>"
+                   />
+            <button class="uk-button 
+                           uk-button-success"
+                    type="submit">
+                    <i class="uk-icon-save"></i>
+                    Save
+            </button>
+            <a href="#" 
+               class="uk-button
+                      uk-button-primary">
+            <i class="uk-icon-arrow-circle-left"></i>
+                Back
+            </a>
 	</div>
 	</div>
 		
@@ -295,9 +293,9 @@
 			 id="ec-venue-search">
 	<form class="uk-search" 
 		  data-uk-search="{source:'<?php print Uri::create('api/admin/event/search_venue') ?>'}">
-		<input class="uk-search-field" 
-			   type="search" 
-			   placeholder="">
+		<input  class="uk-search-field" 
+                        accept=""type="search" 
+			placeholder="">
 		<button class="uk-search-close" type="reset"></button>
 	</form> 
 	</article>
@@ -308,11 +306,11 @@
 <?php 
 if(isset($q))
 {
-	print $modal_org;
-	print $modal_cat;
-	print $modal_ticket;
-	print $modal_hashtag;
-	print $modal_guest;
+    print $modal_org;
+    print $modal_cat;
+    print $modal_ticket;
+    print $modal_hashtag;
+    print $modal_guest;
 }?>
 <script>
 var venueCoords		= [];

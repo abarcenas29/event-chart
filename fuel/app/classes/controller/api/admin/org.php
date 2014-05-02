@@ -6,6 +6,10 @@ class Controller_Api_Admin_Org extends Controller_Api_ApiPrivate
         $arg = $this->_set_arg();
 
         $response = Model_Organization::insert_organization($arg);
+        
+        ($response['success'])?
+            $this->_insert_facebook_profile($arg,$response):'';
+        
         return $this->response($response);
     }
 
@@ -21,15 +25,17 @@ class Controller_Api_Admin_Org extends Controller_Api_ApiPrivate
     public function post_event_data()
     {
         $event_id = Input::post('fbid');    
-        $data = Model_Event_Engine::event_data($event_id);        
+        $data = Model_Event_Engine::event_data($event_id);       
         return $this->response($data);
     }
     
-    private function _convert_date($date)
+    private function _insert_facebook_profile($arg,$rsp)
     {
-        $sraw_date  = explode('T',$date);
-        $raw_date   = strtotime($sraw_date[0]);
-        return date('Y-m-d',$raw_date);
+        $param              = array();
+        $param['org_id']    = $rsp['id'];
+        $param['url']       = Model_Event_Engine::page_profile_picture($arg['facebook']);
+        $param['width']     = 1280;
+        Model_Organization::insert_org_logo_url($param);
     }
         
     private function _set_arg()

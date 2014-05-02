@@ -5,34 +5,34 @@ class Controller_View extends Controller_AppCore
 	
 	public function action_event($event_id)
 	{
-		$this->_check_vaild_event($event_id);
-		
-		$url = Uri::create("view/event/$event_id");
-		$rest_cfg = Config::get('ec.qr_generator');
-	
-		$headers['X-Mashape-Authorization'] = $rest_cfg['key'];
-		$parameter['content'] = $url;
-		$parameter['size']	  = 10;
-		$parameter['type']	  = 'url';
-		$rsp = \unirest\unirest::get($rest_cfg['url'], $headers, $parameter);
-		
-		Session::set('callback_url',$url);
-		
-		
-		$view			= $this->_vg('event');
-		$view->set_safe('q',Model_Event_list::read_public_list($event_id)); 
-		$view->qr		= $rsp->body;
-		$view->url		= $url;
-		$view->fb_user	= $this->check_fb();
-		$this->template->content = $view;
-		
-		$menu		= $this->_vmg('event');
-		$menu->id	= $event_id;
-		$this->template->menu	= $menu;
-		
-		$this->template->org	= $view->q['organization']['name'];
-		$this->template->desc	= $view->q['description'];
-		$this->template->title  = $view->q['name'];
+            $this->_check_vaild_event($event_id);
+
+            $url = Uri::create("view/event/$event_id");
+            $rest_cfg = Config::get('ec.qr_generator');
+
+            $headers['X-Mashape-Authorization'] = $rest_cfg['key'];
+            $parameter['content'] = $url;
+            $parameter['size']	  = 10;
+            $parameter['type']	  = 'url';
+            $rsp = \unirest\unirest::get($rest_cfg['url'], $headers, $parameter);
+
+            Session::set('callback_url',$url);
+
+
+            $view			= $this->_vg('event');
+            $view->set_safe('q',Model_Event_list::read_public_list($event_id)); 
+            $view->qr		= $rsp->body;
+            $view->url		= $url;
+            $view->fb_user	= $this->check_fb();
+            $this->template->content = $view;
+
+            $menu		= $this->_vmg('event');
+            $menu->id	= $event_id;
+            $this->template->menu	= $menu;
+
+            $this->template->org	= $view->q['organization']['name'];
+            $this->template->desc	= $view->q['description'];
+            $this->template->title  = $view->q['name'];
 	}
 	
 	public function action_org($org_id)

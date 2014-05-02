@@ -5,6 +5,7 @@ class Model_Photo extends Model_ModelCore
 		'id',
 		'date',
 		'filename',
+                'parameters',
 		'created_at'
 	);
 	
@@ -29,8 +30,9 @@ class Model_Photo extends Model_ModelCore
 	public static function insert_picture_url($arg)
 	{
             $q              = new Model_Photo();
-            $q->date	= date('Y-m-d');
-            $q->filename= Model_Photo::_upload_url($arg);
+            $q->date        = date('Y-m-d');
+            $q->filename    = Model_Photo::_upload_url($arg);
+            $q->parameters  = (isset($arg['param']))?$arg['param']:null;
             $q->save();
             return $q->id;
 	}

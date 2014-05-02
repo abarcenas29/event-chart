@@ -45,60 +45,61 @@ class Model_Organization extends Model_ModelCore
 	
 	public static function insert_organization($arg)
 	{
-		$c = Model_Organization::_check_name($arg);
-		
-		if($c->count() == 0 && !empty($arg['name']))
-		{
-                    $q = new Model_Organization();
+            $c = Model_Organization::_check_name($arg);
 
-                    $q->name		= $arg['name'];
-                    $q->email		= $arg['email'];
-                    $q->description	= $arg['description'];
-                    $q->facebook	= $arg['facebook'];
-                    $q->twitter		= $arg['twitter'];
-                    $q->website		= $arg['website'];
-                    $q->created_by	= Session::get('email');
+            if($c->count() == 0 && !empty($arg['name']))
+            {
+                $q = new Model_Organization();
 
-                    if(!is_null($arg['filename']) && !is_null($arg['value']))
-                    {
-                            $q->photo_id = Model_Photo::insert_picture($arg);
-                    }
-                    $q->save();
+                $q->name	= $arg['name'];
+                $q->email	= $arg['email'];
+                $q->description	= $arg['description'];
+                $q->facebook	= $arg['facebook'];
+                $q->twitter	= $arg['twitter'];
+                $q->website	= $arg['website'];
+                $q->created_by	= Session::get('email');
 
-                    $rsp['success'] = true;
-                    return $rsp;
-		}
-		$rsp['success'] = false;
-		$rsp['id']		= $q->id;
-		return $rsp;
+                if(!is_null($arg['filename']) && !is_null($arg['value']))
+                {
+                    $q->photo_id = Model_Photo::insert_picture($arg);
+                }
+                $q->save();
+
+                $rsp['success'] = true;
+                $rsp['id']      = $q->id;
+                return $rsp;
+            }
+            $rsp['success'] = false;
+            $rsp['id']	= $q->id;
+            return $rsp;
 	}
 	
 	public static function edit_organization($arg)
 	{
-		$q = Model_Organization::query()
-                        ->where('id','=',$arg['org_id'])
-                        ->get_one();
-		
-		$q->name		= $arg['name'];
-		$q->email		= $arg['email'];
-		$q->description		= $arg['description'];
-		$q->facebook		= $arg['facebook'];
-		$q->twitter		= $arg['twitter'];
-		$q->website		= $arg['website'];
-		$q->created_by		= Session::get('email');
-		
-		if(!is_null($arg['filename']) && !is_null($arg['value']))
-		{
-                    if(!is_null($q['photo_id']))
-                            Model_Photo::delete_picture($q['photo_id']);
-                    $q->photo_id = Model_Photo::insert_picture($arg);
-		}
-		
-		$q->save();
-		
-		$rsp['success'] = true;
-		$rsp['id']	= $q->id;
-		return $rsp;
+            $q = Model_Organization::query()
+                    ->where('id','=',$arg['org_id'])
+                    ->get_one();
+
+            $q->name		= $arg['name'];
+            $q->email		= $arg['email'];
+            $q->description	= $arg['description'];
+            $q->facebook	= $arg['facebook'];
+            $q->twitter		= $arg['twitter'];
+            $q->website		= $arg['website'];
+            $q->created_by		= Session::get('email');
+
+            if(!is_null($arg['filename']) && !is_null($arg['value']))
+            {
+                if(!is_null($q['photo_id']))
+                        Model_Photo::delete_picture($q['photo_id']);
+                $q->photo_id = Model_Photo::insert_picture($arg);
+            }
+
+            $q->save();
+
+            $rsp['success'] = true;
+            $rsp['id']	= $q->id;
+            return $rsp;
 	}
 	
 	public static function insert_org_logo_url($arg)

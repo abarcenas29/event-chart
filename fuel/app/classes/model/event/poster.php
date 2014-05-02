@@ -5,6 +5,7 @@ class Model_Event_Poster extends Model_ModelCore
 		'id',
 		'event_id',
 		'photo_id',
+                'fb_create_time',
 		'created_at'
 	);
 	
@@ -40,10 +41,39 @@ class Model_Event_Poster extends Model_ModelCore
 		$q = new Model_Event_Poster();
 		$q->event_id = $arg['event_id'];
 		$q->photo_id = Model_Photo::insert_picture_url($arg);
+                $q->fb_create_time = (isset($arg['fb-update']))?$arg['fb-update']:null;
 		$q->save();
 		
 		return $q;
 	}
+        
+        public static function fb_write_poster_url($event_id)
+        {
+            $q = Model_Event_Poster::query()
+                    ->where('event_id','=',$event_id)
+                    ->where('fb_create_time','!=',null)
+                    ->order_by('fb_create_time','desc');
+            $update_time = ($q->count() == 0)?0:$q->get_one()['fb_create_time'];
+            $list = Model_Event_list::read_list($event_id);
+            
+            if(!is_null($list['fb_event_id']))
+            {
+                $photos = Model_Event_Engine::fetch_event_photos($list['fb_event_id']);
+                foreach ($photos as $photo)
+                {
+                   $create_time = strtotime($photo['created_time']);
+                   if((int) $create_time > $update_time)
+                   {
+                        $arg = array();
+                        $arg['url']         = $photo['url'];
+                        $arg['width']       = 1280;
+                        $arg['event_id']    = $event_id;
+                        $arg['fb-update']   = $create_time;
+                        Model_Event_Poster::write_poster_url($arg);
+                   } 
+                }
+            }
+        }
 	
 	public static function delete_poster($arg)
 	{

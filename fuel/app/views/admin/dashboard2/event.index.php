@@ -22,8 +22,8 @@
 	<div class="uk-width-1-1">
 		<div class="uk-grid">
 		<div class="uk-width-large-1-3">
-		<?php if(!is_null($row['photo'])): ?>
-		<img src="<?php print Uri::create('uploads/'.$row['photo']['date'].'/thumb-'.$row['photo']['filename']); ?>"
+		<?php if(!is_null($row['cover'])): ?>
+		<img src="<?php print Uri::create('uploads/'.$row['cover']['date'].'/thumb-'.$row['cover']['filename']); ?>"
 			 class="uk-width-1-1"/>
 		<?php else: ?>
 		<img src="http://placehold.it/290x290"
@@ -39,33 +39,33 @@
 			
 			
 			<div class="uk-button-dropdown" data-uk-dropdown>
-				<button class="uk-button uk-button-primary uk-button-small">
-					<?php print $row['status'] ?>
-					<i class="uk-icon-caret-down"></i>
-				</button>
-				<div class="uk-dropdown uk-dropdown-small">
-				<ul class="uk-nav uk-nav-dropdown">
-					
-				<li>
-				<a href="<?php print Uri::create('admin/dashboard2/event_live/'.$row['id']); ?>">
-					Live
-				</a>
-				</li>
-				
-				<li>
-				<a href="<?php print Uri::create('admin/dashboard2/event_Pending/'.$row['id']); ?>">
-					Pending
-				</a>
-				</li>
-				
-				<li>
-				<a href="<?php print Uri::create('admin/dashboard2/event_cancel/'.$row['id']) ?>">
-					Canceled
-				</a>
-				</li>
-				
-				</ul>
-				</div>
+                            <button class="uk-button uk-button-primary uk-button-small">
+                                    <?php print $row['status'] ?>
+                                    <i class="uk-icon-caret-down"></i>
+                            </button>
+                            <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+
+                            <li>
+                            <a href="<?php print Uri::create('admin/dashboard2/event_live/'.$row['id']); ?>">
+                                    Live
+                            </a>
+                            </li>
+
+                            <li>
+                            <a href="<?php print Uri::create('admin/dashboard2/event_Pending/'.$row['id']); ?>">
+                                    Pending
+                            </a>
+                            </li>
+
+                            <li>
+                            <a href="<?php print Uri::create('admin/dashboard2/event_cancel/'.$row['id']) ?>">
+                                    Canceled
+                            </a>
+                            </li>
+
+                            </ul>
+                            </div>
 			</div>
 				
 			<a class="uk-button 

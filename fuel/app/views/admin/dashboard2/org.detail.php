@@ -1,16 +1,16 @@
 <?php
-	print Asset::css('font-awesome.css');
-	print Asset::css('admin/dashboard.org.detail.css');
-	print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+    print Asset::css('font-awesome.css');
+    print Asset::css('admin/dashboard.org.detail.css');
+    print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 
-	print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
-	print Asset::js('rangy-core.js');
-	print Asset::js('hallo.js');
-	
-	print Asset::js('jquery.form.min.js');
-	
-	print Asset::css('uikit/notify.min.css');
-	print Asset::js('uikit/notify.min.js');
+    print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
+    print Asset::js('rangy-core.js');
+    print Asset::js('hallo.js');
+
+    print Asset::js('jquery.form.min.js');
+
+    print Asset::css('uikit/notify.min.css');
+    print Asset::js('uikit/notify.min.js');
 ?>
 <article class="uk-width-1-1 uk-height-1-1 uk-margin-top"
 		 id="ec-org-detail-manage">
@@ -38,11 +38,17 @@
 	
 	</header>
 	<section class="uk-text-center">
+        
 	<?php if(isset($q) && !is_null($q['photo_id'])): ?>
 		<div class="uk-thumbnail">
-			<img src="<?php print Uri::create('uploads/'.$q['photo']['date']
+                    <img src="<?php print Uri::create('uploads/'.$q['photo']['date']
 										.'/thumb-'.$q['photo']['filename']); ?>"/>
 		</div>
+        <?php else: ?>
+            <div class="uk-alert uk-alert-large">
+                If you use the facebook data, the profile pic will 
+                    be downloaded automatically.
+            </div>
 	<?php endif; ?>
 	</section>
 	</article>
@@ -278,7 +284,7 @@ $(document).ready(function(e)
             if(d.success === true)
             {
                 $.UIkit.notify('Organization added',{status:'success'});
-                setTimeout(function(){window.location = urlManage;},3000);
+                setTimeout(function(){window.location = urlManage + d.id;},3000);
             }
             else
             {

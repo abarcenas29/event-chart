@@ -27,10 +27,10 @@ class Controller_Ajax_Admin_Event extends Controller_Ajax_PrivateCore
 	
 	public function post_insert_main_poster()
 	{
-            $arg			= array();
-            $arg['filename']= Input::post('name');
+            $arg		= array();
+            $arg['filename']    = Input::post('name');
             $arg['value']	= Input::post('value');
-            $arg['event_id']= Session::get('event_id');
+            $arg['event_id']    = Session::get('event_id');
             $arg['width']	= 1280;
 
             Model_Event_list::insert_main_picture($arg);
@@ -48,7 +48,7 @@ class Controller_Ajax_Admin_Event extends Controller_Ajax_PrivateCore
             $arg = array();
             $arg['event_id'] = Session::get('event_id');
             $arg['url']      = Input::post('url');
-            $arg['width']	 = 1280;
+            $arg['width']    = 1280;
 
             Model_Event_list::insert_main_picture_url($arg);
 
@@ -84,15 +84,15 @@ class Controller_Ajax_Admin_Event extends Controller_Ajax_PrivateCore
 	{
 		$arg = array();
 		$arg['event_id'] = Session::get('event_id');
-		$arg['url']		 = Input::post('url');
+		$arg['url']	 = Input::post('url');
 		$arg['width']	 = 1280;
 		
 		Model_Event_list::insert_cover_picture_url($arg);
 		
-		$view = View::forge('admin/dashboard2/ajax/one.image.gallery');
-		$view->key		= 'cover_id';
+		$view           = View::forge('admin/dashboard2/ajax/one.image.gallery');
+		$view->key	= 'cover_id';
 		$view->relate	= 'cover';
-		$view->q		= Model_Event_list::read_list();
+		$view->q	= Model_Event_list::read_list();
 		
 		return $view;
 	}
@@ -102,7 +102,7 @@ class Controller_Ajax_Admin_Event extends Controller_Ajax_PrivateCore
 	{
 		$arg = array();
 		$arg['event_id'] = Session::get('event_id');
-		$arg['url']		 = Input::post('url');
+		$arg['url']	 = Input::post('url');
 		$arg['width']	 = 1280;
 		
 		$view	 = View::forge('admin/dashboard2/ajax/one.image.poster');

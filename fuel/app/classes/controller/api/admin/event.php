@@ -27,21 +27,24 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
         return $this->response($response);
     }
 
+    //Get Pictures
+    
     //new	
     public function post_add()
     {
         $arg	  = $this->_set_arg();
         $response = Model_Event_list::write_event($arg);
+        (isset($response['success']))?$this->_insert_cover_img($response['id'],$arg):'';
         return $this->response($response);
     }
 
     //new
     public function post_edit()
     {
-        $arg			= $this->_set_arg();
+        $arg = $this->_set_arg();
         $arg['event_id']= Session::get('event_id');
 
-        $response		= Model_Event_list::edit_event($arg);
+        $response = Model_Event_list::edit_event($arg);
         return $this->response($response);
     }
 
@@ -123,7 +126,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
     public function post_delete_cat()
     {
         $arg = array();
-        $arg['id']		 = Input::post('catid');
+        $arg['id']       = Input::post('catid');
         $arg['event_id'] = Session::get('event_id');
 
         Model_Event_Category::remove_cat($arg);
@@ -136,7 +139,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
     public function post_delete_org()
     {
         $arg = array();
-        $arg['org']			= Input::post('orgid');
+        $arg['org']		= Input::post('orgid');
         $arg['event_id']	= Session::get('event_id');
 
         Model_Event_Organization::remove_org($arg);
@@ -147,9 +150,9 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
 
     public function post_share_event()
     {
-        $arg			= array();
+        $arg		= array();
         $arg['content'] = Input::post('content');
-        $arg['url']		= Uri::create('view/event/'.Input::post('event_id'));
+        $arg['url']	= Uri::create('view/event/'.Input::post('event_id'));
 
         $rsp['twitter'] = Model_broadcast::post_twitter($arg);
         $rsp['facebook']= Model_broadcast::post_facebook($arg);
@@ -157,6 +160,24 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
         $rsp['success'] = true;
         return $this->response($rsp);
     }
+
+    private function _insert_cover_img($event_id,$arg)
+    {
+        $cover = Model_Event_Engine::event_cover($arg['fbid']);
+        
+        $offset = array();
+        $offset['x'] = $cover['offset-x'];
+        $offset['y'] = $cover['offset-y'];
+        
+        $param = array();
+        $param['event_id'] = $event_id;
+        $param['url']      = $cover['url'];
+        $param['param']    = json_encode($offset);
+        $param['width']    = 1280;
+        
+        Model_Event_list::insert_cover_picture_url($param);
+    }
+
 
     private function _convert_date($date)
     {
@@ -175,12 +196,17 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
         $arg['end_at']	= Input::post('end_at');
         $arg['venue']	= Input::post('address');
         $arg['city']	= Input::post('city');
-        $arg['lng']		= Input::post('lng');
-        $arg['lat']		= Input::post('lat');
+        $arg['lng']	= Input::post('lng');
+        $arg['lat']	= Input::post('lat');
         $arg['facebook']= Input::post('facebook');
         $arg['twitter']	= Input::post('twitter');
         $arg['website']	= Input::post('website');
         $arg['desc']	= trim(Input::post('desc'));
+        
+        $arg['fbid']            = Input::post('fbid',null);
+        $arg['fb-update']       = Input::post('fb-update',null);
+        $arg['event-official']  = Input::post('fb-offical-id',null);
+        
         return $arg;
     }
 }

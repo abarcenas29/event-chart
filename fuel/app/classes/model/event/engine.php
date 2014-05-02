@@ -20,17 +20,50 @@ class Model_Event_Engine extends Model_ModelCore
     }
     
     //Parse cover photo
-    public static function event_cover()
+    public static function event_cover($event_id)
     {
-        $f = Model_Event_Engine::_auth_facebook();
-        return Model_Event_Engine::_api_call(Model_Event_Engine::$_event.'?fields=cover');
+        $f   = Model_Event_Engine::_auth_facebook();
+        $rsp = Model_Event_Engine::_api_call($event_id.'?fields=cover');
+        
+        if(isset($rsp['cover']['source']))
+        {
+            $arg                = array();
+            $arg['url']         = $rsp['cover']['source'];
+            $arg['offset-x']    = $rsp['cover']['offset_x'];
+            $arg['offset-y']    = $rsp['cover']['offset_y'];
+            return $arg;
+        }
+        return false;
     }
     
     //Parse the contents of the event photos
-    public static function event_photos()
+    public static function fetch_event_photos($event_id)
     {
-        $f = Model_Event_Engine::_auth_facebook();
-        return Model_Event_Engine::_api_call(Model_Event_Engine::$_event.'/photos');
+        $f   = Model_Event_Engine::_auth_facebook();
+        $rsp =  Model_Event_Engine::_api_call($event_id.'/photos');
+        
+        $arg = array();
+        $x   = 0;
+        foreach($rsp['data'] as $photos)
+        {
+            $arg[$x]['url']             = $photos['source'];
+            $arg[$x]['created_time']    = $photos['created_time'];
+            $x++;
+        }
+        
+        if(isset($rsp['paging']['next']))
+        {
+            $page = json_decode(file_get_contents($rsp['paging']['next']),true);
+            
+            foreach($page['data'] as $photos)
+            {
+                $arg[$x]['url'] = $photos['source'];
+                $arg[$x]['created_time']    = $photos['created_time'];
+                $x++;
+            }
+        }
+        
+        return $arg;
     }
     
     //feeds
@@ -40,7 +73,19 @@ class Model_Event_Engine extends Model_ModelCore
         return Model_Event_Engine::_api_call(Model_Event_Engine::$_event.'/feed');
     }
     
-    //prevent 
+    //get profile picture of the page (this is public so no api call needed)
+    public static function page_profile_picture($pageName)
+    {
+        $url = 'https://graph.facebook.com/'.$pageName.'/picture/';
+        $param = array();
+        $param['redirect'] = 'false';
+        $param['type']     = 'large';
+        $rsp = \unirest\unirest::get($url,null,$param);
+        
+        return (isset($rsp->body->data->url))?$rsp->body->data->url:false;
+    }
+    
+    //prevent no connection of timeout from facebook
     private static function _api_call($api_link)
     {
         $f = Model_Event_Engine::_auth_facebook();
