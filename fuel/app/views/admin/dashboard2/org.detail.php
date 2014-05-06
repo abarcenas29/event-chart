@@ -216,10 +216,10 @@ function pushObject(name,value)
         value:value
     }
 }
-var $logo	 = $('#ec-org-logo');
-var orgLogo  = "<?php print Uri::create('ajax/admin/gallery/org_logo'); ?>";
+var $logo     = $('#ec-org-logo');
+var orgLogo   = "<?php print Uri::create('ajax/admin/gallery/org_logo'); ?>";
 var urlManage = "<?php print Uri::create('admin/dashboard2/org_manage/'); ?>";
-var imgArray = [];
+var imgArray  = [];
 
 $(document).ready(function(e)
 {
@@ -231,9 +231,16 @@ $(document).ready(function(e)
         
         $.UIkit.notify('Fetching Facebook Event Data',{status:'info'});
         $.post(uri,{fbid:fbid},function(d){
-            $form.find('input[name="name"]').val(d.name);
-            $('#description').html(d.about);
-            $.UIkit.notify('Fetch Complete',{status:'success'});
+            if(typeof d != 'undefined')
+            {
+                $form.find('input[name="name"]').val(d.name);
+                $('#description').html(d.about);
+                $.UIkit.notify('Fetch Complete',{status:'success'});
+            }
+            else
+            {
+                $.UIkit.notify('We can not connect to facebook. Try Again',{status:'danger'});
+            }
         });
         e.preventDefault();
     });

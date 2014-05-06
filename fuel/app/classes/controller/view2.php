@@ -6,7 +6,7 @@ class Controller_View2 extends Controller_AppCore
     public function action_event($event_id)
     {
         $this->_check_vaild_event($event_id);
-        $q          = Model_Event_list::read_public_list($event_id);
+        $q  = Model_Event_list::read_public_list($event_id);
         
         $start_date     = date('D M d Y',strtotime($q['start_at']));
         

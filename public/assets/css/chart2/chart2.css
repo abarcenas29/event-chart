@@ -50,121 +50,122 @@ body .ec-chart-container {
   padding: 0.5em;
   overflow: hidden;
 }
-/* line 47, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000347}}
-body .ec-chart-cycle {
+/* line 49, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000349}}
+body .ec-chart-cycle div {
   position: relative;
 }
-/* line 52, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000352}}
-body .ec-chart-cycle .uk-width-1-3 img {
+/* line 54, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000354}}
+body .ec-chart-cycle div .uk-width-1-3 img {
   width: 100%;
 }
-/* line 57, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000357}}
-body .ec-chart-cycle .uk-width-2-3 {
+/* line 59, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000359}}
+body .ec-chart-cycle div .uk-width-2-3 {
   position: relative;
   left: -2.5em;
 }
-/* line 61, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000361}}
-body .ec-chart-cycle .uk-width-2-3 .uk-panel {
+/* line 63, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000363}}
+body .ec-chart-cycle div .uk-width-2-3 .uk-panel {
   min-height: inherit;
   background-color: #fff;
 }
-/* line 63, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000363}}
-body .ec-chart-cycle .uk-width-2-3 .uk-panel .uk-panel-title {
+/* line 65, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000365}}
+body .ec-chart-cycle div .uk-width-2-3 .uk-panel .uk-panel-title {
   position: relative;
 }
-/* line 66, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000366}}
-body .ec-chart-cycle .uk-width-2-3 .uk-panel .uk-panel-title div {
+/* line 68, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000368}}
+body .ec-chart-cycle div .uk-width-2-3 .uk-panel .uk-panel-title div {
   position: absolute;
   right: 0em;
   top: 0em;
 }
-/* line 76, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000376}}
-body .ec-chart-cycle .uk-width-2-3 .uk-panel p {
+/* line 75, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000375}}
+body .ec-chart-cycle div .uk-width-2-3 .uk-panel p {
   margin: 0em;
+  color: #000;
 }
-/* line 88, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000388}}
+/* line 91, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000391}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info {
   min-height: 40.61em;
 }
-/* line 92, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000392}}
+/* line 95, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000395}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info img {
   height: 142px;
 }
-/* line 97, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\0000397}}
+/* line 100, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003100}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .ec-event-info-main-title {
   position: relative;
 }
-/* line 100, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003100}}
+/* line 103, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003103}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .ec-event-info-main-title div {
   position: absolute;
   right: 0em;
   top: 0em;
 }
-/* line 108, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003108}}
+/* line 111, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003111}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel {
   min-height: 40.61em;
 }
-/* line 111, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003111}}
+/* line 114, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003114}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-category-list,
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-ticket-list {
   padding-left: 0em;
 }
-/* line 113, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003113}}
+/* line 116, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003116}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-category-list li,
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info .uk-panel .ec-ticket-list li {
   display: inline;
 }
-/* line 121, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003121}}
+/* line 124, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003124}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div {
   position: relative;
 }
-/* line 124, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003124}}
+/* line 127, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003127}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div {
   position: absolute;
   top: 1em;
   right: 1em;
 }
-/* line 129, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003129}}
+/* line 132, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003132}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li {
   text-align: center;
   display: inline;
 }
-/* line 133, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003133}}
+/* line 136, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003136}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li a {
   color: #fff;
   width: 3em;
 }
-/* line 138, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003138}}
+/* line 141, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003141}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li .facebook {
   background-color: #45619D;
 }
-/* line 142, chart2.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003142}}
+/* line 145, chart2.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003145}}
 body #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info-image > div div ul > li .twitter {
   background-color: #3A92C8;
 }
 @media (min-width: 1020px) {
-  /* line 159, chart2.less */
-  @media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003159}}
+  /* line 162, chart2.less */
+  @media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/chart2\/chart2\.less}line{font-family:\00003162}}
   #ec-event-info .bo-modal-dialog > .uk-grid .ec-event-info {
     padding-left: 0em;
   }

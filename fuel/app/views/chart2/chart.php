@@ -1,9 +1,5 @@
 <article class="uk-width-1-1
 		ec-chart-container">
-        <div style="padding:1em;">
-	<section class="uk-grid">
-	</section>
-        </div>
 </article>
 <script>
 var region      = "<?php print Cookie::get('region','ncr'); ?>";
@@ -13,7 +9,7 @@ var $result     = $('.ec-chart-container');
 $(document).ready(function(e)
 {
     var data = {region:region,type:menu};
-    $.post(urlChart,data,function(d){$result.find('.uk-grid').html(d);});
+    $.post(urlChart,data,function(d){$result.html(d);});
 });
 </script>
 <?php 

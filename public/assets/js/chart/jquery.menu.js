@@ -6,7 +6,7 @@ $(document).ready(function(e)
             region:region,
             type:'archive'
         };
-        $.post(urlChart,data,function(d){$result.find('.uk-grid').html(d);});
+        $.post(urlChart,data,function(d){$result.html(d);});
         e.preventDefault();
     });
     $('a[href="#ec-menu-main"]').click(function(e)
@@ -15,7 +15,7 @@ $(document).ready(function(e)
             region:region,
             type:'normal'
         };
-        $.post(urlChart,data,function(d){$result.find('.uk-grid').html(d);});
+        $.post(urlChart,data,function(d){$result.html(d);});
         e.preventDefault();
     });
 });

@@ -6,7 +6,6 @@
 <?php print Asset::css('chart2/chart2.css');?>
 
 <?php print Asset::js('uikit/datepicker.js');?>
-<?php print Asset::js('chart/jquery.chart.modal.js');?>
 <?php print Asset::js('jquery.form.min.js');?>
 
 <?php print Asset::css('datepicker.min.css');?>
@@ -14,7 +13,6 @@
 <?php print Asset::js('jquery.cookie.js');?>
 <?php print Asset::css('animate.css');?>
 
-<?php print Asset::css('modal.css'); ?>
 <?php print Asset::js('jquery.modal.js');?>
 </head>
 <body class="uk-width-1-1">
@@ -138,9 +136,9 @@
             </li>
 	</ul>
 	<ul class="uk-navbar-nav uk-visible-large">
-		<li><a href="#ec-menu-archive">Archive</a></li>
-		<li><a href="#">About</a></li>
-		<li><a href="#">Contact</a></li>
+            <li><a href="#ec-menu-archive">Archive</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
 	</ul>
 	</div>
 	</nav>
@@ -166,6 +164,17 @@ $(document).ready(function()
         var height = $dialog.find('.uk-grid').height();
         
         $dialog.find('.uk-panel').css('height',height - 30 + 'px');
+    });
+    
+    $(document).on('click','.ec-chart-cycle',function()
+    {
+        var data = {id: $(this).data('id')}
+        $.post($(this).data('url'),data,function(d)
+        {
+            $('.ec-chart-container').html('');
+            $('.ec-chart-container').html(d);
+        });
+        e.preventDefault();
     });
 });
 </script>

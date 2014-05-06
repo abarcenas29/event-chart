@@ -1,151 +1,76 @@
-/* line 13, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000313}}
-body {
-  background-color: #eeeeee;
-}
-/* line 18, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000318}}
-#ec-view-container {
+/* line 1, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\000031}}
+#ec-event-cover-container {
   position: relative;
-  top: 2.9em;
+  height: 30em;
 }
-/* line 23, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000323}}
-#ec-view-container .padding {
-  padding: 1em;
-}
-/* line 28, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000328}}
-#ec-view-container .bg-white {
-  background-color: #fff;
-}
-/* line 33, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000333}}
-#ec-view-container #ec-cover-image {
-  height: 20em;
-  background-size: cover;
-  background-position: 0em -2em;
-  background-repeat: no-repeat;
-  position: relative;
-}
-/* line 41, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000341}}
-#ec-view-container #ec-cover-image section {
-  background-color: rgba(30, 30, 30, 0.4);
+/* line 5, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\000035}}
+#ec-event-cover-container #ec-event-detail-org-img-container {
   width: inherit;
   height: inherit;
   position: absolute;
+  top: 0em;
+}
+/* line 11, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000311}}
+#ec-event-cover-container #ec-event-detail-org-img-container .ec-org-img {
+  position: relative;
+  top: 7em;
+}
+/* line 17, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000317}}
+#ec-event-cover-container #ec-event-detail-event-title {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0em;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+/* line 27, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000327}}
+.ec-event-status {
+  background-color: #ffffff;
+  width: 100%;
+  height: 3em;
+}
+/* line 34, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000334}}
+.ec-left-aside {
+  position: relative;
+  top: 5em;
+}
+/* line 44, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000344}}
+.ec-event-detail-container .ec-sub-event-menu ul {
+  padding: 1em;
+  border-bottom: 1px solid #DDDDDD;
 }
 /* line 47, event.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000347}}
-#ec-view-container #ec-cover-image section #ec-cover-title {
-  color: #fff;
-  font-family: 'Conv_weblysleekuili';
-  font-size: 2.5em;
-}
-/* line 53, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000353}}
-#ec-view-container #ec-cover-image section #ec-org-logo {
-  position: absolute;
-  bottom: 5em;
-  left: 3em;
-  width: 10em;
-}
-/* line 59, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000359}}
-#ec-view-container #ec-cover-image section #ec-org-logo img {
-  width: 10em;
-}
-/* line 71, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000371}}
-#ec-view-container #ec-cover-small-detail .ec-detail .ec-title {
-  font-family: 'Conv_weblysleekuisb';
-  font-size: 1em;
-}
-/* line 76, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000376}}
-#ec-view-container #ec-cover-small-detail .ec-detail .ec-value {
-  font-family: 'Conv_weblysleekuil';
-  padding-bottom: 0.5em;
-  border-bottom: 2px solid #d8d8d8;
-  font-size: 1.2em;
-}
-/* line 87, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000387}}
-#ec-view-container #ec-cover-small-detail .ec-detail:hover .ec-value {
-  border-bottom: 2px solid #8b8b8b;
-}
-/* line 94, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000394}}
-#ec-view-container #ec-view-poster-images {
-  position: relative;
-  top: 6em;
-}
-/* line 98, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000398}}
-#ec-view-container #ec-view-poster-images section > .uk-panel {
-  min-height: 20em;
-}
-/* line 103, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003103}}
-#ec-view-container #ec-view-poster-images .uk-alert {
-  -webkit-animation-duration: 100ms;
-  -moz-animation-delay: 100ms;
-  animation-delay: 100ms;
-  positon: relative;
-}
-/* line 115, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003115}}
-#ec-view-container #ec-link-reference > .uk-grid .ec-link {
-  position: relative;
-}
-/* line 117, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003117}}
-#ec-view-container #ec-link-reference > .uk-grid .ec-link .uk-panel > a {
-  color: #fff;
-  font-size: 5em;
-}
-/* line 128, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003128}}
-#ec-view-container #ec-view-map-container #ec-map {
-  height: 20em;
-}
-/* line 136, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003136}}
-#ec-view-container #ec-share-container a > .ec-share {
-  width: 89%;
-  color: #fff;
-  font-family: 'Conv_weblysleekuil';
-}
-/* line 140, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003140}}
-#ec-view-container #ec-share-container a > .ec-share i {
-  font-size: 2em;
-}
-/* line 152, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003152}}
-#ec-view-container #ec-minor-details .ec-detail-category ul > li {
-  list-style-type: none;
+.ec-event-detail-container .ec-sub-event-menu ul li {
   display: inline;
 }
-/* line 162, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003162}}
-#ec-view-container #ec-social-tweet section > .uk-panel {
-  background-color: #3498db;
-  color: #fff;
+/* line 55, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000355}}
+.ec-event-detail-container #ec-event-description {
   font-family: 'Conv_weblysleekuil';
+  overflow-y: hidden;
+  min-height: 5em;
+  max-height: 10em;
+  position: relative;
 }
-/* line 167, event.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003167}}
-#ec-view-container #ec-social-tweet section > .uk-panel .uk-panel-title {
-  font-family: 'Conv_weblysleekuil';
-  color: #fff;
+/* line 62, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000362}}
+.ec-event-detail-container #ec-event-description .ec-description-more {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
 }
-@media all and (max-width: 767px) {
-  /* line 178, event.less */
-  @media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003178}}
-  #ec-aside-container {
-    padding-left: 3em !important;
-  }
+/* line 70, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\0000370}}
+.ec-event-detail-container article {
+  padding: 1em;
+  background-color: #fff;
 }
 /*# sourceMappingURL=event.css.map */

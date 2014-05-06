@@ -187,7 +187,7 @@ class Model_chart extends Model
     
     private static function _poster_uri($p,$type = '')
     {
-       return Uri::create('uploads/'.$p['photo']['date'].'/'.$type.$p['photo']['filename']);
+       return Uri::create('uploads/'.$p['cover']['date'].'/'.$type.$p['cover']['filename']);
     }
 }
 
