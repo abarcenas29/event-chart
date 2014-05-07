@@ -34,6 +34,7 @@
     <!-- SMALL DETAIL -->
     <article class="uk-width-7-10 uk-float-right padding"
              id="ec-cover-small-detail">
+        <div class="uk-container-center">
         <div class="uk-grid">
             
         <section class="ec-detail uk-width-2-6">
@@ -88,6 +89,7 @@
             </div>
         </section>
             
+        </div>
         </div>
         
     </article>

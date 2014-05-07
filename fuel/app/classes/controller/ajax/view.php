@@ -6,13 +6,15 @@ class Controller_Ajax_View extends Controller_Ajax_AjaxCore
         $event_id = Input::post('id');
         
         $q    = Model_Event_list::read_public_list($event_id); 
-        $start_date     = date('D M d Y',strtotime($q['start_at']));
+        $start_date     = date('D, M d Y',strtotime($q['start_at']));
+        $end_date       = date('D, M d Y',strtotime($q['end_at']));
         
         $view           = View::forge('chart2/ajax/event');
         $view->q        = $q;
         $view->org_img  = $this->_img($q,'thumb-');
         $view->cover    = $this->_cover($q);
         $view->start_date= $start_date;
+        $view->end_date  = $end_date;
         $view->set_safe('sq',$q['description']);
         
         return $view;

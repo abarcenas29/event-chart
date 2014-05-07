@@ -21,6 +21,26 @@
         position:absolute;
         top:0em;
         background-color:rgba(0,0,0,0.35);
+        .calendar
+        {
+            width:3em;
+            border:2px solid #fff;
+            padding:0.2em;
+            .uk-width-1-1:first
+            {
+                font-family: 'Conv_weblysleekuilb';
+            }
+            .uk-width-1-1:last
+            {
+                font-family: 'Conv_weblysleekuil;';
+            }
+        }
+        h1
+        {
+            font-family: 'Conv_weblysleekuil';
+            color:#fff;
+            font-size:2em;
+        }
     }
 }
 
@@ -28,13 +48,61 @@
 {
     background-color:#ffffff;
     width:100%;
-    height:3em;
+    .ec-status
+    {
+        padding:0.2em 0em;
+        
+        dl
+        {
+            dd
+            {
+                margin-top:0.1em;
+                font-family: 'Conv_weblysleekuil';
+            }
+            margin:0em;
+        }
+    }
+    .padding
+    {
+        padding:0.2em 1em;
+    }
+    .active
+    {
+        border-bottom:3px solid #c0392b;
+    }
 }
 
 .ec-left-aside
 {
     position:relative;
     top:5em;
+    .org-social
+    {
+        padding:0em;
+        padding-left:1em;
+        li
+        {
+            display:inline;
+            a
+            {
+                font-size:2.5em;
+                color:#444;
+            }
+            a:hover
+            {
+                text-decoration:none;
+            }
+        }
+    }
+}
+
+.ec-right-aside
+{
+    article
+    {
+        background-color:#fff;
+        padding:1em;
+    }
 }
 
 .ec-event-detail-container
@@ -47,8 +115,40 @@
             li
             {
                 display:inline;
+                margin-right:0.5em;
+                a
+                {
+                    color:#444;
+                    font-weight:700;
+                }
+                a:hover
+                {
+                    color:#e74c3c;
+                }
+                a.active
+                {
+                    color:#e74c3c;
+                    text-decoration:underline;
+                }
             }
             border-bottom: 1px solid #DDDDDD;
+        }
+    }
+    
+    #ec-map
+    {
+        height:20em;
+        position:relative;
+        .ec-gmap
+        {
+            position:absolute;
+            top:1em;
+            right:1em;
+            z-index:100;
+            a
+            {
+                color:#fff;
+            }
         }
     }
     

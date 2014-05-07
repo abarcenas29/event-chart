@@ -3,17 +3,21 @@
 <head>
 <title>Deremoe Events Chart</title>
 <?php print $head; ?>
-<?php print Asset::css('chart2/chart2.css');?>
-
-<?php print Asset::js('uikit/datepicker.js');?>
-<?php print Asset::js('jquery.form.min.js');?>
-
-<?php print Asset::css('datepicker.min.css');?>
-
-<?php print Asset::js('jquery.cookie.js');?>
-<?php print Asset::css('animate.css');?>
-
-<?php print Asset::js('jquery.modal.js');?>
+<?php 
+    print Asset::css('chart2/chart2.css');
+    print Asset::js('uikit/datepicker.js');
+    
+    print Asset::js('jquery.form.min.js');
+    
+    print Asset::css('datepicker.min.css');
+    print Asset::js('jquery.cookie.js');
+    print Asset::css('animate.css');
+    
+    print Asset::js('jquery.modal.js');
+    
+    print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
+    print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
+?>
 </head>
 <body class="uk-width-1-1">
 	
@@ -156,7 +160,7 @@
     print $modal;
 ?>
 <script>
-$(document).ready(function()
+$(document).ready(function(e)
 {
     $(document).on('click','.ec-event-info-dialog',function()
     {
@@ -174,7 +178,8 @@ $(document).ready(function()
             $('.ec-chart-container').html('');
             $('.ec-chart-container').html(d);
         });
-        e.preventDefault();
+        return false;
+        //e.preventDefault();
     });
 });
 </script>
