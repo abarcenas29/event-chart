@@ -34,6 +34,16 @@ class Controller_Ajax_Chart extends Controller_Ajax_AjaxCore
         return $view;
     }
     
+    public function post_feeds()
+    {
+        $event_id = Input::post('event_id');
+        $q    = Model_Event_Engine::event_feeds($event_id);
+        
+        $view    = View::forge('chart2/ajax/feeds');
+        $view->q = $q;
+        return $view;
+    }
+    
     /*
      * Old
      */

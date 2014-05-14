@@ -187,4 +187,37 @@
   padding: 1em;
   background-color: #fff;
 }
+/* line 182, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003182}}
+.ec-event-detail-container #ec-detail-feed .ec-fb-feed #feed-header > div h2 {
+  font-size: 1em;
+  font-weight: 700;
+}
+/* line 187, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003187}}
+.ec-event-detail-container #ec-detail-feed .ec-fb-feed #feed-header > div h2,
+.ec-event-detail-container #ec-detail-feed .ec-fb-feed #feed-header > div p {
+  margin: 0em;
+}
+/* line 191, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003191}}
+.ec-event-detail-container #ec-detail-feed .ec-fb-feed #feed-header > div p {
+  font-size: 0.75em;
+}
+/* line 196, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003196}}
+.ec-event-detail-container #ec-detail-feed .ec-fb-feed #message {
+  clear: both;
+  padding-top: 1em;
+}
+/* line 200, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003200}}
+.ec-event-detail-container #ec-detail-feed .ec-fb-feed #message .feed-comments:first-child {
+  margin-top: 1em;
+}
+/* line 204, event.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/www\/event\.charts\.local\/public\/assets\/less\/view\/event\.less}line{font-family:\00003204}}
+.ec-event-detail-container #ec-detail-feed .ec-fb-feed #message .feed-comments {
+  background-color: #f7f7f7;
+}
 /*# sourceMappingURL=event.css.map */

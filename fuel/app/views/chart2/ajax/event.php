@@ -266,7 +266,7 @@
                 </div>
                 </article>
                 
-                <div class="ec-detail-feed uk-margin-top">
+                <div id="ec-detail-feed" class="uk-margin-top">
                 
                 </div>
                 
@@ -320,13 +320,19 @@
 </article>
 <script>
 var geoLocation = <?php print '['.$q['lat'].','.$q['long'].']'; ?>;
+var urlFeeds    = '<?php print Uri::create('ajax/chart/feeds.json'); ?>';
+var eventID     = '<?php print $q['fb_event_id'];?>';
 var osmTileMap  = 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
 var venue       = '<?php print $q['venue']; ?>';
 var attr        = 'Event Chart Map Powered by Cloudmade OSM.';
 $(document).ready(function(e)
 {
     var map = L.map('ec-map').setView(geoLocation,13);
+    
     L.tileLayer(osmTileMap,{attribution:attr}).addTo(map);
     L.marker(geoLocation).addTo(map).bindPopup(venue).openPopup();
+    $.post(urlFeeds,{event_id:eventID},function(d){
+        $('#ec-detail-feed').html(d);
+    });
 });
 </script>

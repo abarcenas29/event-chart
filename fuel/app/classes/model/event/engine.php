@@ -67,10 +67,19 @@ class Model_Event_Engine extends Model_ModelCore
     }
     
     //feeds
-    public static function event_feeds()
+    public static function event_feeds($event_id)
     {
         $f = Model_Event_Engine::_auth_facebook();
-        return Model_Event_Engine::_api_call(Model_Event_Engine::$_event.'/feed');
+        $q = Model_Event_Engine::_api_call($event_id.'/feed');
+        $arg = array();
+        foreach($q['data'] as $row)
+        {
+            $date = new DateTime($row['created_time'],new DateTimeZone('Asia/Manila'));
+            $row['created_time'] = $date->format('Y-m-d H:i:sP');
+            
+            $arg[] = $row;
+        }
+        return $q;
     }
     
     //get profile picture of the page (this is public so no api call needed)
