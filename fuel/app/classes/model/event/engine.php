@@ -109,6 +109,64 @@ class Model_Event_Engine extends Model_ModelCore
         }
     }
     
+    /*
+     * Functions with no Access tokens
+     */
+    public static function is_fb_logged()
+    {
+        $f = Model_Event_Engine::user_auth_facebook();
+        $getUserData = $f->getUser();
+        if($getUserData)
+        {
+            try 
+            {
+                $user_profile = $f->api('/me','GET');
+                return true; 
+            } 
+            catch (Exception $ex) 
+            {}
+        }
+        return false;
+    }
+    
+    public static function get_fb_user_data()
+    {
+        $f = Model_Event_Engine::user_auth_facebook();
+        try
+        {
+            return $f->api('/me');
+        }
+        catch (\facebook\FacebookApiException $e)
+        {}
+        return null;
+    }
+    
+    public static function get_fb_login_link()
+    {
+        $f      = Model_Event_Engine::user_auth_facebook();
+        $scope  = array(
+            'scope'=>'email',
+            'redirect_uri'=>  Uri::base()); 
+        return $f->getLoginUrl($scope);
+    }
+    
+    public static function user_auth_facebook()
+    {
+        $cfg['appId']   = Model_Event_Engine::$_appId;
+        $cfg['secret']  = Model_Event_Engine::$_secret;
+        $token = Session::get('fb_token',null); 
+        
+        $f = new facebook\fb($cfg);
+        
+        if(!is_null($token))
+        {
+            $f->setAccessToken($token);
+        }
+        
+        return $f;
+    }
+
+
     private static function _auth_facebook()
     {
         //temporary

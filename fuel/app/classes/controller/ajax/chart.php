@@ -34,13 +34,20 @@ class Controller_Ajax_Chart extends Controller_Ajax_AjaxCore
         return $view;
     }
     
-    public function post_feeds()
+    public function post_review_editor()
     {
         $event_id = Input::post('event_id');
-        $q    = Model_Event_Engine::event_feeds($event_id);
         
-        $view    = View::forge('chart2/ajax/feeds');
-        $view->q = $q;
+        $view    = View::forge('chart2/ajax/review_editor');
+        $view->fb_login = Model_Event_Engine::get_fb_login_link();
+        $view->fb_user  = Model_Event_Engine::get_fb_user_data();
+        $view->eventId  = $event_id;
+        return $view;
+    }
+    
+    public function post_review_feed()
+    {
+        $view = View::forge('chart2/ajax/review_feed');
         return $view;
     }
     

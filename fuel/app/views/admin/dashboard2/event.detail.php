@@ -315,7 +315,7 @@ if(isset($q))
 <script>
 var venueCoords		= [];
 var $map		= $('#ec-event-manage-map');
-var OpenStreetMap	= 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
+var OpenStreetMap	= 'https://{s}.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png';
 
 var $inputLong = $('input[name="lng"]');
 var $inputLat  = $('input[name="lat"]');

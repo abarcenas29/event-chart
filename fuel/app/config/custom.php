@@ -31,8 +31,8 @@ return array(
 	'twitter'		=> array(
 		'oauth_access_token'			=> '1196190907-ckbQWjGHEZS5QqetN93G3RhkP5hLXBoGfLOSJfi',
 		'oauth_access_token_secret'		=> 'cMT2P3SfkfVdthl65Et9mNcLGkQHIDoe7odvxzqdIsyEp',
-		'consumer_key'					=> '9O4EBJmSSTk1CAeELBUV3g',
-		'consumer_secret'				=> 'gK3C6J7bxCwAmICsFiMYZBSGKRkxKS0omuGlpJ0rr3I'
+                'consumer_key'				=> '9O4EBJmSSTk1CAeELBUV3g',
+		'consumer_secret'			=> 'gK3C6J7bxCwAmICsFiMYZBSGKRkxKS0omuGlpJ0rr3I'
 	),
 	'facebook'		=> array(
 		'appId' => '479421232080499',

@@ -266,9 +266,9 @@
                 </div>
                 </article>
                 
-                <div id="ec-detail-feed" class="uk-margin-top">
-                
-                </div>
+                <!-- Feed Information -->
+                <div id="ec-detail-review" class="uk-margin-top"></div>
+                <div id="ec-detail-review-feed" class="uk-margin-top"></div>
                 
                 
             </main>
@@ -319,20 +319,25 @@
     </div>
 </article>
 <script>
-var geoLocation = <?php print '['.$q['lat'].','.$q['long'].']'; ?>;
-var urlFeeds    = '<?php print Uri::create('ajax/chart/feeds.json'); ?>';
+var geoLocation     = <?php print '['.$q['lat'].','.$q['long'].']'; ?>;
+var urlReviewEditor = '<?php print Uri::create('ajax/chart/review_editor'); ?>';
+var urlReviewFeed   = '<?php print Fuel\Core\Uri::create('ajax/chart/review_feed'); ?>';
 var eventID     = '<?php print $q['fb_event_id'];?>';
-var osmTileMap  = 'http://{s}.tile.cloudmade.com/06bb239b50aa4ef1bfccec8bbc153c60/997/256/{z}/{x}/{y}.png';
+var osmTileMap  = 'https://{s}.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png';
 var venue       = '<?php print $q['venue']; ?>';
-var attr        = 'Event Chart Map Powered by Cloudmade OSM.';
+var attr        = 'Event Chart Map Powered by MapBox OSM.';
 $(document).ready(function(e)
 {
     var map = L.map('ec-map').setView(geoLocation,13);
     
     L.tileLayer(osmTileMap,{attribution:attr}).addTo(map);
     L.marker(geoLocation).addTo(map).bindPopup(venue).openPopup();
-    $.post(urlFeeds,{event_id:eventID},function(d){
-        $('#ec-detail-feed').html(d);
+    
+    $.post(urlReviewEditor,{event_id:eventID},function(d){
+        $('#ec-detail-review').html(d);
     });
+    $.post(urlReviewFeed,function(d){
+        $('#ec-detail-review-feed').html(d);
+    })
 });
 </script>

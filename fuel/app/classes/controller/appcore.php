@@ -23,7 +23,7 @@ class Controller_AppCore extends \Fuel\Core\Controller_Template
 	public function check_fb()
 	{
 		$fb_cfg = Config::get('ec.facebook');
-		$f		= new facebook\fb($fb_cfg);
+                $f	= new facebook\fb($fb_cfg);
 		$user	= $f->getUser();
 		return $user;
 	}
