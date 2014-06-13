@@ -22,11 +22,15 @@
     </header>
     <section>
         
-    <form id="ec-fb-text" class="uk-form uk-form-horizontal">
+    <form id="ec-fb-text" 
+          class="uk-form uk-form-horizontal"
+          action="#"
+          method="post">
     <div class="uk-form-row">
         <textarea placeholder="Write Your Review"
                   class="uk-width-1-1"
-                  rows="5"></textarea>
+                  rows="5"
+                  value="teset"></textarea>
     </div>
         
     <div class="uk-form-row">
@@ -51,6 +55,9 @@
         </div>
         <div class="uk-float-right">
             <input type="hidden"
+                   name="edit-id"
+                   value=""/>
+            <input type="hidden"
                    name="fbid"
                    value="<?php print $fb_user['id']; ?>"/>
             <input type="hidden"
@@ -63,6 +70,12 @@
                id="ec-post-to-facebook">
                 <i class="uk-icon-facebook"></i>
                  Post Facebook
+            </a>
+            <a href="#"
+               id="ec-review-smooth-scroll"
+               class="uk-hidden"
+               data-uk-smooth-scroll="{offset:90}">
+               Go Back To Post
             </a>
             <button type="submit" 
                     class="uk-button uk-button-success">
@@ -100,6 +113,19 @@
                 $('input[name="postFb"]').val('1');
                 $(this).addClass('uk-button-primary');
             }
+        });
+        $('#ec-fb-text').ajaxForm({
+            beforeSubmit: function(arr,$form,options)
+            {
+
+            },
+            success:function(d)
+            {
+                var $form = $('#ec-fb-text');
+                $('#ec-review-smooth-scroll').trigger('click');
+                $form.find('input[name="edit-id"]').val('');
+            },
+            clearForm: true,
         });
     });
 </script>
