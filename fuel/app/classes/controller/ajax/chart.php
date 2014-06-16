@@ -45,9 +45,25 @@ class Controller_Ajax_Chart extends Controller_Ajax_AjaxCore
         return $view;
     }
     
+    public function post_review_rating()
+    {
+        $data   = Model_Event_Engine::get_fb_user_data();
+        
+        $view   = View::forge('chart2/ajax/review_rating');
+        $view->user_fb  = $data['id'];
+        $view->q        = Model_Event_Review::review_feed();
+        
+        return $view;
+    }
+    
     public function post_review_feed()
     {
-        $view = View::forge('chart2/ajax/review_feed');
+        $data   = Model_Event_Engine::get_fb_user_data();
+        
+        $view   = View::forge('chart2/ajax/review_feed');
+        $view->q        = Model_Event_Review::review_feed(); 
+        $view->user_fb  = $data['id'];
+        
         return $view;
     }
     

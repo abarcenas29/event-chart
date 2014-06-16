@@ -14,6 +14,8 @@
     print Asset::css('animate.css');
     
     print Asset::js('jquery.modal.js');
+    print Asset::js('uikit/notify.min.js');
+    print Asset::css('notify.min.css');
     
     print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
     print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');

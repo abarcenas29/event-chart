@@ -704,3 +704,11 @@ WARNING - 2014-06-13 15:54:30 --> Fuel\Core\Fuel::init - The configured locale e
 INFO - 2014-06-13 15:54:30 --> Fuel\Core\Request::__construct - Creating a new main Request with URI = "chart2"
 INFO - 2014-06-13 15:54:30 --> Fuel\Core\Request::execute - Called
 INFO - 2014-06-13 15:54:30 --> Fuel\Core\Request::execute - Setting main Request
+WARNING - 2014-06-13 18:25:08 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+INFO - 2014-06-13 18:25:08 --> Fuel\Core\Request::__construct - Creating a new main Request with URI = "chart2"
+INFO - 2014-06-13 18:25:08 --> Fuel\Core\Request::execute - Called
+INFO - 2014-06-13 18:25:08 --> Fuel\Core\Request::execute - Setting main Request
+WARNING - 2014-06-13 18:25:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+INFO - 2014-06-13 18:25:12 --> Fuel\Core\Request::__construct - Creating a new main Request with URI = "chart2"
+INFO - 2014-06-13 18:25:12 --> Fuel\Core\Request::execute - Called
+INFO - 2014-06-13 18:25:12 --> Fuel\Core\Request::execute - Setting main Request

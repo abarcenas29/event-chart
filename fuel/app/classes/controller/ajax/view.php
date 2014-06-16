@@ -5,7 +5,8 @@ class Controller_Ajax_View extends Controller_Ajax_AjaxCore
     {
         $event_id = Input::post('id');
         
-        $q    = Model_Event_list::read_public_list($event_id); 
+        Session::set('event_id',$event_id);
+        $q              = Model_Event_list::read_public_list($event_id); 
         $start_date     = date('D, M d Y',strtotime($q['start_at']));
         $end_date       = date('D, M d Y',strtotime($q['end_at']));
         

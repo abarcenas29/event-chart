@@ -35,7 +35,7 @@
                         May
                     </div>
                     <div class="uk-width-1-1 uk-text-center">
-                        10
+                        <?php print Session::get('event_id','999'); ?>
                     </div>
                     </div>
                 </div>
@@ -267,8 +267,24 @@
                 </article>
                 
                 <!-- Feed Information -->
-                <div id="ec-detail-review" class="uk-margin-top"></div>
-                <div id="ec-detail-review-feed" class="uk-margin-top"></div>
+                <div id="ec-detail-review" class="uk-margin-top">
+                    <div class="uk-text-center">
+                        <i class="uk-icon-refresh uk-icon-spin"></i>
+                        Loading Editor
+                    </div>
+                </div>
+                <div id="ec-detail-review-rating" class="uk-margin-top">
+                    <div class="uk-text-center">
+                        <i class="uk-icon-refresh uk-icon-spin"></i>
+                        Loading Rating
+                    </div>
+                </div>
+                <div id="ec-detail-review-feed" class="uk-margin-top">
+                    <div class="uk-text-center">
+                        <i class="uk-icon-refresh uk-icon-spin"></i>
+                        Loading Review Feed
+                    </div>
+                </div>
                 
                 
             </main>
@@ -321,7 +337,8 @@
 <script>
 var geoLocation     = <?php print '['.$q['lat'].','.$q['long'].']'; ?>;
 var urlReviewEditor = '<?php print Uri::create('ajax/chart/review_editor'); ?>';
-var urlReviewFeed   = '<?php print Fuel\Core\Uri::create('ajax/chart/review_feed'); ?>';
+var urlReviewFeed   = '<?php print Uri::create('ajax/chart/review_feed'); ?>';
+var urlReviewRating = '<?php print Uri::create('ajax/chart/review_rating');?>';
 var eventID     = '<?php print $q['fb_event_id'];?>';
 var osmTileMap  = 'https://{s}.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png';
 var venue       = '<?php print $q['venue']; ?>';
@@ -338,6 +355,9 @@ $(document).ready(function(e)
     });
     $.post(urlReviewFeed,function(d){
         $('#ec-detail-review-feed').html(d);
-    })
+    });
+    $.post(urlReviewRating,function(d){
+        $('#ec-detail-review-rating').html(d);
+    });
 });
 </script>

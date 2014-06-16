@@ -22,15 +22,15 @@
     </header>
     <section>
         
-    <form id="ec-fb-text" 
+    <form id="ec-form-review" 
           class="uk-form uk-form-horizontal"
-          action="#"
+          action="<?php print Uri::create('api/chart/review.json'); ?>"
           method="post">
     <div class="uk-form-row">
         <textarea placeholder="Write Your Review"
+                  name="content"
                   class="uk-width-1-1"
-                  rows="5"
-                  value="teset"></textarea>
+                  rows="5"></textarea>
     </div>
         
     <div class="uk-form-row">
@@ -71,14 +71,9 @@
                 <i class="uk-icon-facebook"></i>
                  Post Facebook
             </a>
-            <a href="#"
-               id="ec-review-smooth-scroll"
-               class="uk-hidden"
-               data-uk-smooth-scroll="{offset:90}">
-               Go Back To Post
-            </a>
-            <button type="submit" 
-                    class="uk-button uk-button-success">
+            <button type="submit"
+                    class="uk-button 
+                           uk-button-success">
                 Post Review
             </button>
         </div>
@@ -94,6 +89,7 @@
 <script>
     $(document).ready(function(e)
     {
+        var $form = $('#ec-form-review');
         $('.ec-review-rating').click(function(e)
         {
             $('.ec-review-rating').removeClass('uk-button-primary');
@@ -114,16 +110,44 @@
                 $(this).addClass('uk-button-primary');
             }
         });
-        $('#ec-fb-text').ajaxForm({
-            beforeSubmit: function(arr,$form,options)
+        
+        $('#ec-form-review').ajaxForm({
+            beforeSubmit:function(arr, $form, options)
             {
-
+                $form.find('button[type="submit"]').attr('disabled','');
+                $.UIkit.notify('Sending Data ...',{status:'info'});
             },
             success:function(d)
             {
-                var $form = $('#ec-fb-text');
+                var $reviewFeed     = $('#ec-detail-review-feed');
+                var $reviewRating   = $('#ec-detail-review-rating');
+                var loadingHTML     = '<div class="uk-text-center"><i class="uk-icon-refresh uk-icon-spin"></i> Updating Data</div>';
+                
+                if(d.success)
+                {
+                    $.UIkit.notify('Review Registered',{status:'success'});
+                }
+                else
+                {
+                    $.UIkit.notify('Review Not Registered',{status:'danger'});
+                }
+                
                 $('#ec-review-smooth-scroll').trigger('click');
                 $form.find('input[name="edit-id"]').val('');
+                $form.find('.ec-review-rating').removeClass('uk-button-primary');
+                $form.find('.ec-review-rating').eq(0).addClass('uk-button-primary');
+                $form.find('button[type="submit"]').removeAttr('disabled');
+                
+                $reviewFeed.html(loadingHTML);
+                $reviewRating.html(loadingHTML);
+                
+                $.post(urlReviewFeed,function(d){
+                    $reviewFeed.html(d);
+                });
+                
+                $.post(urlReviewRating,function(d){
+                    $reviewRating.html(d);
+                });
             },
             clearForm: true,
         });
