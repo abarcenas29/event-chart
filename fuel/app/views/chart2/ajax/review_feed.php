@@ -23,7 +23,10 @@
            data-id="<?php print $row['id']; ?>">
             <i class="uk-icon-edit"></i>
         </a>
-        <a class="uk-button uk-button-danger">
+        <a class="uk-button uk-button-danger ec-review-feed-delete"
+           href="#"
+           data-url="<?php print Uri::create('api/chart/delete_review.json'); ?>"
+           data-id="<?php print $row['id']; ?>">
             <i class="uk-icon-trash-o"></i>
         </a>
     </div>
@@ -49,6 +52,18 @@ $(document).ready(function(e)
         $editor.find('input[name="rating"]').val(rate);
         $editor.find('#ec-review-smooth-scroll').attr('href','#ec-review-feed-'+id);
         $editor.find('input[name="edit-id"]').val(id);
+    });
+    
+    $('.ec-review-feed-delete').click(function(e)
+    {
+        var data    = {id:$(this).data('id')};
+        var url     = $(this).data('url');
+        var $link   = $(this);
+        $.UIkit.notify('Deleting Post ...',{status:'danger'});
+        $.post(url,data,function(d){
+            $link.parentsUntil('article').remove().hide();
+            $.UIkit.notify('Post Deleted ...',{status:'success'});
+        });
     });
 });
 </script>

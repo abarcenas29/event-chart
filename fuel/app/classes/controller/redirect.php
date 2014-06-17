@@ -51,7 +51,7 @@ class Controller_Redirect extends \Fuel\Core\Controller
             $user   = $fb->getUser();
             if(!$user)
             {
-                $scope = array('scope'=>'email');
+                $scope = array('scope'=>'email,publish_actions');
                 Response::redirect($fb->getLoginUrl($scope));
             }
             
@@ -62,7 +62,7 @@ class Controller_Redirect extends \Fuel\Core\Controller
             } 
             catch (Exception $ex) 
             {
-                $scope = array('scope'=>'email');
+                $scope = array('scope'=>'email,publish_actions');
                 Response::redirect($fb->getLoginUrl($scope));
             }
         }

@@ -57,5 +57,27 @@ class Model_Event_Review extends Model_ModelCore
                 ->get();
         return $q;
     }
+    
+    public static function delete_review($post_id)
+    {
+        //get the post data
+        $q = Model_Event_Review::query()
+                ->where('id','=',$post_id)
+                ->get_one();
+        $fb_id      = $q['fb_id'];
+        $event_id   = $q['event_id'];
+        
+        //check if the user is correct
+        $data = Model_Event_Engine::get_fb_user_data();
+        if($data['id'] == $fb_id)
+        {
+            //delete all related posts
+            $q = Model_Event_Review::query()
+                    ->where('fb_id','=',$fb_id)
+                    ->where('event_id','=',$event_id)
+                    ->delete();
+        }
+        return true;
+    }
 }
 

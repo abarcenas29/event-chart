@@ -145,7 +145,7 @@ class Model_Event_Engine extends Model_ModelCore
     {
         $f      = Model_Event_Engine::user_auth_facebook();
         $scope  = array(
-            'scope'=>'email',
+            'scope'=>'email,publish_actions',
             'redirect_uri'=>  Uri::base()); 
         return $f->getLoginUrl($scope);
     }
@@ -164,6 +164,27 @@ class Model_Event_Engine extends Model_ModelCore
         }
         
         return $f;
+    }
+    
+    public static function user_publish_facebook($arg)
+    {
+        $f = Model_Event_Engine::user_auth_facebook();
+        try
+        {
+            $obj = array();
+            $obj['link']        = Uri::create('chart2/'.$arg['event_id']);
+            $obj['name']        = $arg['title'];
+            $obj['message']     = $arg['content'];
+            $obj['picture']     = $arg['picture'];
+            $obj['description'] = $arg['event_desc'];
+            $f->api('/me/feed','POST',$obj);
+            return true;
+        }
+        catch(facebook\FacebookApiException $e)
+        {
+            return $e->getMessage();
+        }
+        return null;
     }
 
 
