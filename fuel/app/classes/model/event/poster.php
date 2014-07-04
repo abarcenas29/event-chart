@@ -87,7 +87,7 @@ class Model_Event_Poster extends Model_ModelCore
 	public static function remove_poster_by_event($event_id)
 	{
 		$q = Model_Event_Poster::query()
-				->where('event_id','=',$event_id);
+			->where('event_id','=',$event_id);
 		foreach($q->get() as $row)
 		{
 			Model_Photo::delete_picture($row['photo_id']);

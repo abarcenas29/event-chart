@@ -1,4 +1,3 @@
-<?php if(count($q) > 0): ?>
 <article class="ec-fb-review-ratings-only 
                 uk-margin-bottom">
     <main class="uk-panel uk-panel-header">
@@ -12,9 +11,21 @@
              data-uk-tooltip
              title="<?php print json_decode(file_get_contents('http://graph.facebook.com/'.$row['fb_id']))->name; ?>"
              />
+        <?php else: ?>
+        <script>
+        $('.ec-fb-review-ratings-only').hide();
+        </script>
         <?php endif; ?>
     <?php endforeach;?>
     </section>
     </main>
 </article>
-<?php endif; ?>
+<!-- display the Rating average -->
+<script>
+    var urlRating = "<?php print Uri::create('api/chart/rating_avg.json'); ?>";
+    $(document).ready(function(e){
+        $.post(urlRating,function(d){
+            $('#ec-average-rating').html(d.data+'/5');
+        })
+    });
+</script>

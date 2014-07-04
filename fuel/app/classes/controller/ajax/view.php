@@ -10,28 +10,70 @@ class Controller_Ajax_View extends Controller_Ajax_AjaxCore
         $start_date     = date('D, M d Y',strtotime($q['start_at']));
         $end_date       = date('D, M d Y',strtotime($q['end_at']));
         
-        $view           = View::forge('chart2/ajax/event');
-        $view->q        = $q;
-        $view->org_img  = $this->_img($q,'thumb-');
-        $view->cover    = $this->_cover($q);
-        $view->start_date= $start_date;
-        $view->end_date  = $end_date;
-        $view->set_safe('sq',$q['description']);
+        $cover_photo            = View::forge('chart2/ajax/subevent/coverphoto');
+        $cover_photo->q         = $q;
+        $cover_photo->cover     = $this->_cover($q);
+        $cover_photo->org_img   = $this->_img($q,'thumb-');
+        
+        $nav = View::forge('chart2/ajax/subevent/navigation');
+        $nav->start_date = $start_date;
+        $nav->end_date   = $end_date;
+        
+        $detail     = View::forge('chart2/ajax/subevent/detail');
+        $detail->q  = $q;
+        $detail->set_safe('sq',$q['description']);
+        
+        $view               = View::forge('chart2/ajax/event');
+        $view->cover_photo  = $cover_photo;
+        $view->navigation   = $nav;
+        $view->detail       = $detail;
+        $view->q            = $q;
         
         return $view;
     }
     
-    public function post_instagram()
+    public function post_event_posters()
     {
-        $arg['event_id'] = Input::post('event_id');
-        $arg['page']	 = Input::post('page',0);
+        $event_id = Session::get('event_id');
+        $q = Model_Event_Poster::query()
+                ->where('event_id','=',$event_id)
+                ->get();
+        
+        $view    = View::forge('view2/subcat/poster');
+        $view->q = $q;
+        
+        return $view;
+    }
+    
+    public function post_event_instagram()
+    {
+        $arg['event_id'] = Session::get('event_id');
+        $arg['page']     = 1;
 
         Model_Event_Instagram::insert_photos($arg);
-        $rsp = Model_Event_Instagram::read_photos($arg);
+        $q = Model_Event_Instagram::read_photos($arg);
 
-        $view = View::forge('view/ajax/instagram');
-        $view->rsp = $rsp;
+        $view = View::forge('view2/subcat/instagram');
+        $view->q = $q;
 
+        return $view;
+    }
+    
+    public function post_event_instagram_pagination()
+    {
+        $arg['event_id'] = Session::get('event_id');
+        $arg['page']     = Input::post('page',1);
+        
+        $q = Model_Event_Instagram::read_photos($arg);
+        
+        if($q === false){
+            return 'false';
+        }
+        
+        $view    = View::forge('view2/subcat/instagram_pagination');
+        $view->q = $q;
+        $view->page = $arg['page'] + 1;
+        
         return $view;
     }
 

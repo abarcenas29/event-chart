@@ -47,4 +47,12 @@ class Controller_Api_Chart extends Controller_Api_ApiCore
         $rsp['success'] = true;
         return $this->response($rsp);
     }
+    
+    public function post_rating_avg()
+    {
+        $rsp = array();
+        $rsp['success'] = true;
+        $rsp['data']    = Model_Event_Review::get_average();
+        return $this->response($rsp);
+    }
 }

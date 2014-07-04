@@ -79,5 +79,26 @@ class Model_Event_Review extends Model_ModelCore
         }
         return true;
     }
+    
+    public static function get_average()
+    {
+        $event_id = Session::get('event_id',null);
+        if(!is_null($event_id))
+        {
+            $q = Model_Event_Review::query()
+                    ->select('rating')
+                    ->where('event_id','=',$event_id)
+                    ->where('status','=','Published')
+                    ->get();
+            
+            $ratings = array();
+            foreach($q as $row)
+            {
+                $ratings[] = $row['rating'];
+            }
+            return round((float) array_sum($ratings)/count($ratings),1);
+        }
+        return 0;
+    }
 }
 

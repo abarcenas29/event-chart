@@ -104,14 +104,14 @@ class Model_Event_Instagram extends Model_ModelCore
 	
 	public static function read_photos($arg)
 	{
-		$limit = 50;
+		$limit     = 50;
 		$timestamp = Model_ModelCore::_get_timestamp($arg['event_id']);
 		
 		$q = Model_Event_Instagram::query()
-				->where('event_id','=',$arg['event_id'])
-				->where('timestamp','>=',$timestamp)
-				->order_by('timestamp','desc')
-				->limit($limit);
+                        ->where('event_id','=',$arg['event_id'])
+                        ->where('timestamp','>=',$timestamp)
+                        ->order_by('timestamp','desc')
+                        ->limit($limit);
 		
 		$max_page = ceil($q->count()/$limit);
 		if($arg['page'] <= $max_page)
