@@ -1,0 +1,168 @@
+body
+{
+	background-color:#F2F2F7;
+	#ec-chart-navbar
+	{
+		position:fixed;
+		z-index:10;
+		top:0em;
+		.uk-navbar
+		{
+			background-color:#fff;
+			.uk-navbar-brand
+			{
+				background-color:#AB1F2B;
+				img
+				{
+					width:8em;
+				}
+			}
+			.uk-navbar-nav > li > a 
+			{
+				font-family: 'Conv_weblysleekuisb';
+			}
+			.uk-navbar-nav > li > a:hover
+			{
+				background-color:#C24A46;
+				color:#fff;
+				font-family: 'Conv_weblysleekuisb';
+			}
+			.uk-navbar-nav
+			{
+				li.uk-parent.uk-open > a
+				{
+					color:#fff;
+					background-color:#C24A46;
+				}
+			}
+		}
+	}
+	.ec-chart-container
+	{
+		margin-top:4em;
+		padding:0.5em;
+		overflow:hidden;
+	}
+	
+	.ec-chart-cycle
+	{
+            div
+            {
+                position:relative;
+                .uk-width-1-3
+                {
+                    img
+                    {
+                        width:100%;
+                    }
+                }
+                .uk-width-2-3
+                {
+                    position:relative;
+                    left:-2.5em;
+                    .uk-panel
+                    {
+                        .uk-panel-title
+                        {
+                            position:relative;
+                            div
+                            {
+                                position:absolute;
+                                right:0em;
+                                top:0em;
+                            }
+                        }
+                        p
+                        {
+                            margin:0em;
+                            color:#000;
+                        }
+                        min-height:inherit;
+                        background-color:#fff;
+                    }
+                }
+            }
+	}
+	
+	#ec-event-info
+	{
+		.bo-modal-dialog > .uk-grid
+		{
+			.ec-event-info
+			{
+				min-height:40.61em;
+				
+				img
+				{
+					height:142px;
+				}
+				
+				.ec-event-info-main-title
+				{
+					position:relative;
+					div
+					{
+						position:absolute;
+						right:0em;
+						top:0em;
+					}
+				}
+				
+				.uk-panel
+				{
+					min-height:40.61em;
+					.ec-category-list,.ec-ticket-list
+					{
+						li
+						{
+							display:inline;
+						}
+						padding-left:0em;
+					}
+				}
+			}
+			.ec-event-info-image > div
+			{
+				position:relative;
+				div
+				{
+					position:absolute;
+					top:1em;
+					right:1em;
+					ul > li
+					{
+						text-align:center;
+						display:inline;
+						a
+						{
+							color:#fff;
+							width:3em;
+						}
+						.facebook
+						{
+							background-color:#45619D;
+						}
+						.twitter
+						{
+							background-color:#3A92C8;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media(min-width:1020px)
+{
+	#ec-event-info
+	{
+		.bo-modal-dialog > .uk-grid
+		{
+			.ec-event-info
+			{
+				padding-left:0em;
+			}
+		}
+	}
+}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3307
--- Generation Time: Dec 26, 2013 at 05:29 AM
+-- Generation Time: Feb 14, 2014 at 12:02 PM
 -- Server version: 5.5.32-MariaDB
 -- PHP Version: 5.4.7
 
@@ -2372,7 +2372,7 @@ CREATE TABLE IF NOT EXISTS `event_guests` (
   `type` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `event_guests`
@@ -2381,12 +2381,12 @@ CREATE TABLE IF NOT EXISTS `event_guests` (
 INSERT INTO `event_guests` (`id`, `event_id`, `name`, `type`, `created_at`) VALUES
 (2, 2, 'Joe Inoue', 'singer artist', '2013-11-10 14:12:05'),
 (5, 2, 'Alodia Gosengfiao', 'cosplayer', '2013-11-10 14:13:27'),
-(6, 2, 'Ashley Gosengfiao', 'cosplayer', '2013-11-10 14:13:36'),
 (7, 2, 'Jiaki Darkness', 'cosplayer', '2013-11-10 14:13:51'),
 (8, 2, 'Yuuki Godbless', 'cosplayer', '2013-11-10 14:13:58'),
 (9, 3, 'May&#039;n', 'singer artist', '2013-11-13 04:47:44'),
 (10, 3, 'Alodia Gosenfiao', 'cosplayer', '2013-11-14 10:15:45'),
-(11, 3, 'Ashley Gosenfiao', 'cosplayer', '2013-11-14 10:15:50');
+(11, 3, 'Ashley Gosenfiao', 'cosplayer', '2013-11-14 10:15:50'),
+(15, 2, 'Ashley Gosenfiao', 'cosplayer', '2014-02-03 09:20:01');
 
 -- --------------------------------------------------------
 
@@ -2750,6 +2750,7 @@ INSERT INTO `event_instagrams` (`id`, `event_id`, `hashtag`, `timestamp`, `img_t
 CREATE TABLE IF NOT EXISTS `event_lists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `photo_id` int(11) DEFAULT NULL,
+  `cover_id` int(11) DEFAULT NULL,
   `name` text NOT NULL,
   `description` text,
   `email` text,
@@ -2773,11 +2774,11 @@ CREATE TABLE IF NOT EXISTS `event_lists` (
 -- Dumping data for table `event_lists`
 --
 
-INSERT INTO `event_lists` (`id`, `photo_id`, `name`, `description`, `email`, `region`, `venue`, `main_org`, `lat`, `long`, `start_at`, `end_at`, `facebook`, `twitter`, `website`, `status`, `created_by`, `created_at`) VALUES
-(2, 13, 'Best of Anime 2013', 'The Best of Anime&quot; has consistently reached thousands of visitors for the past four momentous years. Last year, the two-day event had more than 10,000 visitors who trooped to the venue to experience and witness once more what &ldquo;The Best of Anime&rdquo; showcased and offered. The anime convention had featured an impressive roster of talents, cosplayers, activities, and much more. Moreover, the convention has extended its horizons and upgraded the local Anime Conventions by having the Japanese-American Multi-talented musician Joe Inoue, and JPop Idol Group, Starmarie to include the growing list of international guests, which had begun with Japanese visual-kei rock band, Uchusentai Noiz. Pointing out the other various highlights from the previous year were the Cosplay and Quickdraw Competitions, Battle of the Bands, Fashion Show, and Various workshops.', 'boa@primetradeasia.com', NULL, 'SM Convention Center, Pasay city. Hall 3 - 5.', '5', 14.532128856890111, 120.98262548446655, '2013-09-14', '2013-09-15', 'bestofanime', 'bestofanime', 'bestofanime', 'live', 'aldrich.barcenas@gmail.com', '2013-11-07 04:36:17'),
-(3, 18, 'Animax Carnival Philiipines 2013', 'This year''s Animax Carnival combines exciting Japanese carnival games, Anime-inspired booths, and the highly anticipated cosplay competition! But, we''re not stopping there!<div><br></div><div>Find out more what we have in store for you...</div>', 'info@animaxasia.com', 'Quezon City', 'Trinoma, Event Grounds. Quezon City Manila.', '6', 14.652682958143942, 121.03358745574951, '2013-12-08', '2013-12-08', 'animaxasiatv', 'animaxasiatv', 'animax-asia.com/phcarnival', 'live', 'aldrich.barcenas@gmail.com', '2013-11-08 03:20:06'),
-(4, 57, 'UP AME Festival', 'As UP AME celebrates its 13th year, we bring you AME FEST!\nAME FEST is composed of four different and exciting events that will surely make your November a memorable one!', 'execom@up-ame.org', NULL, 'UP Diliman Campus', '7', 14.65102216753507, 121.06710433959961, '2013-11-12', '2013-11-23', 'upame', 'upame', 'amefest.up-ame.org/', 'live', 'aldrich.barcenas@gmail.com', '2013-11-10 15:20:16'),
-(5, 62, 'Otaku Expo Reload 2013', 'Just Another Anime Event Held by Ozine.	', '', NULL, 'SM X function Hall 2. SM Mall of Asia, Pasay City.', '8', 14.532118471300537, 120.98262548446655, '2013-11-16', '2013-11-17', 'OtakuExpo', 'OzineMagazine&lrm;', 'facebook.com/OtakuExpo', 'live', 'aldrich.barcenas@gmail.com', '2013-11-18 10:32:47');
+INSERT INTO `event_lists` (`id`, `photo_id`, `cover_id`, `name`, `description`, `email`, `region`, `venue`, `main_org`, `lat`, `long`, `start_at`, `end_at`, `facebook`, `twitter`, `website`, `status`, `created_by`, `created_at`) VALUES
+(2, NULL, NULL, 'Best of Anime 2013', 'The Best of Anime&quot; has consistently reached thousands of visitors for the past four momentous years. Last year, the two-day event had more than 10,000 visitors who trooped to the venue to experience and witness once more what &ldquo;The Best of Anime&rdquo; showcased and offered. The anime convention had featured an impressive roster of talents, cosplayers, activities, and much more. Moreover, the convention has extended its horizons and upgraded the local Anime Conventions by having the Japanese-American Multi-talented musician Joe Inoue, and JPop Idol Group, Starmarie to include the growing list of international guests, which had begun with Japanese visual-kei rock band, Uchusentai Noiz. Pointing out the other various highlights from the previous year were the Cosplay and Quickdraw Competitions, Battle of the Bands, Fashion Show, and Various workshops.', 'boa@primetradeasia.com', NULL, 'SM Convention Center, Pasay city. Hall 3 - 5.', '5', 14.532128856890111, 120.98262548446655, '2013-09-14', '2013-09-15', 'bestofanime', 'bestofanime', 'bestofanime', 'live', 'aldrich.barcenas@gmail.com', '2013-11-07 04:36:17'),
+(3, 121, 122, 'Animax Carnival Philiipines 2013 2', 'Description Here. <b>This is a changed description. </b>Another description.', 'info@animaxasia.com', 'Quezon City', 'SM Trinoma QC.', '6', 14.652932075649705, 121.03329509496689, '2013-12-08', '2013-12-08', 'animaxasiatv', 'animaxasiatv', 'animax-asia.com/phcarnival', 'live', 'aldrich.barcenas@gmail.com', '2013-11-08 03:20:06'),
+(4, 57, NULL, 'UP AME Festival', 'As UP AME celebrates its 13th year, we bring you AME FEST!\nAME FEST is composed of four different and exciting events that will surely make your November a memorable one!', 'execom@up-ame.org', NULL, 'UP Diliman Campus', '7', 14.65102216753507, 121.06710433959961, '2013-11-12', '2013-11-23', 'upame', 'upame', 'amefest.up-ame.org/', 'live', 'aldrich.barcenas@gmail.com', '2013-11-10 15:20:16'),
+(5, 62, NULL, 'Otaku Expo Reload 2013', 'Just Another Anime Event Held by Ozine.', '', 'Pasay City', 'SM X function Hall 2. SM Mall of Asia, Pasay City.', '8', 14.532118471300537, 120.98262548446655, '2013-11-16', '2013-11-17', 'OtakuExpo', 'OzineMagazine‎', 'facebook.com/OtakuExpo', 'live', 'aldrich.barcenas@gmail.com', '2013-11-18 10:32:47');
 
 -- --------------------------------------------------------
 
@@ -3034,7 +3035,7 @@ CREATE TABLE IF NOT EXISTS `organizations` (
   `created_by` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `organizations`
@@ -3048,7 +3049,8 @@ INSERT INTO `organizations` (`id`, `photo_id`, `name`, `description`, `facebook`
 (5, 5, 'Primetrade Asia', 'Primetrade Asia, Inc.&rsquo;s maiden event, the annual Manila International Book Fair, now celebrates its third decade of bringing books and the joy of reading to the Filipino public, and still draws an ever-growing crowd by the thousands on its five-day run. In the years past, the company has supplemented the book fair with co-located events to cater to book lovers&rsquo; other diverse interests:  Superkids, an early childhood development conference; The Best of Anime, an anime convention; and Dimensions of Wellness, a holistic health and wellness fair. ', 'primetradeasia', 'primestradeasia', 'primetradeasia.com', 'info@primetradeasia.com', 'aldrich.barcenas@gmail.com', '2013-11-07 04:25:42'),
 (6, 14, 'Animax Asia', 'Launched on 1 January 2004, Animax is Asia&rsquo;s first channel brand specializing in Japanese animation &ndash; anime. Animax offers a wide variety of anime programs from across the most popular genres including action, romance, horror, supernatural, comedy to slice-of-life.	', 'animaxasiatv', 'animaxasiatv', 'www.animax-asia.com', '', 'aldrich.barcenas@gmail.com', '2013-11-08 03:17:32'),
 (7, 56, 'Anime Manga Enthusiast', 'the University of the Philippines Anime Manga Enthusiasts is a College of Arts and Letters based non-political and non-sectarian organization which aims to gather anime and manga enthusiasts all over UP Diliman. The organization also exists to provide an atmosphere for an open exchange of ideas and share in-depth information on the nature of anime and manga.	', 'upame', 'upame', 'up-ame.org/', '', 'aldrich.barcenas@gmail.com', '2013-11-10 15:17:50'),
-(8, 61, 'Otakuzine Anime Magazine', 'An anime magazine that holds events.	', 'OtakuzineAnimeMagazine', 'OzineMagazine&lrm;', 'otakuzinemag.com/', '', 'aldrich.barcenas@gmail.com', '2013-11-18 10:31:11');
+(8, 61, 'Otakuzine Anime Magazine', 'An anime magazine that holds events.	', 'OtakuzineAnimeMagazine', 'OzineMagazine&lrm;', 'otakuzinemag.com/', '', 'aldrich.barcenas@gmail.com', '2013-11-18 10:31:11'),
+(13, 118, 'Blah Organization', '\n		\n		\n		\n		this is a <b>description</b>.				', 'deremoe', '', '', 'aldrich.barcenas@gmail.com', 'aldrich.barcenas@gmail.com', '2014-02-06 07:59:38');
 
 -- --------------------------------------------------------
 
@@ -3062,7 +3064,7 @@ CREATE TABLE IF NOT EXISTS `photos` (
   `filename` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=123 ;
 
 --
 -- Dumping data for table `photos`
@@ -3074,12 +3076,10 @@ INSERT INTO `photos` (`id`, `date`, `filename`, `created_at`) VALUES
 (3, '2013-11-06', 'df8757e39dbe259ff3de2f72c.jpg', '2013-11-06 08:48:20'),
 (4, '2013-11-06', '760c432d9e936a86bc7ff3f6c.jpg', '2013-11-06 09:10:33'),
 (5, '2013-11-07', '785dc3095265d94c6fe0c9608.jpg', '2013-11-07 04:25:41'),
-(13, '2013-11-07', 'c37bad84ecb39868f03cb740a.jpg', '2013-11-07 04:36:17'),
 (14, '2013-11-08', 'dbc1ffa6a138f580605d0c622.jpg', '2013-11-08 03:17:32'),
 (15, '2013-11-08', 'f66a46448f7a49b284755f537.jpg', '2013-11-08 03:19:17'),
 (16, '2013-11-08', '4e5218549b73ee2885990c877.jpg', '2013-11-08 03:19:26'),
 (17, '2013-11-08', '65b673daa276c62aededdd80d.jpg', '2013-11-08 03:20:06'),
-(18, '2013-11-08', '63480044155283f6064105358.jpg', '2013-11-08 05:03:03'),
 (53, '2013-11-08', '1e5f012d26f148f73b2410823.jpg', '2013-11-08 10:22:24'),
 (54, '2013-11-08', '902fae6d1f19bf1757375f209.jpg', '2013-11-08 10:22:24'),
 (55, '2013-11-08', '9538e1e304bfbad6bd180721c.jpg', '2013-11-08 10:22:25'),
@@ -3088,7 +3088,11 @@ INSERT INTO `photos` (`id`, `date`, `filename`, `created_at`) VALUES
 (58, '2013-11-10', 'f3563f98702ddcb7156c7dc8c.jpg', '2013-11-10 15:36:34'),
 (59, '2013-11-10', 'ceac2edc0c028222b9c4e54b2.jpg', '2013-11-10 15:36:34'),
 (61, '2013-11-18', '9782633e4c954d71b7e52ab99.jpg', '2013-11-18 10:31:11'),
-(62, '2013-11-18', 'bfee1d296e63d6772a8f10f7b.jpg', '2013-11-18 10:32:47');
+(62, '2013-11-18', 'bfee1d296e63d6772a8f10f7b.jpg', '2013-11-18 10:32:47'),
+(92, '2014-02-05', 'a2d1791f42b1650b405238b9a.jpg', '2014-02-05 07:32:58'),
+(118, '2014-02-06', 'efa2c6671a3bd09fe454c9a4d.jpg', '2014-02-06 09:13:26'),
+(121, '2014-02-07', '4c210c2bd76c440cd67e06019.jpg', '2014-02-07 09:48:45'),
+(122, '2014-02-07', '128580dcb1c3ff849608a4949.jpg', '2014-02-07 09:48:56');
 
 -- --------------------------------------------------------
 
@@ -3113,7 +3117,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `salt`, `hash`, `type`, `su`, `created_at`) VALUES
-(12, 'aldrich.barcenas@gmail.com', 'abarcenas', 'FfWhwqeK0huCLEe1MlvuFDx88wxl0nE/eQqBn84X65k=', 'QwF1mhUJGLmHefOOhNodBC9tDlaxNoWXjyXAu+tGcvA=', 'admin', 0, '2013-11-04 10:45:48');
+(12, 'aldrich.barcenas@gmail.com', 'abarcenas', 'JaqaHF6a6wEH0bP7Vd4bd4nULnJD3n6O0/ROiRGkoUo=', 'bqu5nyTmPcaiFxU0DEbtpfxRPEqKOLuhHHxRMQzfXGA=', 'admin', 1, '2013-11-04 10:45:48');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

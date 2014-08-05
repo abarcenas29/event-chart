@@ -1,2 +1,104 @@
-body #ec-main-footer{maring-top:-2em;height:-2em;clear:both}.ec-facebook{background-color:#45619D;color:whitesmoke}.ec-twitter{background-color:#3a92c8;color:whitesmoke}.ec-margin{margin:0}@media (max-width: 768px){.ec-margin{ margin:.5em!important}}
-/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+.ec-container {
+  width: 90%;
+}
+body #ec-main-footer {
+  maring-top: -2em;
+  height: -2em;
+  clear: both;
+}
+.ec-facebook {
+  background-color: #45619D;
+  color: whitesmoke;
+}
+.ec-twitter {
+  background-color: #3a92c8;
+  color: whitesmoke;
+}
+.ec-margin {
+  margin: 0em;
+}
+.ec-delay-100 {
+  -webkit-animation-delay: 100ms;
+  animation-delay: 100ms;
+}
+.ec-delay-200 {
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+}
+.ec-delay-300 {
+  -webkit-animation-delay: 300ms;
+  animation-delay: 300ms;
+}
+.ec-delay-400 {
+  -webkit-animation-delay: 400ms;
+  animation-delay: 400ms;
+}
+.ec-delay-500 {
+  -webkit-animation-delay: 500ms;
+  animation-delay: 500ms;
+}
+.ec-delay-600 {
+  -webkit-animation-delay: 600ms;
+  animation-delay: 600ms;
+}
+.ec-delay-700 {
+  -webkit-animation-delay: 700ms;
+  animation-delay: 700ms;
+}
+.ec-delay-800 {
+  -webkit-animation-delay: 800ms;
+  animation-delay: 800ms;
+}
+.ec-delay-900 {
+  -webkit-animation-delay: 900ms;
+  animation-delay: 900ms;
+}
+.ec-delay-1000 {
+  -webkit-animation-delay: 1000ms;
+  animation-delay: 1000ms;
+}
+.ec-delay-1s {
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
+}
+.ec-delay-1s-half {
+  -webkit-animation-delay: 1.5s;
+  animation-delay: 1.5s;
+}
+.ec-delay-2s {
+  -webkit-animation-delay: 2s;
+  animation-delay: 2s;
+}
+.ec-delay-2s-half {
+  -webkit-animation-delay: 2.5s;
+  animation-delay: 2.5s;
+}
+.ec-delay-3s {
+  -webkit-animation-delay: 3s;
+  animation-delay: 3s;
+}
+.ec-delay-3s-half {
+  -webkit-animation-delay: 3.5s;
+  animation-delay: 3.5s;
+}
+.ec-delay-4s {
+  -webkit-animation-delay: 4s;
+  animation-delay: 4s;
+}
+.ec-delay-4s-half {
+  -webkit-animation-delay: 4.5s;
+  animation-delay: 4.5s;
+}
+.ec-delay-5s {
+  -webkit-animation-delay: 5s;
+  animation-delay: 5s;
+}
+.ec-delay-5s-half {
+  -webkit-animation-delay: 5.5s;
+  animation-delay: 5.5s;
+}
+@media (max-width: 768px) {
+  .ec-margin {
+    margin: 0.5em !important;
+  }
+}

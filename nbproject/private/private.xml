@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/classes/controller/admin/dashboard2.php</file>
-            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/views/admin/dashboard2/maintinance/user.php</file>
-            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/public/assets/js/dashboard/jq.organization.add.js</file>
-            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/public/assets/less/admin.maintinance.less</file>
-            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/views/admin/dashboard2/main.php</file>
-            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/classes/controller/admin/dashboard.php</file>
-            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/views/admin/dashboard2/template.php</file>
+            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/views/chart2/template.php</file>
+            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/views/chart2/filter/region.php</file>
+            <file>file:/C:/Users/Beenest/SkyDrive/Program%20Experiment/websites/event.chart.local/fuel/app/classes/controller/chart2.php</file>
         </group>
     </open-files>
 </project-private>

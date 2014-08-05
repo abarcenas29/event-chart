@@ -1,0 +1,219 @@
+#ec-event-cover-container
+{
+    position:relative;
+    height:30em;
+    #ec-event-detail-org-img-container
+    {
+        width:inherit;
+        height:inherit;
+        position:absolute;
+        top:0em;
+        .ec-org-img
+        {
+            position:relative;
+            top:7em;
+        }
+    }
+    #ec-event-detail-event-title
+    {
+        width:inherit;
+        height:inherit;
+        position:absolute;
+        top:0em;
+        background-color:rgba(0,0,0,0.35);
+        .calendar
+        {
+            width:3em;
+            border:2px solid #fff;
+            padding:0.2em;
+            .uk-width-1-1:first
+            {
+                font-family: 'Conv_weblysleekuilb';
+            }
+            .uk-width-1-1:last
+            {
+                font-family: 'Conv_weblysleekuil;';
+            }
+        }
+        h1
+        {
+            font-family: 'Conv_weblysleekuil';
+            color:#fff;
+            font-size:2em;
+        }
+    }
+}
+
+.ec-event-status
+{
+    background-color:#ffffff;
+    width:100%;
+    .ec-status
+    {
+        padding:0.2em 0em;
+        
+        dl
+        {
+            dd
+            {
+                margin-top:0.1em;
+                font-family: 'Conv_weblysleekuil';
+            }
+            margin:0em;
+        }
+    }
+    .padding
+    {
+        padding:0.2em 1em;
+    }
+    .active
+    {
+        border-bottom:3px solid #c0392b;
+    }
+}
+
+.ec-left-aside
+{
+    position:relative;
+    top:5em;
+    .org-social
+    {
+        padding:0em;
+        padding-left:1em;
+        li
+        {
+            display:inline;
+            a
+            {
+                font-size:2.5em;
+                color:#444;
+            }
+            a:hover
+            {
+                text-decoration:none;
+            }
+        }
+    }
+}
+
+.ec-right-aside
+{
+    article
+    {
+        background-color:#fff;
+        padding:1em;
+    }
+}
+
+.ec-event-detail-container
+{
+    .ec-sub-event-menu
+    {
+        ul
+        {
+            padding:1em;
+            li
+            {
+                display:inline;
+                margin-right:0.5em;
+                a
+                {
+                    color:#444;
+                    font-weight:700;
+                }
+                a:hover
+                {
+                    color:#e74c3c;
+                }
+                a.active
+                {
+                    color:#e74c3c;
+                    text-decoration:underline;
+                }
+            }
+            border-bottom: 1px solid #DDDDDD;
+        }
+    }
+    
+    #ec-event-sub-nav
+    {
+        .ec-modal-poster
+        {
+            text-decoration:none;
+        }
+    }
+    
+    #ec-map
+    {
+        height:20em;
+        position:relative;
+        .ec-gmap
+        {
+            position:absolute;
+            top:1em;
+            right:1em;
+            z-index:100;
+            a
+            {
+                color:#fff;
+            }
+        }
+    }
+    
+    #ec-event-description
+    {
+        font-family: 'Conv_weblysleekuil';
+        overflow-y:hidden;
+        min-height:5em;
+        max-height:10em;
+        position:relative;
+        .ec-description-more
+        {
+            position:absolute;
+            bottom:1em;
+            right:1em;
+        }
+    }
+    
+    article
+    {
+        padding:1em;
+        background-color:#fff;
+    }
+    
+    #ec-detail-feed
+    {
+        .ec-fb-feed
+        {
+            #feed-header > div
+            {
+                h2
+                {
+                    font-size:1em;
+                    font-weight:700;
+                }
+                h2,p
+                {
+                    margin:0em;
+                }
+                p
+                {
+                    font-size:0.75em;
+                }
+            }
+            #message
+            {
+                clear:both;
+                padding-top:1em;
+                .feed-comments:first-child
+                {
+                    margin-top:1em;
+                }
+                .feed-comments
+                {
+                    background-color:lighten(#ddd,10%);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+.bo-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1020;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(30, 30, 30, 0.6);
+  opacity: 0;
+  -webkit-transition: opacity 150ms linear;
+  transition: opacity 150ms linear;
+  display: block;
+}
+.bo-modal-dialog {
+  position: relative;
+  top: 10%;
+  left: 50%;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 1020px;
+  background: transparent;
+  margin-left: -35em;
+}
+.bo-modal-open {
+  opacity: 1;
+}
+@media (max-width: 960px) {
+  .bo-modal-dialog {
+    width: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 1em;
+  }
+}

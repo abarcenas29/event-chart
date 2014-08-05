@@ -8,10 +8,17 @@ class Model_const extends Model_ModelCore
 		'created_at'
 	);
 	
-	public static function read_key($arg)
+	public static function read_key($key)
 	{
 		$q = Model_const::query()
-				->where('key','=',$arg['key'])
+				->where('key','=',$key);
+		return $q->get();
+	}
+	
+	public static function read_one_key($key)
+	{
+		$q = Model_const::query()
+				->where('key','=',$key)
 				->get_one();
 		return $q;
 	}

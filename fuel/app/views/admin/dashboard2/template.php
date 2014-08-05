@@ -19,12 +19,12 @@
 <?php 
 	print Asset::css('uikit.min.css');
 	print Asset::css('fonts.css');
-	print Asset::css('admin.dashboard.css');
+	print Asset::css('admin/dashboard.css');
 	
 	print Fuel\Core\Asset::js('jquery-2.0.3.min.js');
 	print Fuel\Core\Asset::js('uikit.min.js');
 	
-	print Asset::js('sticky.min.js');
+	print Asset::js('uikit/sticky.min.js');
 ?>
 </head>
 <body class="uk-width-1-1">
