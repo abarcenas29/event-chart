@@ -20,10 +20,10 @@ class Model_broadcast extends Model
 	
 	public static function post_facebook($arg)
 	{
-		$cfg		= Config::get('ec.facebook');
+                $cfg	    = Config::get('ec.facebook');
 		$fb_page_id = Config::get('ec.fb_page_id');
 		
-		$key['key'] = 'fb_access_token';
+		$key['key']     = 'fb_access_token';
 		$fbToken	= Model_const::read_key($key);
 		
 		$f = new facebook\fb($cfg);

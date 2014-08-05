@@ -8,14 +8,18 @@ body
 	background-image:url('<?php print Uri::create("assets/img/login/$image"); ?>');
 }
 </style>
-<?php print Asset::js('jquery.form.min.js');?>
-<?php print Asset::js('notify.min.js');?>
-<?php print Asset::css('admin.login.css');?>
-<?php print Asset::css('notify.min.css');?>
+<?php 
+    print Asset::js('jquery.form.min.js');
+    print Asset::js('uikit/add-ons/notify.min.js');
+    
+    print Asset::css('ec-admin/admin.login.css');
+    print Asset::css('uikit/uikit.addons.min.css');
+    print Asset::css('font-awesome/font-awesome.css');
+?>
 <article class="uk-width-1-1 uk-vertical-align" 
 		 style="height:inherit;">
 	<section class="uk-width-1-1" 
-			 id="ec-login-bg">
+                 id="ec-login-bg">
 		
 	</section>
 	<section class="uk-vertical-align-middle uk-width-1-1"
@@ -28,9 +32,9 @@ body
 	</div>
 	<div class="uk-width-1-2" 
 		 id="ec-login-modal-space">
-		<div class="uk-panel 
-					uk-panel-box 
-					uk-container-center">
+		<div class="uk-panel
+                            uk-panel-box 
+                            uk-container-center">
 		<form 
 			action="<?php print \Fuel\Core\Uri::create('api/admin/login/validate.json'); ?>"
 			method="POST"
@@ -45,9 +49,9 @@ body
 		<div class="uk-form-row">
 		<div class="uk-form-controls">
 			<input type="text"
-				   name="email"
-				   class="uk-width-1-1"
-				   placeholder="example@email.com"/>
+                               name="email"
+                               class="uk-width-1-1"
+                               placeholder="example@email.com"/>
 		</div>
 		</div>
 			
@@ -66,7 +70,7 @@ body
 					class="uk-button 
 						   uk-button-primary
 						   uk-button-large">
-				<i class="uk-icon-unlock"></i>
+				<i class="fa fa-unlock"></i>
 				Login
 			</button>
 		</div>

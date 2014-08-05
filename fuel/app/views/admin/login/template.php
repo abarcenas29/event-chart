@@ -17,12 +17,12 @@
 	  href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
 
 <?php 
-	print Asset::css('uikit.min.css');
-	print Asset::css('fonts.css');
-	print Asset::css('fonts.css');
+        print Asset::css('fonts.css');
+	print Asset::css('uikit/uikit.css');
+	
 	
 	print Asset::js('jquery-2.0.3.min.js');
-	print Asset::js('uikit.min.js');
+	print Asset::js('uikit/uikit.min.js');
 ?>
 
 </head>

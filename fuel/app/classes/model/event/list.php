@@ -4,7 +4,7 @@ class Model_Event_list extends Model_ModelCore
 {
 	protected static $_properties = array(
 		'id',
-		'photo_id',
+		'photo_id', // delete this later
 		'cover_id',
 		'name',
 		'description',
@@ -20,64 +20,68 @@ class Model_Event_list extends Model_ModelCore
 		'twitter',
 		'website',
 		'status',
+                'fb_event_id',
+                'fb_last_update',
+                'fb_photo_count',
+                'fb_event_id_official',
 		'created_by',
 		'created_at'
 	);
 	
 	protected static $_has_one = array(
-		'organization' => array(
-			'key_from'	=> 'main_org',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Organization'
-		),
-		'photo' => array(
-			'key_from'	=> 'photo_id',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Photo'
-		),
-		'cover' => array(
-			'key_from'	=> 'cover_id',
-			'key_to'	=> 'id',
-			'model_to'	=> 'Model_Photo'
-		)
+            'organization' => array(
+                    'key_from'	=> 'main_org',
+                    'key_to'	=> 'id',
+                    'model_to'	=> 'Model_Organization'
+            ),
+            'photo' => array(
+                    'key_from'	=> 'photo_id',
+                    'key_to'	=> 'id',
+                    'model_to'	=> 'Model_Photo'
+            ),
+            'cover' => array(
+                    'key_from'	=> 'cover_id',
+                    'key_to'	=> 'id',
+                    'model_to'	=> 'Model_Photo'
+            )
 	);
 	
 	protected static $_has_many = array(
-		'sub_org'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Organization'
-		),
-		'ticket'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Ticket'
-		),
-		'category'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Category'
-		),
-		'poster'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Poster'
-		),
-		'guest'		=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Guest'
-		),
-		'instagram' => array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Instagram'
-		),
-		'hashtags'	=> array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'event_id',
-			'model_to'	=> 'Model_Event_Hashtag'
-		)
+            'sub_org'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Organization'
+            ),
+            'ticket'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Ticket'
+            ),
+            'category'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Category'
+            ),
+            'poster'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Poster'
+            ),
+            'guest'		=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Guest'
+            ),
+            'instagram' => array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Instagram'
+            ),
+            'hashtags'	=> array(
+                    'key_from'	=> 'id',
+                    'key_to'	=> 'event_id',
+                    'model_to'	=> 'Model_Event_Hashtag'
+            )
 	);
 	
 	protected static $_belongs_to = array(
@@ -98,10 +102,11 @@ class Model_Event_list extends Model_ModelCore
 		$limit	= 15;
 		$page   = $page - 1;
 		
-		$q			= Model_Event_list::query()
-						->related('organization')
-						->related('photo')
-						->order_by('start_at','desc');
+                $q  = Model_Event_list::query()
+                        ->related('organization')
+                        ->related('photo')
+                        ->order_by('start_at','desc');
+                
 		$total_page = ceil($q->count()/$limit);
 		$arg['page']= ($page > $total_page)?$total_page:$page;
 		
@@ -133,27 +138,32 @@ class Model_Event_list extends Model_ModelCore
 		
 		if($nme->count() == 0)
 		{
-			$q				= new Model_Event_list();
-			$q->name		= $arg['name'];
-			$q->email		= $arg['email'];
-			$q->main_org	= $arg['main_org'];
-			$q->start_at	= $arg['start_at'];
-			$q->end_at		= $arg['end_at'];
-			$q->venue		= $arg['venue'];
-			$q->region		= $arg['city'];
-			$q->lat			= $arg['lat'];
-			$q->long		= $arg['lng'];
-			$q->facebook	= $arg['facebook'];
-			$q->twitter		= $arg['twitter'];
-			$q->website		= $arg['website'];
-			$q->description = $arg['desc'];
-			
-			$q->status		= 'Pending';
-			$q->created_by	= Session::get('email');
-			$q->save();
-			$rsp['success'] = true;
-			$rsp['response']= 'Data Submitted';
-			$rsp['id']		= $q->id;
+                    $q          = new Model_Event_list();
+                    $q->name	= $arg['name'];
+                    $q->email	= $arg['email'];
+                    $q->main_org= $arg['main_org'];
+                    $q->start_at= $arg['start_at'];
+                    $q->end_at	= $arg['end_at'];
+                    $q->venue	= $arg['venue'];
+                    $q->region	= $arg['city'];
+                    $q->lat	= $arg['lat'];
+                    $q->long	= $arg['lng'];
+                    $q->facebook= $arg['facebook'];
+                    $q->twitter	= $arg['twitter'];
+                    $q->website	= $arg['website'];
+                    $q->description = $arg['desc'];
+                    
+                    $q->fb_event_id          = $arg['fbid'];
+                    $q->fb_last_update       = $arg['fb-update'];
+                    $q->fb_event_id_official = $arg['event-official'];
+
+                    $q->status      = 'Pending';
+                    $q->created_by  = Session::get('email');
+                    $q->save();
+                    
+                    $rsp['success'] = true;
+                    $rsp['response']= 'Data Submitted';
+                    $rsp['id']	= $q->id;
 		}
 		return $rsp;
 	}
@@ -161,24 +171,24 @@ class Model_Event_list extends Model_ModelCore
 	public static function edit_event($arg)
 	{
 		$q = Model_Event_list::query()
-					->where('id','=',$arg['event_id'])
-					->get_one();
+                        ->where('id','=',$arg['event_id'])
+                        ->get_one();
 		
 		$arg = Model_Event_list::_reverse_date($arg);
 		$arg = Model_Event_list::_remove_http($arg);
 	
-		$q->name		= $arg['name'];
-		$q->email		= $arg['email'];
+		$q->name	= $arg['name'];
+                $q->email	= $arg['email'];
 		$q->main_org	= $arg['main_org'];
 		$q->start_at	= $arg['start_at'];
-		$q->end_at		= $arg['end_at'];
-		$q->venue		= $arg['venue'];
-		$q->region		= $arg['city'];
-		$q->lat			= $arg['lat'];
-		$q->long		= $arg['lng'];
+		$q->end_at	= $arg['end_at'];
+		$q->venue	= $arg['venue'];
+		$q->region	= $arg['city'];
+		$q->lat		= $arg['lat'];
+		$q->long	= $arg['lng'];
 		$q->facebook	= $arg['facebook'];
-		$q->twitter		= $arg['twitter'];
-		$q->website		= $arg['website'];
+		$q->twitter	= $arg['twitter'];
+		$q->website	= $arg['website'];
 		$q->description = $arg['desc'];
 		
 		$q->save();
@@ -190,71 +200,71 @@ class Model_Event_list extends Model_ModelCore
 	
 	public static function insert_main_picture($arg)
 	{
-		$q = Model_Event_list::query()
-				->where('id','=',$arg['event_id'])
-				->get_one();
-		
-		if(!is_null($q['photo_id']))
-			Model_Photo::delete_picture($q['photo_id']);
-		$q->photo_id = Model_Photo::insert_picture($arg);
-		$q->save();
+            $q = Model_Event_list::query()
+                    ->where('id','=',$arg['event_id'])
+                    ->get_one();
+
+            if(!is_null($q['photo_id']))
+                    Model_Photo::delete_picture($q['photo_id']);
+            $q->photo_id = Model_Photo::insert_picture($arg);
+            $q->save();
 	}
 	
 	public static function insert_cover_picture($arg)
 	{
-		$q = Model_Event_list::query()
-				->where('id','=',$arg['event_id'])
-				->get_one();
-		
-		if(!is_null($q['cover_id']))
-			Model_Photo::delete_picture($q['cover_id']);
-		$q->cover_id = Model_Photo::insert_picture($arg);
-		$q->save();
+            $q = Model_Event_list::query()
+                    ->where('id','=',$arg['event_id'])
+                    ->get_one();
+
+            if(!is_null($q['cover_id']))
+                    Model_Photo::delete_picture($q['cover_id']);
+            $q->cover_id = Model_Photo::insert_picture($arg);
+            $q->save();
 	}
 	
 	public static function insert_main_picture_url($arg)
 	{
-		$q = Model_Event_list::query()
-				->where('id','=',$arg['event_id'])
-				->get_one();
-		if(!is_null($q['photo_id']))
-			Model_Photo::delete_picture($q['photo_id']);
-		$q->photo_id = Model_Photo::insert_picture_url($arg);
-		$q->save();
+            $q = Model_Event_list::query()
+                    ->where('id','=',$arg['event_id'])
+                    ->get_one();
+            if(!is_null($q['photo_id']))
+                    Model_Photo::delete_picture($q['photo_id']);
+            $q->photo_id = Model_Photo::insert_picture_url($arg);
+            $q->save();
 	}
 	
 	public static function insert_cover_picture_url($arg)
 	{
-		$q = Model_Event_list::query()
-				->where('id','=',$arg['event_id'])
-				->get_one();
-		if(!is_null($q['cover_id']))
-			Model_Photo::delete_picture($q['cover_id']);
-		$q->cover_id = Model_Photo::insert_picture_url($arg);
-		$q->save();
+            $q = Model_Event_list::query()
+                    ->where('id','=',$arg['event_id'])
+                    ->get_one();
+            if(!is_null($q['cover_id']))
+                    Model_Photo::delete_picture($q['cover_id']);
+            $q->cover_id = Model_Photo::insert_picture_url($arg);
+            $q->save();
 	}
 	
 	public static function delete_main_picture($arg)
 	{
-		$q = Model_Event_list::query()
-				->where('id','=',$arg['event_id'])
-				->get_one();
-		if(!is_null($q['photo_id']))
-			Model_Photo::delete_picture ($q['photo_id']);
-		$q->photo_id = null;
-		$q->save();
+            $q = Model_Event_list::query()
+                    ->where('id','=',$arg['event_id'])
+                    ->get_one();
+            if(!is_null($q['photo_id']))
+                    Model_Photo::delete_picture ($q['photo_id']);
+            $q->photo_id = null;
+            $q->save();
 	}
 	
 	public static function delete_cover_picture($arg)
 	{
-		$q = Model_Event_list::query()
-				->where('id','=',$arg['event_id'])
-				->get_one();
-		
-		if(!is_null($q['cover_id']))
-			Model_Photo::delete_picture($q['cover_id']);
-		$q->cover_id = null;
-		$q->save();
+            $q = Model_Event_list::query()
+                    ->where('id','=',$arg['event_id'])
+                    ->get_one();
+
+            if(!is_null($q['cover_id']))
+                    Model_Photo::delete_picture($q['cover_id']);
+            $q->cover_id = null;
+            $q->save();
 	}
 	
 	public static function toggle_visibility($arg)
@@ -277,31 +287,51 @@ class Model_Event_list extends Model_ModelCore
 	public static function read_public_list($event_id)
 	{
 		$q = Model_Event_list::query()
-				->related('photo')
-				->related('organization')
-				->where('status','=','live')
-				->where('id','=',$event_id);
+                        ->related('photo')
+                        ->related('organization')
+                        ->where('status','=','live')
+                        ->where('id','=',$event_id);
 		return $q->get_one();
 	}
 	
 	public static function search_event($arg)
 	{
-		$q = Model_Event_list::query()
-				->related('organization')
-				->where('name','like',$arg['search'].'%')
-				->get();
-		
-		$rsp = array();
-		$x	 = 0;
-		foreach($q as $row)
-		{
-			$rsp[$x]['title'] = '[Event] '. $row['name'];
-			$rsp[$x]['url']	  = Uri::create('admin/dashboard2/event_manage/'.$row['id']);
-			$rsp[$x]['text']  = $row['organization']['name'];
-			$x++;
-		}
-		return $rsp; 
+            $q = Model_Event_list::query()
+                    ->related('organization')
+                    ->where('name','like',$arg['search'].'%')
+                    ->get();
+
+            $rsp = array();
+            $x	 = 0;
+            foreach($q as $row)
+            {
+                $rsp[$x]['title'] = '[Event] '. $row['name'];
+                $rsp[$x]['url']	  = Uri::create('admin/dashboard2/event_manage/'.$row['id']);
+                $rsp[$x]['text']  = $row['organization']['name'];
+                $x++;
+            }
+            return $rsp;
 	}
+        
+        public static function public_search_event($arg)
+        {
+            $q = Model_Event_list::query()
+                    ->related('organization')
+                    ->where('name','like',$arg['search'].'%')
+                    ->where('status','=','live')
+                    ->get();
+
+            $rsp = array();
+            $x	 = 0;
+            foreach($q as $row)
+            {
+                $rsp[$x]['title'] = '[Event] '. $row['name'];
+                $rsp[$x]['url']	  = Uri::create('view/event/'.$row['id']);
+                $rsp[$x]['text']  = $row['organization']['name'];
+                $x++;
+            }
+            return $rsp;
+        }
 	
 	public static function delete_event($event_id)
 	{
@@ -335,11 +365,12 @@ class Model_Event_list extends Model_ModelCore
 		Fuel\Core\DB::commit_transaction();
 		$q->delete();
 	}
+        
 	
 	private static function _check_name($arg)
 	{
 		$q = Model_Event_list::query()
-				->where('name','=',trim($arg['name']));
+                        ->where('name','=',trim($arg['name']));
 		return $q;
 	}
 	
@@ -350,9 +381,9 @@ class Model_Event_list extends Model_ModelCore
 		$end_date		= DateTime::createFromFormat($format,$arg['end_at']);
 		if($start_date > $end_date)
 		{
-			$temp				= $arg['start_at'];
-			$arg['start_at']	= $arg['end_at'];
-			$arg['end_at']		= $temp;
+			$temp               = $arg['start_at'];
+			$arg['start_at']    = $arg['end_at'];
+			$arg['end_at']      = $temp;
 		}
 		return $arg;
 	}

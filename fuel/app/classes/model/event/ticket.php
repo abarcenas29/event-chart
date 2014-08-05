@@ -34,9 +34,9 @@ class Model_Event_Ticket extends Model_ModelCore
 	public static function delete_price($arg)
 	{
 		$q = Model_Event_Ticket::query()
-				->where('id','=',$arg['ticket_id'])
-				->where('event_id','=',$arg['event_id'])
-				->get_one();
+                        ->where('id','=',$arg['ticket_id'])
+                        ->where('event_id','=',$arg['event_id'])
+                        ->get_one();
 		$q->delete();
 		return true;
 	}
@@ -44,7 +44,7 @@ class Model_Event_Ticket extends Model_ModelCore
 	public static function remove_ticket_by_event($event_id)
 	{
 		$q = Model_Event_Ticket::query()
-				->where('event_id','=',$event_id);
+                        ->where('event_id','=',$event_id);
 		$q->delete();
 	}
 }

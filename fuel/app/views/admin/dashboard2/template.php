@@ -2,35 +2,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" 
-	  content="text/html; charset=UTF-8"/>
+      content="text/html; charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" 
-	  content="IE=edge"/>
+      content="IE=edge"/>
 <meta name="viewport" 
-	  content="width=device-width, initial-scale=1"/>
+      content="width=device-width, initial-scale=1"/>
 
 <title>Admin dashboard - Deremoe Events Chart</title>
 
 <meta name="robots" 
-	  content="NOINDEX, NOFOLLOW">
+      content="NOINDEX, NOFOLLOW">
 
 <link rel="shortcut icon" 
-	  type="image/x-icon" 
-	  href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
+      type="image/x-icon" 
+      href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
 <?php 
-	print Asset::css('uikit.min.css');
-	print Asset::css('fonts.css');
-	print Asset::css('admin.dashboard.css');
+        print Asset::css('fonts.css');
+	print Asset::css('uikit/uikit.css');
+        print Asset::css('uikit/uikit.addons.min.css');
+	print Asset::css('ec-admin/admin.dashboard.css');
+        print Asset::css('font-awesome/font-awesome.css');
 	
-	print Fuel\Core\Asset::js('jquery-2.0.3.min.js');
-	print Fuel\Core\Asset::js('uikit.min.js');
-	
-	print Asset::js('sticky.min.js');
+	print Asset::js('jquery-2.0.3.min.js');
+	print Asset::js('uikit/uikit.min.js');
+        
+        print Asset::js('uikit/add-ons/autocomplete.min.js');
+	print Asset::js('uikit/add-ons/sticky.min.js');
 ?>
 </head>
 <body class="uk-width-1-1">
+    
 <!-- Main Navigation -->
 <nav class="uk-navbar" id="ec-dashboard-nav">
-<a class="uk-navbar-brand" href="<?php print Uri::create('admin/dashboard2/index'); ?>">
+<a class="uk-navbar-brand" 
+   href="<?php print Uri::create('admin/dashboard2/index'); ?>">
 	Deremoe Event Chart
 </a>
 <ul class="uk-navbar-nav">
@@ -38,13 +43,13 @@
 </ul>
 <div class="uk-navbar-flip">
 <div class="uk-navbar-content">
-	<form class="uk-search" 
-		  data-uk-search="{source:'<?php print Uri::create('api/admin/search/event.json'); ?>'}">
+    <form class="uk-search" 
+          data-uk-search="{source:'<?php print Uri::create('api/admin/search/event.json'); ?>'}">
 	<input class="uk-search-field" 
-		   type="search" 
-		   placeholder="Search">
+               type="search" 
+               placeholder="Search">
     <button class="uk-search-close" type="reset"></button>
-	</form>
+    </form>
 </div>
 <ul class="uk-navbar-nav">
 	<!-- MANAGEMENT -->
@@ -157,10 +162,10 @@
 	<div class="uk-form-row">
 	<div class="uk-float-right">
 		<button type="submit"
-				id="ec-change-password-btn"
-				data-url="<?php print Uri::create('api/admin/maintinance/change_password.json'); ?>"
-				class="uk-button
-					   uk-button-success">
+                        id="ec-change-password-btn"
+                        data-url="<?php print Uri::create('api/admin/maintinance/change_password.json'); ?>"
+                        class="uk-button
+                               uk-button-success">
 		<i class="uk-icon-save"></i>
 		Save
 		</button>
