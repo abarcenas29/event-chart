@@ -8,7 +8,7 @@ class Model_broadcast extends Model
 	{
 		$cfg = Config::get('ec.twitter');
 		
-		$update				= array();
+                $update			= array();
 		$update['status']	= $arg['content'].' '.$arg['url'];
 		
 		$t = new stwitter\twitter($cfg);

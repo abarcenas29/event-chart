@@ -1,109 +1,80 @@
 <?php
 class Controller_View extends Controller_AppCore
 {
-    public $template = 'view/template';
-	
-	public function action_event($event_id)
-	{
-		$this->_check_vaild_event($event_id);
-		
-		$url = Uri::create("view/event/$event_id");
-		$rest_cfg = Config::get('ec.qr_generator');
-	
-		$headers['X-Mashape-Authorization'] = $rest_cfg['key'];
-		$parameter['content'] = $url;
-		$parameter['size']	  = 10;
-		$parameter['type']	  = 'url';
-		$rsp = \unirest\unirest::get($rest_cfg['url'], $headers, $parameter);
-		
-		Session::set('callback_url',$url);
-		
-		
-		$view			= $this->_vg('event');
-		$view->set_safe('q',Model_Event_list::read_public_list($event_id)); 
-		$view->qr		= $rsp->body;
-		$view->url		= $url;
-		$view->fb_user	= $this->check_fb();
-		$this->template->content = $view;
-		
-		$menu		= $this->_vmg('event');
-		$menu->id	= $event_id;
-		$this->template->menu	= $menu;
-		
-		$this->template->org	= $view->q['organization']['name'];
-		$this->template->desc	= $view->q['description'];
-		$this->template->title  = $view->q['name'];
-	}
-	
-	public function action_org($org_id)
-	{
-		$this->_check_valid_org($org_id);
-		
-		$q		 = Model_Organization::read_organization($org_id);
-		
-		$url	  = Uri::create("view/org/$org_id");
-		$rest_cfg = Config::get('ec.qr_generator');
-	
-		$headers['X-Mashape-Authorization'] = $rest_cfg['key'];
-		$parameter['content'] = $url;
-		$parameter['size']	  = 10;
-		$parameter['type']	  = 'url';
-		$rsp = \unirest\unirest::get($rest_cfg['url'], $headers, $parameter);
-		
-		Session::set('callback_url',$url);
-		
-		$view			= $this->_vg('organization');
-		$view->set_safe('q',$q);
-		$view->qr		= $rsp->body;
-		$view->url		= $url;
-		$view->fb_user	= $this->check_fb();
-		$view->cat		= Model_View::org_unique_cat($q['event_lists']);
-		$view->guests	= Model_View::org_guest_list($q['event_lists']);
-		$view->price	= Model_View::org_ticket_stat($q['event_lists']);
-		$this->template->content = $view;
-		
-		$menu = $this->_vmg('organization');
-		$this->template->menu	= $menu;
-		
-		$this->template->org	= $view->q['organization']['name'];
-		$this->template->desc	= $view->q['description'];
-		$this->template->title  = $view->q['name'];
-	}
-	
-	public function action_social($event_id)
-	{
-		$this->_check_vaild_event($event_id);
-		
-		$q = Model_Event_list::read_public_list($event_id);
-		
-		$rawDate = new DateTime($q['start_at']);
-		$tdDate	 = new DateTime(date('Y-m-d'));
-		$ans	 = $tdDate->diff($rawDate);
-		
-		$view = $this->_vg('social');
-		$view->event_id		= $event_id;
-		$view->title		= $q['name'];
-		$view->is_allowed	= $ans->format('%R%a');
-		$this->template->content = $view;
-		
-		
-		$menu = $this->_vmg('social');
-		$menu->id = $event_id;
-		$this->template->menu	= $menu;
-		
-		$this->template->org	= $q['name'];
-		$this->template->desc	= $q['description'];
-		$this->template->title  = $q['name'];
-	}
-	
-	private function _vg($view)
-	{
-		return View::forge("view/$view");
-	}
-	
-	private function _vmg($view)
-	{
-		return View::forge("view/menu/$view");
-	}
+    public $template = 'template';
+
+    public function action_event($event_id = null)
+    {
+       $q = Model_Event_list::read_public_list($event_id);
+       if(is_null($event_id) || count($q) !== 1)
+       {
+            Response::redirect(Uri::base());
+       }
+       
+       $hashtags = array();
+       foreach($q['hashtags'] as $row)
+       {
+           $hashtags[] = '#'.$row['hashtag'];
+       }
+       
+       $category = array();
+       foreach($q['category'] as $row)
+       {
+           $category[] = $row['category'];
+       }
+       
+       $cover_img   = Uri::create('uploads/'.$q['cover']['date'].'/'.$q['cover']['filename']);
+       $view        = $this->_eg('event');
+       $view->q     = $q;
+       $view->set_safe('desc',$q['description']);
+       $view->cover = $cover_img;
+       $view->calendar = $this->_google_event($q);
+       $view->hashtag  = implode(', ',$hashtags);
+       $view->category = implode(', ',$category);
+       $view->share_fb = $this->_facebook_share($event_id);
+       
+       $this->template->header  = View::forge('header');
+       $this->template->content = $view;
+    }
+    
+    private function _facebook_share($event_id)
+    {
+        $url = 'https://www.facebook.com/sharer.php?app_id=[app-id]&sdk=joey&u=[url]&display=popup&ref=plugin';
+        
+        $keyword = array(
+            '[app-id]',
+            '[url]'
+        );
+        $replaced = array(
+            Config::get('ec.facebook.appId'),
+            urldecode(Uri::create('view/event/').$event_id)
+        );
+        return str_replace($keyword,$replaced,$url);
+    }
+    
+    private function _google_event($q)
+    {
+        $url = 'https://www.google.com/calendar/render?action=TEMPLATE&text=[event-name]&dates=[start-at]/[end-at]&details=[detail]&location=[location]&sf=true&output=xml';
+        
+        $keywords = array(  '[event-name]',
+                            '[start-at]',
+                            '[end-at]',
+                            '[detail]',
+                            '[location]'
+        );
+        $replaced = array(  str_replace(' ','+',$q['name']),
+                            date('Ymd',strtotime($q['start_at'])),
+                            date('Ymd',strtotime($q['end_at'])),
+                            str_replace(' ','+',$q['description']),
+                            str_replace(' ','+',$q['venue'])
+        );
+        return str_replace($keywords,$replaced,$url);
+    }
+
+
+    private function _eg($view)
+    {
+        return View::forge("view/$view");
+    }
 }
 

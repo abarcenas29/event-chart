@@ -12,10 +12,10 @@ class twitter
 		$time = strtotime('-5 day');
 		//Get current events
 		$q = \Model_Event_list::query()
-				->where('start_at','<=',date('Y-m-d',$time))
-				->where('end_at','>=',date('Y-m-d',$time))
-				->where('private','=',false)
-				->order_by('start_at','desc');
+                        ->where('start_at','<=',date('Y-m-d',$time))
+                        ->where('end_at','>=',date('Y-m-d',$time))
+                        ->where('private','=',false)
+                        ->order_by('start_at','desc');
 		
 		$arg = array();
 		foreach($q->get() as $event)

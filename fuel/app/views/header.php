@@ -20,8 +20,8 @@
     </nav>    
     
     <div id="brand">
-        <a href="#">
-            <img src="<?php print Uri::create('assets/img/logo.png'); ?>"/>
+        <a href="<?php print Uri::base(); ?>">
+            <img src="<?php print Uri::create('assets/img/calendar-v3.svg'); ?>"/>
         </a>
     </div>
         

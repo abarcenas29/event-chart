@@ -29,7 +29,7 @@
 </main>
 
 <!-- City Filter -->
-<aside id="ec-filter-toolbar" class="uk-hidden-small">
+<aside id="ec-filter-toolbar">
 <section>
 <ul>
     <li>
