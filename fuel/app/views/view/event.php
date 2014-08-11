@@ -1,4 +1,8 @@
-<?php print Asset::css('event.css'); ?>
+<?php
+    print Asset::css('event.css');
+    print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
+    print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
+?>
 <main id="ec-event-container" 
       class="uk-width-large-8-10 
              uk-width-small-1-1 
@@ -99,38 +103,108 @@
     </header>
     
     <section id="ec-main-detail" class="uk-width-1-1">
-    <div class="uk-grid uk-width-1-1" style="height:inherit;margin:0em;">
+    <div class="uk-grid uk-width-1-1"
+         data-uk-grid-match
+         style="height:inherit;margin:0em;">
+        <!-- CONTENT -->
         <div class="uk-width-large-2-3 uk-width-small-1-1"
              id="content">
             
+            <!-- MAP -->
+            <div id="ec-map"></div>
+            
+            <!-- FACEBOOK PHOTOS -->
+            <div class="uk-margin-top uk-width-1-1" id="ec-fb-photos">
+            <a href="#">
+            <?php for($x = 0; $x < 4; $x++): ?>
+                <div class="uk-width-small-1-2 
+                            uk-width-large-1-4
+                            uk-text-center
+                            uk-float-left
+                            uk-margin-bottom">
+                <img class="uk-thumbnail uk-thumbnail-small" src="http://placehold.it/290x290"/>
+                </div>
+            <?php endfor; ?>
+            </a>
+            </div>
+            
+            <!-- Ticket Prices -->
+            <div class="uk-margin-top uk-width-1-1" 
+                 id="ec-ticket">
+            <div class="uk-grid">
+                
+                <?php foreach($q['ticket'] as $row): ?>
+                <div class="uk-width-small-1-1 
+                            uk-width-large-1-2 
+                            ec-ticket uk-margin-bottom" 
+                     title="<?php print $row['note']; ?>">
+                <div class="ec-price">
+                    Php<?php print number_format($row['price'],2); ?>
+                </div>
+                </div>
+                <?php endforeach;?>
+                
+            </div>
+            </div>
+            
+            <!-- GUEST LIST -->
+            <?php if(count($q['guest']) > 0): ?>
+            <article class="uk-margin-top uk-width-1-1"
+                     id="ec-guest">
+            <header>
+            <h1>Guest List</h1>
+            <hr>
+            </header>
+            <section>
+                
+            <table class="uk-table uk-table-striped">
+            <tbody>
+            <?php foreach($q['guest'] as $row): ?>
+                <tr>
+                    <td><?php print $row['name']; ?></td>
+                    <td><?php print $row['type']; ?></td>
+                </tr>
+            <?php endforeach;?>
+            </tbody>
+            </table>
+                
+            </section>
+            </article>
+            <?php endif; ?>
+            
         </div>
+        
+        <!-- ASIDE -->
         <aside class="uk-width-large-1-3 uk-width-small-1-1"
                id="aside">
+            
+            <?php if(!empty($desc)): ?>
             <div class="uk-margin-top uk-margin-bottom" 
                  id="main-info">
                 <h1>Information</h1>
                 <div><?php print $desc; ?></div>
             </div>
+            <?php endif; ?>
             
             <div class="uk-margin-bottom"
                  id="share-info">
                 <h1>Share Event</h1>
                 <ul>
-                    <li>
-                        <a href="<?php print $share_fb; ?>" 
-                           class="uk-button"
-                           target="_new"
-                           style="background-color:#45619D;padding:0.2em 0.4em;">
-                        <i class="fa fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" 
-                           class="uk-button"
-                           style="background-color:#3a92c8;">
-                        <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
+                <li>
+                    <a href="<?php print $share_fb; ?>" 
+                       class="uk-button"
+                       target="_new"
+                       style="background-color:#45619D;padding:0.2em 0.4em;">
+                    <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" 
+                       class="uk-button"
+                       style="background-color:#3a92c8;">
+                    <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
                 </ul>
             </div>
             
@@ -154,3 +228,8 @@
     </div>
     </section>
 </main>
+<script>
+    var geoLocation = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
+    var venue       = '<?php print $q['venue']; ?>';
+</script>
+<?php print Asset::js('view/event.js'); ?>

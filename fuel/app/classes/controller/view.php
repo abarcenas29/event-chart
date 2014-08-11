@@ -23,15 +23,15 @@ class Controller_View extends Controller_AppCore
            $category[] = $row['category'];
        }
        
-       $cover_img   = Uri::create('uploads/'.$q['cover']['date'].'/'.$q['cover']['filename']);
-       $view        = $this->_eg('event');
-       $view->q     = $q;
+       $cover_img       = Uri::create('uploads/'.$q['cover']['date'].'/'.$q['cover']['filename']);
+       $view            = $this->_eg('event');
+       $view->q         = $q;
        $view->set_safe('desc',$q['description']);
-       $view->cover = $cover_img;
-       $view->calendar = $this->_google_event($q);
-       $view->hashtag  = implode(', ',$hashtags);
-       $view->category = implode(', ',$category);
-       $view->share_fb = $this->_facebook_share($event_id);
+       $view->cover     = $cover_img;
+       $view->calendar  = $this->_google_event($q);
+       $view->hashtag   = implode(', ',$hashtags);
+       $view->category  = implode(', ',$category);
+       $view->share_fb  = $this->_facebook_share($event_id);
        
        $this->template->header  = View::forge('header');
        $this->template->content = $view;
