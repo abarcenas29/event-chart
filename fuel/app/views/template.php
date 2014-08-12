@@ -24,13 +24,54 @@
     print Asset::js('jquery-2.0.3.min.js');
     print Asset::js('uikit/uikit.min.js');
 ?>
+
+<!-- FOOTER ELEMENT HANDLER -->
+<style>
+    html,body
+    {
+        margin:0;
+        padding:0;
+        height:100%;
+    }
+    #wrapper
+    {
+        min-height:100%;
+        position:relative;
+    }
+    #content
+    {
+        <?php if(isset($footer)): ?>
+        padding-bottom:2em;
+        <?php endif; ?>
+    }
+    #footer
+    {
+        width:100%;
+        height:2em;
+        position:absolute;
+        bottom:0em;
+        left:0em;
+        background-color:#9e9e9e;
+    }
+</style>
 </head>
 <body class="uk-width-1-1">
 
 <!-- CHART NAVIGATION -->
 <?php print $header; ?>
+    
+<div id="wrapper">
 
+<div id="content">
 <!-- CHART CORE -->
 <?php print $content; ?>
+</div>
+    
+<div id="footer">
+<?php print (isset($footer))?$footer:''; ?>
+</div>
+
+</div>
+
 </body>
 </html>

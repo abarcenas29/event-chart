@@ -53,9 +53,19 @@ class Model_Event_Poster extends Model_ModelCore
                     ->where('event_id','=',$event_id)
                     ->where('fb_create_time','!=',null)
                     ->order_by('fb_create_time','desc');
-            $update_time = ($q->count() == 0)?0:$q->get_one()['fb_create_time'];
-            $list = Model_Event_list::read_list($event_id);
             
+            if($q->count() == 0)
+            {
+                $update_time = 0;
+            }
+            else 
+            {
+                $result = $q->get_one();
+                $update_time = $result['fb_create_time'];
+            }
+            
+            $list = Model_Event_list::read_public_list($event_id);
+           
             if(!is_null($list['fb_event_id']))
             {
                 $photos = Model_Event_Engine::fetch_event_photos($list['fb_event_id']);

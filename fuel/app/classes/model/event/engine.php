@@ -57,7 +57,7 @@ class Model_Event_Engine extends Model_ModelCore
             
             foreach($page['data'] as $photos)
             {
-                $arg[$x]['url'] = $photos['source'];
+                $arg[$x]['url']             = $photos['source'];
                 $arg[$x]['created_time']    = $photos['created_time'];
                 $x++;
             }

@@ -1,5 +1,6 @@
 <?php
-    print Asset::css('event.css');
+    print Asset::css('view/event.css');
+    print Asset::css('view/modal.css');
     print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
     print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
 ?>
@@ -77,7 +78,9 @@
             <?php if(count($q['sub_org']) > 0): ?>
             <span> 
                 with <?php print count($q['sub_org']); ?> partner(s)
-                <a href="#"><i class="fa fa-angle-double-down"></i></a>
+                <a href="#ec-sub-partners-modal" data-uk-modal>
+                    <i class="fa fa-angle-double-down"></i>
+                </a>
             </span>
             <?php endif;?>
         </h2>
@@ -94,7 +97,11 @@
             <i class="fa fa-money"></i>
             <?php foreach($q['ticket'] as $row): ?>
             <span><?php print 'Php '.$row['price']; ?></span>
-            <a href="#" target="_new"><i class="fa fa-angle-double-down"></i></a>
+            <a href="#ec-ticket-modal" 
+               target="_new" 
+               data-uk-modal>
+                <i class="fa fa-angle-double-down"></i>
+            </a>
             <?php break;endforeach; ?>
         </h3>
         </div>
@@ -105,47 +112,36 @@
     <section id="ec-main-detail" class="uk-width-1-1">
     <div class="uk-grid uk-width-1-1"
          data-uk-grid-match
-         style="height:inherit;margin:0em;">
+         style="height:inherit;margin:0em;background-color:#f6f6f6;">
         <!-- CONTENT -->
         <div class="uk-width-large-2-3 uk-width-small-1-1"
-             id="content">
+             id="ec-content">
             
             <!-- MAP -->
             <div id="ec-map"></div>
             
             <!-- FACEBOOK PHOTOS -->
             <div class="uk-margin-top uk-width-1-1" id="ec-fb-photos">
-            <a href="#">
-            <?php for($x = 0; $x < 4; $x++): ?>
+            <?php if(count(isset($q['poster']))): ?>
+            <a href="#ec-poster-modal" data-uk-modal>
+            <?php foreach($q['poster'] as $row): ?>
+            <?php if($poster_counter > $poster_limit)break;?>
                 <div class="uk-width-small-1-2 
                             uk-width-large-1-4
                             uk-text-center
                             uk-float-left
                             uk-margin-bottom">
-                <img class="uk-thumbnail uk-thumbnail-small" src="http://placehold.it/290x290"/>
+                <img class="uk-thumbnail uk-thumbnail-small" 
+                     src="<?php print Uri::create('/uploads/'.$row['photo']['date'].'/'.'thumb-'.$row['photo']['filename']); ?>"/>
                 </div>
-            <?php endfor; ?>
+            <?php $poster_counter++; ?>
+            <?php endforeach; ?>
             </a>
+            
+            <?php endif; ?>
             </div>
             
-            <!-- Ticket Prices -->
-            <div class="uk-margin-top uk-width-1-1" 
-                 id="ec-ticket">
-            <div class="uk-grid">
-                
-                <?php foreach($q['ticket'] as $row): ?>
-                <div class="uk-width-small-1-1 
-                            uk-width-large-1-2 
-                            ec-ticket uk-margin-bottom" 
-                     title="<?php print $row['note']; ?>">
-                <div class="ec-price">
-                    Php<?php print number_format($row['price'],2); ?>
-                </div>
-                </div>
-                <?php endforeach;?>
-                
-            </div>
-            </div>
+            
             
             <!-- GUEST LIST -->
             <?php if(count($q['guest']) > 0): ?>
@@ -228,6 +224,16 @@
     </div>
     </section>
 </main>
+
+<?php 
+// TICKET MODULE
+print $ticket;
+// PARTNER MODULE
+print $partner;
+// POSTERS
+print $poster;
+?>
+
 <script>
     var geoLocation = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
     var venue       = '<?php print $q['venue']; ?>';

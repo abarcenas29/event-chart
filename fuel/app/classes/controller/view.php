@@ -5,6 +5,9 @@ class Controller_View extends Controller_AppCore
 
     public function action_event($event_id = null)
     {
+       $poster_limit    = 4;
+       $poster_counter  = 1;
+       
        $q = Model_Event_list::read_public_list($event_id);
        if(is_null($event_id) || count($q) !== 1)
        {
@@ -23,6 +26,15 @@ class Controller_View extends Controller_AppCore
            $category[] = $row['category'];
        }
        
+       $ticket      = $this->_eg('module/ticket');
+       $ticket->q   = $q;
+       
+       $partner     = $this->_eg('module/partner');
+       $partner->q  = $q;
+       
+       $poster      = $this->_eg('module/posters');
+       $poster->q   = $q;
+       
        $cover_img       = Uri::create('uploads/'.$q['cover']['date'].'/'.$q['cover']['filename']);
        $view            = $this->_eg('event');
        $view->q         = $q;
@@ -33,7 +45,15 @@ class Controller_View extends Controller_AppCore
        $view->category  = implode(', ',$category);
        $view->share_fb  = $this->_facebook_share($event_id);
        
+       $view->poster_limit  = $poster_limit;
+       $view->poster_counter= $poster_counter;
+       
+       $view->ticket    = $ticket;
+       $view->partner   = $partner;
+       $view->poster    = $poster;
+       
        $this->template->header  = View::forge('header');
+       $this->template->footer  = View::forge('footer');
        $this->template->content = $view;
     }
     
