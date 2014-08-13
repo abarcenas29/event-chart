@@ -9,6 +9,7 @@
               uk-width-small-1-1
               ec-chart-container">
     <article class="uk-margin-bottom
+                    ec-chart-<?php print $row['event_id']; ?>
                     ec-chart">
     <header style="background-image:url('<?php print $row['cover']; ?>');">
     </header>
@@ -75,3 +76,17 @@
     </article>
 </div>
 
+<script>
+    var eventsToday     = '<?php print json_encode($today); ?>';
+    var parseEventToday = $.parseJSON(eventsToday);
+    
+    for(i = 0;i < parseEventToday.length;i++){
+        $('.ec-chart-'+parseEventToday[i]).addClass('ec-chart-active');
+    }
+    
+    if(parseEventToday.length > 0){
+        $.UIkit.notify("There are " + parseEventToday.length + " event(s) happening right now", {status:'danger'});
+    }
+   
+    console.log(parseEventToday[0]);
+</script>

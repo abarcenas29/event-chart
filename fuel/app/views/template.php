@@ -8,7 +8,7 @@
 <meta name="viewport" 
       content="width=device-width, initial-scale=1"/>
 
-<title>Deremoe Event Chart</title>
+<title>Deremoe Event Chart <?php print (isset($title))?'- '.$title:''; ?></title>
 
 <link rel="shortcut icon" 
       type="image/x-icon" 
@@ -23,6 +23,7 @@
     
     print Asset::js('jquery-2.0.3.min.js');
     print Asset::js('uikit/uikit.min.js');
+    print Asset::js('uikit/add-ons/notify.min.js');
 ?>
 
 <!-- FOOTER ELEMENT HANDLER -->
@@ -67,10 +68,12 @@
 <?php print $content; ?>
 </div>
     
+<?php if(isset($footer)): ?>    
 <div id="footer">
-<?php print (isset($footer))?$footer:''; ?>
+<?php print $footer; ?>
 </div>
-
+<?php endif; ?>
+    
 </div>
 
 </body>

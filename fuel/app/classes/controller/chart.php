@@ -15,6 +15,7 @@ class Controller_chart extends Controller_AppCore
         
         $view           = $this->_cg('chart');
         $view->c        = Model_chart::format_chart($city);
+        $view->today    = Model_chart::event_today($city);
         $view->area     = Model_city::read_area();
         $view->city     = ($city == 'all')?'All Region':$city;
         $this->template->content = $view;

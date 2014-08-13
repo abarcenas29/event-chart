@@ -117,6 +117,13 @@
         <div class="uk-width-large-2-3 uk-width-small-1-1"
              id="ec-content">
             
+            <?php if(in_array($q['id'],$today)): ?>
+            <div class="uk-alert uk-alert-danger" data-uk-alert>
+                This Event Is Happening Right Now
+                <a href="" class="uk-alert-close uk-close"></a>
+            </div>
+            <?php endif; ?>
+            
             <!-- MAP -->
             <div id="ec-map"></div>
             
@@ -188,15 +195,16 @@
                 <ul>
                 <li>
                     <a href="<?php print $share_fb; ?>" 
-                       class="uk-button"
+                       class="uk-button ec-pop-up"
                        target="_new"
                        style="background-color:#45619D;padding:0.2em 0.4em;">
                     <i class="fa fa-facebook"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="#" 
-                       class="uk-button"
+                    <a href="<?php print $share_tw; ?>" 
+                       class="uk-button ec-pop-up"
+                       targe="_new"
                        style="background-color:#3a92c8;">
                     <i class="fa fa-twitter"></i>
                     </a>

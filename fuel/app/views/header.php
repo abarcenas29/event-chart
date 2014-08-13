@@ -1,14 +1,6 @@
 <header id="ec-main-nav">
     <section id="container">
     
-    <!--
-    <nav id="left-nav">
-        <ul>
-        
-        </ul>
-    </nav>
-    -->    
-    
     <nav id="right-nav">
         <ul>
         <li>
@@ -39,7 +31,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="mailto:events@deremoe.com">
             <i class="fa fa-phone"></i> &nbsp; Contact Us
             </a>
         </li>

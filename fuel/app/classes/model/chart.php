@@ -11,8 +11,8 @@ class Model_chart extends Model
         $q = Model_Event_list::query()
                 ->related('photo')
                 ->where('status','=','live')
-                ->where('start_at','>',date('Y-m-d'))
-                ->where('end_at','<',date('Y-m-d',$half_year))
+                ->where('start_at','>=',date('Y-m-d'))
+                ->where('end_at','<=',date('Y-m-d',$half_year))
                 ->order_by('start_at','asc');
         
         if($city != 'all')$q->where('region','=',$city);
@@ -20,7 +20,7 @@ class Model_chart extends Model
         return Model_chart::_prepare_chart($q->get());
     }
 
-    public static function event_today()
+    public static function event_today($city = 'all')
     {
         $q = Model_Event_list::query()
                 ->related('photo')
@@ -29,7 +29,16 @@ class Model_chart extends Model
                 ->where('status','=','live')
                 ->order_by('start_at','asc')
                 ->get();
-        return Model_chart::_prepare_chart($q);
+        
+        if($city != 'all')$q->where('region','=',$city);
+        
+        $event_ids = array();
+        foreach($q  as $row)
+        {
+            $event_ids[] = $row['id'];
+        }
+        
+        return $event_ids;
     }
 
     public static function event_preview($day)

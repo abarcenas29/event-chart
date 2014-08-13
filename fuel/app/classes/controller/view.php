@@ -26,6 +26,8 @@ class Controller_View extends Controller_AppCore
            $category[] = $row['category'];
        }
        
+       $today       = Model_chart::event_today();
+       
        $ticket      = $this->_eg('module/ticket');
        $ticket->q   = $q;
        
@@ -44,6 +46,8 @@ class Controller_View extends Controller_AppCore
        $view->hashtag   = implode(', ',$hashtags);
        $view->category  = implode(', ',$category);
        $view->share_fb  = $this->_facebook_share($event_id);
+       $view->share_tw  = $this->_twitter_share($q);
+       $view->today     = $today;
        
        $view->poster_limit  = $poster_limit;
        $view->poster_counter= $poster_counter;
@@ -55,6 +59,16 @@ class Controller_View extends Controller_AppCore
        $this->template->header  = View::forge('header');
        $this->template->footer  = View::forge('footer');
        $this->template->content = $view;
+       $this->template->title   = $q['name'];
+    }
+    
+    private function _twitter_share($q)
+    {
+        $url = 'http://twitter.com/share?url=[url];text=[text];size=l&amp;count=none';
+        $keyword = array('[url]','[text]');
+        $replaced= array(Uri::create('view/event/'.$q['id']),'Heads up! '.$q['name']);
+        
+        return str_replace($keyword,$replaced,$url);
     }
     
     private function _facebook_share($event_id)
