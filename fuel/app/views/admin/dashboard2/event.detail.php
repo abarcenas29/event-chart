@@ -1,21 +1,20 @@
 <?php 
-	print Asset::css('font-awesome/font-awesome.css');
-	print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
-
 	print Asset::css('ec-admin/admin.dashboard.event.add.css');
-	print Asset::css('uikit/uikit.addons.min.css');
-	print Asset::js('uikit/add-ons/datepicker.min.js');
+        print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 	
 	print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
 	print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
 	
-        print Asset::css('hallo.css');
-	print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
-	print Asset::js('http://rangy.googlecode.com/svn/trunk/currentrelease/rangy-core.js');
-	print Asset::js('hallo.js');
-	
+        print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
+        
+        print Asset::js('uikit/add-ons/datepicker.min.js');
+        print Asset::js('uikit/add-ons/sticky.min.js');
+        print Asset::js('uikit/add-ons/notify.min.js');
+        
 	print Asset::js('jquery.form.min.js');
-	print Asset::js('uikit/add-ons/notify.min.js');
+        
+        print Asset::js('rangy-core.js');
+        print Asset::js('hallo.js');
 ?>
 <article class="uk-width-1-1 uk-height-1-1" id="ec-event-detail-manage">
 <div class="uk-grid uk-height-1-1">

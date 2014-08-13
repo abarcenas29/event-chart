@@ -3,14 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/classes/model/city.php</file>
-            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/views/header.php</file>
-            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/classes/model/chart.php</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/public/assets/less/view/modal.less</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/classes/controller/view.php</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/views/view/event.php</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/classes/model/event/poster.php</file>
             <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/public/assets/less/header.less</file>
-            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/classes/controller/chart.php</file>
-            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/public/assets/less/chart.less</file>
-            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/views/chart/chart.php</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/public/assets/less/view/event.less</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/classes/model/event/list.php</file>
             <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/views/template.php</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/classes/model/event/engine.php</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/views/view/module/posters.php</file>
+            <file>file:/C:/Users/aldri_000/SkyDrive/Program%20Experiment/websites/event-chart/fuel/app/views/view/module/partner.php</file>
         </group>
     </open-files>
 </project-private>

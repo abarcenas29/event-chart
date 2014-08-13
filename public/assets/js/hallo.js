@@ -1,1 +1,3206 @@
-(function(){(function(e){return e.widget("IKS.hallo",{toolbar:null,bound:false,originalContent:"",previousContent:"",uuid:"",selection:null,_keepActivated:false,originalHref:null,options:{editable:true,plugins:{},toolbar:"halloToolbarContextual",parentElement:"body",buttonCssClass:null,toolbarCssClass:null,toolbarPositionAbove:false,toolbarOptions:{},placeholder:"",forceStructured:true,checkTouch:true,touchScreen:null},_create:function(){var t,n,r,i=this;this.id=this._generateUUID();if(this.options.checkTouch&&this.options.touchScreen===null){this.checkTouch()}r=this.options.plugins;for(n in r){t=r[n];if(!e.isPlainObject(t)){t={}}e.extend(t,{editable:this,uuid:this.id,buttonCssClass:this.options.buttonCssClass});e(this.element)[n](t)}this.element.one("halloactivated",function(){return i._prepareToolbar()});return this.originalContent=this.getContents()},_init:function(){if(this.options.editable){return this.enable()}else{return this.disable()}},destroy:function(){var t,n,r;this.disable();if(this.toolbar){this.toolbar.remove();this.element[this.options.toolbar]("destroy")}r=this.options.plugins;for(n in r){t=r[n];e(this.element)[n]("destroy")}return e.Widget.prototype.destroy.call(this)},disable:function(){var t=this;this.element.attr("contentEditable",false);this.element.off("focus",this._activated);this.element.off("blur",this._deactivated);this.element.off("keyup paste change",this._checkModified);this.element.off("keyup",this._keys);this.element.off("keyup mouseup",this._checkSelection);this.bound=false;e(this.element).removeClass("isModified");e(this.element).removeClass("inEditMode");this.element.parents("a").addBack().each(function(n,r){var i;i=e(r);if(!i.is("a")){return}if(!t.originalHref){return}return i.attr("href",t.originalHref)});return this._trigger("disabled",null)},enable:function(){var t=this;this.element.parents("a[href]").addBack().each(function(n,r){var i;i=e(r);if(!i.is("a[href]")){return}t.originalHref=i.attr("href");return i.removeAttr("href")});this.element.attr("contentEditable",true);if(!e.parseHTML(this.element.html())){this.element.html(this.options.placeholder);e(this.element).addClass("inPlaceholderMode");this.element.css({"min-width":this.element.innerWidth(),"min-height":this.element.innerHeight()})}if(!this.bound){this.element.on("focus",this,this._activated);this.element.on("blur",this,this._deactivated);this.element.on("keyup paste change",this,this._checkModified);this.element.on("keyup",this,this._keys);this.element.on("keyup mouseup",this,this._checkSelection);this.bound=true}if(this.options.forceStructured){this._forceStructured()}return this._trigger("enabled",null)},activate:function(){return this.element.focus()},containsSelection:function(){var e;e=this.getSelection();return this.element.has(e.startContainer).length>0},getSelection:function(){var e,t;t=rangy.getSelection();e=null;if(t.rangeCount>0){e=t.getRangeAt(0)}else{e=rangy.createRange()}return e},restoreSelection:function(e){var t;t=rangy.getSelection();return t.setSingleRange(e)},replaceSelection:function(e){var t,n,r,i,s;if(navigator.appName==="Microsoft Internet Explorer"){s=document.selection.createRange().text;n=document.selection.createRange();return n.pasteHTML(e(s))}else{i=window.getSelection();r=i.getRangeAt(0);t=document.createTextNode(e(r.extractContents()));r.insertNode(t);r.setStartAfter(t);i.removeAllRanges();return i.addRange(r)}},removeAllSelections:function(){if(navigator.appName==="Microsoft Internet Explorer"){return range.empty()}else{return window.getSelection().removeAllRanges()}},getPluginInstance:function(t){var n;n=e(this.element).data("IKS-"+t);if(n){return n}n=e(this.element).data(t);if(n){return n}throw new Error("Plugin "+t+" not found")},getContents:function(){var t,n,r;for(r in this.options.plugins){n=this.getPluginInstance(r);if(!n){continue}t=n.cleanupContentClone;if(!e.isFunction(t)){continue}e(this.element)[r]("cleanupContentClone",this.element)}return this.element.html()},setContents:function(e){return this.element.html(e)},isModified:function(){if(!this.previousContent){this.previousContent=this.originalContent}return this.previousContent!==this.getContents()},setUnmodified:function(){e(this.element).removeClass("isModified");return this.previousContent=this.getContents()},setModified:function(){e(this.element).addClass("isModified");return this._trigger("modified",null,{editable:this,content:this.getContents()})},restoreOriginalContent:function(){return this.element.html(this.originalContent)},execute:function(e,t){if(document.execCommand(e,false,t)){return this.element.trigger("change")}},protectFocusFrom:function(e){var t=this;return e.on("mousedown",function(e){e.preventDefault();t._protectToolbarFocus=true;return setTimeout(function(){return t._protectToolbarFocus=false},300)})},keepActivated:function(e){this._keepActivated=e},_generateUUID:function(){var e;e=function(){return((1+Math.random())*65536|0).toString(16).substring(1)};return""+e()+e()+"-"+e()+"-"+e()+"-"+e()+"-"+e()+e()+e()},_prepareToolbar:function(){var t,n,r,i,s;this.toolbar=e('<div class="hallotoolbar"></div>').hide();if(this.options.toolbarCssClass){this.toolbar.addClass(this.options.toolbarCssClass)}t={editable:this,parentElement:this.options.parentElement,toolbar:this.toolbar,positionAbove:this.options.toolbarPositionAbove};s=e.extend({},t,this.options.toolbarOptions);this.element[this.options.toolbar](s);for(r in this.options.plugins){n=this.getPluginInstance(r);if(!n){continue}i=n.populateToolbar;if(!e.isFunction(i)){continue}this.element[r]("populateToolbar",this.toolbar)}this.element[this.options.toolbar]("setPosition");return this.protectFocusFrom(this.toolbar)},changeToolbar:function(e,t,n){var r;if(n==null){n=false}r=this.options.toolbar;this.options.parentElement=e;if(t){this.options.toolbar=t}if(!this.toolbar){return}this.element[r]("destroy");this.toolbar.remove();this._prepareToolbar();if(n){return this.toolbar.hide()}},_checkModified:function(e){var t;t=e.data;if(t.isModified()){return t.setModified()}},_keys:function(e){var t,n;n=e.data;if(e.keyCode===27){t=n.getContents();n.restoreOriginalContent(e);n._trigger("restored",null,{editable:n,content:n.getContents(),thrown:t});return n.turnOff()}},_rangesEqual:function(e,t){if(e.startContainer!==t.startContainer){return false}if(e.startOffset!==t.startOffset){return false}if(e.endContainer!==t.endContainer){return false}if(e.endOffset!==t.endOffset){return false}return true},_checkSelection:function(e){var t;if(e.keyCode===27){return}t=e.data;return setTimeout(function(){var n;n=t.getSelection();if(t._isEmptySelection(n)||t._isEmptyRange(n)){if(t.selection){t.selection=null;t._trigger("unselected",null,{editable:t,originalEvent:e})}return}if(!t.selection||!t._rangesEqual(n,t.selection)){t.selection=n.cloneRange();return t._trigger("selected",null,{editable:t,selection:t.selection,ranges:[t.selection],originalEvent:e})}},0)},_isEmptySelection:function(e){if(e.type==="Caret"){return true}return false},_isEmptyRange:function(e){if(e.collapsed){return true}if(e.isCollapsed){if(typeof e.isCollapsed==="function"){return e.isCollapsed()}return e.isCollapsed}return false},turnOn:function(){if(this.getContents()===this.options.placeholder){this.setContents("")}e(this.element).removeClass("inPlaceholderMode");e(this.element).addClass("inEditMode");return this._trigger("activated",null,this)},turnOff:function(){e(this.element).removeClass("inEditMode");this._trigger("deactivated",null,this);if(!this.getContents()){e(this.element).addClass("inPlaceholderMode");return this.setContents(this.options.placeholder)}},_activated:function(e){return e.data.turnOn()},_deactivated:function(t){if(t.data._keepActivated){return}if(t.data._protectToolbarFocus!==true){return t.data.turnOff()}else{return setTimeout(function(){return e(t.data.element).focus()},300)}},_forceStructured:function(e){var t;try{return document.execCommand("styleWithCSS",0,false)}catch(n){t=n;try{return document.execCommand("useCSS",0,true)}catch(n){t=n;try{return document.execCommand("styleWithCSS",false,false)}catch(n){t=n}}}},checkTouch:function(){return this.options.touchScreen=!!("createTouch"in document)}})})(jQuery)}).call(this);(function(){(function(e){var t;t=null;if(this.VIE!==void 0){t=new VIE;t.use(new t.StanbolService({proxyDisabled:true,url:"http://dev.iks-project.eu:8081"}))}return e.widget("IKS.halloannotate",{options:{vie:t,editable:null,toolbar:null,uuid:"",select:function(){},decline:function(){},remove:function(){},buttonCssClass:null},_create:function(){var t,n,r;r=this;if(this.options.vie===void 0){throw new Error("The halloannotate plugin requires VIE");return}if(typeof this.element.annotate!=="function"){throw new Error("The halloannotate plugin requires annotate.js");return}this.state="off";this.instantiate();n=function(){var t;t=this;return e(t).halloannotate("turnOff")};t=this.options.editable.element;return t.on("hallodisabled",n)},populateToolbar:function(t){var n,r=this;n=e('<span class="'+this.widgetName+'"></span>');this.button=n.hallobutton({label:"Annotate",icon:"icon-tags",editable:this.options.editable,command:null,uuid:this.options.uuid,cssClass:this.options.buttonCssClass,queryState:false});n.on("change",function(e){if(r.state==="pending"){return}if(r.state==="off"){return r.turnOn()}return r.turnOff()});n.buttonset();return t.append(this.button)},cleanupContentClone:function(t){if(this.state==="on"){return t.find(".entity:not([about])").each(function(){return e(this).replaceWith(e(this).html())})}},instantiate:function(){var t;t=this;return this.options.editable.element.annotate({vie:this.options.vie,debug:false,showTooltip:true,select:this.options.select,remove:this.options.remove,success:this.options.success,error:this.options.error}).on("annotateselect",function(e,n){return t.options.editable.setModified()}).on("annotateremove",function(){return e.noop()})},turnPending:function(){this.state="pending";this.button.hallobutton("checked",false);return this.button.hallobutton("disable")},turnOn:function(){var e,t,n=this;this.turnPending();t=this;try{return this.options.editable.element.annotate("enable",function(e){if(!e){return}n.state="on";n.button.hallobutton("checked",true);return n.button.hallobutton("enable")})}catch(r){e=r;return alert(e)}},turnOff:function(){this.options.editable.element.annotate("disable");this.state="off";if(!this.button){return}this.button.attr("checked",false);this.button.find("label").removeClass("ui-state-clicked");return this.button.button("refresh")}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloblacklist",{options:{tags:[]},_init:function(){if(this.options.tags.indexOf("br")!==-1){return this.element.on("keydown",function(e){if(e.originalEvent.keyCode===13){return e.preventDefault()}})}},cleanupContentClone:function(t){var n,r,i,s,o;s=this.options.tags;o=[];for(r=0,i=s.length;r<i;r++){n=s[r];o.push(e(n,t).remove())}return o}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloblock",{options:{editable:null,toolbar:null,uuid:"",elements:["h1","h2","h3","p","pre","blockquote"],buttonCssClass:null},populateToolbar:function(t){var n,r,i;n=e('<span class="'+this.widgetName+'"></span>');r=""+this.options.uuid+"-"+this.widgetName+"-data";i=this._prepareDropdown(r);t.append(n);n.hallobuttonset();n.append(i);return n.append(this._prepareButton(i))},_prepareDropdown:function(t){var n,r,i,s,o,u,a,f=this;i=e('<div id="'+t+'"></div>');r=this.options.editable.element.get(0).tagName.toLowerCase();n=function(t){var n,i,s;n=e("<button class='blockselector'>          <"+t+' class="menu-item">'+t+"</"+t+">        </button>");if(r===t){n.addClass("selected")}if(r!=="div"){n.addClass("disabled")}n.on("click",function(){var e;e=t.toUpperCase();if(n.hasClass("disabled")){return}if(navigator.appName==="Microsoft Internet Explorer"){f.options.editable.execute("FormatBlock","<"+e+">");return}return f.options.editable.execute("formatBlock",e)});s=function(e){var r;r=document.queryCommandValue("formatBlock");if(r.toLowerCase()===t){n.addClass("selected");return}return n.removeClass("selected")};i="keyup paste change mouseup";f.options.editable.element.on(i,s);f.options.editable.element.on("halloenabled",function(){return f.options.editable.element.on(i,s)});f.options.editable.element.on("hallodisabled",function(){return f.options.editable.element.off(i,s)});return n};a=this.options.elements;for(o=0,u=a.length;o<u;o++){s=a[o];i.append(n(s))}return i},_prepareButton:function(t){var n;n=e("<span></span>");n.hallodropdownbutton({uuid:this.options.uuid,editable:this.options.editable,label:"block",icon:"icon-text-height",target:t,cssClass:this.options.buttonCssClass});return n}})})(jQuery)}).call(this);(function(){(function(e){var t;t="The hallocleanhtml plugin requires the selection save and    restore module from Rangy";return e.widget("IKS.hallocleanhtml",{_create:function(){var n,r=this;if(e.htmlClean===void 0){throw new Error("The hallocleanhtml plugin requires jQuery.htmlClean");return}n=this.element;return n.bind("paste",this,function(i){var s,o,u;if(rangy.saveSelection===void 0){throw new Error(t);return}u=i.data;u.options.editable.getSelection().deleteContents();o=rangy.saveSelection();s=n.html();n.html("");return setTimeout(function(){var t,i,a,f;a=n.html();t=e.htmlClean(a,r.options);n.html(s);rangy.restoreSelection(o);if(t!==""){try{return document.execCommand("insertHTML",false,t)}catch(l){i=l;f=u.options.editable.getSelection();return f.insertNode(f.createContextualFragment(t))}}},4)})}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloformat",{options:{editable:null,uuid:"",formattings:{bold:true,italic:true,strikeThrough:false,underline:false},buttonCssClass:null},populateToolbar:function(t){var n,r,i,s,o,u,a=this;o=this;r=e('<span class="'+o.widgetName+'"></span>');n=function(t){var n;n=e("<span></span>");n.hallobutton({label:t,editable:a.options.editable,command:t,uuid:a.options.uuid,cssClass:a.options.buttonCssClass});return r.append(n)};u=this.options.formattings;for(s in u){i=u[s];if(!i){continue}n(s)}r.hallobuttonset();return t.append(r)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloheadings",{options:{editable:null,uuid:"",formatBlocks:["p","h1","h2","h3"],buttonCssClass:null},populateToolbar:function(t){var n,r,i,s,o,u,a,f,l,c=this;u=this;r=e('<span class="'+u.widgetName+'"></span>');o=navigator.appName==="Microsoft Internet Explorer";i=o?"FormatBlock":"formatBlock";n=function(t){var n;n=e("<span></span>");n.hallobutton({label:t,editable:c.options.editable,command:i,commandValue:o?"<"+t+">":t,uuid:c.options.uuid,cssClass:c.options.buttonCssClass,queryState:function(e){var r,s,u,a,f,l,c,h,p;try{l=document.queryCommandValue(i);if(o){u={p:"normal"};p=[1,2,3,4,5,6];for(c=0,h=p.length;c<h;c++){f=p[c];u["h"+f]=f}r=l.match(new RegExp(u[t],"i"))}else{r=l.match(new RegExp(t,"i"))}a=r?true:false;return n.hallobutton("checked",a)}catch(d){s=d}}});n.find("button .ui-button-text").text(t.toUpperCase());return r.append(n)};l=this.options.formatBlocks;for(a=0,f=l.length;a<f;a++){s=l[a];n(s)}r.hallobuttonset();return t.append(r)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallohtml",{options:{editable:null,toolbar:null,uuid:"",lang:"en",dialogOpts:{autoOpen:false,width:600,height:"auto",modal:false,resizable:true,draggable:true,dialogClass:"htmledit-dialog"},dialog:null,buttonCssClass:null},translations:{en:{title:"Edit HTML",update:"Update"},de:{title:"HTML bearbeiten",update:"Aktualisieren"}},texts:null,populateToolbar:function(t){var n,r,i,s,o;o=this;this.texts=this.translations[this.options.lang];this.options.toolbar=t;s=""+this.options.uuid+"-htmledit-dialog";this.options.dialog=e("<div>").attr("id",s);r=e("<span>").addClass(o.widgetName);i=""+this.options.uuid+"-htmledit";n=e("<span>");n.hallobutton({label:this.texts.title,icon:"icon-list-alt",editable:this.options.editable,command:null,queryState:false,uuid:this.options.uuid,cssClass:this.options.buttonCssClass});r.append(n);this.button=n;this.button.click(function(){if(o.options.dialog.dialog("isOpen")){o._closeDialog()}else{o._openDialog()}return false});this.options.editable.element.on("hallodeactivated",function(){return o._closeDialog()});t.append(r);this.options.dialog.dialog(this.options.dialogOpts);return this.options.dialog.dialog("option","title",this.texts.title)},_openDialog:function(){var t,n,r,i,s,o=this;r=this;t=e(this.options.editable.element);i=t.offset().left+t.outerWidth()+10;s=this.options.toolbar.offset().top-e(document).scrollTop();this.options.dialog.dialog("option","position",[i,s]);this.options.editable.keepActivated(true);this.options.dialog.dialog("open");this.options.dialog.on("dialogclose",function(){e("label",o.button).removeClass("ui-state-active");o.options.editable.element.focus();return o.options.editable.keepActivated(false)});this.options.dialog.html(e("<textarea>").addClass("html_source"));n=this.options.editable.element.html();this.options.dialog.children(".html_source").val(n);this.options.dialog.prepend(e("<button>"+this.texts.update+"</button>"));return this.options.dialog.on("click","button",function(){n=r.options.dialog.children(".html_source").val();r.options.editable.element.html(n);r.options.editable.element.trigger("change");return false})},_closeDialog:function(){return this.options.dialog.dialog("close")}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloimage",{options:{editable:null,toolbar:null,uuid:"",limit:8,search:null,searchUrl:null,suggestions:null,loaded:null,upload:null,uploadUrl:null,dialogOpts:{autoOpen:false,width:270,height:"auto",title:"Insert Images",modal:false,resizable:false,draggable:true,dialogClass:"halloimage-dialog"},dialog:null,buttonCssClass:null,entity:null,vie:null,dbPediaUrl:"http://dev.iks-project.eu/stanbolfull",maxWidth:250,maxHeight:250},populateToolbar:function(t){var n,r,i,s,o,u,a;this.options.toolbar=t;a=this;i=""+this.options.uuid+"-image-dialog";this.options.dialog=e('<div id="'+i+'">        <div class="nav">          <ul class="tabs">          </ul>          <div id="'+this.options.uuid+'-tab-activeIndicator"            class="tab-activeIndicator" />        </div>        <div class="dialogcontent">        </div>');u=e(".tabs",this.options.dialog);o=e(".dialogcontent",this.options.dialog);if(a.options.suggestions){this._addGuiTabSuggestions(u,o)}if(a.options.search||a.options.searchUrl){this._addGuiTabSearch(u,o)}if(a.options.upload||a.options.uploadUrl){this._addGuiTabUpload(u,o)}this.current=e('<div class="currentImage"></div>').halloimagecurrent({uuid:this.options.uuid,imageWidget:this,editable:this.options.editable,dialog:this.options.dialog,maxWidth:this.options.maxWidth,maxHeight:this.options.maxHeight});e(".dialogcontent",this.options.dialog).append(this.current);r=e('<span class="'+a.widgetName+'"></span>');s=""+this.options.uuid+"-image";n=e("<span></span>");n.hallobutton({label:"Images",icon:"icon-picture",editable:this.options.editable,command:null,queryState:false,uuid:this.options.uuid,cssClass:this.options.buttonCssClass});r.append(n);this.button=n;this.button.on("click",function(e){if(a.options.dialog.dialog("isOpen")){a._closeDialog()}else{a._openDialog()}return false});this.options.editable.element.on("hallodeactivated",function(e){return a._closeDialog()});e(this.options.editable.element).delegate("img","click",function(e){return a._openDialog()});t.append(r);this.options.dialog.dialog(this.options.dialogOpts);return this._handleTabs()},setCurrent:function(e){return this.current.halloimagecurrent("setImage",e)},_handleTabs:function(){var t;t=this;e(".nav li",this.options.dialog).on("click",function(){var n,r;e("."+t.widgetName+"-tab").hide();n=e(this).attr("id");e("#"+n+"-content").show();r=e(this).position().left+e(this).width()/2;return e("#"+t.options.uuid+"-tab-activeIndicator").css({"margin-left":r})});return e(".nav li",this.options.dialog).first().click()},_openDialog:function(){var t,n,r,i,s,o,u,a,f=this;o=this;t=function(){return window.setTimeout(function(){var t;t=e(".imageThumbnail");return e(t).each(function(){var t;t=e("#"+this.id).width();if(t<=20){return e("#"+this.id).parent("li").remove()}})},15e3)};i="#"+this.options.uuid+"-tab-suggestions-content";r=function(){return e(".imageThumbnailActive",i).first().attr("src")};e("#"+this.options.uuid+"-sugg-activeImage").attr("src",r());e("#"+this.options.uuid+"-sugg-activeImageBg").attr("src",r());this.lastSelection=this.options.editable.getSelection();n=e(this.options.editable.element);s=e(this.options.toolbar);u=n.offset().left+n.outerWidth()-3;a=s.offset().top+s.outerHeight()+29;a-=e(document).scrollTop();this.options.dialog.dialog("option","position",[u,a]);t();o.options.loaded=1;this.options.editable.keepActivated(true);this.options.dialog.dialog("open");return this.options.dialog.on("dialogclose",function(){e("label",f.button).removeClass("ui-state-active");f.options.editable.element.focus();return f.options.editable.keepActivated(false)})},_closeDialog:function(){return this.options.dialog.dialog("close")},_addGuiTabSuggestions:function(t,n){var r;t.append(e('<li id="'+this.options.uuid+'-tab-suggestions"        class="'+this.widgetName+"-tabselector "+this.widgetName+'-tab-suggestions">          <span>Suggestions</span>        </li>'));r=e('<div id="'+this.options.uuid+'-tab-suggestions-content"        class="'+this.widgetName+'-tab tab-suggestions"></div>');n.append(r);return r.halloimagesuggestions({uuid:this.options.uuid,imageWidget:this,entity:this.options.entity})},_addGuiTabSearch:function(t,n){var r,i,s;s=this;r=""+this.options.uuid+"-image-dialog";t.append(e('<li id="'+this.options.uuid+'-tab-search"        class="'+this.widgetName+"-tabselector "+this.widgetName+'-tab-search">          <span>Search</span>        </li>'));i=e('<div id="'+this.options.uuid+'-tab-search-content"        class="'+s.widgetName+'-tab tab-search"></div>');n.append(i);return i.halloimagesearch({uuid:this.options.uuid,imageWidget:this,searchCallback:this.options.search,searchUrl:this.options.searchUrl,limit:this.options.limit,entity:this.options.entity})},_addGuiTabUpload:function(t,n){var r;t.append(e('<li id="'+this.options.uuid+'-tab-upload"        class="'+this.widgetName+"-tabselector "+this.widgetName+'-tab-upload">          <span>Upload</span>        </li>'));r=e('<div id="'+this.options.uuid+'-tab-upload-content"        class="'+this.widgetName+'-tab tab-upload"></div>');n.append(r);return r.halloimageupload({uuid:this.options.uuid,uploadCallback:this.options.upload,uploadUrl:this.options.uploadUrl,imageWidget:this,entity:this.options.entity})}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloimagecurrent",{options:{imageWidget:null,startPlace:"",draggables:[],maxWidth:400,maxHeight:200},_create:function(){this.element.html('<div>        <div class="activeImageContainer">          <div class="rotationWrapper">            <div class="hintArrow"></div>              <img src="" class="activeImage" />            </div>            <img src="" class="activeImage activeImageBg" />          </div>        </div>');this.element.hide();return this._prepareDnD()},_init:function(){var t,n;t=e(this.options.editable.element);n=this;e("img",t).each(function(e,r){return n._initDraggable(r,t)});return e("p",t).each(function(t,r){if(e(r).data("jquery_droppable_initialized")){return}e(r).droppable({tolerance:"pointer",drop:function(e,t){return n._handleDropEvent(e,t)},over:function(e,t){return n._handleOverEvent(e,t)},out:function(e,t){return n._handleLeaveEvent(e,t)}});return e(r).data("jquery_droppable_initialized",true)})},_prepareDnD:function(){var t,n,r;r=this;t=e(this.options.editable.element);this.options.offset=t.offset();this.options.third=parseFloat(t.width()/3);n={width:this.options.third,height:t.height()};this.overlay={big:e("<div/>").addClass("bigOverlay").css({width:this.options.third*2,height:t.height()}),left:e("<div/>").addClass("smallOverlay smallOverlayLeft"),right:e("<div/>").addClass("smallOverlay smallOverlayRight")};this.overlay.left.css(n);this.overlay.right.css(n).css("left",this.options.third*2);t.on("halloactivated",function(){return r._enableDragging()});return t.on("hallodeactivated",function(){return r._disableDragging()})},setImage:function(t){if(!t){return}this.element.show();e(".activeImage",this.element).attr("src",t.url);if(t.label){e("input",this.element).val(t.label)}return this._initImage(e(this.options.editable.element))},_delayAction:function(e,t){var n;n=clearTimeout(n);if(!n){return n=setTimeout(e,t)}},_calcDropPosition:function(e,t){var n,r;n=e.left+this.options.third;r=e.left+this.options.third*2;if(t.pageX>=n&&t.pageX<=r){return"middle"}else if(t.pageX<n){return"left"}else if(t.pageX>r){return"right"}},_createInsertElement:function(t,n){var r,i;r=e("<img>");i=new Image;e(i).on("load",function(){});i.src=t.src;r.attr({src:i.src,alt:!n?e(t).attr("alt"):void 0,"class":n?"halloTmp":"imageInText"});r.show();return r},_createLineFeedbackElement:function(){return e("<div/>").addClass("halloTmpLine")},_removeFeedbackElements:function(){this.overlay.big.remove();this.overlay.left.remove();this.overlay.right.remove();return e(".halloTmp, .halloTmpLine",this.options.editable.element).remove()},_removeCustomHelper:function(){return e(".customHelper").remove()},_showOverlay:function(t){var n,r;r=e(this.options.editable.element);n=r.height();n+=parseFloat(r.css("paddingTop"));n+=parseFloat(r.css("paddingBottom"));this.overlay.big.css({height:n});this.overlay.left.css({height:n});this.overlay.right.css({height:n});switch(t){case"left":this.overlay.big.addClass("bigOverlayLeft");this.overlay.big.removeClass("bigOverlayRight");this.overlay.big.css({left:this.options.third});this.overlay.big.show();this.overlay.left.hide();return this.overlay.right.hide();case"middle":this.overlay.big.removeClass("bigOverlayLeft bigOverlayRight");this.overlay.big.hide();this.overlay.left.show();return this.overlay.right.show();case"right":this.overlay.big.addClass("bigOverlayRight");this.overlay.big.removeClass("bigOverlayLeft");this.overlay.big.css({left:0});this.overlay.big.show();this.overlay.left.hide();return this.overlay.right.hide()}},_checkOrigin:function(t){if(e(t.target).parents("[contenteditable]").length!==0){return true}return false},_createFeedback:function(e,t){var n;if(t==="middle"){return this._createLineFeedbackElement()}n=this._createInsertElement(e,true);return n.addClass("inlineImage-"+t)},_handleOverEvent:function(t,n){var r,i,s;s=this;r=e(this.options.editable);i=function(){var i,o;window.waitWithTrash=clearTimeout(window.waitWithTrash);i=s._calcDropPosition(s.options.offset,t);e(".trashcan",n.helper).remove();r[0].element.append(s.overlay.big);r[0].element.append(s.overlay.left);r[0].element.append(s.overlay.right);s._removeFeedbackElements();o=e(t.target);o.prepend(s._createFeedback(n.draggable[0],i));if(i==="middle"){o.prepend(s._createFeedback(n.draggable[0],"right"));e(".halloTmp",t.target).hide()}else{o.prepend(s._createFeedback(n.draggable[0],"middle"));e(".halloTmpLine",t.target).hide()}return s._showOverlay(i)};return setTimeout(i,5)},_handleDragEvent:function(t,n){var r,i,s;r=this._calcDropPosition(this.options.offset,t);if(r===this._lastPositionDrag){return}this._lastPositionDrag=r;i=e(".halloTmp",this.options.editable.element);s=e(".halloTmpLine",this.options.editable.element);if(r==="middle"){s.show();i.hide()}else{s.hide();i.removeClass("inlineImage-left inlineImage-right");i.addClass("inlineImage-"+r);i.show()}return this._showOverlay(r)},_handleLeaveEvent:function(t,n){var r;r=function(){if(!e("div.trashcan",n.helper).length){e(n.helper).append(e('<div class="trashcan"></div>'));return e(".bigOverlay, .smallOverlay").remove()}};window.waitWithTrash=setTimeout(r,200);return this._removeFeedbackElements()},_handleStartEvent:function(t,n){var r;r=this._checkOrigin(t);if(r){e(t.target).remove()}e(document).trigger("startPreventSave");return this.options.startPlace=e(t.target)},_handleStopEvent:function(t,n){var r;r=this._checkOrigin(t);if(r){e(t.target).remove()}else{e(this.options.editable.element).trigger("change")}this.overlay.big.hide();this.overlay.left.hide();this.overlay.right.hide();return e(document).trigger("stopPreventSave")},_handleDropEvent:function(t,n){var r,i,s,o,u,a;i=e(this.options.editable.element);o=this._checkOrigin(t);a=this._calcDropPosition(this.options.offset,t);this._removeFeedbackElements();this._removeCustomHelper();s=this._createInsertElement(n.draggable[0],false);r="inlineImage-middle inlineImage-left inlineImage-right";if(a==="middle"){s.show();s.removeClass(r);u=i.width();u+=parseFloat(i.css("paddingLeft"));u+=parseFloat(i.css("paddingRight"));u-=s.attr("width");s.addClass("inlineImage-"+a).css({position:"relative",left:u/2});s.insertBefore(e(t.target))}else{s.removeClass(r);s.addClass("inlineImage-"+a);s.css("display","block");e(t.target).prepend(s)}this.overlay.big.hide();this.overlay.left.hide();this.overlay.right.hide();i.trigger("change");return this._initImage(i)},_createHelper:function(t){return e("<div>").css({backgroundImage:"url("+e(t.currentTarget).attr("src")+")"}).addClass("customHelper").appendTo("body")},_initDraggable:function(t,n){var r;r=this;if(!t.jquery_draggable_initialized){t.jquery_draggable_initialized=true;e(t).draggable({cursor:"move",helper:function(e){return r._createHelper(e)},drag:function(e,t){return r._handleDragEvent(e,t)},start:function(e,t){return r._handleStartEvent(e,t)},stop:function(e,t){return r._handleStopEvent(e,t)},disabled:!n.hasClass("inEditMode"),cursorAt:{top:50,left:50}})}return r.options.draggables.push(t)},_initImage:function(t){var n;n=this;return e(".rotationWrapper img",this.options.dialog).each(function(e,r){return n._initDraggable(r,t)})},_enableDragging:function(){return e.each(this.options.draggables,function(t,n){return e(n).draggable("option","disabled",false)})},_disableDragging:function(){return e.each(this.options.draggables,function(t,n){return e(n).draggable("option","disabled",true)})}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloimagesearch",{options:{imageWidget:null,searchCallback:null,searchUrl:null,limit:5},_create:function(){return this.element.html('<div>        <form method="get">          <input type="text" class="searchInput" placeholder="Search" />          <input type="submit" class="btn searchButton" value="OK" />        </form>        <div class="searchResults imageThumbnailContainer">          <div class="activitySpinner">Loading images...</div>          <ul></ul>        </div>      </div>')},_init:function(){var t=this;if(this.options.searchUrl&&!this.options.searchCallback){this.options.searchCallback=this._ajaxSearch}e(".activitySpinner",this.element).hide();return e("form",this.element).submit(function(n){var r;n.preventDefault();e(".activitySpinner",t.element).show();r=e(".searchInput",t.element.element).val();return t.options.searchCallback(r,t.options.limit,0,function(e){return t._showResults(e)})})},_showResult:function(t){var n,r=this;if(!t.label){t.label=t.alt}n=e('<li>        <img src="'+t.url+'" class="imageThumbnail"          title="'+t.label+'"></li>');n.on("click",function(){return r.options.imageWidget.setCurrent(t)});e("img",n).on("mousedown",function(e){e.preventDefault();return r.options.imageWidget.setCurrent(t)});return e(".imageThumbnailContainer ul",this.element).append(n)},_showNextPrev:function(t){var n,r=this;n=e("imageThumbnailContainer ul",this.element);n.prepend(e('<div class="pager-prev" style="display:none" />'));n.append(e('<div class="pager-next" style="display:none" />'));if(t.offset>0){e(".pager-prev",n).show()}if(t.offset<t.total){e(".pager-next",n).show()}e(".pager-prev",n).click(function(e){var n;n=t.offset-r.options.limit;return r.options.searchCallback(query,r.options.limit,n,function(e){return r._showResults(e)})});return e(".pager-next",n).click(function(e){var n;n=t.offset+r.options.limit;return r.options.searchCallback(query,r.options.limit,n,function(e){return r._showResults(e)})})},_showResults:function(t){var n,r,i,s;e(".activitySpinner",this.element).hide();e(".imageThumbnailContainer ul",this.element).empty();e(".imageThumbnailContainer ul",this.element).show();s=t.assets;for(r=0,i=s.length;r<i;r++){n=s[r];this._showResult(n)}this.options.imageWidget.setCurrent(t.assets.shift());return this._showNextPrev(t)},_ajaxSearch:function(t,n,r,i){var s;s=this.searchUrl+"?"+e.param({q:t,limit:n,offset:r});return e.getJSON(s,i)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloimagesuggestions",{loaded:false,options:{entity:null,vie:null,dbPediaUrl:null,getSuggestions:null,thumbnailUri:"<http://dbpedia.org/ontology/thumbnail>"},_create:function(){return this.element.html('      <div id="'+this.options.uuid+'-tab-suggestions">        <div class="imageThumbnailContainer">          <div class="activitySpinner">Loading images...</div>          <ul></ul>        </div>      </div>')},_init:function(){return e(".activitySpinner",this.element).hide()},_normalizeRelated:function(e){if(_.isString(e)){return e}if(_.isArray(e)){return e.join(",")}return e.pluck("@subject").join(",")},_prepareVIE:function(){if(!this.options.vie){this.options.vie=new VIE}if(this.options.vie.services.dbpedia){return}if(!this.options.dbPediaUrl){return}return this.options.vie.use(new vie.DBPediaService({url:this.options.dbPediaUrl,proxyDisabled:true}))},_getSuggestions:function(){var t,n,r;if(this.loaded){return}if(!this.options.entity){return}e(".activitySpinner",this.element).show();r=this.options.entity.get("skos:related");if(r.length===0){e("#activitySpinner").html("No images found.");return}e(".imageThumbnailContainer ul",this.element).empty();n=this._normalizeRelated(r);t=this.options.limit;if(this.options.getSuggestions){this.options.getSuggestions(n,t,0,this._showSuggestions)}this._prepareVIE();if(this.options.vie.services.dbpedia){this._getSuggestionsDbPedia(r)}return this.loaded=true},_getSuggestionsDbPedia:function(t){var n,r;r=this;n=1;return _.each(t,function(t){return vie.load({entity:t}).using("dbpedia").execute().done(function(n){e(".activitySpinner",this.element).hide();return _.each(n,function(e){var n,i;i=e.attributes[r.options.thumbnailUri];if(!i){return}if(_.isObject(i)){n=i[0].value}if(_.isString(i)){n=r.options.entity.fromReference(i)}return r._showSuggestion({url:n,label:t})})})})},_showSuggestion:function(t){var n,r=this;n=e('<li>        <img src="'+t.url+'" class="imageThumbnail"          title="'+t.label+'">        </li>');n.on("click",function(){return r.options.imageWidget.setCurrent(t)});return e(".imageThumbnailContainer ul",this.element).append(n)},_showSuggestions:function(t){var n=this;e(".activitySpinner",this.element).hide();return _.each(t,function(e){return n._showSuggestion(e)})}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloimageupload",{options:{uploadCallback:null,uploadUrl:null,imageWidget:null,entity:null},_create:function(){return this.element.html('        <form class="upload">        <input type="file" class="file" name="userfile" accept="image/*" />        <input type="hidden" name="tags" value="" />        <input type="text" class="caption" name="caption" placeholder="Title" />        <button class="uploadSubmit">Upload</button>        </form>      ')},_init:function(){var t;t=this;if(t.options.uploadUrl&&!t.options.uploadCallback){t.options.uploadCallback=t._iframeUpload}return e(".uploadSubmit",this.element).on("click",function(e){e.preventDefault();e.stopPropagation();return t.options.uploadCallback({widget:t,success:function(e){return t.options.imageWidget.setCurrent({url:e,label:""})}})})},_prepareIframe:function(t){var n,r;r=""+t.widgetName+"_postframe_"+t.options.uuid;r=r.replace(/-/g,"_");n=e("#"+r);if(n.length){return n}n=e('<iframe name="'+r+'" id="'+r+'"        class="hidden" style="display:none" />');this.element.append(n);n.get(0).name=r;return n},_iframeUpload:function(t){var n,r,i,s;s=t.widget;n=s._prepareIframe(s);r=e("form.upload",s.element);if(typeof s.options.uploadUrl==="function"){i=s.options.uploadUrl(s.options.entity)}else{i=s.options.uploadUrl}n.on("load",function(){var e;e=n.get(0).contentWindow.location.href;s.element.hide();return t.success(e)});r.attr("action",i);r.attr("method","post");r.attr("target",n.get(0).name);r.attr("enctype","multipart/form-data");r.attr("encoding","multipart/form-data");return r.submit()}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallo-image-insert-edit",{options:{editable:null,toolbar:null,uuid:"",insert_file_dialog_ui_url:null,lang:"en",dialogOpts:{autoOpen:false,width:560,height:"auto",modal:false,resizable:true,draggable:true,dialogClass:"insert-image-dialog"},dialog:null,buttonCssClass:null},translations:{en:{title_insert:"Insert Image",title_properties:"Image Properties",insert:"Insert",chage_image:"Change Image:",source:"URL",width:"Width",height:"Height",alt:"Alt Text",padding:"Padding","float":"Float",float_left:"left",float_right:"right",float_none:"No"},de:{title_insert:"Bild einfügen",title_properties:"Bildeigenschaften",insert:"Einfügen",chage_image:"Bild ändern:",source:"URL",width:"Breite",height:"Höhe",alt:"Alt Text",padding:"Padding","float":"Float",float_left:"Links",float_right:"Rechts",float_none:"Nein"}},texts:null,dialog_image_selection_ui_loaded:false,$image:null,populateToolbar:function(t){var n,r,i,s;s=this;this.texts=this.translations[this.options.lang];this.options.toolbar=t;i="<div id='hallo_img_properties'></div>";if(this.options.insert_file_dialog_ui_url){i+="<div id='hallo_img_file_select_ui'></div>"}this.options.dialog=e("<div>").attr("id",""+this.options.uuid+"-insert-image-dialog").html(i);r=e("<span>").addClass(this.widgetName);n=e("<span>");n.hallobutton({label:this.texts.title_insert,icon:"icon-picture",editable:this.options.editable,command:null,queryState:false,uuid:this.options.uuid,cssClass:this.options.buttonCssClass});r.append(n);this.button=n;this.button.click(function(){if(s.options.dialog.dialog("isOpen")){s._closeDialog()}else{s.lastSelection=s.options.editable.getSelection();s._openDialog()}return false});this.options.editable.element.on("halloselected, hallounselected",function(){if(s.options.dialog.dialog("isOpen")){return s.lastSelection=s.options.editable.getSelection()}});this.options.editable.element.on("hallodeactivated",function(){return s._closeDialog()});e(this.options.editable.element).on("click","img",function(t){s._openDialog(e(this));return false});this.options.editable.element.on("halloselected",function(n,r){var i;i=s.options.editable.options.toolbar;if(i==="halloToolbarContextual"&&e(r.originalEvent.target).is("img")){t.hide();return false}});t.append(r);return this.options.dialog.dialog(this.options.dialogOpts)},_openDialog:function(t){var n,r,i,s,o=this;this.$image=t;r=this;n=e(this.options.editable.element);i=n.offset().left+n.outerWidth()+10;if(this.$image){s=this.$image.offset().top-e(document).scrollTop()}else{s=this.options.toolbar.offset().top-e(document).scrollTop()}this.options.dialog.dialog("option","position",[i,s]);this.options.editable.keepActivated(true);this.options.dialog.dialog("open");if(this.$image){this.options.dialog.dialog("option","title",this.texts.title_properties);e(document).keyup(function(t){if(t.keyCode===46||t.keyCode===8){e(document).off();r._closeDialog();r.$image.remove();r.$image=null}return t.preventDefault()});this.options.editable.element.on("click",function(){r.$image=null;return r._closeDialog()})}else{this.options.dialog.children("#hallo_img_properties").hide();this.options.dialog.dialog("option","title",this.texts.title_insert);if(e("#hallo_img_file_select_title").length>0){e("#hallo_img_file_select_title").text("")}}this._load_dialog_image_properties_ui();this.options.dialog.on("dialogclose",function(){var t;e("label",o.button).removeClass("ui-state-active");t=e(document).scrollTop();o.options.editable.element.focus();e(document).scrollTop(t);return o.options.editable.keepActivated(false)});if(this.options.insert_file_dialog_ui_url&&!this.dialog_image_selection_ui_loaded){this.options.dialog.on("click",".reload_link",function(){r._load_dialog_image_selection_ui();return false});this.options.dialog.on("click",".file_preview img",function(){var t;if(r.$image){t=e(this).attr("src").replace(/-thumb/,"");r.$image.attr("src",t);e("#hallo_img_source").val(t)}else{r._insert_image(e(this).attr("src").replace(/-thumb/,""))}return false});return this._load_dialog_image_selection_ui()}},_insert_image:function(e){this.options.editable.restoreSelection(this.lastSelection);document.execCommand("insertImage",null,e);this.options.editable.element.trigger("change");this.options.editable.removeAllSelections();return this._closeDialog()},_closeDialog:function(){return this.options.dialog.dialog("close")},_load_dialog_image_selection_ui:function(){var t;t=this;return e.ajax({url:this.options.insert_file_dialog_ui_url,success:function(e,n,r){var i,s,o;s="";i=t.options.dialog.children("#hallo_img_properties");if(i.is(":visible")){s=t.texts.change_image}o="<div id='hallo_img_file_select_title'>"+s+"</div>";t.options.dialog.children("#hallo_img_file_select_ui").html(o+e);return t.dialog_image_selection_ui_loaded=true},beforeSend:function(){return t.options.dialog.children("#hallo_img_file_select_ui").html('<div class="hallo_insert_file_loader"></div>')}})},_load_dialog_image_properties_ui:function(){var t,n,r,i,s,o;s=this;t=this.options.dialog.children("#hallo_img_properties");if(this.$image){o=this.$image.is("[width]")?this.$image.attr("width"):"";r=this.$image.is("[height]")?this.$image.attr("height"):"";i=this._property_input_html("source",this.$image.attr("src"),{label:this.texts.source})+this._property_input_html("alt",this.$image.attr("alt")||"",{label:this.texts.alt})+this._property_row_html(this._property_input_html("width",o,{label:this.texts.width,row:false})+this._property_input_html("height",r,{label:this.texts.height,row:false}))+this._property_input_html("padding",this.$image.css("padding"),{label:this.texts.padding})+this._property_row_html(this._property_cb_html("float_left",this.$image.css("float")==="left",{label:this.texts.float_left,row:false})+this._property_cb_html("float_right",this.$image.css("float")==="right",{label:this.texts.float_right,row:false})+this._property_cb_html("unfloat",this.$image.css("float")==="none",{label:this.texts.float_none,row:false}),this.texts[float]);t.html(i);t.show()}else{if(!this.options.insert_file_dialog_ui_url){t.html(this._property_input_html("source","",{label:this.texts.source}));t.show()}}if(this.$image){if(!this.options.insert_file_dialog_ui_url){e("#insert_image_btn").remove()}if(e("#hallo_img_file_select_title").length>0){e("#hallo_img_file_select_title").text(this.texts.chage_image)}e("#hallo_img_properties #hallo_img_source").keyup(function(){return s.$image.attr("src",this.value)});e("#hallo_img_properties #hallo_img_alt").keyup(function(){return s.$image.attr("alt",this.value)});e("#hallo_img_properties #hallo_img_padding").keyup(function(){return s.$image.css("padding",this.value)});e("#hallo_img_properties #hallo_img_height").keyup(function(){s.$image.css("height",this.value);return s.$image.attr("height",this.value)});e("#hallo_img_properties #hallo_img_width").keyup(function(){s.$image.css("width",this.value);return s.$image.attr("width",this.value)});e("#hallo_img_properties #hallo_img_float_left").click(function(){if(!this.checked){return false}s.$image.css("float","left");e("#hallo_img_properties #hallo_img_float_right").removeAttr("checked");return e("#hallo_img_properties #hallo_img_unfloat").removeAttr("checked")});e("#hallo_img_properties #hallo_img_float_right").click(function(){if(!this.checked){return false}s.$image.css("float","right");e("#hallo_img_properties #hallo_img_unfloat").removeAttr("checked");return e("#hallo_img_properties #hallo_img_float_left").removeAttr("checked")});return e("#hallo_img_properties #hallo_img_unfloat").click(function(){if(!this.checked){return false}s.$image.css("float","none");e("#hallo_img_properties #hallo_img_float_right").removeAttr("checked");return e("#hallo_img_properties #hallo_img_float_left").removeAttr("checked")})}else{if(!this.options.insert_file_dialog_ui_url){n='<button id="insert_image_btn">'+this.texts.insert+"</button>";t.after(n);return e("#insert_image_btn").click(function(){var t;t=e("#hallo_img_properties #hallo_img_source");return s._insert_image(t.val())})}}},_property_col_html:function(e){return"<div class='hallo_img_property_col'>"+e+"</div>"},_property_row_html:function(e,t){if(t==null){t=""}e=this._property_col_html(t)+this._property_col_html(e);return"<div class='hallo_img_property_row'>"+e+"</div>"},_property_html:function(e,t){var n;if(t==null){t={}}if(t.row===false){if(t.label){n=""+t.label+" "+e;e="<span class='img_property_entry'>"+n+"</span>"}return e}else{n="<span class='img_property_entry'>"+e+"</span>";return this._property_row_html(n,t.label)}},_property_input_html:function(e,t,n){var r;if(n==null){n={}}r="<input type='text' id='hallo_img_"+e+"' value='"+t+"'>";return this._property_html(r,n)},_property_cb_html:function(e,t,n){var r,i;if(n==null){n={}}i=t?"checked=checked":"";r="<input type='checkbox' id='hallo_img_"+e+"' "+i+"'>";return this._property_html(r,n)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloindicator",{options:{editable:null,className:"halloEditIndicator"},_create:function(){var e=this;return this.element.on("halloenabled",function(){return e.buildIndicator()})},populateToolbar:function(){},buildIndicator:function(){var t;t=e('<div><i class="icon-edit"></i> Edit</div>');t.addClass(this.options.className);t.hide();this.element.before(t);this.bindIndicator(t);return this.setIndicatorPosition(t)},bindIndicator:function(t){var n=this;t.on("click",function(){return n.options.editable.element.focus()});this.element.on("halloactivated",function(){return t.hide()});this.element.on("hallodisabled",function(){return t.remove()});return this.options.editable.element.hover(function(){if(e(this).hasClass("inEditMode")){return}return t.show()},function(n){if(e(this).hasClass("inEditMode")){return}if(n.relatedTarget===t.get(0)){return}return t.hide()})},setIndicatorPosition:function(e){var t;e.css("position","absolute");t=this.element.position();e.css("top",t.top+2);return e.css("left",t.left+2)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallojustify",{options:{editable:null,toolbar:null,uuid:"",buttonCssClass:null},populateToolbar:function(t){var n,r,i=this;r=e('<span class="'+this.widgetName+'"></span>');n=function(t){var n;n=e("<span></span>");n.hallobutton({uuid:i.options.uuid,editable:i.options.editable,label:t,command:"justify"+t,icon:"icon-align-"+t.toLowerCase(),cssClass:i.options.buttonCssClass});return r.append(n)};n("Left");n("Center");n("Right");r.hallobuttonset();return t.append(r)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallolink",{options:{editable:null,uuid:"",link:true,image:true,defaultUrl:"http://",dialogOpts:{autoOpen:false,width:540,height:200,title:"Enter Link",buttonTitle:"Insert",buttonUpdateTitle:"Update",modal:true,resizable:false,draggable:false,dialogClass:"hallolink-dialog"},buttonCssClass:null},populateToolbar:function(t){var n,r,i,s,o,u,a,f,l,c,h=this;c=this;u=""+this.options.uuid+"-dialog";n=this.options.dialogOpts.buttonTitle;r=this.options.dialogOpts.buttonUpdateTitle;o=e('<div id="'+u+'">        <form action="#" method="post" class="linkForm">          <input class="url" type="text" name="url"            value="'+this.options.defaultUrl+'" />          <input type="submit" id="addlinkButton" value="'+n+'"/>        </form></div>');l=e("input[name=url]",o);f=function(e){if((new RegExp(/^\s*$/)).test(e)){return true}if(e===c.options.defaultUrl){return true}return false};a=function(t){var n,r;t.preventDefault();n=l.val();o.dialog("close");c.options.editable.restoreSelection(c.lastSelection);if(f(n)){document.execCommand("unlink",null,"")}else{if(!/:\/\//.test(n)&&!/^mailto:/.test(n)){n="http://"+n}if(c.lastSelection.startContainer.parentNode.href===void 0){if(c.lastSelection.collapsed){r=e("<a href='"+n+"'>"+n+"</a>")[0];c.lastSelection.insertNode(r)}else{document.execCommand("createLink",null,n)}}else{c.lastSelection.startContainer.parentNode.href=n}}c.options.editable.element.trigger("change");return false};o.find("input[type=submit]").click(a);s=e('<span class="'+c.widgetName+'"></span>');i=function(t){var i,u,a;a=""+h.options.uuid+"-"+t;u=e("<span></span>");u.hallobutton({label:"Link",icon:"icon-link",editable:h.options.editable,command:null,queryState:false,uuid:h.options.uuid,cssClass:h.options.buttonCssClass});s.append(u);i=u;i.on("click",function(t){var i,s;c.lastSelection=c.options.editable.getSelection();l=e("input[name=url]",o);s=c.lastSelection.startContainer.parentNode;if(!s.href){l.val(c.options.defaultUrl);e(l[0].form).find("input[type=submit]").val(n)}else{l.val(e(s).attr("href"));i="input[type=submit]";e(l[0].form).find(i).val(r)}c.options.editable.keepActivated(true);o.dialog("open");o.on("dialogclose",function(){c.options.editable.restoreSelection(c.lastSelection);e("label",u).removeClass("ui-state-active");c.options.editable.element.focus();return c.options.editable.keepActivated(false)});return false});return h.element.on("keyup paste change mouseup",function(t){var n,r;r=e(c.options.editable.getSelection().startContainer);if(r.prop("nodeName")){n=r.prop("nodeName")}else{n=r.parent().prop("nodeName")}if(n&&n.toUpperCase()==="A"){e("label",i).addClass("ui-state-active");return}return e("label",i).removeClass("ui-state-active")})};if(this.options.link){i("A")}if(this.options.link){t.append(s);s.hallobuttonset();return o.dialog(this.options.dialogOpts)}}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallolists",{options:{editable:null,toolbar:null,uuid:"",lists:{ordered:true,unordered:true},buttonCssClass:null},populateToolbar:function(t){var n,r,i=this;r=e('<span class="'+this.widgetName+'"></span>');n=function(t,n){var s;s=e("<span></span>");s.hallobutton({uuid:i.options.uuid,editable:i.options.editable,label:n,command:"insert"+t+"List",icon:"icon-list-"+n.toLowerCase(),cssClass:i.options.buttonCssClass});return r.append(s)};if(this.options.lists.ordered){n("Ordered","OL")}if(this.options.lists.unordered){n("Unordered","UL")}r.hallobuttonset();return t.append(r)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallooverlay",{options:{editable:null,toolbar:null,uuid:"",overlay:null,padding:10,background:null},_create:function(){var t;t=this;if(!this.options.bound){this.options.bound=true;this.options.editable.element.on("halloactivated",function(n,r){t.options.currentEditable=e(n.target);if(!t.options.visible){return t.showOverlay()}});this.options.editable.element.on("hallomodified",function(n,r){t.options.currentEditable=e(n.target);if(t.options.visible){return t.resizeOverlay()}});return this.options.editable.element.on("hallodeactivated",function(n,r){t.options.currentEditable=e(n.target);if(t.options.visible){return t.hideOverlay()}})}},showOverlay:function(){this.options.visible=true;if(this.options.overlay===null){if(e("#halloOverlay").length>0){this.options.overlay=e("#halloOverlay")}else{this.options.overlay=e('<div id="halloOverlay"            class="halloOverlay">');e(document.body).append(this.options.overlay)}this.options.overlay.on("click",e.proxy(this.options.editable.turnOff,this.options.editable))}this.options.overlay.show();if(this.options.background===null){if(e("#halloBackground").length>0){this.options.background=e("#halloBackground")}else{this.options.background=e('<div id="halloBackground"            class="halloBackground">');e(document.body).append(this.options.background)}}this.resizeOverlay();this.options.background.show();if(!this.options.originalZIndex){this.options.originalZIndex=this.options.currentEditable.css("z-index")}return this.options.currentEditable.css("z-index","350")},resizeOverlay:function(){var e;e=this.options.currentEditable.offset();return this.options.background.css({top:e.top-this.options.padding,left:e.left-this.options.padding,width:this.options.currentEditable.width()+2*this.options.padding,height:this.options.currentEditable.height()+2*this.options.padding})},hideOverlay:function(){this.options.visible=false;this.options.overlay.hide();this.options.background.hide();return this.options.currentEditable.css("z-index",this.options.originalZIndex)},_findBackgroundColor:function(e){var t;t=e.css("background-color");if(t!=="rgba(0, 0, 0, 0)"&&t!=="transparent"){return t}if(e.is("body")){return"white"}else{return this._findBackgroundColor(e.parent())}}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloreundo",{options:{editable:null,toolbar:null,uuid:"",buttonCssClass:null},populateToolbar:function(t){var n,r,i=this;r=e('<span class="'+this.widgetName+'"></span>');n=function(t,n){var s;s=e("<span></span>");s.hallobutton({uuid:i.options.uuid,editable:i.options.editable,label:n,icon:t==="undo"?"icon-undo":"icon-repeat",command:t,queryState:false,cssClass:i.options.buttonCssClass});return r.append(s)};n("undo","Undo");n("redo","Redo");r.hallobuttonset();return t.append(r)}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallotoolbarlinebreak",{options:{editable:null,uuid:"",breakAfter:[]},populateToolbar:function(t){var n,r,i,s,o,u,a,f,l,c,h;i=e(".ui-buttonset",t);s=e();u=0;h=this.options.breakAfter;for(a=0,l=h.length;a<l;a++){o=h[a];u++;n='<div          class="halloButtonrow halloButtonrow-'+u+'" />';for(f=0,c=i.length;f<c;f++){r=i[f];s=e(s).add(e(r));if(e(r).hasClass(o)){s.wrapAll(n);i=i.not(s);s=e();break}}}if(i.length>0){u++;n='<div          class="halloButtonrow halloButtonrow-'+u+'" />';return i.wrapAll(n)}}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloToolbarContextual",{toolbar:null,options:{parentElement:"body",editable:null,toolbar:null,positionAbove:false},_create:function(){var t=this;this.toolbar=this.options.toolbar;e(this.options.parentElement).append(this.toolbar);this._bindEvents();return e(window).resize(function(e){return t._updatePosition(t._getPosition(e))})},_getPosition:function(e,t){var n,r;if(!e){return}n=e.type;switch(n){case"keydown":case"keyup":case"keypress":return this._getCaretPosition(t);case"click":case"mousedown":case"mouseup":return r={top:e.pageY,left:e.pageX}}},_getCaretPosition:function(t){var n,r,i;i=e("<span/>");n=rangy.createRange();n.setStart(t.endContainer,t.endOffset);n.insertNode(i.get(0));r={top:i.offset().top,left:i.offset().left};i.remove();return r},setPosition:function(){if(this.options.parentElement!=="body"){this.options.parentElement="body";e(this.options.parentElement).append(this.toolbar)}this.toolbar.css("position","absolute");this.toolbar.css("top",this.element.offset().top-20);return this.toolbar.css("left",this.element.offset().left)},_updatePosition:function(t,n){var r,i,s,o,u;if(n==null){n=null}if(!t){return}if(!(t.top&&t.left)){return}s=this.toolbar.outerHeight()+10;if(n&&!n.collapsed&&n.nativeRange){i=n.nativeRange.getBoundingClientRect();if(this.options.positionAbove){u=i.top-s}else{u=i.bottom+10}o=e(window).scrollTop()+u;r=e(window).scrollLeft()+i.left}else{if(this.options.positionAbove){u=-10-s}else{u=20}o=t.top+u;r=t.left-this.toolbar.outerWidth()/2+30}this.toolbar.css("top",o);return this.toolbar.css("left",r)},_bindEvents:function(){var e=this;this.element.on("click",function(t,n){var r,i;r={};i=$("window").scrollTop();r.top=t.clientY+i;r.left=t.clientX;e._updatePosition(r,null);if(e.toolbar.html()!==""){return e.toolbar.show()}});this.element.on("halloselected",function(t,n){var r;r=e._getPosition(n.originalEvent,n.selection);if(!r){return}e._updatePosition(r,n.selection);if(e.toolbar.html()!==""){return e.toolbar.show()}});this.element.on("hallounselected",function(t,n){return e.toolbar.hide()});return this.element.on("hallodeactivated",function(t,n){return e.toolbar.hide()})}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloToolbarFixed",{toolbar:null,options:{parentElement:"body",editable:null,toolbar:null,affix:true,affixTopOffset:2},_create:function(){var t,n,r=this;this.toolbar=this.options.toolbar;this.toolbar.show();e(this.options.parentElement).append(this.toolbar);this._bindEvents();e(window).resize(function(e){return r.setPosition()});e(window).scroll(function(e){return r.setPosition()});if(this.options.parentElement==="body"){t=e(this.element);n=parseFloat(t.css("padding-left"));n+=parseFloat(t.css("padding-right"));n+=parseFloat(t.css("border-left-width"));n+=parseFloat(t.css("border-right-width"));n+=parseFloat(t.css("outline-width"))*2;n+=parseFloat(t.css("outline-offset"))*2;return e(this.toolbar).css("width",t.width()+n)}},_getPosition:function(e,t){var n,r,i;if(!e){return}i=parseFloat(this.element.css("outline-width"));n=i+parseFloat(this.element.css("outline-offset"));return r={top:this.element.offset().top-this.toolbar.outerHeight()-n,left:this.element.offset().left-n}},_getCaretPosition:function(t){var n,r,i;i=e("<span/>");n=rangy.createRange();n.setStart(t.endContainer,t.endOffset);n.insertNode(i.get(0));r={top:i.offset().top,left:i.offset().left};i.remove();return r},setPosition:function(){var t,n,r,i,s,o;if(this.options.parentElement!=="body"){return}this.toolbar.css("position","absolute");this.toolbar.css("top",this.element.offset().top-this.toolbar.outerHeight());if(this.options.affix){s=e(window).scrollTop();i=this.element.offset();r=this.element.height();o=this.options.affixTopOffset;n=i.top-(this.toolbar.height()+this.options.affixTopOffset);t=r-o+(i.top-this.toolbar.height());if(s>n&&s<t){this.toolbar.css("position","fixed");this.toolbar.css("top",this.options.affixTopOffset)}}else{}return this.toolbar.css("left",this.element.offset().left-2)},_updatePosition:function(e){},_bindEvents:function(){var e=this;this.element.on("halloactivated",function(t,n){e.setPosition();return e.toolbar.show()});return this.element.on("hallodeactivated",function(t,n){return e.toolbar.hide()})}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.halloToolbarInstant",{toolbar:null,options:{parentElement:"body",editable:null,toolbar:null,positionAbove:false},_create:function(){var t=this;this.toolbar=this.options.toolbar;e(this.options.parentElement).append(this.toolbar);this._bindEvents();return e(window).resize(function(e){return t._updatePosition(t._getPosition(e))})},_getPosition:function(e,t){var n,r;if(!e){return}n=e.type;switch(n){case"keydown":case"keyup":case"keypress":return this._getCaretPosition(t);case"click":case"mousedown":case"mouseup":return r={top:e.pageY,left:e.pageX}}},_getCaretPosition:function(t){var n,r,i;i=e("<span/>");n=rangy.createRange();n.setStart(t.endContainer,t.endOffset);n.insertNode(i.get(0));r={top:i.offset().top,left:i.offset().left};i.remove();return r},setPosition:function(){if(this.options.parentElement!=="body"){this.options.parentElement="body";e(this.options.parentElement).append(this.toolbar)}this.toolbar.css("position","absolute");this.toolbar.css("top",this.element.offset().top-20);return this.toolbar.css("left",this.element.offset().left)},_updatePosition:function(t,n){var r,i,s,o,u;if(n==null){n=null}if(!t){return}if(!(t.top&&t.left)){return}s=this.toolbar.outerHeight()+10;if(n&&!n.collapsed&&n.nativeRange){i=n.nativeRange.getBoundingClientRect();if(this.options.positionAbove){u=i.top-s}else{u=i.bottom+10}o=e(window).scrollTop()+u;r=e(window).scrollLeft()+i.left}else{if(this.options.positionAbove){u=-10-s}else{u=20}o=t.top+u;r=t.left-this.toolbar.outerWidth()/2+30}this.toolbar.css("top",o);return this.toolbar.css("left",r)},_bindEvents:function(){var e=this;this.element.on("click",function(t,n){var r,i;r={};i=$("window").scrollTop();r.top=t.clientY+i;r.left=t.clientX;e._updatePosition(r,null);if(e.toolbar.html()!==""){return e.toolbar.show()}});this.element.on("halloselected",function(t,n){var r;r=e._getPosition(n.originalEvent,n.selection);if(!r){return}e._updatePosition(r,n.selection);if(e.toolbar.html()!==""){return e.toolbar.show()}});this.element.on("hallounselected",function(t,n){return e.toolbar.hide()});return this.element.on("hallodeactivated",function(t,n){return e.toolbar.hide()})}})})(jQuery)}).call(this);(function(){(function(e){e.widget("IKS.hallobutton",{button:null,isChecked:false,options:{uuid:"",label:null,icon:null,editable:null,command:null,commandValue:null,queryState:true,cssClass:null},_create:function(){var e,t,n,r,i=this;if((r=this.options).icon==null){r.icon="icon-"+this.options.label.toLowerCase()}t=""+this.options.uuid+"-"+this.options.label;n=this.options;this.button=this._createButton(t,n.command,n.label,n.icon);this.element.append(this.button);if(this.options.cssClass){this.button.addClass(this.options.cssClass)}if(this.options.editable.options.touchScreen){this.button.addClass("btn-large")}this.button.data("hallo-command",this.options.command);if(this.options.commandValue){this.button.data("hallo-command-value",this.options.commandValue)}e="ui-state-hover";this.button.on("mouseenter",function(t){if(i.isEnabled()){return i.button.addClass(e)}});return this.button.on("mouseleave",function(t){return i.button.removeClass(e)})},_init:function(){var e,t,n,r=this;if(!this.button){this.button=this._prepareButton()}this.element.append(this.button);if(this.options.queryState===true){n=function(e){var t,n,i;if(!r.options.command){return}try{if(r.options.commandValue){i=document.queryCommandValue(r.options.command);t=i.match(new RegExp(r.options.commandValue,"i"));return r.checked(t?true:false)}else{return r.checked(document.queryCommandState(r.options.command))}}catch(s){n=s}}}else{n=this.options.queryState}if(this.options.command){this.button.on("click",function(e){if(r.options.commandValue){r.options.editable.execute(r.options.command,r.options.commandValue)}else{r.options.editable.execute(r.options.command)}if(typeof n==="function"){n()}return false})}if(!this.options.queryState){return}e=this.options.editable.element;t="keyup paste change mouseup hallomodified";e.on(t,n);e.on("halloenabled",function(){return e.on(t,n)});return e.on("hallodisabled",function(){return e.off(t,n)})},enable:function(){return this.button.removeAttr("disabled")},disable:function(){return this.button.attr("disabled","true")},isEnabled:function(){return this.button.attr("disabled")!=="true"},refresh:function(){if(this.isChecked){return this.button.addClass("ui-state-active")}else{return this.button.removeClass("ui-state-active")}},checked:function(e){this.isChecked=e;return this.refresh()},_createButton:function(t,n,r,i){var s;s=["ui-button","ui-widget","ui-state-default","ui-corner-all","ui-button-text-only",""+n+"_button"];return e('<button id="'+t+'"        class="'+s.join(" ")+'" title="'+r+'">          <span class="ui-button-text">            <i class="'+i+'"></i>          </span>        </button>')}});return e.widget("IKS.hallobuttonset",{buttons:null,_create:function(){return this.element.addClass("ui-buttonset")},_init:function(){return this.refresh()},refresh:function(){var e;e=this.element.css("direction")==="rtl";this.buttons=this.element.find(".ui-button");this.buttons.removeClass("ui-corner-all ui-corner-left ui-corner-right");if(e){this.buttons.filter(":first").addClass("ui-corner-right");return this.buttons.filter(":last").addClass("ui-corner-left")}else{this.buttons.filter(":first").addClass("ui-corner-left");return this.buttons.filter(":last").addClass("ui-corner-right")}}})})(jQuery)}).call(this);(function(){(function(e){return e.widget("IKS.hallodropdownbutton",{button:null,options:{uuid:"",label:null,icon:null,editable:null,target:"",cssClass:null},_create:function(){var e;return(e=this.options).icon!=null?(e=this.options).icon:e.icon="icon-"+this.options.label.toLowerCase()},_init:function(){var t,n=this;t=e(this.options.target);t.css("position","absolute");t.addClass("dropdown-menu");t.hide();if(!this.button){this.button=this._prepareButton()}this.button.on("click",function(){if(t.hasClass("open")){n._hideTarget();return}return n._showTarget()});t.on("click",function(){return n._hideTarget()});this.options.editable.element.on("hallodeactivated",function(){return n._hideTarget()});return this.element.append(this.button)},_showTarget:function(){var t;t=e(this.options.target);this._updateTargetPosition();t.addClass("open");return t.show()},_hideTarget:function(){var t;t=e(this.options.target);t.removeClass("open");return t.hide()},_updateTargetPosition:function(){var t,n,r,i;n=e(this.options.target);i=this.button.position(),r=i.top,t=i.left;r+=this.button.outerHeight();n.css("top",r);return n.css("left",t-20)},_prepareButton:function(){var t,n,r;r=""+this.options.uuid+"-"+this.options.label;n=["ui-button","ui-widget","ui-state-default","ui-corner-all","ui-button-text-only"];t=e('<button id="'+r+'"       class="'+n.join(" ")+'" title="'+this.options.label+'">       <span class="ui-button-text"><i class="'+this.options.icon+'"></i></span>       </button>');if(this.options.cssClass){t.addClass(this.options.cssClass)}return t}})})(jQuery)}).call(this)
+/* Hallo 1.0.4 - rich text editor for jQuery UI
+* by Henri Bergius and contributors. Available under the MIT license.
+* See http://hallojs.org for more information
+*/(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.hallo', {
+      toolbar: null,
+      bound: false,
+      originalContent: '',
+      previousContent: '',
+      uuid: '',
+      selection: null,
+      _keepActivated: false,
+      originalHref: null,
+      options: {
+        editable: true,
+        plugins: {},
+        toolbar: 'halloToolbarContextual',
+        parentElement: 'body',
+        buttonCssClass: null,
+        toolbarCssClass: null,
+        toolbarPositionAbove: false,
+        toolbarOptions: {},
+        placeholder: '',
+        forceStructured: true,
+        checkTouch: true,
+        touchScreen: null
+      },
+      _create: function() {
+        var options, plugin, _ref,
+          _this = this;
+        this.id = this._generateUUID();
+        if (this.options.checkTouch && this.options.touchScreen === null) {
+          this.checkTouch();
+        }
+        _ref = this.options.plugins;
+        for (plugin in _ref) {
+          options = _ref[plugin];
+          if (!jQuery.isPlainObject(options)) {
+            options = {};
+          }
+          jQuery.extend(options, {
+            editable: this,
+            uuid: this.id,
+            buttonCssClass: this.options.buttonCssClass
+          });
+          jQuery(this.element)[plugin](options);
+        }
+        this.element.one('halloactivated', function() {
+          return _this._prepareToolbar();
+        });
+        return this.originalContent = this.getContents();
+      },
+      _init: function() {
+        if (this.options.editable) {
+          return this.enable();
+        } else {
+          return this.disable();
+        }
+      },
+      destroy: function() {
+        var options, plugin, _ref;
+        this.disable();
+        if (this.toolbar) {
+          this.toolbar.remove();
+          this.element[this.options.toolbar]('destroy');
+        }
+        _ref = this.options.plugins;
+        for (plugin in _ref) {
+          options = _ref[plugin];
+          jQuery(this.element)[plugin]('destroy');
+        }
+        return jQuery.Widget.prototype.destroy.call(this);
+      },
+      disable: function() {
+        var _this = this;
+        this.element.attr("contentEditable", false);
+        this.element.off("focus", this._activated);
+        this.element.off("blur", this._deactivated);
+        this.element.off("keyup paste change", this._checkModified);
+        this.element.off("keyup", this._keys);
+        this.element.off("keyup mouseup", this._checkSelection);
+        this.bound = false;
+        jQuery(this.element).removeClass('isModified');
+        jQuery(this.element).removeClass('inEditMode');
+        this.element.parents('a').addBack().each(function(idx, elem) {
+          var element;
+          element = jQuery(elem);
+          if (!element.is('a')) {
+            return;
+          }
+          if (!_this.originalHref) {
+            return;
+          }
+          return element.attr('href', _this.originalHref);
+        });
+        return this._trigger("disabled", null);
+      },
+      enable: function() {
+        var _this = this;
+        this.element.parents('a[href]').addBack().each(function(idx, elem) {
+          var element;
+          element = jQuery(elem);
+          if (!element.is('a[href]')) {
+            return;
+          }
+          _this.originalHref = element.attr('href');
+          return element.removeAttr('href');
+        });
+        this.element.attr("contentEditable", true);
+        if (!jQuery.parseHTML(this.element.html())) {
+          this.element.html(this.options.placeholder);
+          jQuery(this.element).addClass('inPlaceholderMode');
+          this.element.css({
+            'min-width': this.element.innerWidth(),
+            'min-height': this.element.innerHeight()
+          });
+        }
+        if (!this.bound) {
+          this.element.on("focus", this, this._activated);
+          this.element.on("blur", this, this._deactivated);
+          this.element.on("keyup paste change", this, this._checkModified);
+          this.element.on("keyup", this, this._keys);
+          this.element.on("keyup mouseup", this, this._checkSelection);
+          this.bound = true;
+        }
+        if (this.options.forceStructured) {
+          this._forceStructured();
+        }
+        return this._trigger("enabled", null);
+      },
+      activate: function() {
+        return this.element.focus();
+      },
+      containsSelection: function() {
+        var range;
+        range = this.getSelection();
+        return this.element.has(range.startContainer).length > 0;
+      },
+      getSelection: function() {
+        var range, sel;
+        sel = rangy.getSelection();
+        range = null;
+        if (sel.rangeCount > 0) {
+          range = sel.getRangeAt(0);
+        } else {
+          range = rangy.createRange();
+        }
+        return range;
+      },
+      restoreSelection: function(range) {
+        var sel;
+        sel = rangy.getSelection();
+        return sel.setSingleRange(range);
+      },
+      replaceSelection: function(cb) {
+        var newTextNode, r, range, sel, t;
+        if (navigator.appName === 'Microsoft Internet Explorer') {
+          t = document.selection.createRange().text;
+          r = document.selection.createRange();
+          return r.pasteHTML(cb(t));
+        } else {
+          sel = window.getSelection();
+          range = sel.getRangeAt(0);
+          newTextNode = document.createTextNode(cb(range.extractContents()));
+          range.insertNode(newTextNode);
+          range.setStartAfter(newTextNode);
+          sel.removeAllRanges();
+          return sel.addRange(range);
+        }
+      },
+      removeAllSelections: function() {
+        if (navigator.appName === 'Microsoft Internet Explorer') {
+          return range.empty();
+        } else {
+          return window.getSelection().removeAllRanges();
+        }
+      },
+      getPluginInstance: function(plugin) {
+        var instance;
+        instance = jQuery(this.element).data("IKS-" + plugin);
+        if (instance) {
+          return instance;
+        }
+        instance = jQuery(this.element).data(plugin);
+        if (instance) {
+          return instance;
+        }
+        throw new Error("Plugin " + plugin + " not found");
+      },
+      getContents: function() {
+        var cleanup, instance, plugin;
+        for (plugin in this.options.plugins) {
+          instance = this.getPluginInstance(plugin);
+          if (!instance) {
+            continue;
+          }
+          cleanup = instance.cleanupContentClone;
+          if (!jQuery.isFunction(cleanup)) {
+            continue;
+          }
+          jQuery(this.element)[plugin]('cleanupContentClone', this.element);
+        }
+        return this.element.html();
+      },
+      setContents: function(contents) {
+        return this.element.html(contents);
+      },
+      isModified: function() {
+        if (!this.previousContent) {
+          this.previousContent = this.originalContent;
+        }
+        return this.previousContent !== this.getContents();
+      },
+      setUnmodified: function() {
+        jQuery(this.element).removeClass('isModified');
+        return this.previousContent = this.getContents();
+      },
+      setModified: function() {
+        jQuery(this.element).addClass('isModified');
+        return this._trigger('modified', null, {
+          editable: this,
+          content: this.getContents()
+        });
+      },
+      restoreOriginalContent: function() {
+        return this.element.html(this.originalContent);
+      },
+      execute: function(command, value) {
+        if (document.execCommand(command, false, value)) {
+          return this.element.trigger("change");
+        }
+      },
+      protectFocusFrom: function(el) {
+        var _this = this;
+        return el.on("mousedown", function(event) {
+          event.preventDefault();
+          _this._protectToolbarFocus = true;
+          return setTimeout(function() {
+            return _this._protectToolbarFocus = false;
+          }, 300);
+        });
+      },
+      keepActivated: function(_keepActivated) {
+        this._keepActivated = _keepActivated;
+      },
+      _generateUUID: function() {
+        var S4;
+        S4 = function() {
+          return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+        };
+        return "" + (S4()) + (S4()) + "-" + (S4()) + "-" + (S4()) + "-" + (S4()) + "-" + (S4()) + (S4()) + (S4());
+      },
+      _prepareToolbar: function() {
+        var defaults, instance, plugin, populate, toolbarOptions;
+        this.toolbar = jQuery('<div class="hallotoolbar"></div>').hide();
+        if (this.options.toolbarCssClass) {
+          this.toolbar.addClass(this.options.toolbarCssClass);
+        }
+        defaults = {
+          editable: this,
+          parentElement: this.options.parentElement,
+          toolbar: this.toolbar,
+          positionAbove: this.options.toolbarPositionAbove
+        };
+        toolbarOptions = jQuery.extend({}, defaults, this.options.toolbarOptions);
+        this.element[this.options.toolbar](toolbarOptions);
+        for (plugin in this.options.plugins) {
+          instance = this.getPluginInstance(plugin);
+          if (!instance) {
+            continue;
+          }
+          populate = instance.populateToolbar;
+          if (!jQuery.isFunction(populate)) {
+            continue;
+          }
+          this.element[plugin]('populateToolbar', this.toolbar);
+        }
+        this.element[this.options.toolbar]('setPosition');
+        return this.protectFocusFrom(this.toolbar);
+      },
+      changeToolbar: function(element, toolbar, hide) {
+        var originalToolbar;
+        if (hide == null) {
+          hide = false;
+        }
+        originalToolbar = this.options.toolbar;
+        this.options.parentElement = element;
+        if (toolbar) {
+          this.options.toolbar = toolbar;
+        }
+        if (!this.toolbar) {
+          return;
+        }
+        this.element[originalToolbar]('destroy');
+        this.toolbar.remove();
+        this._prepareToolbar();
+        if (hide) {
+          return this.toolbar.hide();
+        }
+      },
+      _checkModified: function(event) {
+        var widget;
+        widget = event.data;
+        if (widget.isModified()) {
+          return widget.setModified();
+        }
+      },
+      _keys: function(event) {
+        var old, widget;
+        widget = event.data;
+        if (event.keyCode === 27) {
+          old = widget.getContents();
+          widget.restoreOriginalContent(event);
+          widget._trigger("restored", null, {
+            editable: widget,
+            content: widget.getContents(),
+            thrown: old
+          });
+          return widget.turnOff();
+        }
+      },
+      _rangesEqual: function(r1, r2) {
+        if (r1.startContainer !== r2.startContainer) {
+          return false;
+        }
+        if (r1.startOffset !== r2.startOffset) {
+          return false;
+        }
+        if (r1.endContainer !== r2.endContainer) {
+          return false;
+        }
+        if (r1.endOffset !== r2.endOffset) {
+          return false;
+        }
+        return true;
+      },
+      _checkSelection: function(event) {
+        var widget;
+        if (event.keyCode === 27) {
+          return;
+        }
+        widget = event.data;
+        return setTimeout(function() {
+          var sel;
+          sel = widget.getSelection();
+          if (widget._isEmptySelection(sel) || widget._isEmptyRange(sel)) {
+            if (widget.selection) {
+              widget.selection = null;
+              widget._trigger("unselected", null, {
+                editable: widget,
+                originalEvent: event
+              });
+            }
+            return;
+          }
+          if (!widget.selection || !widget._rangesEqual(sel, widget.selection)) {
+            widget.selection = sel.cloneRange();
+            return widget._trigger("selected", null, {
+              editable: widget,
+              selection: widget.selection,
+              ranges: [widget.selection],
+              originalEvent: event
+            });
+          }
+        }, 0);
+      },
+      _isEmptySelection: function(selection) {
+        if (selection.type === "Caret") {
+          return true;
+        }
+        return false;
+      },
+      _isEmptyRange: function(range) {
+        if (range.collapsed) {
+          return true;
+        }
+        if (range.isCollapsed) {
+          if (typeof range.isCollapsed === 'function') {
+            return range.isCollapsed();
+          }
+          return range.isCollapsed;
+        }
+        return false;
+      },
+      turnOn: function() {
+        if (this.getContents() === this.options.placeholder) {
+          this.setContents('');
+        }
+        jQuery(this.element).removeClass('inPlaceholderMode');
+        jQuery(this.element).addClass('inEditMode');
+        return this._trigger("activated", null, this);
+      },
+      turnOff: function() {
+        jQuery(this.element).removeClass('inEditMode');
+        this._trigger("deactivated", null, this);
+        if (!this.getContents()) {
+          jQuery(this.element).addClass('inPlaceholderMode');
+          return this.setContents(this.options.placeholder);
+        }
+      },
+      _activated: function(event) {
+        return event.data.turnOn();
+      },
+      _deactivated: function(event) {
+        if (event.data._keepActivated) {
+          return;
+        }
+        if (event.data._protectToolbarFocus !== true) {
+          return event.data.turnOff();
+        } else {
+          return setTimeout(function() {
+            return jQuery(event.data.element).focus();
+          }, 300);
+        }
+      },
+      _forceStructured: function(event) {
+        var e;
+        try {
+          return document.execCommand('styleWithCSS', 0, false);
+        } catch (_error) {
+          e = _error;
+          try {
+            return document.execCommand('useCSS', 0, true);
+          } catch (_error) {
+            e = _error;
+            try {
+              return document.execCommand('styleWithCSS', false, false);
+            } catch (_error) {
+              e = _error;
+            }
+          }
+        }
+      },
+      checkTouch: function() {
+        return this.options.touchScreen = !!('createTouch' in document);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    var z;
+    z = null;
+    if (this.VIE !== void 0) {
+      z = new VIE;
+      z.use(new z.StanbolService({
+        proxyDisabled: true,
+        url: 'http://dev.iks-project.eu:8081'
+      }));
+    }
+    return jQuery.widget('IKS.halloannotate', {
+      options: {
+        vie: z,
+        editable: null,
+        toolbar: null,
+        uuid: '',
+        select: function() {},
+        decline: function() {},
+        remove: function() {},
+        buttonCssClass: null
+      },
+      _create: function() {
+        var editableElement, turnOffAnnotate, widget;
+        widget = this;
+        if (this.options.vie === void 0) {
+          throw new Error('The halloannotate plugin requires VIE');
+          return;
+        }
+        if (typeof this.element.annotate !== 'function') {
+          throw new Error('The halloannotate plugin requires annotate.js');
+          return;
+        }
+        this.state = 'off';
+        this.instantiate();
+        turnOffAnnotate = function() {
+          var editable;
+          editable = this;
+          return jQuery(editable).halloannotate('turnOff');
+        };
+        editableElement = this.options.editable.element;
+        return editableElement.on('hallodisabled', turnOffAnnotate);
+      },
+      populateToolbar: function(toolbar) {
+        var buttonHolder,
+          _this = this;
+        buttonHolder = jQuery("<span class=\"" + this.widgetName + "\"></span>");
+        this.button = buttonHolder.hallobutton({
+          label: 'Annotate',
+          icon: 'icon-tags',
+          editable: this.options.editable,
+          command: null,
+          uuid: this.options.uuid,
+          cssClass: this.options.buttonCssClass,
+          queryState: false
+        });
+        buttonHolder.on('change', function(event) {
+          if (_this.state === "pending") {
+            return;
+          }
+          if (_this.state === "off") {
+            return _this.turnOn();
+          }
+          return _this.turnOff();
+        });
+        buttonHolder.buttonset();
+        return toolbar.append(this.button);
+      },
+      cleanupContentClone: function(el) {
+        if (this.state === 'on') {
+          return el.find(".entity:not([about])").each(function() {
+            return jQuery(this).replaceWith(jQuery(this).html());
+          });
+        }
+      },
+      instantiate: function() {
+        var widget;
+        widget = this;
+        return this.options.editable.element.annotate({
+          vie: this.options.vie,
+          debug: false,
+          showTooltip: true,
+          select: this.options.select,
+          remove: this.options.remove,
+          success: this.options.success,
+          error: this.options.error
+        }).on('annotateselect', function(event, data) {
+          return widget.options.editable.setModified();
+        }).on('annotateremove', function() {
+          return jQuery.noop();
+        });
+      },
+      turnPending: function() {
+        this.state = 'pending';
+        this.button.hallobutton('checked', false);
+        return this.button.hallobutton('disable');
+      },
+      turnOn: function() {
+        var e, widget,
+          _this = this;
+        this.turnPending();
+        widget = this;
+        try {
+          return this.options.editable.element.annotate('enable', function(success) {
+            if (!success) {
+              return;
+            }
+            _this.state = 'on';
+            _this.button.hallobutton('checked', true);
+            return _this.button.hallobutton('enable');
+          });
+        } catch (_error) {
+          e = _error;
+          return alert(e);
+        }
+      },
+      turnOff: function() {
+        this.options.editable.element.annotate('disable');
+        this.state = 'off';
+        if (!this.button) {
+          return;
+        }
+        this.button.attr('checked', false);
+        this.button.find("label").removeClass("ui-state-clicked");
+        return this.button.button('refresh');
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloblacklist', {
+      options: {
+        tags: []
+      },
+      _init: function() {
+        if (this.options.tags.indexOf('br') !== -1) {
+          return this.element.on('keydown', function(event) {
+            if (event.originalEvent.keyCode === 13) {
+              return event.preventDefault();
+            }
+          });
+        }
+      },
+      cleanupContentClone: function(el) {
+        var tag, _i, _len, _ref, _results;
+        _ref = this.options.tags;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          tag = _ref[_i];
+          _results.push(jQuery(tag, el).remove());
+        }
+        return _results;
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloblock', {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: '',
+        elements: ['h1', 'h2', 'h3', 'p', 'pre', 'blockquote'],
+        buttonCssClass: null
+      },
+      populateToolbar: function(toolbar) {
+        var buttonset, contentId, target;
+        buttonset = jQuery("<span class=\"" + this.widgetName + "\"></span>");
+        contentId = "" + this.options.uuid + "-" + this.widgetName + "-data";
+        target = this._prepareDropdown(contentId);
+        toolbar.append(buttonset);
+        buttonset.hallobuttonset();
+        buttonset.append(target);
+        return buttonset.append(this._prepareButton(target));
+      },
+      _prepareDropdown: function(contentId) {
+        var addElement, containingElement, contentArea, element, _i, _len, _ref,
+          _this = this;
+        contentArea = jQuery("<div id=\"" + contentId + "\"></div>");
+        containingElement = this.options.editable.element.get(0).tagName.toLowerCase();
+        addElement = function(element) {
+          var el, events, queryState;
+          el = jQuery("<button class='blockselector'>          <" + element + " class=\"menu-item\">" + element + "</" + element + ">        </button>");
+          if (containingElement === element) {
+            el.addClass('selected');
+          }
+          if (containingElement !== 'div') {
+            el.addClass('disabled');
+          }
+          el.on('click', function() {
+            var tagName;
+            tagName = element.toUpperCase();
+            if (el.hasClass('disabled')) {
+              return;
+            }
+            if (navigator.appName === 'Microsoft Internet Explorer') {
+              _this.options.editable.execute('FormatBlock', "<" + tagName + ">");
+              return;
+            }
+            return _this.options.editable.execute('formatBlock', tagName);
+          });
+          queryState = function(event) {
+            var block;
+            block = document.queryCommandValue('formatBlock');
+            if (block.toLowerCase() === element) {
+              el.addClass('selected');
+              return;
+            }
+            return el.removeClass('selected');
+          };
+          events = 'keyup paste change mouseup';
+          _this.options.editable.element.on(events, queryState);
+          _this.options.editable.element.on('halloenabled', function() {
+            return _this.options.editable.element.on(events, queryState);
+          });
+          _this.options.editable.element.on('hallodisabled', function() {
+            return _this.options.editable.element.off(events, queryState);
+          });
+          return el;
+        };
+        _ref = this.options.elements;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          element = _ref[_i];
+          contentArea.append(addElement(element));
+        }
+        return contentArea;
+      },
+      _prepareButton: function(target) {
+        var buttonElement;
+        buttonElement = jQuery('<span></span>');
+        buttonElement.hallodropdownbutton({
+          uuid: this.options.uuid,
+          editable: this.options.editable,
+          label: 'block',
+          icon: 'icon-text-height',
+          target: target,
+          cssClass: this.options.buttonCssClass
+        });
+        return buttonElement;
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    var rangyMessage;
+    rangyMessage = 'The hallocleanhtml plugin requires the selection save and\
+    restore module from Rangy';
+    return jQuery.widget('IKS.hallocleanhtml', {
+      _create: function() {
+        var editor,
+          _this = this;
+        if (jQuery.htmlClean === void 0) {
+          throw new Error('The hallocleanhtml plugin requires jQuery.htmlClean');
+          return;
+        }
+        editor = this.element;
+        return editor.bind('paste', this, function(event) {
+          var lastContent, lastRange, widget;
+          if (rangy.saveSelection === void 0) {
+            throw new Error(rangyMessage);
+            return;
+          }
+          widget = event.data;
+          widget.options.editable.getSelection().deleteContents();
+          lastRange = rangy.saveSelection();
+          lastContent = editor.html();
+          editor.html('');
+          return setTimeout(function() {
+            var cleanPasted, error, pasted, range;
+            pasted = editor.html();
+            cleanPasted = jQuery.htmlClean(pasted, _this.options);
+            editor.html(lastContent);
+            rangy.restoreSelection(lastRange);
+            if (cleanPasted !== '') {
+              try {
+                return document.execCommand('insertHTML', false, cleanPasted);
+              } catch (_error) {
+                error = _error;
+                range = widget.options.editable.getSelection();
+                return range.insertNode(range.createContextualFragment(cleanPasted));
+              }
+            }
+          }, 4);
+        });
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.halloformat", {
+      options: {
+        editable: null,
+        uuid: '',
+        formattings: {
+          bold: true,
+          italic: true,
+          strikeThrough: false,
+          underline: false
+        },
+        buttonCssClass: null
+      },
+      populateToolbar: function(toolbar) {
+        var buttonize, buttonset, enabled, format, widget, _ref,
+          _this = this;
+        widget = this;
+        buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
+        buttonize = function(format) {
+          var buttonHolder;
+          buttonHolder = jQuery('<span></span>');
+          buttonHolder.hallobutton({
+            label: format,
+            editable: _this.options.editable,
+            command: format,
+            uuid: _this.options.uuid,
+            cssClass: _this.options.buttonCssClass
+          });
+          return buttonset.append(buttonHolder);
+        };
+        _ref = this.options.formattings;
+        for (format in _ref) {
+          enabled = _ref[format];
+          if (!enabled) {
+            continue;
+          }
+          buttonize(format);
+        }
+        buttonset.hallobuttonset();
+        return toolbar.append(buttonset);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.halloheadings", {
+      options: {
+        editable: null,
+        uuid: '',
+        formatBlocks: ["p", "h1", "h2", "h3"],
+        buttonCssClass: null
+      },
+      populateToolbar: function(toolbar) {
+        var buttonize, buttonset, command, format, ie, widget, _i, _len, _ref,
+          _this = this;
+        widget = this;
+        buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
+        ie = navigator.appName === 'Microsoft Internet Explorer';
+        command = (ie ? "FormatBlock" : "formatBlock");
+        buttonize = function(format) {
+          var buttonHolder;
+          buttonHolder = jQuery('<span></span>');
+          buttonHolder.hallobutton({
+            label: format,
+            editable: _this.options.editable,
+            command: command,
+            commandValue: (ie ? "<" + format + ">" : format),
+            uuid: _this.options.uuid,
+            cssClass: _this.options.buttonCssClass,
+            queryState: function(event) {
+              var compared, e, map, result, val, value, _i, _len, _ref;
+              try {
+                value = document.queryCommandValue(command);
+                if (ie) {
+                  map = {
+                    p: "normal"
+                  };
+                  _ref = [1, 2, 3, 4, 5, 6];
+                  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    val = _ref[_i];
+                    map["h" + val] = val;
+                  }
+                  compared = value.match(new RegExp(map[format], "i"));
+                } else {
+                  compared = value.match(new RegExp(format, "i"));
+                }
+                result = compared ? true : false;
+                return buttonHolder.hallobutton('checked', result);
+              } catch (_error) {
+                e = _error;
+              }
+            }
+          });
+          buttonHolder.find('button .ui-button-text').text(format.toUpperCase());
+          return buttonset.append(buttonHolder);
+        };
+        _ref = this.options.formatBlocks;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          format = _ref[_i];
+          buttonize(format);
+        }
+        buttonset.hallobuttonset();
+        return toolbar.append(buttonset);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.hallohtml", {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: "",
+        lang: 'en',
+        dialogOpts: {
+          autoOpen: false,
+          width: 600,
+          height: 'auto',
+          modal: false,
+          resizable: true,
+          draggable: true,
+          dialogClass: 'htmledit-dialog'
+        },
+        dialog: null,
+        buttonCssClass: null
+      },
+      translations: {
+        en: {
+          title: 'Edit HTML',
+          update: 'Update'
+        },
+        de: {
+          title: 'HTML bearbeiten',
+          update: 'Aktualisieren'
+        }
+      },
+      texts: null,
+      populateToolbar: function($toolbar) {
+        var $buttonHolder, $buttonset, id, selector, widget;
+        widget = this;
+        this.texts = this.translations[this.options.lang];
+        this.options.toolbar = $toolbar;
+        selector = "" + this.options.uuid + "-htmledit-dialog";
+        this.options.dialog = jQuery("<div>").attr('id', selector);
+        $buttonset = jQuery("<span>").addClass(widget.widgetName);
+        id = "" + this.options.uuid + "-htmledit";
+        $buttonHolder = jQuery('<span>');
+        $buttonHolder.hallobutton({
+          label: this.texts.title,
+          icon: 'icon-list-alt',
+          editable: this.options.editable,
+          command: null,
+          queryState: false,
+          uuid: this.options.uuid,
+          cssClass: this.options.buttonCssClass
+        });
+        $buttonset.append($buttonHolder);
+        this.button = $buttonHolder;
+        this.button.click(function() {
+          if (widget.options.dialog.dialog("isOpen")) {
+            widget._closeDialog();
+          } else {
+            widget._openDialog();
+          }
+          return false;
+        });
+        this.options.editable.element.on("hallodeactivated", function() {
+          return widget._closeDialog();
+        });
+        $toolbar.append($buttonset);
+        this.options.dialog.dialog(this.options.dialogOpts);
+        return this.options.dialog.dialog("option", "title", this.texts.title);
+      },
+      _openDialog: function() {
+        var $editableEl, html, widget, xposition, yposition,
+          _this = this;
+        widget = this;
+        $editableEl = jQuery(this.options.editable.element);
+        xposition = $editableEl.offset().left + $editableEl.outerWidth() + 10;
+        yposition = this.options.toolbar.offset().top - jQuery(document).scrollTop();
+        this.options.dialog.dialog("option", "position", [xposition, yposition]);
+        this.options.editable.keepActivated(true);
+        this.options.dialog.dialog("open");
+        this.options.dialog.on('dialogclose', function() {
+          jQuery('label', _this.button).removeClass('ui-state-active');
+          _this.options.editable.element.focus();
+          return _this.options.editable.keepActivated(false);
+        });
+        this.options.dialog.html(jQuery("<textarea>").addClass('html_source'));
+        html = this.options.editable.element.html();
+        this.options.dialog.children('.html_source').val(html);
+        this.options.dialog.prepend(jQuery("<button>" + this.texts.update + "</button>"));
+        return this.options.dialog.on('click', 'button', function() {
+          html = widget.options.dialog.children('.html_source').val();
+          widget.options.editable.element.html(html);
+          widget.options.editable.element.trigger('change');
+          return false;
+        });
+      },
+      _closeDialog: function() {
+        return this.options.dialog.dialog("close");
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.halloimage", {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: "",
+        limit: 8,
+        search: null,
+        searchUrl: null,
+        suggestions: null,
+        loaded: null,
+        upload: null,
+        uploadUrl: null,
+        dialogOpts: {
+          autoOpen: false,
+          width: 270,
+          height: "auto",
+          title: "Insert Images",
+          modal: false,
+          resizable: false,
+          draggable: true,
+          dialogClass: 'halloimage-dialog'
+        },
+        dialog: null,
+        buttonCssClass: null,
+        entity: null,
+        vie: null,
+        dbPediaUrl: "http://dev.iks-project.eu/stanbolfull",
+        maxWidth: 250,
+        maxHeight: 250
+      },
+      populateToolbar: function(toolbar) {
+        var buttonHolder, buttonset, dialogId, id, tabContent, tabs, widget;
+        this.options.toolbar = toolbar;
+        widget = this;
+        dialogId = "" + this.options.uuid + "-image-dialog";
+        this.options.dialog = jQuery("<div id=\"" + dialogId + "\">        <div class=\"nav\">          <ul class=\"tabs\">          </ul>          <div id=\"" + this.options.uuid + "-tab-activeIndicator\"            class=\"tab-activeIndicator\" />        </div>        <div class=\"dialogcontent\">        </div>");
+        tabs = jQuery('.tabs', this.options.dialog);
+        tabContent = jQuery('.dialogcontent', this.options.dialog);
+        if (widget.options.suggestions) {
+          this._addGuiTabSuggestions(tabs, tabContent);
+        }
+        if (widget.options.search || widget.options.searchUrl) {
+          this._addGuiTabSearch(tabs, tabContent);
+        }
+        if (widget.options.upload || widget.options.uploadUrl) {
+          this._addGuiTabUpload(tabs, tabContent);
+        }
+        this.current = jQuery('<div class="currentImage"></div>').halloimagecurrent({
+          uuid: this.options.uuid,
+          imageWidget: this,
+          editable: this.options.editable,
+          dialog: this.options.dialog,
+          maxWidth: this.options.maxWidth,
+          maxHeight: this.options.maxHeight
+        });
+        jQuery('.dialogcontent', this.options.dialog).append(this.current);
+        buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
+        id = "" + this.options.uuid + "-image";
+        buttonHolder = jQuery('<span></span>');
+        buttonHolder.hallobutton({
+          label: 'Images',
+          icon: 'icon-picture',
+          editable: this.options.editable,
+          command: null,
+          queryState: false,
+          uuid: this.options.uuid,
+          cssClass: this.options.buttonCssClass
+        });
+        buttonset.append(buttonHolder);
+        this.button = buttonHolder;
+        this.button.on("click", function(event) {
+          if (widget.options.dialog.dialog("isOpen")) {
+            widget._closeDialog();
+          } else {
+            widget._openDialog();
+          }
+          return false;
+        });
+        this.options.editable.element.on("hallodeactivated", function(event) {
+          return widget._closeDialog();
+        });
+        jQuery(this.options.editable.element).delegate("img", "click", function(event) {
+          return widget._openDialog();
+        });
+        toolbar.append(buttonset);
+        this.options.dialog.dialog(this.options.dialogOpts);
+        return this._handleTabs();
+      },
+      setCurrent: function(image) {
+        return this.current.halloimagecurrent('setImage', image);
+      },
+      _handleTabs: function() {
+        var widget;
+        widget = this;
+        jQuery('.nav li', this.options.dialog).on('click', function() {
+          var id, left;
+          jQuery("." + widget.widgetName + "-tab").hide();
+          id = jQuery(this).attr('id');
+          jQuery("#" + id + "-content").show();
+          left = jQuery(this).position().left + (jQuery(this).width() / 2);
+          return jQuery("#" + widget.options.uuid + "-tab-activeIndicator").css({
+            "margin-left": left
+          });
+        });
+        return jQuery('.nav li', this.options.dialog).first().click();
+      },
+      _openDialog: function() {
+        var cleanUp, editableEl, getActive, suggestionSelector, toolbarEl, widget, xposition, yposition,
+          _this = this;
+        widget = this;
+        cleanUp = function() {
+          return window.setTimeout(function() {
+            var thumbnails;
+            thumbnails = jQuery(".imageThumbnail");
+            return jQuery(thumbnails).each(function() {
+              var size;
+              size = jQuery("#" + this.id).width();
+              if (size <= 20) {
+                return jQuery("#" + this.id).parent("li").remove();
+              }
+            });
+          }, 15000);
+        };
+        suggestionSelector = "#" + this.options.uuid + "-tab-suggestions-content";
+        getActive = function() {
+          return jQuery('.imageThumbnailActive', suggestionSelector).first().attr("src");
+        };
+        jQuery("#" + this.options.uuid + "-sugg-activeImage").attr("src", getActive());
+        jQuery("#" + this.options.uuid + "-sugg-activeImageBg").attr("src", getActive());
+        this.lastSelection = this.options.editable.getSelection();
+        editableEl = jQuery(this.options.editable.element);
+        toolbarEl = jQuery(this.options.toolbar);
+        xposition = editableEl.offset().left + editableEl.outerWidth() - 3;
+        yposition = toolbarEl.offset().top + toolbarEl.outerHeight() + 29;
+        yposition -= jQuery(document).scrollTop();
+        this.options.dialog.dialog("option", "position", [xposition, yposition]);
+        cleanUp();
+        widget.options.loaded = 1;
+        this.options.editable.keepActivated(true);
+        this.options.dialog.dialog("open");
+        return this.options.dialog.on('dialogclose', function() {
+          jQuery('label', _this.button).removeClass('ui-state-active');
+          _this.options.editable.element.focus();
+          return _this.options.editable.keepActivated(false);
+        });
+      },
+      _closeDialog: function() {
+        return this.options.dialog.dialog("close");
+      },
+      _addGuiTabSuggestions: function(tabs, element) {
+        var tab;
+        tabs.append(jQuery("<li id=\"" + this.options.uuid + "-tab-suggestions\"        class=\"" + this.widgetName + "-tabselector " + this.widgetName + "-tab-suggestions\">          <span>Suggestions</span>        </li>"));
+        tab = jQuery("<div id=\"" + this.options.uuid + "-tab-suggestions-content\"        class=\"" + this.widgetName + "-tab tab-suggestions\"></div>");
+        element.append(tab);
+        return tab.halloimagesuggestions({
+          uuid: this.options.uuid,
+          imageWidget: this,
+          entity: this.options.entity
+        });
+      },
+      _addGuiTabSearch: function(tabs, element) {
+        var dialogId, tab, widget;
+        widget = this;
+        dialogId = "" + this.options.uuid + "-image-dialog";
+        tabs.append(jQuery("<li id=\"" + this.options.uuid + "-tab-search\"        class=\"" + this.widgetName + "-tabselector " + this.widgetName + "-tab-search\">          <span>Search</span>        </li>"));
+        tab = jQuery("<div id=\"" + this.options.uuid + "-tab-search-content\"        class=\"" + widget.widgetName + "-tab tab-search\"></div>");
+        element.append(tab);
+        return tab.halloimagesearch({
+          uuid: this.options.uuid,
+          imageWidget: this,
+          searchCallback: this.options.search,
+          searchUrl: this.options.searchUrl,
+          limit: this.options.limit,
+          entity: this.options.entity
+        });
+      },
+      _addGuiTabUpload: function(tabs, element) {
+        var tab;
+        tabs.append(jQuery("<li id=\"" + this.options.uuid + "-tab-upload\"        class=\"" + this.widgetName + "-tabselector " + this.widgetName + "-tab-upload\">          <span>Upload</span>        </li>"));
+        tab = jQuery("<div id=\"" + this.options.uuid + "-tab-upload-content\"        class=\"" + this.widgetName + "-tab tab-upload\"></div>");
+        element.append(tab);
+        return tab.halloimageupload({
+          uuid: this.options.uuid,
+          uploadCallback: this.options.upload,
+          uploadUrl: this.options.uploadUrl,
+          imageWidget: this,
+          entity: this.options.entity
+        });
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloimagecurrent', {
+      options: {
+        imageWidget: null,
+        startPlace: '',
+        draggables: [],
+        maxWidth: 400,
+        maxHeight: 200
+      },
+      _create: function() {
+        this.element.html('<div>\
+        <div class="activeImageContainer">\
+          <div class="rotationWrapper">\
+            <div class="hintArrow"></div>\
+              <img src="" class="activeImage" />\
+            </div>\
+            <img src="" class="activeImage activeImageBg" />\
+          </div>\
+        </div>');
+        this.element.hide();
+        return this._prepareDnD();
+      },
+      _init: function() {
+        var editable, widget;
+        editable = jQuery(this.options.editable.element);
+        widget = this;
+        jQuery('img', editable).each(function(index, elem) {
+          return widget._initDraggable(elem, editable);
+        });
+        return jQuery('p', editable).each(function(index, elem) {
+          if (jQuery(elem).data('jquery_droppable_initialized')) {
+            return;
+          }
+          jQuery(elem).droppable({
+            tolerance: 'pointer',
+            drop: function(event, ui) {
+              return widget._handleDropEvent(event, ui);
+            },
+            over: function(event, ui) {
+              return widget._handleOverEvent(event, ui);
+            },
+            out: function(event, ui) {
+              return widget._handleLeaveEvent(event, ui);
+            }
+          });
+          return jQuery(elem).data('jquery_droppable_initialized', true);
+        });
+      },
+      _prepareDnD: function() {
+        var editable, overlayMiddleConfig, widget;
+        widget = this;
+        editable = jQuery(this.options.editable.element);
+        this.options.offset = editable.offset();
+        this.options.third = parseFloat(editable.width() / 3);
+        overlayMiddleConfig = {
+          width: this.options.third,
+          height: editable.height()
+        };
+        this.overlay = {
+          big: jQuery("<div/>").addClass("bigOverlay").css({
+            width: this.options.third * 2,
+            height: editable.height()
+          }),
+          left: jQuery("<div/>").addClass("smallOverlay smallOverlayLeft"),
+          right: jQuery("<div/>").addClass("smallOverlay smallOverlayRight")
+        };
+        this.overlay.left.css(overlayMiddleConfig);
+        this.overlay.right.css(overlayMiddleConfig).css("left", this.options.third * 2);
+        editable.on('halloactivated', function() {
+          return widget._enableDragging();
+        });
+        return editable.on('hallodeactivated', function() {
+          return widget._disableDragging();
+        });
+      },
+      setImage: function(image) {
+        if (!image) {
+          return;
+        }
+        this.element.show();
+        jQuery('.activeImage', this.element).attr('src', image.url);
+        if (image.label) {
+          jQuery('input', this.element).val(image.label);
+        }
+        return this._initImage(jQuery(this.options.editable.element));
+      },
+      _delayAction: function(functionToCall, delay) {
+        var timer;
+        timer = clearTimeout(timer);
+        if (!timer) {
+          return timer = setTimeout(functionToCall, delay);
+        }
+      },
+      _calcDropPosition: function(offset, event) {
+        var position, rightTreshold;
+        position = offset.left + this.options.third;
+        rightTreshold = offset.left + this.options.third * 2;
+        if (event.pageX >= position && event.pageX <= rightTreshold) {
+          return 'middle';
+        } else if (event.pageX < position) {
+          return 'left';
+        } else if (event.pageX > rightTreshold) {
+          return 'right';
+        }
+      },
+      _createInsertElement: function(image, tmp) {
+        var imageInsert, tmpImg;
+        imageInsert = jQuery('<img>');
+        tmpImg = new Image();
+        jQuery(tmpImg).on('load', function() {});
+        tmpImg.src = image.src;
+        imageInsert.attr({
+          src: tmpImg.src,
+          alt: !tmp ? jQuery(image).attr('alt') : void 0,
+          "class": tmp ? 'halloTmp' : 'imageInText'
+        });
+        imageInsert.show();
+        return imageInsert;
+      },
+      _createLineFeedbackElement: function() {
+        return jQuery('<div/>').addClass('halloTmpLine');
+      },
+      _removeFeedbackElements: function() {
+        this.overlay.big.remove();
+        this.overlay.left.remove();
+        this.overlay.right.remove();
+        return jQuery('.halloTmp, .halloTmpLine', this.options.editable.element).remove();
+      },
+      _removeCustomHelper: function() {
+        return jQuery('.customHelper').remove();
+      },
+      _showOverlay: function(position) {
+        var eHeight, editable;
+        editable = jQuery(this.options.editable.element);
+        eHeight = editable.height();
+        eHeight += parseFloat(editable.css('paddingTop'));
+        eHeight += parseFloat(editable.css('paddingBottom'));
+        this.overlay.big.css({
+          height: eHeight
+        });
+        this.overlay.left.css({
+          height: eHeight
+        });
+        this.overlay.right.css({
+          height: eHeight
+        });
+        switch (position) {
+          case 'left':
+            this.overlay.big.addClass("bigOverlayLeft");
+            this.overlay.big.removeClass("bigOverlayRight");
+            this.overlay.big.css({
+              left: this.options.third
+            });
+            this.overlay.big.show();
+            this.overlay.left.hide();
+            return this.overlay.right.hide();
+          case 'middle':
+            this.overlay.big.removeClass("bigOverlayLeft bigOverlayRight");
+            this.overlay.big.hide();
+            this.overlay.left.show();
+            return this.overlay.right.show();
+          case 'right':
+            this.overlay.big.addClass("bigOverlayRight");
+            this.overlay.big.removeClass("bigOverlayLeft");
+            this.overlay.big.css({
+              left: 0
+            });
+            this.overlay.big.show();
+            this.overlay.left.hide();
+            return this.overlay.right.hide();
+        }
+      },
+      _checkOrigin: function(event) {
+        if (jQuery(event.target).parents("[contenteditable]").length !== 0) {
+          return true;
+        }
+        return false;
+      },
+      _createFeedback: function(image, position) {
+        var el;
+        if (position === 'middle') {
+          return this._createLineFeedbackElement();
+        }
+        el = this._createInsertElement(image, true);
+        return el.addClass("inlineImage-" + position);
+      },
+      _handleOverEvent: function(event, ui) {
+        var editable, postPone, widget;
+        widget = this;
+        editable = jQuery(this.options.editable);
+        postPone = function() {
+          var position, target;
+          window.waitWithTrash = clearTimeout(window.waitWithTrash);
+          position = widget._calcDropPosition(widget.options.offset, event);
+          jQuery('.trashcan', ui.helper).remove();
+          editable[0].element.append(widget.overlay.big);
+          editable[0].element.append(widget.overlay.left);
+          editable[0].element.append(widget.overlay.right);
+          widget._removeFeedbackElements();
+          target = jQuery(event.target);
+          target.prepend(widget._createFeedback(ui.draggable[0], position));
+          if (position === 'middle') {
+            target.prepend(widget._createFeedback(ui.draggable[0], 'right'));
+            jQuery('.halloTmp', event.target).hide();
+          } else {
+            target.prepend(widget._createFeedback(ui.draggable[0], 'middle'));
+            jQuery('.halloTmpLine', event.target).hide();
+          }
+          return widget._showOverlay(position);
+        };
+        return setTimeout(postPone, 5);
+      },
+      _handleDragEvent: function(event, ui) {
+        var position, tmpFeedbackLR, tmpFeedbackMiddle;
+        position = this._calcDropPosition(this.options.offset, event);
+        if (position === this._lastPositionDrag) {
+          return;
+        }
+        this._lastPositionDrag = position;
+        tmpFeedbackLR = jQuery('.halloTmp', this.options.editable.element);
+        tmpFeedbackMiddle = jQuery('.halloTmpLine', this.options.editable.element);
+        if (position === 'middle') {
+          tmpFeedbackMiddle.show();
+          tmpFeedbackLR.hide();
+        } else {
+          tmpFeedbackMiddle.hide();
+          tmpFeedbackLR.removeClass('inlineImage-left inlineImage-right');
+          tmpFeedbackLR.addClass("inlineImage-" + position);
+          tmpFeedbackLR.show();
+        }
+        return this._showOverlay(position);
+      },
+      _handleLeaveEvent: function(event, ui) {
+        var func;
+        func = function() {
+          if (!jQuery('div.trashcan', ui.helper).length) {
+            jQuery(ui.helper).append(jQuery('<div class="trashcan"></div>'));
+            return jQuery('.bigOverlay, .smallOverlay').remove();
+          }
+        };
+        window.waitWithTrash = setTimeout(func, 200);
+        return this._removeFeedbackElements();
+      },
+      _handleStartEvent: function(event, ui) {
+        var internalDrop;
+        internalDrop = this._checkOrigin(event);
+        if (internalDrop) {
+          jQuery(event.target).remove();
+        }
+        jQuery(document).trigger('startPreventSave');
+        return this.options.startPlace = jQuery(event.target);
+      },
+      _handleStopEvent: function(event, ui) {
+        var internalDrop;
+        internalDrop = this._checkOrigin(event);
+        if (internalDrop) {
+          jQuery(event.target).remove();
+        } else {
+          jQuery(this.options.editable.element).trigger('change');
+        }
+        this.overlay.big.hide();
+        this.overlay.left.hide();
+        this.overlay.right.hide();
+        return jQuery(document).trigger('stopPreventSave');
+      },
+      _handleDropEvent: function(event, ui) {
+        var classes, editable, imageInsert, internalDrop, left, position;
+        editable = jQuery(this.options.editable.element);
+        internalDrop = this._checkOrigin(event);
+        position = this._calcDropPosition(this.options.offset, event);
+        this._removeFeedbackElements();
+        this._removeCustomHelper();
+        imageInsert = this._createInsertElement(ui.draggable[0], false);
+        classes = 'inlineImage-middle inlineImage-left inlineImage-right';
+        if (position === 'middle') {
+          imageInsert.show();
+          imageInsert.removeClass(classes);
+          left = editable.width();
+          left += parseFloat(editable.css('paddingLeft'));
+          left += parseFloat(editable.css('paddingRight'));
+          left -= imageInsert.attr('width');
+          imageInsert.addClass("inlineImage-" + position).css({
+            position: 'relative',
+            left: left / 2
+          });
+          imageInsert.insertBefore(jQuery(event.target));
+        } else {
+          imageInsert.removeClass(classes);
+          imageInsert.addClass("inlineImage-" + position);
+          imageInsert.css('display', 'block');
+          jQuery(event.target).prepend(imageInsert);
+        }
+        this.overlay.big.hide();
+        this.overlay.left.hide();
+        this.overlay.right.hide();
+        editable.trigger('change');
+        return this._initImage(editable);
+      },
+      _createHelper: function(event) {
+        return jQuery('<div>').css({
+          backgroundImage: "url(" + (jQuery(event.currentTarget).attr('src')) + ")"
+        }).addClass('customHelper').appendTo('body');
+      },
+      _initDraggable: function(elem, editable) {
+        var widget;
+        widget = this;
+        if (!elem.jquery_draggable_initialized) {
+          elem.jquery_draggable_initialized = true;
+          jQuery(elem).draggable({
+            cursor: 'move',
+            helper: function(event) {
+              return widget._createHelper(event);
+            },
+            drag: function(event, ui) {
+              return widget._handleDragEvent(event, ui);
+            },
+            start: function(event, ui) {
+              return widget._handleStartEvent(event, ui);
+            },
+            stop: function(event, ui) {
+              return widget._handleStopEvent(event, ui);
+            },
+            disabled: !editable.hasClass('inEditMode'),
+            cursorAt: {
+              top: 50,
+              left: 50
+            }
+          });
+        }
+        return widget.options.draggables.push(elem);
+      },
+      _initImage: function(editable) {
+        var widget;
+        widget = this;
+        return jQuery('.rotationWrapper img', this.options.dialog).each(function(index, elem) {
+          return widget._initDraggable(elem, editable);
+        });
+      },
+      _enableDragging: function() {
+        return jQuery.each(this.options.draggables, function(index, d) {
+          return jQuery(d).draggable('option', 'disabled', false);
+        });
+      },
+      _disableDragging: function() {
+        return jQuery.each(this.options.draggables, function(index, d) {
+          return jQuery(d).draggable('option', 'disabled', true);
+        });
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloimagesearch', {
+      options: {
+        imageWidget: null,
+        searchCallback: null,
+        searchUrl: null,
+        limit: 5
+      },
+      _create: function() {
+        return this.element.html('<div>\
+        <form method="get">\
+          <input type="text" class="searchInput" placeholder="Search" />\
+          <input type="submit" class="btn searchButton" value="OK" />\
+        </form>\
+        <div class="searchResults imageThumbnailContainer">\
+          <div class="activitySpinner">Loading images...</div>\
+          <ul></ul>\
+        </div>\
+      </div>');
+      },
+      _init: function() {
+        var _this = this;
+        if (this.options.searchUrl && !this.options.searchCallback) {
+          this.options.searchCallback = this._ajaxSearch;
+        }
+        jQuery('.activitySpinner', this.element).hide();
+        return jQuery('form', this.element).submit(function(event) {
+          var query;
+          event.preventDefault();
+          jQuery('.activitySpinner', _this.element).show();
+          query = jQuery('.searchInput', _this.element.element).val();
+          return _this.options.searchCallback(query, _this.options.limit, 0, function(results) {
+            return _this._showResults(results);
+          });
+        });
+      },
+      _showResult: function(image) {
+        var html,
+          _this = this;
+        if (!image.label) {
+          image.label = image.alt;
+        }
+        html = jQuery("<li>        <img src=\"" + image.url + "\" class=\"imageThumbnail\"          title=\"" + image.label + "\"></li>");
+        html.on('click', function() {
+          return _this.options.imageWidget.setCurrent(image);
+        });
+        jQuery('img', html).on('mousedown', function(event) {
+          event.preventDefault();
+          return _this.options.imageWidget.setCurrent(image);
+        });
+        return jQuery('.imageThumbnailContainer ul', this.element).append(html);
+      },
+      _showNextPrev: function(results) {
+        var container,
+          _this = this;
+        container = jQuery('imageThumbnailContainer ul', this.element);
+        container.prepend(jQuery('<div class="pager-prev" style="display:none" />'));
+        container.append(jQuery('<div class="pager-next" style="display:none" />'));
+        if (results.offset > 0) {
+          jQuery('.pager-prev', container).show();
+        }
+        if (results.offset < results.total) {
+          jQuery('.pager-next', container).show();
+        }
+        jQuery('.pager-prev', container).click(function(event) {
+          var offset;
+          offset = results.offset - _this.options.limit;
+          return _this.options.searchCallback(query, _this.options.limit, offset, function(results) {
+            return _this._showResults(results);
+          });
+        });
+        return jQuery('.pager-next', container).click(function(event) {
+          var offset;
+          offset = results.offset + _this.options.limit;
+          return _this.options.searchCallback(query, _this.options.limit, offset, function(results) {
+            return _this._showResults(results);
+          });
+        });
+      },
+      _showResults: function(results) {
+        var image, _i, _len, _ref;
+        jQuery('.activitySpinner', this.element).hide();
+        jQuery('.imageThumbnailContainer ul', this.element).empty();
+        jQuery('.imageThumbnailContainer ul', this.element).show();
+        _ref = results.assets;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          image = _ref[_i];
+          this._showResult(image);
+        }
+        this.options.imageWidget.setCurrent(results.assets.shift());
+        return this._showNextPrev(results);
+      },
+      _ajaxSearch: function(query, limit, offset, success) {
+        var searchUrl;
+        searchUrl = this.searchUrl + '?' + jQuery.param({
+          q: query,
+          limit: limit,
+          offset: offset
+        });
+        return jQuery.getJSON(searchUrl, success);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloimagesuggestions', {
+      loaded: false,
+      options: {
+        entity: null,
+        vie: null,
+        dbPediaUrl: null,
+        getSuggestions: null,
+        thumbnailUri: '<http://dbpedia.org/ontology/thumbnail>'
+      },
+      _create: function() {
+        return this.element.html('\
+      <div id="' + this.options.uuid + '-tab-suggestions">\
+        <div class="imageThumbnailContainer">\
+          <div class="activitySpinner">Loading images...</div>\
+          <ul></ul>\
+        </div>\
+      </div>');
+      },
+      _init: function() {
+        return jQuery('.activitySpinner', this.element).hide();
+      },
+      _normalizeRelated: function(related) {
+        if (_.isString(related)) {
+          return related;
+        }
+        if (_.isArray(related)) {
+          return related.join(',');
+        }
+        return related.pluck('@subject').join(',');
+      },
+      _prepareVIE: function() {
+        if (!this.options.vie) {
+          this.options.vie = new VIE;
+        }
+        if (this.options.vie.services.dbpedia) {
+          return;
+        }
+        if (!this.options.dbPediaUrl) {
+          return;
+        }
+        return this.options.vie.use(new vie.DBPediaService({
+          url: this.options.dbPediaUrl,
+          proxyDisabled: true
+        }));
+      },
+      _getSuggestions: function() {
+        var limit, normalizedTags, tags;
+        if (this.loaded) {
+          return;
+        }
+        if (!this.options.entity) {
+          return;
+        }
+        jQuery('.activitySpinner', this.element).show();
+        tags = this.options.entity.get('skos:related');
+        if (tags.length === 0) {
+          jQuery("#activitySpinner").html('No images found.');
+          return;
+        }
+        jQuery('.imageThumbnailContainer ul', this.element).empty();
+        normalizedTags = this._normalizeRelated(tags);
+        limit = this.options.limit;
+        if (this.options.getSuggestions) {
+          this.options.getSuggestions(normalizedTags, limit, 0, this._showSuggestions);
+        }
+        this._prepareVIE();
+        if (this.options.vie.services.dbpedia) {
+          this._getSuggestionsDbPedia(tags);
+        }
+        return this.loaded = true;
+      },
+      _getSuggestionsDbPedia: function(tags) {
+        var thumbId, widget;
+        widget = this;
+        thumbId = 1;
+        return _.each(tags, function(tag) {
+          return vie.load({
+            entity: tag
+          }).using('dbpedia').execute().done(function(entities) {
+            jQuery('.activitySpinner', this.element).hide();
+            return _.each(entities, function(entity) {
+              var img, thumbnail;
+              thumbnail = entity.attributes[widget.options.thumbnailUri];
+              if (!thumbnail) {
+                return;
+              }
+              if (_.isObject(thumbnail)) {
+                img = thumbnail[0].value;
+              }
+              if (_.isString(thumbnail)) {
+                img = widget.options.entity.fromReference(thumbnail);
+              }
+              return widget._showSuggestion({
+                url: img,
+                label: tag
+              });
+            });
+          });
+        });
+      },
+      _showSuggestion: function(image) {
+        var html,
+          _this = this;
+        html = jQuery("<li>        <img src=\"" + image.url + "\" class=\"imageThumbnail\"          title=\"" + image.label + "\">        </li>");
+        html.on('click', function() {
+          return _this.options.imageWidget.setCurrent(image);
+        });
+        return jQuery('.imageThumbnailContainer ul', this.element).append(html);
+      },
+      _showSuggestions: function(suggestions) {
+        var _this = this;
+        jQuery('.activitySpinner', this.element).hide();
+        return _.each(suggestions, function(image) {
+          return _this._showSuggestion(image);
+        });
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloimageupload', {
+      options: {
+        uploadCallback: null,
+        uploadUrl: null,
+        imageWidget: null,
+        entity: null
+      },
+      _create: function() {
+        return this.element.html('\
+        <form class="upload">\
+        <input type="file" class="file" name="userfile" accept="image/*" />\
+        <input type="hidden" name="tags" value="" />\
+        <input type="text" class="caption" name="caption" placeholder="Title" />\
+        <button class="uploadSubmit">Upload</button>\
+        </form>\
+      ');
+      },
+      _init: function() {
+        var widget;
+        widget = this;
+        if (widget.options.uploadUrl && !widget.options.uploadCallback) {
+          widget.options.uploadCallback = widget._iframeUpload;
+        }
+        return jQuery('.uploadSubmit', this.element).on('click', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          return widget.options.uploadCallback({
+            widget: widget,
+            success: function(url) {
+              return widget.options.imageWidget.setCurrent({
+                url: url,
+                label: ''
+              });
+            }
+          });
+        });
+      },
+      _prepareIframe: function(widget) {
+        var iframe, iframeName;
+        iframeName = "" + widget.widgetName + "_postframe_" + widget.options.uuid;
+        iframeName = iframeName.replace(/-/g, '_');
+        iframe = jQuery("#" + iframeName);
+        if (iframe.length) {
+          return iframe;
+        }
+        iframe = jQuery("<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\"        class=\"hidden\" style=\"display:none\" />");
+        this.element.append(iframe);
+        iframe.get(0).name = iframeName;
+        return iframe;
+      },
+      _iframeUpload: function(data) {
+        var iframe, uploadForm, uploadUrl, widget;
+        widget = data.widget;
+        iframe = widget._prepareIframe(widget);
+        uploadForm = jQuery('form.upload', widget.element);
+        if (typeof widget.options.uploadUrl === 'function') {
+          uploadUrl = widget.options.uploadUrl(widget.options.entity);
+        } else {
+          uploadUrl = widget.options.uploadUrl;
+        }
+        iframe.on('load', function() {
+          var imageUrl;
+          imageUrl = iframe.get(0).contentWindow.location.href;
+          widget.element.hide();
+          return data.success(imageUrl);
+        });
+        uploadForm.attr('action', uploadUrl);
+        uploadForm.attr('method', 'post');
+        uploadForm.attr('target', iframe.get(0).name);
+        uploadForm.attr('enctype', 'multipart/form-data');
+        uploadForm.attr('encoding', 'multipart/form-data');
+        return uploadForm.submit();
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.hallo-image-insert-edit", {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: "",
+        insert_file_dialog_ui_url: null,
+        lang: 'en',
+        dialogOpts: {
+          autoOpen: false,
+          width: 560,
+          height: 'auto',
+          modal: false,
+          resizable: true,
+          draggable: true,
+          dialogClass: 'insert-image-dialog'
+        },
+        dialog: null,
+        buttonCssClass: null
+      },
+      translations: {
+        en: {
+          title_insert: 'Insert Image',
+          title_properties: 'Image Properties',
+          insert: 'Insert',
+          chage_image: 'Change Image:',
+          source: 'URL',
+          width: 'Width',
+          height: 'Height',
+          alt: 'Alt Text',
+          padding: 'Padding',
+          'float': 'Float',
+          float_left: 'left',
+          float_right: 'right',
+          float_none: 'No'
+        },
+        de: {
+          title_insert: 'Bild einfügen',
+          title_properties: 'Bildeigenschaften',
+          insert: 'Einfügen',
+          chage_image: 'Bild ändern:',
+          source: 'URL',
+          width: 'Breite',
+          height: 'Höhe',
+          alt: 'Alt Text',
+          padding: 'Padding',
+          'float': 'Float',
+          float_left: 'Links',
+          float_right: 'Rechts',
+          float_none: 'Nein'
+        }
+      },
+      texts: null,
+      dialog_image_selection_ui_loaded: false,
+      $image: null,
+      populateToolbar: function($toolbar) {
+        var $buttonHolder, $buttonset, dialog_html, widget;
+        widget = this;
+        this.texts = this.translations[this.options.lang];
+        this.options.toolbar = $toolbar;
+        dialog_html = "<div id='hallo_img_properties'></div>";
+        if (this.options.insert_file_dialog_ui_url) {
+          dialog_html += "<div id='hallo_img_file_select_ui'></div>";
+        }
+        this.options.dialog = jQuery("<div>").attr('id', "" + this.options.uuid + "-insert-image-dialog").html(dialog_html);
+        $buttonset = jQuery("<span>").addClass(this.widgetName);
+        $buttonHolder = jQuery('<span>');
+        $buttonHolder.hallobutton({
+          label: this.texts.title_insert,
+          icon: 'icon-picture',
+          editable: this.options.editable,
+          command: null,
+          queryState: false,
+          uuid: this.options.uuid,
+          cssClass: this.options.buttonCssClass
+        });
+        $buttonset.append($buttonHolder);
+        this.button = $buttonHolder;
+        this.button.click(function() {
+          if (widget.options.dialog.dialog("isOpen")) {
+            widget._closeDialog();
+          } else {
+            widget.lastSelection = widget.options.editable.getSelection();
+            widget._openDialog();
+          }
+          return false;
+        });
+        this.options.editable.element.on("halloselected, hallounselected", function() {
+          if (widget.options.dialog.dialog("isOpen")) {
+            return widget.lastSelection = widget.options.editable.getSelection();
+          }
+        });
+        this.options.editable.element.on("hallodeactivated", function() {
+          return widget._closeDialog();
+        });
+        jQuery(this.options.editable.element).on("click", "img", function(e) {
+          widget._openDialog(jQuery(this));
+          return false;
+        });
+        this.options.editable.element.on('halloselected', function(event, data) {
+          var toolbar_option;
+          toolbar_option = widget.options.editable.options.toolbar;
+          if (toolbar_option === "halloToolbarContextual" && jQuery(data.originalEvent.target).is('img')) {
+            $toolbar.hide();
+            return false;
+          }
+        });
+        $toolbar.append($buttonset);
+        return this.options.dialog.dialog(this.options.dialogOpts);
+      },
+      _openDialog: function($image) {
+        var $editableEl, widget, xposition, yposition,
+          _this = this;
+        this.$image = $image;
+        widget = this;
+        $editableEl = jQuery(this.options.editable.element);
+        xposition = $editableEl.offset().left + $editableEl.outerWidth() + 10;
+        if (this.$image) {
+          yposition = this.$image.offset().top - jQuery(document).scrollTop();
+        } else {
+          yposition = this.options.toolbar.offset().top - jQuery(document).scrollTop();
+        }
+        this.options.dialog.dialog("option", "position", [xposition, yposition]);
+        this.options.editable.keepActivated(true);
+        this.options.dialog.dialog("open");
+        if (this.$image) {
+          this.options.dialog.dialog("option", "title", this.texts.title_properties);
+          jQuery(document).keyup(function(e) {
+            if (e.keyCode === 46 || e.keyCode === 8) {
+              jQuery(document).off();
+              widget._closeDialog();
+              widget.$image.remove();
+              widget.$image = null;
+            }
+            return e.preventDefault();
+          });
+          this.options.editable.element.on("click", function() {
+            widget.$image = null;
+            return widget._closeDialog();
+          });
+        } else {
+          this.options.dialog.children('#hallo_img_properties').hide();
+          this.options.dialog.dialog("option", "title", this.texts.title_insert);
+          if (jQuery('#hallo_img_file_select_title').length > 0) {
+            jQuery('#hallo_img_file_select_title').text('');
+          }
+        }
+        this._load_dialog_image_properties_ui();
+        this.options.dialog.on('dialogclose', function() {
+          var scrollbar_pos;
+          jQuery('label', _this.button).removeClass('ui-state-active');
+          scrollbar_pos = jQuery(document).scrollTop();
+          _this.options.editable.element.focus();
+          jQuery(document).scrollTop(scrollbar_pos);
+          return _this.options.editable.keepActivated(false);
+        });
+        if (this.options.insert_file_dialog_ui_url && !this.dialog_image_selection_ui_loaded) {
+          this.options.dialog.on('click', ".reload_link", function() {
+            widget._load_dialog_image_selection_ui();
+            return false;
+          });
+          this.options.dialog.on('click', '.file_preview img', function() {
+            var new_source;
+            if (widget.$image) {
+              new_source = jQuery(this).attr('src').replace(/-thumb/, '');
+              widget.$image.attr('src', new_source);
+              jQuery('#hallo_img_source').val(new_source);
+            } else {
+              widget._insert_image(jQuery(this).attr('src').replace(/-thumb/, ''));
+            }
+            return false;
+          });
+          return this._load_dialog_image_selection_ui();
+        }
+      },
+      _insert_image: function(source) {
+        this.options.editable.restoreSelection(this.lastSelection);
+        document.execCommand("insertImage", null, source);
+        this.options.editable.element.trigger('change');
+        this.options.editable.removeAllSelections();
+        return this._closeDialog();
+      },
+      _closeDialog: function() {
+        return this.options.dialog.dialog("close");
+      },
+      _load_dialog_image_selection_ui: function() {
+        var widget;
+        widget = this;
+        return jQuery.ajax({
+          url: this.options.insert_file_dialog_ui_url,
+          success: function(data, textStatus, jqXHR) {
+            var $properties, file_select_title, t;
+            file_select_title = '';
+            $properties = widget.options.dialog.children('#hallo_img_properties');
+            if ($properties.is(':visible')) {
+              file_select_title = widget.texts.change_image;
+            }
+            t = "<div id='hallo_img_file_select_title'>" + file_select_title + "</div>";
+            widget.options.dialog.children('#hallo_img_file_select_ui').html(t + data);
+            return widget.dialog_image_selection_ui_loaded = true;
+          },
+          beforeSend: function() {
+            return widget.options.dialog.children('#hallo_img_file_select_ui').html('<div class="hallo_insert_file_loader"></div>');
+          }
+        });
+      },
+      _load_dialog_image_properties_ui: function() {
+        var $img_properties, button, height, html, widget, width;
+        widget = this;
+        $img_properties = this.options.dialog.children('#hallo_img_properties');
+        if (this.$image) {
+          width = this.$image.is('[width]') ? this.$image.attr('width') : '';
+          height = this.$image.is('[height]') ? this.$image.attr('height') : '';
+          html = this._property_input_html('source', this.$image.attr('src'), {
+            label: this.texts.source
+          }) + this._property_input_html('alt', this.$image.attr('alt') || '', {
+            label: this.texts.alt
+          }) + this._property_row_html(this._property_input_html('width', width, {
+            label: this.texts.width,
+            row: false
+          }) + this._property_input_html('height', height, {
+            label: this.texts.height,
+            row: false
+          })) + this._property_input_html('padding', this.$image.css('padding'), {
+            label: this.texts.padding
+          }) + this._property_row_html(this._property_cb_html('float_left', this.$image.css('float') === 'left', {
+            label: this.texts.float_left,
+            row: false
+          }) + this._property_cb_html('float_right', this.$image.css('float') === 'right', {
+            label: this.texts.float_right,
+            row: false
+          }) + this._property_cb_html('unfloat', this.$image.css('float') === 'none', {
+            label: this.texts.float_none,
+            row: false
+          }), this.texts[float]);
+          $img_properties.html(html);
+          $img_properties.show();
+        } else {
+          if (!this.options.insert_file_dialog_ui_url) {
+            $img_properties.html(this._property_input_html('source', '', {
+              label: this.texts.source
+            }));
+            $img_properties.show();
+          }
+        }
+        if (this.$image) {
+          if (!this.options.insert_file_dialog_ui_url) {
+            jQuery('#insert_image_btn').remove();
+          }
+          if (jQuery('#hallo_img_file_select_title').length > 0) {
+            jQuery('#hallo_img_file_select_title').text(this.texts.chage_image);
+          }
+          jQuery('#hallo_img_properties #hallo_img_source').keyup(function() {
+            return widget.$image.attr('src', this.value);
+          });
+          jQuery('#hallo_img_properties #hallo_img_alt').keyup(function() {
+            return widget.$image.attr('alt', this.value);
+          });
+          jQuery('#hallo_img_properties #hallo_img_padding').keyup(function() {
+            return widget.$image.css('padding', this.value);
+          });
+          jQuery('#hallo_img_properties #hallo_img_height').keyup(function() {
+            widget.$image.css('height', this.value);
+            return widget.$image.attr('height', this.value);
+          });
+          jQuery('#hallo_img_properties #hallo_img_width').keyup(function() {
+            widget.$image.css('width', this.value);
+            return widget.$image.attr('width', this.value);
+          });
+          jQuery('#hallo_img_properties #hallo_img_float_left').click(function() {
+            if (!this.checked) {
+              return false;
+            }
+            widget.$image.css('float', 'left');
+            jQuery('#hallo_img_properties #hallo_img_float_right').removeAttr('checked');
+            return jQuery('#hallo_img_properties #hallo_img_unfloat').removeAttr('checked');
+          });
+          jQuery('#hallo_img_properties #hallo_img_float_right').click(function() {
+            if (!this.checked) {
+              return false;
+            }
+            widget.$image.css('float', 'right');
+            jQuery('#hallo_img_properties #hallo_img_unfloat').removeAttr('checked');
+            return jQuery('#hallo_img_properties #hallo_img_float_left').removeAttr('checked');
+          });
+          return jQuery('#hallo_img_properties #hallo_img_unfloat').click(function() {
+            if (!this.checked) {
+              return false;
+            }
+            widget.$image.css('float', 'none');
+            jQuery('#hallo_img_properties #hallo_img_float_right').removeAttr('checked');
+            return jQuery('#hallo_img_properties #hallo_img_float_left').removeAttr('checked');
+          });
+        } else {
+          if (!this.options.insert_file_dialog_ui_url) {
+            button = "<button id=\"insert_image_btn\">" + this.texts.insert + "</button>";
+            $img_properties.after(button);
+            return jQuery('#insert_image_btn').click(function() {
+              var $img_source;
+              $img_source = jQuery('#hallo_img_properties #hallo_img_source');
+              return widget._insert_image($img_source.val());
+            });
+          }
+        }
+      },
+      _property_col_html: function(col_html) {
+        return "<div class='hallo_img_property_col'>" + col_html + "</div>";
+      },
+      _property_row_html: function(row_html, label) {
+        if (label == null) {
+          label = '';
+        }
+        row_html = this._property_col_html(label) + this._property_col_html(row_html);
+        return "<div class='hallo_img_property_row'>" + row_html + "</div>";
+      },
+      _property_html: function(property_html, options) {
+        var entry;
+        if (options == null) {
+          options = {};
+        }
+        if (options.row === false) {
+          if (options.label) {
+            entry = "" + options.label + " " + property_html;
+            property_html = "<span class='img_property_entry'>" + entry + "</span>";
+          }
+          return property_html;
+        } else {
+          entry = "<span class='img_property_entry'>" + property_html + "</span>";
+          return this._property_row_html(entry, options.label);
+        }
+      },
+      _property_input_html: function(id, value, options) {
+        var text_field;
+        if (options == null) {
+          options = {};
+        }
+        text_field = "<input type='text' id='hallo_img_" + id + "' value='" + value + "'>";
+        return this._property_html(text_field, options);
+      },
+      _property_cb_html: function(id, checked, options) {
+        var cb, checked_attr;
+        if (options == null) {
+          options = {};
+        }
+        checked_attr = checked ? 'checked=checked' : '';
+        cb = "<input type='checkbox' id='hallo_img_" + id + "' " + checked_attr + "'>";
+        return this._property_html(cb, options);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloindicator', {
+      options: {
+        editable: null,
+        className: 'halloEditIndicator'
+      },
+      _create: function() {
+        var _this = this;
+        return this.element.on('halloenabled', function() {
+          return _this.buildIndicator();
+        });
+      },
+      populateToolbar: function() {},
+      buildIndicator: function() {
+        var editButton;
+        editButton = jQuery('<div><i class="icon-edit"></i> Edit</div>');
+        editButton.addClass(this.options.className);
+        editButton.hide();
+        this.element.before(editButton);
+        this.bindIndicator(editButton);
+        return this.setIndicatorPosition(editButton);
+      },
+      bindIndicator: function(indicator) {
+        var _this = this;
+        indicator.on('click', function() {
+          return _this.options.editable.element.focus();
+        });
+        this.element.on('halloactivated', function() {
+          return indicator.hide();
+        });
+        this.element.on('hallodisabled', function() {
+          return indicator.remove();
+        });
+        return this.options.editable.element.hover(function() {
+          if (jQuery(this).hasClass('inEditMode')) {
+            return;
+          }
+          return indicator.show();
+        }, function(data) {
+          if (jQuery(this).hasClass('inEditMode')) {
+            return;
+          }
+          if (data.relatedTarget === indicator.get(0)) {
+            return;
+          }
+          return indicator.hide();
+        });
+      },
+      setIndicatorPosition: function(indicator) {
+        var offset;
+        indicator.css('position', 'absolute');
+        offset = this.element.position();
+        indicator.css('top', offset.top + 2);
+        return indicator.css('left', offset.left + 2);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.hallojustify", {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: '',
+        buttonCssClass: null
+      },
+      populateToolbar: function(toolbar) {
+        var buttonize, buttonset,
+          _this = this;
+        buttonset = jQuery("<span class=\"" + this.widgetName + "\"></span>");
+        buttonize = function(alignment) {
+          var buttonElement;
+          buttonElement = jQuery('<span></span>');
+          buttonElement.hallobutton({
+            uuid: _this.options.uuid,
+            editable: _this.options.editable,
+            label: alignment,
+            command: "justify" + alignment,
+            icon: "icon-align-" + (alignment.toLowerCase()),
+            cssClass: _this.options.buttonCssClass
+          });
+          return buttonset.append(buttonElement);
+        };
+        buttonize("Left");
+        buttonize("Center");
+        buttonize("Right");
+        buttonset.hallobuttonset();
+        return toolbar.append(buttonset);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.hallolink", {
+      options: {
+        editable: null,
+        uuid: "",
+        link: true,
+        image: true,
+        defaultUrl: 'http://',
+        dialogOpts: {
+          autoOpen: false,
+          width: 540,
+          height: 200,
+          title: "Enter Link",
+          buttonTitle: "Insert",
+          buttonUpdateTitle: "Update",
+          modal: true,
+          resizable: false,
+          draggable: false,
+          dialogClass: 'hallolink-dialog'
+        },
+        buttonCssClass: null
+      },
+      populateToolbar: function(toolbar) {
+        var butTitle, butUpdateTitle, buttonize, buttonset, dialog, dialogId, dialogSubmitCb, isEmptyLink, urlInput, widget,
+          _this = this;
+        widget = this;
+        dialogId = "" + this.options.uuid + "-dialog";
+        butTitle = this.options.dialogOpts.buttonTitle;
+        butUpdateTitle = this.options.dialogOpts.buttonUpdateTitle;
+        dialog = jQuery("<div id=\"" + dialogId + "\">        <form action=\"#\" method=\"post\" class=\"linkForm\">          <input class=\"url\" type=\"text\" name=\"url\"            value=\"" + this.options.defaultUrl + "\" />          <input type=\"submit\" id=\"addlinkButton\" value=\"" + butTitle + "\"/>        </form></div>");
+        urlInput = jQuery('input[name=url]', dialog);
+        isEmptyLink = function(link) {
+          if ((new RegExp(/^\s*$/)).test(link)) {
+            return true;
+          }
+          if (link === widget.options.defaultUrl) {
+            return true;
+          }
+          return false;
+        };
+        dialogSubmitCb = function(event) {
+          var link, linkNode;
+          event.preventDefault();
+          link = urlInput.val();
+          dialog.dialog('close');
+          widget.options.editable.restoreSelection(widget.lastSelection);
+          if (isEmptyLink(link)) {
+            document.execCommand("unlink", null, "");
+          } else {
+            if (!(/:\/\//.test(link)) && !(/^mailto:/.test(link))) {
+              link = 'http://' + link;
+            }
+            if (widget.lastSelection.startContainer.parentNode.href === void 0) {
+              if (widget.lastSelection.collapsed) {
+                linkNode = jQuery("<a href='" + link + "'>" + link + "</a>")[0];
+                widget.lastSelection.insertNode(linkNode);
+              } else {
+                document.execCommand("createLink", null, link);
+              }
+            } else {
+              widget.lastSelection.startContainer.parentNode.href = link;
+            }
+          }
+          widget.options.editable.element.trigger('change');
+          return false;
+        };
+        dialog.find("input[type=submit]").click(dialogSubmitCb);
+        buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
+        buttonize = function(type) {
+          var button, buttonHolder, id;
+          id = "" + _this.options.uuid + "-" + type;
+          buttonHolder = jQuery('<span></span>');
+          buttonHolder.hallobutton({
+            label: 'Link',
+            icon: 'icon-link',
+            editable: _this.options.editable,
+            command: null,
+            queryState: false,
+            uuid: _this.options.uuid,
+            cssClass: _this.options.buttonCssClass
+          });
+          buttonset.append(buttonHolder);
+          button = buttonHolder;
+          button.on("click", function(event) {
+            var button_selector, selectionParent;
+            widget.lastSelection = widget.options.editable.getSelection();
+            urlInput = jQuery('input[name=url]', dialog);
+            selectionParent = widget.lastSelection.startContainer.parentNode;
+            if (!selectionParent.href) {
+              urlInput.val(widget.options.defaultUrl);
+              jQuery(urlInput[0].form).find('input[type=submit]').val(butTitle);
+            } else {
+              urlInput.val(jQuery(selectionParent).attr('href'));
+              button_selector = 'input[type=submit]';
+              jQuery(urlInput[0].form).find(button_selector).val(butUpdateTitle);
+            }
+            widget.options.editable.keepActivated(true);
+            dialog.dialog('open');
+            dialog.on('dialogclose', function() {
+              widget.options.editable.restoreSelection(widget.lastSelection);
+              jQuery('label', buttonHolder).removeClass('ui-state-active');
+              widget.options.editable.element.focus();
+              return widget.options.editable.keepActivated(false);
+            });
+            return false;
+          });
+          return _this.element.on("keyup paste change mouseup", function(event) {
+            var nodeName, start;
+            start = jQuery(widget.options.editable.getSelection().startContainer);
+            if (start.prop('nodeName')) {
+              nodeName = start.prop('nodeName');
+            } else {
+              nodeName = start.parent().prop('nodeName');
+            }
+            if (nodeName && nodeName.toUpperCase() === "A") {
+              jQuery('label', button).addClass('ui-state-active');
+              return;
+            }
+            return jQuery('label', button).removeClass('ui-state-active');
+          });
+        };
+        if (this.options.link) {
+          buttonize("A");
+        }
+        if (this.options.link) {
+          toolbar.append(buttonset);
+          buttonset.hallobuttonset();
+          return dialog.dialog(this.options.dialogOpts);
+        }
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.hallolists", {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: '',
+        lists: {
+          ordered: true,
+          unordered: true
+        },
+        buttonCssClass: null
+      },
+      populateToolbar: function(toolbar) {
+        var buttonize, buttonset,
+          _this = this;
+        buttonset = jQuery("<span class=\"" + this.widgetName + "\"></span>");
+        buttonize = function(type, label) {
+          var buttonElement;
+          buttonElement = jQuery('<span></span>');
+          buttonElement.hallobutton({
+            uuid: _this.options.uuid,
+            editable: _this.options.editable,
+            label: label,
+            command: "insert" + type + "List",
+            icon: "icon-list-" + (label.toLowerCase()),
+            cssClass: _this.options.buttonCssClass
+          });
+          return buttonset.append(buttonElement);
+        };
+        if (this.options.lists.ordered) {
+          buttonize("Ordered", "OL");
+        }
+        if (this.options.lists.unordered) {
+          buttonize("Unordered", "UL");
+        }
+        buttonset.hallobuttonset();
+        return toolbar.append(buttonset);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.hallooverlay", {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: "",
+        overlay: null,
+        padding: 10,
+        background: null
+      },
+      _create: function() {
+        var widget;
+        widget = this;
+        if (!this.options.bound) {
+          this.options.bound = true;
+          this.options.editable.element.on("halloactivated", function(event, data) {
+            widget.options.currentEditable = jQuery(event.target);
+            if (!widget.options.visible) {
+              return widget.showOverlay();
+            }
+          });
+          this.options.editable.element.on("hallomodified", function(event, data) {
+            widget.options.currentEditable = jQuery(event.target);
+            if (widget.options.visible) {
+              return widget.resizeOverlay();
+            }
+          });
+          return this.options.editable.element.on("hallodeactivated", function(event, data) {
+            widget.options.currentEditable = jQuery(event.target);
+            if (widget.options.visible) {
+              return widget.hideOverlay();
+            }
+          });
+        }
+      },
+      showOverlay: function() {
+        this.options.visible = true;
+        if (this.options.overlay === null) {
+          if (jQuery("#halloOverlay").length > 0) {
+            this.options.overlay = jQuery("#halloOverlay");
+          } else {
+            this.options.overlay = jQuery("<div id=\"halloOverlay\"            class=\"halloOverlay\">");
+            jQuery(document.body).append(this.options.overlay);
+          }
+          this.options.overlay.on('click', jQuery.proxy(this.options.editable.turnOff, this.options.editable));
+        }
+        this.options.overlay.show();
+        if (this.options.background === null) {
+          if (jQuery("#halloBackground").length > 0) {
+            this.options.background = jQuery("#halloBackground");
+          } else {
+            this.options.background = jQuery("<div id=\"halloBackground\"            class=\"halloBackground\">");
+            jQuery(document.body).append(this.options.background);
+          }
+        }
+        this.resizeOverlay();
+        this.options.background.show();
+        if (!this.options.originalZIndex) {
+          this.options.originalZIndex = this.options.currentEditable.css("z-index");
+        }
+        return this.options.currentEditable.css('z-index', '350');
+      },
+      resizeOverlay: function() {
+        var offset;
+        offset = this.options.currentEditable.offset();
+        return this.options.background.css({
+          top: offset.top - this.options.padding,
+          left: offset.left - this.options.padding,
+          width: this.options.currentEditable.width() + 2 * this.options.padding,
+          height: this.options.currentEditable.height() + 2 * this.options.padding
+        });
+      },
+      hideOverlay: function() {
+        this.options.visible = false;
+        this.options.overlay.hide();
+        this.options.background.hide();
+        return this.options.currentEditable.css('z-index', this.options.originalZIndex);
+      },
+      _findBackgroundColor: function(jQueryfield) {
+        var color;
+        color = jQueryfield.css("background-color");
+        if (color !== 'rgba(0, 0, 0, 0)' && color !== 'transparent') {
+          return color;
+        }
+        if (jQueryfield.is("body")) {
+          return "white";
+        } else {
+          return this._findBackgroundColor(jQueryfield.parent());
+        }
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.halloreundo", {
+      options: {
+        editable: null,
+        toolbar: null,
+        uuid: '',
+        buttonCssClass: null
+      },
+      populateToolbar: function(toolbar) {
+        var buttonize, buttonset,
+          _this = this;
+        buttonset = jQuery("<span class=\"" + this.widgetName + "\"></span>");
+        buttonize = function(cmd, label) {
+          var buttonElement;
+          buttonElement = jQuery('<span></span>');
+          buttonElement.hallobutton({
+            uuid: _this.options.uuid,
+            editable: _this.options.editable,
+            label: label,
+            icon: cmd === 'undo' ? 'icon-undo' : 'icon-repeat',
+            command: cmd,
+            queryState: false,
+            cssClass: _this.options.buttonCssClass
+          });
+          return buttonset.append(buttonElement);
+        };
+        buttonize("undo", "Undo");
+        buttonize("redo", "Redo");
+        buttonset.hallobuttonset();
+        return toolbar.append(buttonset);
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget("IKS.hallotoolbarlinebreak", {
+      options: {
+        editable: null,
+        uuid: "",
+        breakAfter: []
+      },
+      populateToolbar: function(toolbar) {
+        var buttonRow, buttonset, buttonsets, queuedButtonsets, row, rowcounter, _i, _j, _len, _len1, _ref;
+        buttonsets = jQuery('.ui-buttonset', toolbar);
+        queuedButtonsets = jQuery();
+        rowcounter = 0;
+        _ref = this.options.breakAfter;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          row = _ref[_i];
+          rowcounter++;
+          buttonRow = "<div          class=\"halloButtonrow halloButtonrow-" + rowcounter + "\" />";
+          for (_j = 0, _len1 = buttonsets.length; _j < _len1; _j++) {
+            buttonset = buttonsets[_j];
+            queuedButtonsets = jQuery(queuedButtonsets).add(jQuery(buttonset));
+            if (jQuery(buttonset).hasClass(row)) {
+              queuedButtonsets.wrapAll(buttonRow);
+              buttonsets = buttonsets.not(queuedButtonsets);
+              queuedButtonsets = jQuery();
+              break;
+            }
+          }
+        }
+        if (buttonsets.length > 0) {
+          rowcounter++;
+          buttonRow = "<div          class=\"halloButtonrow halloButtonrow-" + rowcounter + "\" />";
+          return buttonsets.wrapAll(buttonRow);
+        }
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloToolbarContextual', {
+      toolbar: null,
+      options: {
+        parentElement: 'body',
+        editable: null,
+        toolbar: null,
+        positionAbove: false
+      },
+      _create: function() {
+        var _this = this;
+        this.toolbar = this.options.toolbar;
+        jQuery(this.options.parentElement).append(this.toolbar);
+        this._bindEvents();
+        return jQuery(window).resize(function(event) {
+          return _this._updatePosition(_this._getPosition(event));
+        });
+      },
+      _getPosition: function(event, selection) {
+        var eventType, position;
+        if (!event) {
+          return;
+        }
+        eventType = event.type;
+        switch (eventType) {
+          case 'keydown':
+          case 'keyup':
+          case 'keypress':
+            return this._getCaretPosition(selection);
+          case 'click':
+          case 'mousedown':
+          case 'mouseup':
+            return position = {
+              top: event.pageY,
+              left: event.pageX
+            };
+        }
+      },
+      _getCaretPosition: function(range) {
+        var newRange, position, tmpSpan;
+        tmpSpan = jQuery("<span/>");
+        newRange = rangy.createRange();
+        newRange.setStart(range.endContainer, range.endOffset);
+        newRange.insertNode(tmpSpan.get(0));
+        position = {
+          top: tmpSpan.offset().top,
+          left: tmpSpan.offset().left
+        };
+        tmpSpan.remove();
+        return position;
+      },
+      setPosition: function() {
+        if (this.options.parentElement !== 'body') {
+          this.options.parentElement = 'body';
+          jQuery(this.options.parentElement).append(this.toolbar);
+        }
+        this.toolbar.css('position', 'absolute');
+        this.toolbar.css('top', this.element.offset().top - 20);
+        return this.toolbar.css('left', this.element.offset().left);
+      },
+      _updatePosition: function(position, selection) {
+        var left, selectionRect, toolbar_height_offset, top, top_offset;
+        if (selection == null) {
+          selection = null;
+        }
+        if (!position) {
+          return;
+        }
+        if (!(position.top && position.left)) {
+          return;
+        }
+        toolbar_height_offset = this.toolbar.outerHeight() + 10;
+        if (selection && !selection.collapsed && selection.nativeRange) {
+          selectionRect = selection.nativeRange.getBoundingClientRect();
+          if (this.options.positionAbove) {
+            top_offset = selectionRect.top - toolbar_height_offset;
+          } else {
+            top_offset = selectionRect.bottom + 10;
+          }
+          top = jQuery(window).scrollTop() + top_offset;
+          left = jQuery(window).scrollLeft() + selectionRect.left;
+        } else {
+          if (this.options.positionAbove) {
+            top_offset = -10 - toolbar_height_offset;
+          } else {
+            top_offset = 20;
+          }
+          top = position.top + top_offset;
+          left = position.left - this.toolbar.outerWidth() / 2 + 30;
+        }
+        this.toolbar.css('top', top);
+        return this.toolbar.css('left', left);
+      },
+      _bindEvents: function() {
+        var _this = this;
+        this.element.on('click', function(event, data) {
+          var position, scrollTop;
+          position = {};
+          scrollTop = $('window').scrollTop();
+          position.top = event.clientY + scrollTop;
+          position.left = event.clientX;
+          _this._updatePosition(position, null);
+          if (_this.toolbar.html() !== '') {
+            return _this.toolbar.show();
+          }
+        });
+        this.element.on('halloselected', function(event, data) {
+          var position;
+          position = _this._getPosition(data.originalEvent, data.selection);
+          if (!position) {
+            return;
+          }
+          _this._updatePosition(position, data.selection);
+          if (_this.toolbar.html() !== '') {
+            return _this.toolbar.show();
+          }
+        });
+        this.element.on('hallounselected', function(event, data) {
+          return _this.toolbar.hide();
+        });
+        return this.element.on('hallodeactivated', function(event, data) {
+          return _this.toolbar.hide();
+        });
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloToolbarFixed', {
+      toolbar: null,
+      options: {
+        parentElement: 'body',
+        editable: null,
+        toolbar: null,
+        affix: true,
+        affixTopOffset: 2
+      },
+      _create: function() {
+        var el, widthToAdd,
+          _this = this;
+        this.toolbar = this.options.toolbar;
+        this.toolbar.show();
+        jQuery(this.options.parentElement).append(this.toolbar);
+        this._bindEvents();
+        jQuery(window).resize(function(event) {
+          return _this.setPosition();
+        });
+        jQuery(window).scroll(function(event) {
+          return _this.setPosition();
+        });
+        if (this.options.parentElement === 'body') {
+          el = jQuery(this.element);
+          widthToAdd = parseFloat(el.css('padding-left'));
+          widthToAdd += parseFloat(el.css('padding-right'));
+          widthToAdd += parseFloat(el.css('border-left-width'));
+          widthToAdd += parseFloat(el.css('border-right-width'));
+          widthToAdd += (parseFloat(el.css('outline-width'))) * 2;
+          widthToAdd += (parseFloat(el.css('outline-offset'))) * 2;
+          return jQuery(this.toolbar).css("width", el.width() + widthToAdd);
+        }
+      },
+      _getPosition: function(event, selection) {
+        var offset, position, width;
+        if (!event) {
+          return;
+        }
+        width = parseFloat(this.element.css('outline-width'));
+        offset = width + parseFloat(this.element.css('outline-offset'));
+        return position = {
+          top: this.element.offset().top - this.toolbar.outerHeight() - offset,
+          left: this.element.offset().left - offset
+        };
+      },
+      _getCaretPosition: function(range) {
+        var newRange, position, tmpSpan;
+        tmpSpan = jQuery("<span/>");
+        newRange = rangy.createRange();
+        newRange.setStart(range.endContainer, range.endOffset);
+        newRange.insertNode(tmpSpan.get(0));
+        position = {
+          top: tmpSpan.offset().top,
+          left: tmpSpan.offset().left
+        };
+        tmpSpan.remove();
+        return position;
+      },
+      setPosition: function() {
+        var elementBottom, elementTop, height, offset, scrollTop, topOffset;
+        if (this.options.parentElement !== 'body') {
+          return;
+        }
+        this.toolbar.css('position', 'absolute');
+        this.toolbar.css('top', this.element.offset().top - this.toolbar.outerHeight());
+        if (this.options.affix) {
+          scrollTop = jQuery(window).scrollTop();
+          offset = this.element.offset();
+          height = this.element.height();
+          topOffset = this.options.affixTopOffset;
+          elementTop = offset.top - (this.toolbar.height() + this.options.affixTopOffset);
+          elementBottom = (height - topOffset) + (offset.top - this.toolbar.height());
+          if (scrollTop > elementTop && scrollTop < elementBottom) {
+            this.toolbar.css('position', 'fixed');
+            this.toolbar.css('top', this.options.affixTopOffset);
+          }
+        } else {
+
+        }
+        return this.toolbar.css('left', this.element.offset().left - 2);
+      },
+      _updatePosition: function(position) {},
+      _bindEvents: function() {
+        var _this = this;
+        this.element.on('halloactivated', function(event, data) {
+          _this.setPosition();
+          return _this.toolbar.show();
+        });
+        return this.element.on('hallodeactivated', function(event, data) {
+          return _this.toolbar.hide();
+        });
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.halloToolbarInstant', {
+      toolbar: null,
+      options: {
+        parentElement: 'body',
+        editable: null,
+        toolbar: null,
+        positionAbove: false
+      },
+      _create: function() {
+        var _this = this;
+        this.toolbar = this.options.toolbar;
+        jQuery(this.options.parentElement).append(this.toolbar);
+        this._bindEvents();
+        return jQuery(window).resize(function(event) {
+          return _this._updatePosition(_this._getPosition(event));
+        });
+      },
+      _getPosition: function(event, selection) {
+        var eventType, position;
+        if (!event) {
+          return;
+        }
+        eventType = event.type;
+        switch (eventType) {
+          case 'keydown':
+          case 'keyup':
+          case 'keypress':
+            return this._getCaretPosition(selection);
+          case 'click':
+          case 'mousedown':
+          case 'mouseup':
+            return position = {
+              top: event.pageY,
+              left: event.pageX
+            };
+        }
+      },
+      _getCaretPosition: function(range) {
+        var newRange, position, tmpSpan;
+        tmpSpan = jQuery("<span/>");
+        newRange = rangy.createRange();
+        newRange.setStart(range.endContainer, range.endOffset);
+        newRange.insertNode(tmpSpan.get(0));
+        position = {
+          top: tmpSpan.offset().top,
+          left: tmpSpan.offset().left
+        };
+        tmpSpan.remove();
+        return position;
+      },
+      setPosition: function() {
+        if (this.options.parentElement !== 'body') {
+          this.options.parentElement = 'body';
+          jQuery(this.options.parentElement).append(this.toolbar);
+        }
+        this.toolbar.css('position', 'absolute');
+        this.toolbar.css('top', this.element.offset().top - 20);
+        return this.toolbar.css('left', this.element.offset().left);
+      },
+      _updatePosition: function(position, selection) {
+        var left, selectionRect, toolbar_height_offset, top, top_offset;
+        if (selection == null) {
+          selection = null;
+        }
+        if (!position) {
+          return;
+        }
+        if (!(position.top && position.left)) {
+          return;
+        }
+        toolbar_height_offset = this.toolbar.outerHeight() + 10;
+        if (selection && !selection.collapsed && selection.nativeRange) {
+          selectionRect = selection.nativeRange.getBoundingClientRect();
+          if (this.options.positionAbove) {
+            top_offset = selectionRect.top - toolbar_height_offset;
+          } else {
+            top_offset = selectionRect.bottom + 10;
+          }
+          top = jQuery(window).scrollTop() + top_offset;
+          left = jQuery(window).scrollLeft() + selectionRect.left;
+        } else {
+          if (this.options.positionAbove) {
+            top_offset = -10 - toolbar_height_offset;
+          } else {
+            top_offset = 20;
+          }
+          top = position.top + top_offset;
+          left = position.left - this.toolbar.outerWidth() / 2 + 30;
+        }
+        this.toolbar.css('top', top);
+        return this.toolbar.css('left', left);
+      },
+      _bindEvents: function() {
+        var _this = this;
+        this.element.on('click', function(event, data) {
+          var position, scrollTop;
+          position = {};
+          scrollTop = $('window').scrollTop();
+          position.top = event.clientY + scrollTop;
+          position.left = event.clientX;
+          _this._updatePosition(position, null);
+          if (_this.toolbar.html() !== '') {
+            return _this.toolbar.show();
+          }
+        });
+        this.element.on('halloselected', function(event, data) {
+          var position;
+          position = _this._getPosition(data.originalEvent, data.selection);
+          if (!position) {
+            return;
+          }
+          _this._updatePosition(position, data.selection);
+          if (_this.toolbar.html() !== '') {
+            return _this.toolbar.show();
+          }
+        });
+        this.element.on('hallounselected', function(event, data) {
+          return _this.toolbar.hide();
+        });
+        return this.element.on('hallodeactivated', function(event, data) {
+          return _this.toolbar.hide();
+        });
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    jQuery.widget('IKS.hallobutton', {
+      button: null,
+      isChecked: false,
+      options: {
+        uuid: '',
+        label: null,
+        icon: null,
+        editable: null,
+        command: null,
+        commandValue: null,
+        queryState: true,
+        cssClass: null
+      },
+      _create: function() {
+        var hoverclass, id, opts, _base,
+          _this = this;
+        if ((_base = this.options).icon == null) {
+          _base.icon = "icon-" + (this.options.label.toLowerCase());
+        }
+        id = "" + this.options.uuid + "-" + this.options.label;
+        opts = this.options;
+        this.button = this._createButton(id, opts.command, opts.label, opts.icon);
+        this.element.append(this.button);
+        if (this.options.cssClass) {
+          this.button.addClass(this.options.cssClass);
+        }
+        if (this.options.editable.options.touchScreen) {
+          this.button.addClass('btn-large');
+        }
+        this.button.data('hallo-command', this.options.command);
+        if (this.options.commandValue) {
+          this.button.data('hallo-command-value', this.options.commandValue);
+        }
+        hoverclass = 'ui-state-hover';
+        this.button.on('mouseenter', function(event) {
+          if (_this.isEnabled()) {
+            return _this.button.addClass(hoverclass);
+          }
+        });
+        return this.button.on('mouseleave', function(event) {
+          return _this.button.removeClass(hoverclass);
+        });
+      },
+      _init: function() {
+        var editableElement, events, queryState,
+          _this = this;
+        if (!this.button) {
+          this.button = this._prepareButton();
+        }
+        this.element.append(this.button);
+        if (this.options.queryState === true) {
+          queryState = function(event) {
+            var compared, e, value;
+            if (!_this.options.command) {
+              return;
+            }
+            try {
+              if (_this.options.commandValue) {
+                value = document.queryCommandValue(_this.options.command);
+                compared = value.match(new RegExp(_this.options.commandValue, "i"));
+                return _this.checked(compared ? true : false);
+              } else {
+                return _this.checked(document.queryCommandState(_this.options.command));
+              }
+            } catch (_error) {
+              e = _error;
+            }
+          };
+        } else {
+          queryState = this.options.queryState;
+        }
+        if (this.options.command) {
+          this.button.on('click', function(event) {
+            if (_this.options.commandValue) {
+              _this.options.editable.execute(_this.options.command, _this.options.commandValue);
+            } else {
+              _this.options.editable.execute(_this.options.command);
+            }
+            if (typeof queryState === 'function') {
+              queryState();
+            }
+            return false;
+          });
+        }
+        if (!this.options.queryState) {
+          return;
+        }
+        editableElement = this.options.editable.element;
+        events = 'keyup paste change mouseup hallomodified';
+        editableElement.on(events, queryState);
+        editableElement.on('halloenabled', function() {
+          return editableElement.on(events, queryState);
+        });
+        return editableElement.on('hallodisabled', function() {
+          return editableElement.off(events, queryState);
+        });
+      },
+      enable: function() {
+        return this.button.removeAttr('disabled');
+      },
+      disable: function() {
+        return this.button.attr('disabled', 'true');
+      },
+      isEnabled: function() {
+        return this.button.attr('disabled') !== 'true';
+      },
+      refresh: function() {
+        if (this.isChecked) {
+          return this.button.addClass('ui-state-active');
+        } else {
+          return this.button.removeClass('ui-state-active');
+        }
+      },
+      checked: function(checked) {
+        this.isChecked = checked;
+        return this.refresh();
+      },
+      _createButton: function(id, command, label, icon) {
+        var classes;
+        classes = ['ui-button', 'ui-widget', 'ui-state-default', 'ui-corner-all', 'ui-button-text-only', "" + command + "_button"];
+        return jQuery("<button id=\"" + id + "\"        class=\"" + (classes.join(' ')) + "\" title=\"" + label + "\">          <span class=\"ui-button-text\">            <i class=\"" + icon + "\"></i>          </span>        </button>");
+      }
+    });
+    return jQuery.widget('IKS.hallobuttonset', {
+      buttons: null,
+      _create: function() {
+        return this.element.addClass('ui-buttonset');
+      },
+      _init: function() {
+        return this.refresh();
+      },
+      refresh: function() {
+        var rtl;
+        rtl = this.element.css('direction') === 'rtl';
+        this.buttons = this.element.find('.ui-button');
+        this.buttons.removeClass('ui-corner-all ui-corner-left ui-corner-right');
+        if (rtl) {
+          this.buttons.filter(':first').addClass('ui-corner-right');
+          return this.buttons.filter(':last').addClass('ui-corner-left');
+        } else {
+          this.buttons.filter(':first').addClass('ui-corner-left');
+          return this.buttons.filter(':last').addClass('ui-corner-right');
+        }
+      }
+    });
+  })(jQuery);
+
+}).call(this);
+
+(function() {
+  (function(jQuery) {
+    return jQuery.widget('IKS.hallodropdownbutton', {
+      button: null,
+      options: {
+        uuid: '',
+        label: null,
+        icon: null,
+        editable: null,
+        target: '',
+        cssClass: null
+      },
+      _create: function() {
+        var _base;
+        return (_base = this.options).icon != null ? (_base = this.options).icon : _base.icon = "icon-" + (this.options.label.toLowerCase());
+      },
+      _init: function() {
+        var target,
+          _this = this;
+        target = jQuery(this.options.target);
+        target.css('position', 'absolute');
+        target.addClass('dropdown-menu');
+        target.hide();
+        if (!this.button) {
+          this.button = this._prepareButton();
+        }
+        this.button.on('click', function() {
+          if (target.hasClass('open')) {
+            _this._hideTarget();
+            return;
+          }
+          return _this._showTarget();
+        });
+        target.on('click', function() {
+          return _this._hideTarget();
+        });
+        this.options.editable.element.on('hallodeactivated', function() {
+          return _this._hideTarget();
+        });
+        return this.element.append(this.button);
+      },
+      _showTarget: function() {
+        var target;
+        target = jQuery(this.options.target);
+        this._updateTargetPosition();
+        target.addClass('open');
+        return target.show();
+      },
+      _hideTarget: function() {
+        var target;
+        target = jQuery(this.options.target);
+        target.removeClass('open');
+        return target.hide();
+      },
+      _updateTargetPosition: function() {
+        var left, target, top, _ref;
+        target = jQuery(this.options.target);
+        _ref = this.button.position(), top = _ref.top, left = _ref.left;
+        top += this.button.outerHeight();
+        target.css('top', top);
+        return target.css('left', left - 20);
+      },
+      _prepareButton: function() {
+        var buttonEl, classes, id;
+        id = "" + this.options.uuid + "-" + this.options.label;
+        classes = ['ui-button', 'ui-widget', 'ui-state-default', 'ui-corner-all', 'ui-button-text-only'];
+        buttonEl = jQuery("<button id=\"" + id + "\"       class=\"" + (classes.join(' ')) + "\" title=\"" + this.options.label + "\">       <span class=\"ui-button-text\"><i class=\"" + this.options.icon + "\"></i></span>       </button>");
+        if (this.options.cssClass) {
+          buttonEl.addClass(this.options.cssClass);
+        }
+        return buttonEl;
+      }
+    });
+  })(jQuery);
+
+}).call(this);
