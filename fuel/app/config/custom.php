@@ -28,16 +28,6 @@ return array(
                                     'celebrity',
                                     'author'
                                     ),
-	'twitter'		=> array(
-		'oauth_access_token'		=> '1196190907-ckbQWjGHEZS5QqetN93G3RhkP5hLXBoGfLOSJfi',
-		'oauth_access_token_secret'	=> 'cMT2P3SfkfVdthl65Et9mNcLGkQHIDoe7odvxzqdIsyEp',
-                'consumer_key'			=> '9O4EBJmSSTk1CAeELBUV3g',
-		'consumer_secret'		=> 'gK3C6J7bxCwAmICsFiMYZBSGKRkxKS0omuGlpJ0rr3I'
-	),
-	'facebook'	=> array(
-		'appId' => '479421232080499',
-		'secret'=> 'ee18f2f0055bcd6bcc4cd87c6059dee5'
-	),
 	'qr_generator'  => array(
 		'key'	=> 'q7kiZlPhOsvwSFQxoayfhZoIDlyhvNh7',
 		'url'	=> 'https://mutationevent-qr-code-generator.p.mashape.com/generate.php?',

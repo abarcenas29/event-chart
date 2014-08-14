@@ -7,9 +7,6 @@
 class Model_Event_Engine extends Model_ModelCore
 {
     //temporary credentials
-    private static $_appId  = '457912137584482';
-    private static $_secret = 'edb52e29d79ce5d47298cd73227bc3ab';
-    private static $_token  = 'CAAGgdZCpMj2IBAKZCdC02OIh3CcK7ruRtDDkvAurmLSd3ZBRzSuahyqHUD7jNPhebZA1UpYXA5yXtihwy6Us7xQSdKMcxqNDNZBTe10CnkYW27DKqMBElPHqG5XZC5lqsS4CSGNUS3yOnmiPQOHNebY90OWH5ViKE0TDPdtOwuGZAfbZATbmQmq6pfZCQLOOeswwZD';
     private static $_event  = '621129704608422';
     
     //Parse the contents of the event data
@@ -191,11 +188,12 @@ class Model_Event_Engine extends Model_ModelCore
     private static function _auth_facebook()
     {
         //temporary
-        $cfg['appId']   = Model_Event_Engine::$_appId;
-        $cfg['secret']  = Model_Event_Engine::$_secret;
+        $cfg['appId']   = Model_const::read_one_key('fb_appid')['value'];
+        $cfg['secret']  = Model_const::read_one_key('fb_secret')['value'];
+        $token = Model_const::read_one_key('fb_access_token')['value'];
         
         $f = new facebook\fb($cfg);
-        $f->setAccessToken(Model_Event_Engine::$_token);
+        $f->setAccessToken($token);
         return $f;
     }
 }

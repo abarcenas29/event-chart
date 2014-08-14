@@ -17,16 +17,16 @@
       type="image/x-icon" 
       href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
 <?php 
-        print Asset::css('font-awesome/font-awesome.css');
-        print Asset::css('fonts.css');
-	print Asset::css('uikit/uikit.css');
-        print Asset::css('uikit/uikit.addons.min.css');
-	print Asset::css('ec-admin/admin.dashboard.css');
+        cdn::jquery();
         
-	print Asset::js('jquery-2.0.3.min.js');
-	print Asset::js('uikit/uikit.min.js');
+        cdn::uikit();
+        cdn::uikit_css_addon();
+        cdn::uikit_htmleditor();
+        cdn::uikit_js_addon('autocomplete.min.js');
         
-        print Asset::js('uikit/add-ons/autocomplete.min.js');
+        cdn::default_fonts('roboto');
+        
+        print Asset::css('ec-admin/admin.dashboard.css');
 ?>
 </head>
 <body class="uk-width-1-1">

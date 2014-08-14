@@ -140,10 +140,23 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
             Response::redirect('admin/login/logout');
 
         $user	 = $this->_am('user');
-        $user->q = Model_User::admin_index(); 
-
+        $user->q = Model_User::admin_index();
+        
+        $fb         = $this->_sm('facebook');
+        $fb->appid  = Model_const::read_one_key('fb_appid');
+        $fb->secret = Model_const::read_one_key('fb_secret');
+        $fb->pageid = Model_const::read_one_key('fb_pageid');
+        
+        $tw = $this->_sm('twitter');
+        $tw->ckey    = Model_const::read_one_key('twitter_ckey');
+        $tw->csecret = Model_const::read_one_key('twitter_csecret');
+        $tw->atoken  = Model_const::read_one_key('twitter_atoken');
+        $tw->asecret = Model_const::read_one_key('twitter_asecret');
+        
         $view = $this->_db('main');
         $view->modal_user = $user;
+        $view->modal_fb   = $fb;
+        $view->modal_tw   = $tw;
 
         $this->template->content = $view;
         $this->template->menu	 = $this->_sm('main');
@@ -152,31 +165,79 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
     /*
      * Social
      */
-
+    public function post_twitter()
+    {
+        $appConkeyDefault      = Model_const::read_one_key('twitter_ckey');
+        $appConSecretDefault   = Model_const::read_one_key('twitter_csecret');
+        $appAuthTokenDefault   = Model_const::read_one_key('twitter_atoken');
+        $appAuthSecretDefault  = Model_const::read_one_key('twitter_asecret');
+        
+        $key = array();
+        
+        $key['key']     = 'twitter_ckey';
+        $key['value']   = Input::post('consumer_key',$appConkeyDefault['value']);
+        Model_const::edit_key($key);
+        
+        $key['key']     = 'twitter_csecret';
+        $key['value']   = Input::post('consumer_secret',$appConSecretDefault['value']);
+        Model_const::edit_key($key);
+        
+        $key['key']     = 'twitter_atoken';
+        $key['value']   = Input::post('auth_token',$appAuthTokenDefault['value']);
+        Model_const::edit_key($key);
+        
+        $key['key']     = 'twitter_asecret';
+        $key['value']   = Input::post('auth_secret',$appAuthSecretDefault['value']);
+        Model_const::edit_key($key);
+        
+        Response::redirect('admin/dashboard2/index');
+    }
+    
     public function action_facebook()
     {
-        $cfg = Config::get('ec.facebook');
-        $f	 = new facebook\fb($cfg);
+        
+        $appIdDefault       = Model_const::read_one_key('fb_appid');
+        $appSecretDefault   = Model_const::read_one_key('fb_secret');
+        $appPageIdDefault   = Model_const::read_one_key('fb_pageid');
+        
+        $cfg = array();
+        $cfg['appId'] = Input::post('appid',$appIdDefault['value']);
+        $cfg['secret']= Input::post('secret',$appSecretDefault['value']);
+        
+        $f   = new facebook\fb($cfg);
 
+        $key = array();
         if(!$f->getUser())
         {
-                $permission['scope'] = 'publish_stream, manage_pages'; 
-                Response::redirect($f->getLoginUrl($permission));
+            $key['key']     = 'fb_appid';
+            $key['value']   = $cfg['appId'];
+            Model_const::edit_key($key);
+
+            $key['key']     = 'fb_secret';
+            $key['value']   = $cfg['secret'];
+            Model_const::edit_key($key);
+            
+            $permission['scope']        = 'publish_stream,manage_pages'; 
+            $permission['redirect_uri'] = Uri::create('admin/dashboard2/facebook');
+            Response::redirect($f->getLoginUrl($permission));
         }
 
-        $arg		  = array();
-        $arg['key']	  = 'fb_access_token';
-        $arg['value'] = $f->getAccessToken();
+        $key['key']     = 'fb_pageid';
+        $key['value']   = Input::post('pageid',$appPageIdDefault['value']);
+        Model_const::edit_key($key);
+        
+        $arg		= array();
+        $arg['key']	= 'fb_access_token';
+        $arg['value']   = $f->getAccessToken();
 
-        $q = Model_const::read_key($arg);
-
+        $q = Model_const::read_key($arg['key']);
         if(count($q) == 0)
         {
-                Model_const::make_key($arg);
+            Model_const::make_key($arg);
         }
         else
         {
-                Model_const::edit_key($arg);
+            Model_const::edit_key($arg);
         }
 
         Response::redirect('admin/dashboard2/index');

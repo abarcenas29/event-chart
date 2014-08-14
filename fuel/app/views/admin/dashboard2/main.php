@@ -40,9 +40,17 @@
         </button>
 		
         <a class="uk-button"
-           href="<?php print Uri::create('admin/dashboard2/facebook'); ?>"
+           href="#ec-admin-facebook"
+           data-uk-modal
            title="facebook">
             <i class="uk-icon-facebook"></i>
+        </a>
+        
+        <a class="uk-button"
+           href="#ec-admin-twitter"
+           data-uk-modal
+           title="facebook">
+            <i class="fa fa-twitter"></i>
         </a>
 		
 	</article>
@@ -51,4 +59,6 @@
 
 <?php 
 	print $modal_user;
+        print $modal_fb;
+        print $modal_tw;
 ?>
