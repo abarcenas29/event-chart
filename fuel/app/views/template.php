@@ -13,17 +13,14 @@
 <link rel="shortcut icon" 
       type="image/x-icon" 
       href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
-
 <?php 
-    print Asset::css('fonts.css');
-    print Asset::css('uikit/uikit.css');
-    print Asset::css('uikit/uikit.addons.min.css');
-    print Asset::css('header.css');
-    print Asset::css('font-awesome/font-awesome.min.css');
+    cdn::jquery();
     
-    print Asset::js('jquery-2.0.3.min.js');
-    print Asset::js('uikit/uikit.min.js');
-    print Asset::js('uikit/add-ons/notify.min.js');
+    cdn::uikit();
+    cdn::uikit_css_addon();
+    cdn::uikit_js_addon('notify.min.js');
+    
+    print Asset::css('header.css');
 ?>
 
 <!-- FOOTER ELEMENT HANDLER -->

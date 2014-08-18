@@ -26,7 +26,7 @@ class Controller_View extends Controller_AppCore
            $category[] = $row['category'];
        }
        
-       $today       = Model_chart::event_today();
+       $today       = Model_chart::is_event_now($event_id);
        
        $ticket      = $this->_eg('module/ticket');
        $ticket->q   = $q;

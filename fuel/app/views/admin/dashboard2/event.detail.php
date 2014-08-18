@@ -1,20 +1,14 @@
 <?php 
-	print Asset::css('ec-admin/admin.dashboard.event.add.css');
-        print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
-	
-	print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
-	print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
-	
-        print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
-        
-        print Asset::js('uikit/add-ons/datepicker.min.js');
-        print Asset::js('uikit/add-ons/sticky.min.js');
-        print Asset::js('uikit/add-ons/notify.min.js');
-        
-	print Asset::js('jquery.form.min.js');
-        
-        print Asset::js('rangy-core.js');
-        print Asset::js('hallo.js');
+    print Asset::css('ec-admin/admin.dashboard.event.add.css');
+
+    print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
+    print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
+
+    print cdn::uikit_js_addon('datepicker.min.js');
+    print cdn::uikit_js_addon('sticky.min.js');
+    print cdn::uikit_js_addon('notify.min.js');
+    
+    print Asset::js('jquery.form.min.js');
 ?>
 <article class="uk-width-1-1 uk-height-1-1" id="ec-event-detail-manage">
 <div class="uk-grid uk-height-1-1">
@@ -247,11 +241,10 @@
 	<label class="uk-form-label">Description</label>
 	</div>
 	<div class="uk-form-row">
-	<div class="uk-width-1-1"
-		 style="border:1px solid #ddd;max-height:10em;padding:0.5em;overflow-y:scroll"
-		 id="description">
-	<?php print (isset($desc))?$desc:''; ?>
-	</div>
+        <textarea name="desc"
+                  id="description"
+                  data-uk-htmleditor="{markdown:true}"
+                  class="uk-width-1-1"><?php print (isset($desc))?$desc:''; ?></textarea>
 	</div>
 		
 	<div class="uk-form-row">
@@ -285,7 +278,7 @@
 
 <!-- Event Map Check -->
 <div class="uk-width-1-2 
-			uk-height-1-1"
+            uk-height-1-1"
 	 id="ec-event-manage-map">
 	<article class="uk-panel"
 			 id="ec-venue-search">
@@ -310,10 +303,11 @@ if(isset($q))
     print $modal_hashtag;
     print $modal_guest;
 }?>
+
 <script>
-var venueCoords		= [];
-var $map		= $('#ec-event-manage-map');
-var OpenStreetMap	= 'https://{s}.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png';
+var venueCoords     = [];
+var $map            = $('#ec-event-manage-map');
+var OpenStreetMap   = 'https://{s}.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png';
 
 var $inputLong = $('input[name="lng"]');
 var $inputLat  = $('input[name="lat"]');
@@ -330,19 +324,6 @@ var map = L.map('ec-event-manage-map').setView(venueCoords,20);
 
 $(document).ready(function()
 {
-    $('#description').hallo(
-    {
-         plugins: {
-        'halloformat': {},
-        'halloblock': {},
-        'hallojustify': {},
-        'hallolists': {},
-        'hallolink': {}
-      },
-      editable: true,
-      placeholder: 'Type your description here.'
-    });
-    
     $('select[name="city"]').change(function(e){
         var value = $(this).find('option:selected').val();
         $('input[name="city-input"]').val(value);
@@ -364,17 +345,17 @@ $(document).ready(function()
         });
     });
 
-    <?php if(isset($q)): ?>
-    $('select[name="main_org"]').find('option[value="<?php print $q['main_org']; ?>"]').attr('selected','');
-    <?php endif; ?>
+<?php if(isset($q)): ?>
+$('select[name="main_org"]').find('option[value="<?php print $q['main_org']; ?>"]').attr('selected','');
+<?php endif; ?>
 });
 </script>
 <?php 
-	print Asset::js('dashboard/jq.event.manage.venue.js');
-        print Asset::js('dashboard/jq.event.facebook.js');
-	if(isset($q)):
-            print Asset::js('dashboard/jq.event.manage.edit.js');
-	else:
-            print Asset::js('dashboard/jq.event.manage.add.js');
-	endif;
+    print Asset::js('dashboard/jq.event.manage.venue.js');
+    print Asset::js('dashboard/jq.event.facebook.js');
+    if(isset($q)):
+        print Asset::js('dashboard/jq.event.manage.edit.js');
+    else:
+        print Asset::js('dashboard/jq.event.manage.add.js');
+    endif;
 ?>

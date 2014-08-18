@@ -1,4 +1,4 @@
-var osmTileMap  = 'https://{s}.tiles.mapbox.com/v3/abarceas.i9k75n59/{z}/{x}/{y}.png';
+var osmTileMap  = 'https://{s}.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png';
 var attribution = 'Event Chart Map Powered by Cloudmade OSM.';
 
 $(document).ready(function(){

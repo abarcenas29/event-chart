@@ -3,6 +3,30 @@
 <section class="uk-width-9-10 uk-container-center">
 <div class="uk-grid uk-width-1-1 uk-margin-remove">
     
+    <!-- FOR TODAY EVENTS -->
+    <?php foreach($today as $row): ?>
+    <a href="<?php print Uri::create('view/event/'.$row['event_id']); ?>" 
+       class="uk-width-large-1-3 
+              uk-width-small-1-1
+              ec-chart-container">
+    <article class="uk-margin-bottom
+                    ec-chart-active
+                    ec-chart">
+    <header style="background-image:url('<?php print $row['cover']; ?>');">
+    </header>
+    <section>
+    <h1 class="uk-text-truncate uk-text-large">
+        <?php print $row['title']; ?>
+    </h1>
+    <h2 class="uk-text-small">
+        <span class="fa fa-calendar"></span> &nbsp; <?php print $row['start_at']; ?>
+    </h2>
+    </section>
+    </article>
+    </a>
+    <?php endforeach; ?> 
+    
+    <!-- FOR EVENTS SOON -->
     <?php foreach($c as $row): ?>
     <a href="<?php print Uri::create('view/event/'.$row['event_id']); ?>" 
        class="uk-width-large-1-3 
@@ -75,18 +99,8 @@
     </section>
     </article>
 </div>
-
 <script>
-    var eventsToday     = '<?php print json_encode($today); ?>';
-    var parseEventToday = $.parseJSON(eventsToday);
-    
-    for(i = 0;i < parseEventToday.length;i++){
-        $('.ec-chart-'+parseEventToday[i]).addClass('ec-chart-active');
-    }
-    
-    if(parseEventToday.length > 0){
-        $.UIkit.notify("There are " + parseEventToday.length + " event(s) happening right now", {status:'danger'});
-    }
-   
-    console.log(parseEventToday[0]);
+    <?php if(count($today) > 0): ?>
+    $.UIkit.notify("There are <?php print count($today); ?> event(s) happening right now", {status:'danger'});
+    <?php endif; ?>
 </script>

@@ -8,14 +8,6 @@ body
 	background-image:url('<?php print Uri::create("assets/img/login/$image"); ?>');
 }
 </style>
-<?php 
-    print Asset::js('jquery.form.min.js');
-    print Asset::js('uikit/add-ons/notify.min.js');
-    
-    print Asset::css('ec-admin/admin.login.css');
-    print Asset::css('uikit/uikit.addons.min.css');
-    print Asset::css('font-awesome/font-awesome.css');
-?>
 <article class="uk-width-1-1 uk-vertical-align" 
 		 style="height:inherit;">
 	<section class="uk-width-1-1" 
@@ -67,11 +59,11 @@ body
 		
 		<div class="uk-form-row uk-text-center">
 			<button type="submit" 
-					class="uk-button 
-						   uk-button-primary
-						   uk-button-large">
-				<i class="fa fa-unlock"></i>
-				Login
+                                class="uk-button 
+                                       uk-button-primary
+                                       uk-button-large">
+                        <i class="fa fa-unlock"></i>
+                            Login
 			</button>
 		</div>
 			
@@ -81,26 +73,23 @@ body
 	</section>
 </article>
 <script>
-var urlDb	= "<?php print \Fuel\Core\Uri::create('admin/dashboard2/index'); ?>";
-$(document).ready(function(){
-	$('#ec-form-validation').ajaxForm({
-		beforeSubmit:function()
-		{
-			$.UIkit.notify('Validating User ...',{status:'info'});
-		},
-		success:function(d)
-		{
-			console.log(d);
-			if(d.success)
-			{
-				$.UIkit.notify(d.response,{status:'success'});
-				setTimeout(function(){window.location = urlDb;},2000);
-			}
-			else
-			{
-				$.UIkit.notify(d.response,{status:'danger'});
-			}
-		}
-	});
+var urlDb = "<?php print \Fuel\Core\Uri::create('admin/dashboard2/index'); ?>";
+$('#ec-form-validation').ajaxForm({
+    beforeSubmit:function()
+    {
+        $.UIkit.notify('Validating User ...',{status:'info'});
+    },
+    success:function(d)
+    {
+        if(d.success)
+        {
+            $.UIkit.notify(d.response,{status:'success'});
+            setTimeout(function(){window.location = urlDb;},2000);
+        }
+        else
+        {
+            $.UIkit.notify(d.response,{status:'danger'});
+        }
+    }
 });
 </script>

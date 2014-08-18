@@ -3,6 +3,8 @@
     print Asset::css('view/modal.css');
     print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
     print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
+    
+    print Asset::js('marked.min.js');
 ?>
 <main id="ec-event-container" 
       class="uk-width-large-8-10 
@@ -117,7 +119,7 @@
         <div class="uk-width-large-2-3 uk-width-small-1-1"
              id="ec-content">
             
-            <?php if(in_array($q['id'],$today)): ?>
+            <?php if($q['id'] == $today['id']): ?>
             <div class="uk-alert uk-alert-danger" data-uk-alert>
                 This Event Is Happening Right Now
                 <a href="" class="uk-alert-close uk-close"></a>
@@ -245,5 +247,7 @@ print $poster;
 <script>
     var geoLocation = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
     var venue       = '<?php print $q['venue']; ?>';
+    
+    console.log($('#main-info').find('div').html(marked($('#main-info').find('div').html())));
 </script>
 <?php print Asset::js('view/event.js'); ?>

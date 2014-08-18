@@ -19,7 +19,7 @@ class cdn
     
     public static function uikit_js_addon($name)
     {
-        print Asset::css(self::vendor(self::$_uikit_dir."js/addons/$name"));
+        print Asset::js(self::vendor(self::$_uikit_dir."js/addons/$name"));
     }
     
     public static function uikit_htmleditor()

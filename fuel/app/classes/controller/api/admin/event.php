@@ -42,7 +42,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
     //new
     public function post_edit()
     {
-        $arg = $this->_set_arg();
+        $arg            = $this->_set_arg();
         $arg['event_id']= Session::get('event_id');
 
         $response = Model_Event_list::edit_event($arg);
@@ -189,7 +189,7 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
     
     private function _set_arg()
     {
-        $arg			= array();
+        $arg		= array();
         $arg['name']	= Input::post('name');
         $arg['email']	= Input::post('email');
         $arg['main_org']= Input::post('main_org');
