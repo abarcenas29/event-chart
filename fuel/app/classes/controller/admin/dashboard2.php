@@ -142,6 +142,8 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
         $user	 = $this->_am('user');
         $user->q = Model_User::admin_index();
         
+        $email      = $this->_sm('email');
+        
         $fb         = $this->_sm('facebook');
         $fb->appid  = Model_const::read_one_key('fb_appid');
         $fb->secret = Model_const::read_one_key('fb_secret');
@@ -157,6 +159,7 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
         $view->modal_user = $user;
         $view->modal_fb   = $fb;
         $view->modal_tw   = $tw;
+        $view->modal_email= $email;
 
         $this->template->content = $view;
         $this->template->menu	 = $this->_sm('main');

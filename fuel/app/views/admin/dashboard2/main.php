@@ -2,8 +2,7 @@
     print Asset::css('ec-admin/admin.maintinance.css');
     print Asset::js('jquery.form.min.js');
 
-    print Asset::css('uikit/uikit.addons.min.css');
-    print Asset::js('uikit/add-ons/notify.min.js');
+    cdn::uikit_js_addon('notify.min.js');
 ?>
 <article class="uk-width-1-1"
          id="ec-main-settings">
@@ -52,6 +51,13 @@
            title="facebook">
             <i class="fa fa-twitter"></i>
         </a>
+        
+        <a class="uk-button"
+           href="#ec-admin-email"
+           data-uk-modal
+           title="Email Template">
+            <i class="fa fa-envelope"></i>
+        </a>
 		
 	</article>
 </div>
@@ -61,4 +67,5 @@
 	print $modal_user;
         print $modal_fb;
         print $modal_tw;
+        print $modal_email;
 ?>
