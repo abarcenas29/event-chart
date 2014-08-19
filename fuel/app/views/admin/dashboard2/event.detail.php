@@ -279,22 +279,59 @@
 <!-- Event Map Check -->
 <div class="uk-width-1-2 
             uk-height-1-1"
-	 id="ec-event-manage-map">
-	<article class="uk-panel"
-			 id="ec-venue-search">
-	<form class="uk-search" 
-		  data-uk-search="{source:'<?php print Uri::create('api/admin/event/search_venue') ?>'}">
-		<input  class="uk-search-field" 
-                        accept=""type="search" 
-			placeholder="">
-		<button class="uk-search-close" type="reset"></button>
-	</form> 
-	</article>
+     id="ec-event-manage-map">
+    <article class="uk-panel"
+             id="ec-venue-search">
+    <a href="#ec-map-search" data-uk-modal class="uk-button">
+        <i class="fa fa-map-marker"></i>
+    </a>
+    </article>
 </div>
 
 </div>
 </article>
-<?php 
+
+<div id="ec-map-search" class="uk-modal">
+    <article class="uk-modal-dialog uk-panel uk-panel-header">
+        <a href="" class="uk-modal-close uk-close"></a>
+        <header class="uk-panel-title">
+            <i class="fa fa-map-marker"></i> Search Venue
+        </header>
+        <section class="uk-width-1-1">
+            <form action="<?php print Uri::create('api/admin/event/search_venue.json'); ?>"
+                  class="uk-form uk-form-horizontal"
+                  id="ec-map-search-form"
+                  method="POST">
+                <div class="uk-form-row">
+                    <label class="uk-form-label">
+                        Search Organization / Event
+                    </label>
+                    <div class="uk-form-controls">
+                        <input type="text"
+                               name="search"
+                               class="uk-width-1-1" />
+                    </div>
+                </div>
+                <div class="uk-form-row">
+                    <button class="uk-button 
+                                   uk-button-primary
+                                   uk-float-right"
+                            type="submit">
+                        <i class="fa fa-search"></i>
+                        Search
+                    </button>
+                </div>
+            </form>
+            <hr class="uk-margin-top">
+        </section>
+        <section class="uk-width-1-1 uk-overflow-container">
+            <table class="uk-table uk-table-hover">
+            <tbody id="ec-map-search-result"></tbody>
+            </table>
+        </section>
+    </article>
+</div>
+<?php
 if(isset($q))
 {
     print $modal_org;

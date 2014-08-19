@@ -17,7 +17,7 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
     public function action_event_add()
     {
         $view = $this->_db('event.detail');
-        $view->orgs		= Model_Organization::admin_ll_index();
+        $view->orgs	= Model_Organization::admin_ll_index();
         $view->action	= Uri::create('api/admin/event/add.json');
         $view->cities	= Model_city::read_area();
 

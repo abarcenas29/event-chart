@@ -26,6 +26,7 @@
         
         cdn::default_fonts('roboto');
         
+        print Asset::js('jquery.form.min.js');
         print Asset::css('ec-admin/admin.dashboard.css');
 ?>
 </head>
@@ -42,13 +43,11 @@
 </ul>
 <div class="uk-navbar-flip">
 <div class="uk-navbar-content">
-    <form class="uk-search" 
-          data-uk-search="{source:'<?php print Uri::create('api/admin/search/event.json'); ?>'}">
-	<input class="uk-search-field" 
-               type="search" 
-               placeholder="Search">
-    <button class="uk-search-close" type="reset"></button>
-    </form>
+    <a href="#ec-search-org"
+       data-uk-modal
+       class="uk-button uk-button-primary">
+        <i class="fa fa-search"></i>
+    </a>
 </div>
 <ul class="uk-navbar-nav">
 	<!-- MANAGEMENT -->
@@ -120,9 +119,52 @@
 <!-- CONTENT -->
 <?php print (isset($content))?$content:''; ?>
 
+<!-- ORG SEARCH -->
+<div id="ec-search-org" 
+     class="uk-modal">
+    <article class="uk-modal-dialog uk-panel uk-panel-header">
+        <a class="uk-modal-close uk-close"></a>
+        <header class="uk-panel-title">
+            Search Organization
+        </header>
+        <section class="uk-width-1-1">
+            <form action="<?php print Uri::create('api/admin/search/event.json'); ?>"
+                  class="uk-form uk-form-horizontal"
+                  id="ec-search-org-form"
+                  method="POST">
+                <div class="uk-form-row">
+                    <label class="uk-form-label">
+                        Search Organization / Event
+                    </label>
+                    <div class="uk-form-controls">
+                        <input type="text"
+                               name="search"
+                               class="uk-width-1-1" />
+                    </div>
+                </div>
+                <div class="uk-form-row">
+                    <button class="uk-button 
+                                   uk-button-primary
+                                   uk-float-right"
+                            type="submit">
+                        <i class="fa fa-search"></i>
+                        Search
+                    </button>
+                </div>
+            </form>
+            <hr class="uk-margin-top">
+        </section>
+        <section class="uk-width-1-1 uk-overflow-container">
+            <table class="uk-table uk-table-hover">
+            <tbody id="ec-search-org-result"></tbody>
+            </table>
+        </section>
+    </article>
+</div>
+
 <!-- Change Password -->
 <article id="ec-change-password" 
-		 class="uk-modal">
+         class="uk-modal">
 <div class="uk-modal-dialog">
 
 <article class="uk-panel uk-panel-header">
@@ -132,66 +174,77 @@
 </header>
 <section>
 <form action="#"
-	  method="post"
-	  id="ec-change-password"
-	  class="uk-form uk-form-horizontal">
+      method="post"
+      id="ec-change-password"
+      class="uk-form uk-form-horizontal">
 	
-	<div class="uk-form-row">
-	<label class="uk-form-label">
-		New Password
-	</label>
-	<div class="uk-form-controls">
-		<input type="password"
-		   name="password"
-		   class="uk-width-1-1"/>
-	</div>
-	</div>
+    <div class="uk-form-row">
+    <label class="uk-form-label">
+        New Password
+    </label>
+    <div class="uk-form-controls">
+        <input type="password"
+               name="password"
+               class="uk-width-1-1"/>
+    </div>
+    </div>
 	
-	<div class="uk-form-row">
-	<label class="uk-form-label">
-		Re-type New Password
-	</label>
-	<div class="uk-form-controls">
-		<input type="password"
-		   name="password2"
-		   class="uk-width-1-1"/>
-	</div>
-	</div>
+    <div class="uk-form-row">
+    <label class="uk-form-label">
+        Re-type New Password
+    </label>
+    <div class="uk-form-controls">
+        <input type="password"
+               name="password2"
+               class="uk-width-1-1"/>
+    </div>
+    </div>
 	
-	<div class="uk-form-row">
-	<div class="uk-float-right">
-		<button type="submit"
-                        id="ec-change-password-btn"
-                        data-url="<?php print Uri::create('api/admin/maintinance/change_password.json'); ?>"
-                        class="uk-button
-                               uk-button-success">
-		<i class="uk-icon-save"></i>
-		Save
-		</button>
-	</div>
-	</div>
+    <div class="uk-form-row">
+    <div class="uk-float-right">
+        <button type="submit"
+                id="ec-change-password-btn"
+                data-url="<?php print Uri::create('api/admin/maintinance/change_password.json'); ?>"
+                class="uk-button
+                       uk-button-success">
+        <i class="uk-icon-save"></i>
+        Save
+        </button>
+    </div>
+    </div>
+    
 </form>
 </section>
 </article>
 <script>
 $(document).ready(function(e)
 {
-	$('#ec-change-password-btn').click(function(e)
-	{
-		var url	= $(this).data('url');
-		var data = {
-			password : $('input[name="password"]').val(),
-			password2: $('input[name="password2"]').val()
-		}
-		
-		$.post(url,data,function(d)
-		{
-			alert(d.response);
-		});
-		
-		e.stopPropagation();
-		e.preventDefault();
-	});
+    $('#ec-search-org-form').ajaxForm({
+        success:function(d){
+            var $result = $('#ec-search-org-result');
+            $result.empty();
+            
+            for(i = 0;i < d.results.length;i++){
+                $result.append('<tr><td><a href="'+d.results[i].url+'">'+ d.results[i].title +'</a></td></tr>');
+            }            
+        }
+    });
+    $('#ec-change-password-btn').click(function(e)
+    {
+        var url	= $(this).data('url');
+        var data = {
+            password : $('input[name="password"]').val(),
+            password2: $('input[name="password2"]').val()
+        };
+
+        $.post(url,data,function(d)
+        {
+            alert(d.response);
+        });
+
+        e.stopPropagation();
+        e.preventDefault();
+    });
 });
 </script>
 
