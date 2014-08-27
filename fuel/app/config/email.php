@@ -10,42 +10,42 @@ return array(
 		/**
 		 * Mail useragent string
 		 */
-		'useragent'	=> 'FuelPHP, PHP 5.3 Framework',
+		'useragent'     => 'FuelPHP, PHP 5.3 Framework',
 		/**
 		 * Mail driver (mail, smtp, sendmail, noop)
 		 */
-		'driver'		=> 'smtp',
+		'driver'	=> 'smtp',
 
 		/**
 		 * Whether to send as html, set to null for autodetection.
 		 */
-		'is_html'		=> null,
+		'is_html'	=> null,
 
 		/**
 		 * Email charset
 		 */
-		'charset'		=> 'utf-8',
+		'charset'	=> 'utf-8',
 
 		/**
 		 * Wether to encode subject and recipient names.
 		 * Requires the mbstring extension: http://www.php.net/manual/en/ref.mbstring.php
 		 */
-		'encode_headers' => true,
+		'encode_headers'=> true,
 
 		/**
 		 * Ecoding (8bit, base64 or quoted-printable)
 		 */
-		'encoding'		=> '8bit',
+		'encoding'	=> '8bit',
 
 		/**
 		 * Email priority
 		 */
-		'priority'		=> \Email::P_NORMAL,
+		'priority'	=> \Email::P_NORMAL,
 
 		/**
 		 * Default sender details
 		 */
-		'from'		=> array(
+                'from'		=> array(
 			'email'		=> 'developer@deremoe.com',
 			'name'		=> 'Developer Email Test',
 		),
@@ -63,12 +63,12 @@ return array(
 		/**
 		 * Auto attach inline files
 		 */
-		'auto_attach' => true,
+		'auto_attach'   => true,
 
 		/**
 		 * Auto generate alt body from html body
 		 */
-		'generate_alt' => true,
+		'generate_alt'  => true,
 
 		/**
 		 * Forces content type multipart/related to be set as multipart/mixed.
@@ -89,10 +89,10 @@ return array(
 		 * SMTP settings
 		 */
 		'smtp'	=> array(
-			'host'		=> 'ssl://smtp.gmail.com',
-			'port'		=> 465,
-			'username'  => 'kevin.abelita@beenest-tech.com',
-			'password'	=> 'beenestmail123',
+			'host'		=> 'pro.turbo-smtp.com',
+			'port'		=> 587,
+			'username'      => 'aldrich.barcenas@gmail.com',
+			'password'	=> 'O6BLO9mA',
 			'timeout'	=> 10,
 		),
 
@@ -123,5 +123,4 @@ return array(
 	'setups' => array(
 		'default' => array(),
 	),
-
 );

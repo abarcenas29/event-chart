@@ -19,5 +19,15 @@ class Controller_Api_Admin_Maintinance extends Controller_Api_ApiPrivate
         $res = Model_User::change_password($arg);
         return $this->response($res);
     }
+    
+    public function post_send_email()
+    {
+        $arg = array();
+        $arg['from']    = 'event@deremoe.com';
+        $arg['to']      = Input::post('to');
+        $arg['subject'] = Input::post('subject');
+        $arg['view']    = Input::post('body');
+        Model_Email::send_html_email($arg);
+    }
 }
 

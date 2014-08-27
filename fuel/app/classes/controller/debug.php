@@ -7,4 +7,26 @@ class Controller_Debug extends Controller
         print_r(Model_Event_Poster::fb_write_poster_url(3));
         print '</pre>';
     }
+    
+    public function action_email()
+    {
+        $email = Email::forge();
+        $email->from('aldrich.barcenas@deremoe.com','Testing');
+        $email->to('aldrich.barcenas@gmail.com','Testing 2');
+        $email->subject('This is a Subject');
+        $email->body('testing email');
+        
+        try
+        {
+            $email->send();
+        }
+        catch (\EmailValidationFailedException $e)
+        {
+            print $e;
+        }
+        catch (\EmailSendingFailedException  $e)
+        {
+            print $e;
+        }
+    }
 }

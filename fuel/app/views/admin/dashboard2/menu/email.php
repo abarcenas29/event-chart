@@ -10,28 +10,26 @@
             <form class="uk-form uk-form-horizontal"
                   id="ec-admin-email-form"
                   method="POST"
-                  action="<?php print Uri::create(''); ?>">
+                  action="<?php print Uri::create('api/admin/maintinance/send_email.json'); ?>">
+                <div class="uk-form-row">
+                    <label class="uk-form-label">
+                        Send Test Mail Address
+                    </label>
+                    <div class="uk-form-controls">
+                        <input type="text" name="to"/>
+                    </div>
+                </div>
                 <div class="uk-form-row">
                     <label class="uk-form-label">
                         Subject
                     </label>
                     <div class="uk-form-controls">
                         <input type="text"
-                               value="<?php ?>"
                                name="subject"/>
                     </div>
                 </div>
                 <div class="uk-form-row">
                     <textarea name="body" data-uk-htmleditor></textarea>
-                </div>
-                <div class="uk-form-row">
-                    <label class="uk-form-label">
-                        Send Test Mail
-                    </label>
-                    <div class="uk-form-controls">
-                        <input type="checkbox" name="test" />
-                        <input type="text" name="email"/>
-                    </div>
                 </div>
                 <div class="uk-form-row">
                     <button type="submit" 
@@ -44,3 +42,13 @@
         </section>
     </article>
 </div>
+<script>
+    $('#ec-admin-email-form').ajaxForm({
+        beforeSubmit:function(arr){
+            $.UIkit.notify('Sending Mail ...',{status:'info'});
+        },
+        success:function(d){
+            $.UIkit.notify('Mail Sent XD',{status:'success'});
+        }
+    });
+</script>
