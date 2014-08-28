@@ -8,7 +8,7 @@ class cdn
     public static function uikit()
     {
         print Asset::css(self::vendor(self::$_uikit_dir.'css/uikit.min.css'));
-        print Asset::css(self::component('font-awesome/css/font-awesome.min.css'));
+        print Asset::css('http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css');
         print Asset::js(self::vendor(self::$_uikit_dir.'js/uikit.min.js'));
     }
     

@@ -89,7 +89,7 @@ class Model_Photo extends Model_ModelCore
 		   $arg['mime'] == 'png')
 		{
 			$arg['rand_name']  = substr_replace(sha1(microtime(true)),'',25);
-			$arg['org_file']   = $arg['upload_dir'].date('Y-m-d').'/'.$arg['rand_name'].'.'.$arg['mime'];
+			$arg['org_file']   = $arg['upload_dir'].date('Y-m-d').DS.$arg['rand_name'].'.'.$arg['mime'];
 			
 			try
 			{
@@ -120,7 +120,7 @@ class Model_Photo extends Model_ModelCore
 	public static function _upload($arg)
 	{
 		$arg['upload_dir'] = Config::get('ec.upload');
-		$get_mime		   = explode('.',$arg['filename']);
+                $get_mime          = explode('.',$arg['filename']);
 		$arg['mime']	   = end($get_mime);
 		
 		$arg['clean_file'] = explode(',',$arg['value']);

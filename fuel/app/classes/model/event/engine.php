@@ -37,10 +37,11 @@ class Model_Event_Engine extends Model_ModelCore
     public static function fetch_event_photos($event_id)
     {
         $f   = Model_Event_Engine::_auth_facebook();
-        $rsp =  Model_Event_Engine::_api_call($event_id.'/photos');
+        $rsp = Model_Event_Engine::_api_call($event_id."/photos");
         
         $arg = array();
         $x   = 0;
+        
         foreach($rsp['data'] as $photos)
         {
             $arg[$x]['url']             = $photos['source'];
@@ -98,11 +99,11 @@ class Model_Event_Engine extends Model_ModelCore
         
         try 
         {
-            return $f->api('/'.$api_link);
+            return $f->api("/$api_link");
         } 
         catch (Exception $e) 
         {
-            return false;
+            return $e;
         }
     }
     
@@ -190,7 +191,7 @@ class Model_Event_Engine extends Model_ModelCore
         //temporary
         $cfg['appId']   = Model_const::read_one_key('fb_appid')['value'];
         $cfg['secret']  = Model_const::read_one_key('fb_secret')['value'];
-        $token = Model_const::read_one_key('fb_access_token')['value'];
+        $token          = Model_const::read_one_key('fb_access_token')['value'];
         
         $f = new facebook\fb($cfg);
         $f->setAccessToken($token);

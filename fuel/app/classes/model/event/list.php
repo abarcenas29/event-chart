@@ -366,7 +366,31 @@ class Model_Event_list extends Model_ModelCore
         $q->delete();
     }
 
+    public static function get_facebook_ids($event_ids)
+    {
+        $q = Model_Event_list::query()
+                ->select('fb_event_id')
+                ->where('id','IN',$event_ids)
+                ->where('fb_event_id','<>','')
+                ->get();
+        return $q;
+    }
 
+    public static function facebook_write_data($data,$event_id)
+    {
+        $q = Model_Event_list::query()
+                ->where('fb_event_id','=',$event_id)
+                ->get_one();
+        
+        $q->name	= $data['name'];
+        $q->start_at	= $data['start_time'];
+        $q->end_at	= $data['end_time'];
+        $q->lat		= $data['venue']['latitude'];
+        $q->long	= $data['venue']['longitude'];
+        $q->description = $data['description'];
+        $q->save();
+    }
+    
     private static function _check_name($arg)
     {
         $q = Model_Event_list::query()

@@ -47,51 +47,51 @@ class Model_Event_Poster extends Model_ModelCore
 		return $q;
 	}
         
-        public static function fb_write_poster_url($event_id)
+        public static function fb_write_poster_url($fb_event_id)
         {
-            $q = Model_Event_Poster::query()
-                    ->where('event_id','=',$event_id)
-                    ->where('fb_create_time','!=',null)
-                    ->order_by('fb_create_time','desc');
+            $event_id = Model_Event_list::query()
+                            ->select('id')
+                            ->where('fb_event_id','=',$fb_event_id)
+                            ->get_one();
             
-            if($q->count() == 0)
+            $q = Model_Event_Poster::query()
+                    ->where('event_id','=',$event_id['id'])
+                    ->where('fb_create_time','!=',null)
+                    ->order_by('fb_create_time','desc')
+                    ->get_one();
+            
+            if(count($q) == 0)
             {
                 $update_time = 0;
             }
             else 
             {
-                $result = $q->get_one();
-                $update_time = $result['fb_create_time'];
+                $update_time = $q['fb_create_time'];
             }
             
-            $list = Model_Event_list::read_public_list($event_id);
-           
-            if(!is_null($list['fb_event_id']))
+            $photos = Model_Event_Engine::fetch_event_photos($fb_event_id);
+            foreach ($photos as $photo)
             {
-                $photos = Model_Event_Engine::fetch_event_photos($list['fb_event_id']);
-                foreach ($photos as $photo)
-                {
-                   $create_time = strtotime($photo['created_time']);
-                   if((int) $create_time > $update_time)
-                   {
-                        $arg = array();
-                        $arg['url']         = $photo['url'];
-                        $arg['width']       = 1280;
-                        $arg['event_id']    = $event_id;
-                        $arg['fb-update']   = $create_time;
-                        Model_Event_Poster::write_poster_url($arg);
-                   } 
-                }
+               $create_time = strtotime($photo['created_time']);
+               if((int) $create_time > $update_time)
+               {
+                    $arg = array();
+                    $arg['url']         = $photo['url'];
+                    $arg['width']       = 1280;
+                    $arg['event_id']    = $event_id['id'];
+                    $arg['fb-update']   = $create_time;
+                    Model_Event_Poster::write_poster_url($arg);
+               } 
             }
         }
 	
 	public static function delete_poster($arg)
 	{
-		$q = Model_Event_Poster::query()
-				->where('id','=',$arg['poster_id'])
-				->get_one();
-		Model_Photo::delete_picture($q['photo_id']);
-		return $q->delete();
+            $q = Model_Event_Poster::query()
+                    ->where('id','=',$arg['poster_id'])
+                    ->get_one();
+            Model_Photo::delete_picture($q['photo_id']);
+            return $q->delete();
 	}
 	
 	public static function remove_poster_by_event($event_id)
