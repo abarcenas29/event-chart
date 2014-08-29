@@ -8,13 +8,25 @@ class Controller_Debug extends Controller
         print '</pre>';
     }
     
+    public function action_template()
+    {
+        $q    = Model_Event_list::read_public_list(3); 
+        $view = View::forge('email/alert');
+        $view->q = $q;
+        return $view;
+    }
+    
     public function action_email()
     {
+        $q    = Model_Event_list::read_public_list(3);
+        $view = View::forge('email/alert');
+        $view->q = $q;
+        
         $email = Email::forge();
         $email->from('aldrich.barcenas@deremoe.com','Testing');
-        $email->to('aldrich.barcenas@gmail.com','Testing 2');
+        $email->to('tcmanila@gmail.com','Testing 2');
         $email->subject('This is a Subject');
-        $email->body('testing email');
+        $email->html_body($view);
         
         try
         {
