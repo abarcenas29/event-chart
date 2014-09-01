@@ -1,6 +1,6 @@
 <?php
 return array(
-	'upload'	=> DOCROOT . 'uploads/',
+	'upload'	=> DOCROOT.'public'.DS.'uploads'.DS,
 	'upload_url'	=> 'assets/uploads/',
 	'categories'	=> array('Cosplay',
                                  'Anime',

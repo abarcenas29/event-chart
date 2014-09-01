@@ -29,9 +29,13 @@ class Model_Photo extends Model_ModelCore
 	
 	public static function insert_picture_url($arg)
 	{
+            $file_created = Model_Photo::_upload_url($arg);
+            if($file_created === false)
+                return false;
+            
             $q              = new Model_Photo();
             $q->date        = date('Y-m-d');
-            $q->filename    = Model_Photo::_upload_url($arg);
+            $q->filename    = $file_created;
             $q->parameters  = (isset($arg['param']))?$arg['param']:null;
             $q->save();
             return $q->id;
@@ -74,47 +78,53 @@ class Model_Photo extends Model_ModelCore
 		$files[] = $path.'thumb-'.$arg['filename'];
 		foreach($files as $file)
 		{
-			if(file_exists($file))\Fuel\Core\File::delete($file);
+                    if(file_exists($file))\Fuel\Core\File::delete($file);
 		}
 	}
 	
 	public static function _upload_url($arg)
 	{
-		$arg['upload_dir'] = Config::get('ec.upload');
-                $get_mime          = explode('.',$arg['url']);
-		$arg['mime']	   = end($get_mime);
-		
-		if($arg['mime'] == 'jpeg' || 
-		   $arg['mime'] == 'jpg'  || 
-		   $arg['mime'] == 'png')
-		{
-			$arg['rand_name']  = substr_replace(sha1(microtime(true)),'',25);
-			$arg['org_file']   = $arg['upload_dir'].date('Y-m-d').DS.$arg['rand_name'].'.'.$arg['mime'];
-			
-			try
-			{
-				\Fuel\Core\File::create_dir($arg['upload_dir'],date('Y-m-d'));
-			}catch(Exception $e){}
-			
-			if($arg['mime'] == 'jpeg' || $arg['mime'] == 'jpg')
-			{
-				$img = imagecreatefromjpeg($arg['url']);
-				imagejpeg($img,$arg['org_file']);
-				
-				chmod($arg['org_file'],0775);
-			}
-			else
-			{
-				$img = imagecreatefrompng($arg['url']);
-				imagepng($img,$arg['org_file']);
-				
-				chmod($arg['org_file'],0775);
-				$arg = Model_Photo::_convert_png_to_jpg($arg);
-			}
-			
-			return Model_Photo::_resize_img($arg);
-		}
-		return false;
+            $arg['upload_dir'] = Config::get('ec.upload');
+            $raw_mime          = explode('.',$arg['url']);
+            $filter_mime       = explode('?',end($raw_mime));
+            $arg['mime']       = $filter_mime[0];
+
+            if($arg['mime'] == 'jpeg' || 
+               $arg['mime'] == 'jpg'  || 
+               $arg['mime'] == 'png')
+            {
+                $arg['rand_name']  = substr_replace(sha1(microtime(true)),'',25);
+                $arg['org_file']   = $arg['upload_dir'].date('Y-m-d').DS.$arg['rand_name'].'.'.$arg['mime'];
+
+                try
+                {
+                    File::create_dir($arg['upload_dir'],date('Y-m-d'));
+                }catch(Exception $e){
+                    
+                }
+
+                if($arg['mime'] == 'jpeg' || $arg['mime'] == 'jpg')
+                {
+                        $img = imagecreatefromjpeg($arg['url']);
+                        imagejpeg($img,$arg['org_file']);
+
+                        chmod($arg['org_file'],0775);
+                }
+                else
+                {
+                        $img = imagecreatefrompng($arg['url']);
+                        imagepng($img,$arg['org_file']);
+
+                        chmod($arg['org_file'],0775);
+                        $arg = Model_Photo::_convert_png_to_jpg($arg);
+                }
+                
+                return Model_Photo::_resize_img($arg);
+            }
+            
+            log::warning($arg['url']);
+            Log::warning('MIME Fail of sort');
+            return false;
 	}
 	
 	public static function _upload($arg)

@@ -4,10 +4,20 @@ class Controller_Debug extends Controller
     public function action_index()
     {     
         print '<pre>';
-        print_r(Model_Event_Poster::fb_write_poster_url('1379288799026080'));
+        //print (is_writable(DOCROOT.DS.'uploads'))?'Writable':'Not Writable';
+        //print_r(Model_Event_Poster::fb_write_poster_url('1379288799026080'));
         print '</pre>';
     }
     
+    public function action_mime()
+    {
+        $url        = 'https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xfp1/t31.0-8/s720x720/10623348_685339708221622_1376268425538755379_o.jpg';
+        $raw_mime   = explode('.',$url);
+        $filter_mime= explode('?',end($raw_mime));
+        Debug::dump($filter_mime[0]);
+    }
+
+
     public function action_template()
     {
         $q    = Model_Event_list::read_public_list(3); 

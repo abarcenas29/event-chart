@@ -25,7 +25,6 @@ class Model_Event_Poster extends Model_ModelCore
 		)
 	);
 	
-	
 	public static function write_poster($arg)
 	{
 		$q = new Model_Event_Poster();
@@ -38,13 +37,17 @@ class Model_Event_Poster extends Model_ModelCore
 	
 	public static function write_poster_url($arg)
 	{
-		$q = new Model_Event_Poster();
-		$q->event_id = $arg['event_id'];
-		$q->photo_id = Model_Photo::insert_picture_url($arg);
-                $q->fb_create_time = (isset($arg['fb-update']))?$arg['fb-update']:null;
-		$q->save();
-		
-		return $q;
+            $file_created = Model_Photo::insert_picture_url($arg);
+            if($file_created === false)
+                return false;
+            
+            $q = new Model_Event_Poster();
+            $q->event_id = $arg['event_id'];
+            $q->photo_id = $file_created;
+            $q->fb_create_time = (isset($arg['fb-update']))?$arg['fb-update']:null;
+            $q->save();
+
+            return $q;
 	}
         
         public static function fb_write_poster_url($fb_event_id)
@@ -70,6 +73,7 @@ class Model_Event_Poster extends Model_ModelCore
             }
             
             $photos = Model_Event_Engine::fetch_event_photos($fb_event_id);
+            
             foreach ($photos as $photo)
             {
                $create_time = strtotime($photo['created_time']);

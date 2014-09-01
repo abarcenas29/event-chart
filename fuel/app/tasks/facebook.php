@@ -10,9 +10,18 @@ class facebook
         
         $event_ids = self::_fetch_fb_ids();
         self::_fetch_data($event_ids);
+        self::_fetch_cover_photos($event_ids);
         self::_fetch_photos($event_ids);
     }
     
+    private static function _fetch_cover_photos($event_ids)
+    {
+        foreach($event_ids as $id)
+        {
+            \Model_Event_list::fb_cover_photo_task($id);
+        }
+    }
+
     private static function _fetch_photos($event_ids)
     {
         foreach($event_ids as $row){

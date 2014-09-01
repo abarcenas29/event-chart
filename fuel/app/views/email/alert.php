@@ -1143,8 +1143,11 @@ table.divider {
                                padding-left: 32px;
                                padding-right: 32px;
                                vertical-align: top">
-                                      
-                        <p style="Margin-top: 0;
+                    <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                        <td>
+                            <p style="Margin-top: 0;
                                   -moz-osx-font-smoothing: grayscale;
                                   font-family: Georgia, serif;
                                   color: #565656;
@@ -1153,9 +1156,9 @@ table.divider {
                                   font-size: 16px;
                                   line-height: 24px">
                             Greetings!
-                        </p>
-			
-                        <p style="Margin-top: 0;
+                            </p>
+                            
+                            <p style="Margin-top: 0;
                                   -moz-osx-font-smoothing: grayscale;
                                   font-family: Georgia, serif;
                                   color: #565656;
@@ -1167,18 +1170,26 @@ table.divider {
                             like to inform you that your event <strong style="font-weight: bold">(<?php print $q['name'] ?>)</strong>
                             has been added to our service. 
                             You can view the details on the link below.
-                        </p>
-			
-                        <p style="margin-top: 0;
-                                  -moz-osx-font-smoothing: grayscale;
-                                  font-family: Georgia, serif;
-                                  color: #565656;
-                                  margin-bottom: 24px;
-                                  -webkit-font-smoothing: antialiased;
-                                  font-size: 16px;
-                                  line-height: 24px; 
-                                  text-align:center">
-                            <span label="eclink" 
+                            </p>
+                        </td>
+                        </tr>
+                        
+                        <tr>
+                        <td>
+                            <table style="width:100%; margin-bottom:10px;">
+                            <tbody>
+                            <tr>
+                            <td style="text-align:center;">
+                                <img width="150" 
+                                     src="<?php print Uri::create('uploads/'.$q['cover']['date'].'/thumb-'.$q['cover']['filename']); ?>"/>
+                            </td>
+                            <td style="vertical-align:middle;">
+                                <h2 style="margin:0px;text-align:center"><?php print $q['name']; ?></h2>
+                                <p style="margin:2px;font-style:italic;text-align:center;">
+                                    <?php print date('d F Y',strtotime($q['start_at'])) .' - '. date('d F Y',  strtotime($q['end_at'])); ?>
+                                </p>
+                                <p style="margin:20px 0px;text-align:center;">
+                                <span label="eclink" 
                                         style="background: #ab1f2b;
                                                padding: 10px;
                                                margin-top: 0;
@@ -1191,43 +1202,23 @@ table.divider {
                                 <a href="<?php print Uri::create('view/event/'.$q['id']); ?>" 
                                    style="color:white;
                                           text-decoration:none;"
-                                   target="_new">Link Here</a>
-                            </span>
-                        </p>
-			
-                        <p style="Margin-top: 0;
-                                  -moz-osx-font-smoothing: grayscale;
-                                  font-family: Georgia, serif;
-                                  color: #565656;
-                                  margin-bottom: 24px;
-                                  -webkit-font-smoothing: antialiased;
-                                  font-size: 16px;
-                                  line-height: 24px">
-                            If you have any concerns with regards to the details on the page, kindly email 
-                            <strong style="font-weight: bold">events@deremoe.com</strong>. We appreciate if you can 
-                            provide us with an official hashtag for your event as well in the same address.
-                        </p>
-                        
-			<p style="Margin-top: 0;
-                                  -moz-osx-font-smoothing: grayscale;
-                                  font-family: Georgia, serif;
-                                  color: #565656;
-                                  margin-bottom: 24px;
-                                  -webkit-font-smoothing: antialiased;
-                                  font-size: 16px;
-                                  line-height: 24px">
-                            All the best,<br /> 
-                            <strong style="font-weight: bold">Team Deremoe and the Events Chart</strong></p>        
+                                   target="_new">View Here
+                                </a>
+                                </span>
+                                </p>
+                            </td>
+                            </tr>
+                            </tbody>
+                            </table>
                         </td>
-                      </tr>
-                     </tbody>
+                        </tr>
+                    </tbody>
                     </table>
-                              
-                    <div class="column-bottom" 
-                         style="font-size: 8px;
-                                line-height: 8px">
-                        &nbsp;
-                    </div>
+                             
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
                 </td>
                 </tr>
                 </tbody>
@@ -1353,8 +1344,8 @@ table.divider {
                               -webkit-font-smoothing:antialiased;
                               font-size:16px;
                               line-height:24px">
-                        The <strong style="font-weight: bold">Events Chart</strong> is a project of 
-                        Deremoe.com which aims to list Anime, Otaku and related events around the 
+                        The <strong style="font-weight: bold"><a href="<?php print Uri::base(); ?>" style="color:#ab1f2b;">Events Chart</a></strong> is a project of 
+                        <a href="http://deremoe.com" style="color:#ab1f2b">deremoe.com</a> which aims to list Anime, Otaku and related events around the 
                         country.
                     </p>
           

@@ -1,11 +1,6 @@
 <?php 
-	print Asset::css('font-awesome.css');
-
-	print Asset::css('admin/dashboard.event.gallery.css');
-	print Asset::js('jquery.form.min.js');
-	
-	print Asset::css('uikit/notify.min.css');
-	print Asset::js('uikit/notify.min.js');
+    print Asset::css('ec-admin/admin.dashboard.event.gallery.css');
+    print Asset::js('jquery.form.min.js');
 ?>
 <article class="uk-width-1-1 uk-margin-top" id="ec-event-gallery-manage">
 <div class="uk-grid">

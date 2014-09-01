@@ -198,18 +198,6 @@ class Model_Event_list extends Model_ModelCore
         return $rsp;
     }
 	
-    public static function insert_main_picture($arg)
-    {
-        $q = Model_Event_list::query()
-                ->where('id','=',$arg['event_id'])
-                ->get_one();
-
-        if(!is_null($q['photo_id']))
-                Model_Photo::delete_picture($q['photo_id']);
-        $q->photo_id = Model_Photo::insert_picture($arg);
-        $q->save();
-    }
-	
     public static function insert_cover_picture($arg)
     {
         $q = Model_Event_list::query()
@@ -222,17 +210,26 @@ class Model_Event_list extends Model_ModelCore
         $q->save();
     }
 
-    public static function insert_main_picture_url($arg)
+    public static function fb_cover_photo_task($event_id)
     {
         $q = Model_Event_list::query()
-                ->where('id','=',$arg['event_id'])
+                ->where('id','=',$event_id['event_id'])
                 ->get_one();
-        if(!is_null($q['photo_id']))
-                Model_Photo::delete_picture($q['photo_id']);
-        $q->photo_id = Model_Photo::insert_picture_url($arg);
-        $q->save();
+        $cover_img = Model_Event_Engine::event_cover($q['fb_event_id']);
+        
+        $offset     = array();
+        $offset['x']= $cover_img['offset-x'];
+        $offset['y']= $cover_img['offset-y'];
+        
+        $arg = array();
+        $arg['event_id']    = $event_id;
+        $arg['url']         = $cover_img['url'];
+        $arg['param']       = json_encode($offset);
+        $arg['param']       = 1280;
+        
+        Model_Event_list::insert_cover_picture_url($arg);
     }
-
+    
     public static function insert_cover_picture_url($arg)
     {
         $q = Model_Event_list::query()
@@ -241,17 +238,6 @@ class Model_Event_list extends Model_ModelCore
         if(!is_null($q['cover_id']))
                 Model_Photo::delete_picture($q['cover_id']);
         $q->cover_id = Model_Photo::insert_picture_url($arg);
-        $q->save();
-    }
-
-    public static function delete_main_picture($arg)
-    {
-        $q = Model_Event_list::query()
-                ->where('id','=',$arg['event_id'])
-                ->get_one();
-        if(!is_null($q['photo_id']))
-                Model_Photo::delete_picture ($q['photo_id']);
-        $q->photo_id = null;
         $q->save();
     }
 
