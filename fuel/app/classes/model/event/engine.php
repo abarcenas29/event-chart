@@ -6,8 +6,6 @@
 
 class Model_Event_Engine extends Model_ModelCore
 {
-    //temporary credentials
-    private static $_event  = '621129704608422';
     
     //Parse the contents of the event data
     public static function event_data($event_id)
@@ -28,6 +26,7 @@ class Model_Event_Engine extends Model_ModelCore
             $arg['url']         = $rsp['cover']['source'];
             $arg['offset-x']    = $rsp['cover']['offset_x'];
             $arg['offset-y']    = $rsp['cover']['offset_y'];
+            $arg['cover_id']    = number_format($rsp['cover']['cover_id'],0,'','');
             return $arg;
         }
         return false;

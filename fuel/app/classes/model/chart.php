@@ -102,7 +102,7 @@ class Model_chart extends Model
 
     private static function _prepare_chart($q)
     {
-        $c		= 0;
+        $c	= 0;
         $chart	= array();
         foreach($q as $row)
         {
@@ -127,6 +127,11 @@ class Model_chart extends Model
 
     private static function _poster_uri($p,$type = '')
     {
+        if(is_null($p['cover_id']))
+        {
+            return 'http://placehold.it/350x150';
+        }
+        
         return Uri::create('uploads/'.$p['cover']['date'].'/'.$type.$p['cover']['filename']);
     }
 }

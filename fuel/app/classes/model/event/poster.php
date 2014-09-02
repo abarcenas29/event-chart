@@ -37,14 +37,15 @@ class Model_Event_Poster extends Model_ModelCore
 	
 	public static function write_poster_url($arg)
 	{
-            $file_created = Model_Photo::insert_picture_url($arg);
+            $arg['upload_dir']  = Config::get('ec.upload_task');
+            $file_created       = Model_Photo::insert_picture_url($arg);
             if($file_created === false)
                 return false;
             
             $q = new Model_Event_Poster();
-            $q->event_id = $arg['event_id'];
-            $q->photo_id = $file_created;
-            $q->fb_create_time = (isset($arg['fb-update']))?$arg['fb-update']:null;
+            $q->event_id        = $arg['event_id'];
+            $q->photo_id        = $file_created;
+            $q->fb_create_time  = (isset($arg['fb-update']))?$arg['fb-update']:null;
             $q->save();
 
             return $q;
@@ -84,6 +85,7 @@ class Model_Event_Poster extends Model_ModelCore
                     $arg['width']       = 1280;
                     $arg['event_id']    = $event_id['id'];
                     $arg['fb-update']   = $create_time;
+                    $arg['upload_dir']  = DOCROOT.DOCROOT.'public'.DS.'uploads'.DS;
                     Model_Event_Poster::write_poster_url($arg);
                } 
             }

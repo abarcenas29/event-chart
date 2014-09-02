@@ -20,8 +20,8 @@ Event Categories
 	<div class="uk-form-controls">
 	<select name="category">
 	<?php foreach($cats as $row):  ?>
-		<option value="<?php print $row; ?>">
-		<?php print $row; ?>
+		<option value="<?php print $row['value']; ?>">
+		<?php print $row['value']; ?>
 		</option>
 	<?php endforeach;?>
 	</select>

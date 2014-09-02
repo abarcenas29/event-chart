@@ -5,7 +5,7 @@ class Controller_Debug extends Controller
     {     
         print '<pre>';
         //print (is_writable(DOCROOT.DS.'uploads'))?'Writable':'Not Writable';
-        //print_r(Model_Event_Poster::fb_write_poster_url('1379288799026080'));
+        print_r(Model_Event_Engine::event_cover('595824153858144'));
         print '</pre>';
     }
     

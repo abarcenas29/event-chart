@@ -20,8 +20,8 @@ Guest Information
 	<div class="uk-form-controls">
 	<select name="type">
 	<?php foreach($type as $row): ?>
-		<option value="<?php print $row; ?>">
-		<?php print $row; ?>
+		<option value="<?php print $row['value']; ?>">
+		<?php print $row['value']; ?>
 		</option>
 	<?php endforeach; ?>
 	</select>

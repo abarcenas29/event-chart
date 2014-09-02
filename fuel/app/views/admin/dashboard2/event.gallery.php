@@ -1,4 +1,5 @@
 <?php 
+    cdn::uikit_js_addon('notify.min.js');
     print Asset::css('ec-admin/admin.dashboard.event.gallery.css');
     print Asset::js('jquery.form.min.js');
 ?>
@@ -8,9 +9,9 @@
 		
 	<!-- Gallery -->
 	<article class="uk-panel 
-					uk-panel-box 
-					uk-panel-header
-					ec-one-img"
+                        uk-panel-box 
+                        uk-panel-header
+                        ec-one-img"
 			 style="height:93%;"
 			 id="ec-main-gallery">
 	<header class="uk-panel-title">
@@ -44,8 +45,8 @@
 			<i class="uk-icon-minus"></i>
 		</a>
 		<img src="<?php print Uri::create('uploads/'.
-									$row['photo']['date'].'/thumb-'.
-									$row['photo']['filename']); ?>"/>
+                                                  $row['photo']['date'].'/thumb-'.
+                                                  $row['photo']['filename']); ?>"/>
 	</div>
 	<?php endforeach;?>
 	
@@ -55,54 +56,12 @@
 	</section>
 	
 	<section class="uk-width-1-2">
-		
-	<!-- Main Poster Picture -->
-	<article class="uk-panel
-					uk-panel-box
-					uk-panel-header
-					ec-one-img"
-			 id="ec-main-poster"
-			 style="height:33%">
-	<header class="uk-panel-title">
-		Main Event Poster Image
-		
-		<div class="uk-float-right">
-		<a href="#ec-url-modal"
-		   data-uk-modal
-		   data-url="<?php print Uri::create('ajax/admin/event/insert_main_img_url'); ?>"
-		   class="uk-button">
-			<i class="uk-icon-link"></i>   
-		</a>
-		<a href="<?php print Uri::create('ajax/admin/event/insert_main_poster'); ?>"
-		   class="uk-button
-				  ec-poster-upload">
-			<i class="uk-icon-upload"></i>	  
-		</a>
-		</div>
-	</header>
-	<section class="uk-text-center"
-			 data-url="<?php print Uri::create('api/admin/event/del_main_img.json'); ?>">
-		<?php if(!is_null($q['photo_id'])): ?>
-		<div class="uk-thumbnail ec-thumbnail">
-		<a href="#" 
-		   class="uk-button 
-				  uk-button-danger
-				  ec-thumbnail-delete">
-			<i class="uk-icon-minus"></i>
-		</a>
-		<img src="<?php print Uri::create('uploads/'.
-										  $q['photo']['date'].'/thumb-'.
-										  $q['photo']['filename']); ?>"/>
-		</div>
-		<?php endif;?>
-	</section>
-	</article>
 	
 	<!-- Main Poster Picture -->
 	<article class="uk-panel
-					uk-panel-box
-					uk-panel-header
-					ec-one-img"
+                        uk-panel-box
+                        uk-panel-header
+                        ec-one-img"
 			 id="ec-main-cover"
 			 style="height:32.5%"
 			 ondragover="return false">

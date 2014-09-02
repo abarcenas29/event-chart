@@ -46,7 +46,7 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
 
         $cat = $this->_em('categories');
         $cat->action = Uri::create('ajax/admin/event/add_category.json');
-        $cat->cats	 = Config::get('ec.categories');
+        $cat->cats   = Model_const::read_key('event_category');
         $cat->delete = Uri::create('api/admin/event/delete_cat.json');
         $cat->q		 = $q;
         $view->modal_cat = $cat;
@@ -66,7 +66,7 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
         $guest = $this->_em('guest');
         $guest->action = Uri::create('ajax/admin/event/add_guest.json');
         $guest->delete = Uri::create('api/admin/event/del_guest');
-        $guest->type   = Config::get('ec.guest_type');
+        $guest->type   = Model_const::read_key('guest_type');
         $guest->q	   = $q;
         $view->modal_guest = $guest;
 

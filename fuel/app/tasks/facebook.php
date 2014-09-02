@@ -9,11 +9,30 @@ class facebook
         \Log::info('Facebook Scrape Initilazing');
         
         $event_ids = self::_fetch_fb_ids();
+        
         self::_fetch_data($event_ids);
-        self::_fetch_cover_photos($event_ids);
         self::_fetch_photos($event_ids);
     }
     
+    //Run this once a week
+    public static function run_cover()
+    {
+        \Fuel::$env = \Fuel::DEVELOPMENT;
+        \Log::info('Facebook Scrape Initilazing');
+        
+        $event_ids = self::_fetch_fb_ids();
+        self::_delete_cover_photos($event_ids);
+        self::_fetch_cover_photos($event_ids);
+    }
+    
+    private static function _delete_cover_photos($event_ids)
+    {
+        foreach($event_ids as $id)
+        {
+            \Model_Event_list::fb_cover_photos_delete_task($id);
+        }
+    }
+
     private static function _fetch_cover_photos($event_ids)
     {
         foreach($event_ids as $id)

@@ -59,18 +59,6 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
     }
 
     //new
-    public function post_del_main_img()
-    {
-        $arg = array();
-        $arg['event_id'] = Session::get('event_id');
-
-        Model_Event_list::delete_main_picture($arg);
-        $rsp['success'] = true;
-
-        return $this->response($rsp);
-    }
-
-    //new
     public function post_del_cover_img()
     {
         $arg = array();
@@ -171,10 +159,11 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
         $offset['y'] = $cover['offset-y'];
         
         $param = array();
-        $param['event_id'] = $event_id;
-        $param['url']      = $cover['url'];
-        $param['param']    = json_encode($offset);
-        $param['width']    = 1280;
+        $param['event_id']  = $event_id;
+        $param['url']       = $cover['url'];
+        $param['param']     = json_encode($offset);
+        $param['width']     = 1280;
+        $param['upload_dir']= Config::get('ec.upload');
         
         Model_Event_list::insert_cover_picture_url($param);
     }

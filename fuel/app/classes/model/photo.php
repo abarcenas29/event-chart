@@ -10,21 +10,21 @@ class Model_Photo extends Model_ModelCore
 	);
 	
 	protected static $_belongs_to = array(
-		'event_list' => array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'photo_id',
-			'model_to'	=> 'Model_Event_List'
-		),
-		'event_list_cover' => array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'cover_id',
-			'model_to'	=> 'Model_Event_List'
-		),
-		'organization' => array(
-			'key_from'	=> 'id',
-			'key_to'	=> 'photo_id',
-			'model_to'	=> 'Model_Event_List'
-		)
+            'event_list' => array(
+                'key_from'	=> 'id',
+                'key_to'	=> 'photo_id',
+                'model_to'	=> 'Model_Event_List'
+            ),
+            'event_list_cover' => array(
+                'key_from'	=> 'id',
+                'key_to'	=> 'cover_id',
+                'model_to'	=> 'Model_Event_List'
+            ),
+            'organization' => array(
+                'key_from'	=> 'id',
+                'key_to'	=> 'photo_id',
+                'model_to'	=> 'Model_Event_List'
+            )
 	);
 	
 	public static function insert_picture_url($arg)
@@ -44,8 +44,8 @@ class Model_Photo extends Model_ModelCore
 	public static function insert_picture($arg)
 	{
             $q = new Model_Photo();
-            $q->date		= date('Y-m-d');
-            $q->filename	= Model_Photo::_upload($arg);
+            $q->date        = date('Y-m-d');
+            $q->filenam     = Model_Photo::_upload($arg);
             $q->save();
             return $q->id;
 	}
@@ -62,33 +62,34 @@ class Model_Photo extends Model_ModelCore
             $q	= Model_Photo::query()
                     ->where('id','=',$photo_id)
                     ->get_one();
+            
             $arg['date']	= $q['date'];
-            $arg['filename']= $q['filename'];
+            $arg['filename']    = $q['filename'];
             Model_Photo::_delete_file($arg);
             $q->delete(); 
 	}
 	
 	private static function _delete_file($arg)
 	{
-		$path = \Fuel\Core\Config::get('ec.upload').$arg['date'].'/';
-	
-		$files[] = $path.$arg['filename'];
-		$files[] = $path.'flow-'.$arg['filename'];
-		$files[] = $path.'small-'.$arg['filename'];
-		$files[] = $path.'thumb-'.$arg['filename'];
-		foreach($files as $file)
-		{
-                    if(file_exists($file))\Fuel\Core\File::delete($file);
-		}
+            $basepath = (file_exists(Config::get('ec.upload')))?Config::get('ec.upload'):Config::get('ec.upload_task');
+            $path     = $basepath.$arg['date'].'/';
+
+            $files[] = $path.$arg['filename'];
+            $files[] = $path.'flow-'.$arg['filename'];
+            $files[] = $path.'small-'.$arg['filename'];
+            $files[] = $path.'thumb-'.$arg['filename'];
+            foreach($files as $file)
+            {
+                if(file_exists($file))File::delete($file);
+            }
 	}
 	
 	public static function _upload_url($arg)
 	{
-            $arg['upload_dir'] = Config::get('ec.upload');
             $raw_mime          = explode('.',$arg['url']);
             $filter_mime       = explode('?',end($raw_mime));
             $arg['mime']       = $filter_mime[0];
-
+            
             if($arg['mime'] == 'jpeg' || 
                $arg['mime'] == 'jpg'  || 
                $arg['mime'] == 'png')
@@ -100,23 +101,24 @@ class Model_Photo extends Model_ModelCore
                 {
                     File::create_dir($arg['upload_dir'],date('Y-m-d'));
                 }catch(Exception $e){
-                    
+                    //Log::info($e);
                 }
 
                 if($arg['mime'] == 'jpeg' || $arg['mime'] == 'jpg')
                 {
-                        $img = imagecreatefromjpeg($arg['url']);
-                        imagejpeg($img,$arg['org_file']);
+                    $img = imagecreatefromjpeg($arg['url']);
+                    imagejpeg($img,$arg['org_file']);
 
-                        chmod($arg['org_file'],0775);
+                    chmod($arg['org_file'],0775);
                 }
                 else
                 {
-                        $img = imagecreatefrompng($arg['url']);
-                        imagepng($img,$arg['org_file']);
+                    $img = imagecreatefrompng($arg['url']);
+                    imagepng($img,$arg['org_file']);
 
-                        chmod($arg['org_file'],0775);
-                        $arg = Model_Photo::_convert_png_to_jpg($arg);
+                    chmod($arg['org_file'],0775);
+                    $arg = Model_Photo::_convert_png_to_jpg($arg);
+                    Log::info('PNG has been initiated');
                 }
                 
                 return Model_Photo::_resize_img($arg);
@@ -134,23 +136,23 @@ class Model_Photo extends Model_ModelCore
 		$arg['mime']	   = end($get_mime);
 		
 		$arg['clean_file'] = explode(',',$arg['value']);
-		$encodeData		   = str_replace('','+',$arg['clean_file']);
-		$decodeData		   = base64_decode($encodeData[1]);
+                $encodeData        = str_replace('','+',$arg['clean_file']);
+		$decodeData        = base64_decode($encodeData[1]);
 		
 		$arg['rand_name']  = substr_replace(sha1(microtime(true)),'',25);
 		$arg['org_file']   = $arg['upload_dir'].date('Y-m-d').'/'.$arg['rand_name'].'.'.$arg['mime'];
 		
 		try
 		{
-			\Fuel\Core\File::create_dir($arg['upload_dir'],date('Y-m-d'));
+                    File::create_dir($arg['upload_dir'],date('Y-m-d'));
 		}catch(Exception $e){}
 		
 		if(file_put_contents($arg['org_file'],$decodeData))
 		{
-			chmod($arg['org_file'],0775);
-			$arg = Model_Photo::_convert_png_to_jpg($arg);
-			
-			return Model_Photo::_resize_img($arg);
+                    chmod($arg['org_file'],0775);
+                    $arg = Model_Photo::_convert_png_to_jpg($arg);
+
+                    return Model_Photo::_resize_img($arg);
 		}
 		return null;
 	}
@@ -200,20 +202,19 @@ class Model_Photo extends Model_ModelCore
 	private static function _convert_png_to_jpg($arg)
 	{
 		if($arg['mime'] == 'png')
-		{
-			
-			$imgJpeg	= imagecreatefrompng($arg['org_file']);
-			$fillEmpty	= imagecreatetruecolor(imagesx($imgJpeg),imagesy($imgJpeg));
-			$newFilepath= $arg['upload_dir'].date('Y-m-d').'/'.$arg['rand_name'].'.jpg';
-				
-			imagefill($fillEmpty,0,0,imagecolorallocate($fillEmpty, 255, 255, 255));
-			imagealphablending($fillEmpty,true);
-			imagecopy($fillEmpty,$imgJpeg,0,0,0,0,imagesx($imgJpeg),imagesy($imgJpeg));
-			imagedestroy($imgJpeg);
-			imagejpeg($fillEmpty,$newFilepath,80);
-			\Fuel\Core\File::delete($arg['org_file']);
-			
-			$arg['org_file'] = $newFilepath;
+		{	
+                    $imgJpeg	= imagecreatefrompng($arg['org_file']);
+                    $fillEmpty	= imagecreatetruecolor(imagesx($imgJpeg),imagesy($imgJpeg));
+                    $newFilepath= $arg['upload_dir'].date('Y-m-d').'/'.$arg['rand_name'].'.jpg';
+
+                    imagefill($fillEmpty,0,0,imagecolorallocate($fillEmpty, 255, 255, 255));
+                    imagealphablending($fillEmpty,true);
+                    imagecopy($fillEmpty,$imgJpeg,0,0,0,0,imagesx($imgJpeg),imagesy($imgJpeg));
+                    imagedestroy($imgJpeg);
+                    imagejpeg($fillEmpty,$newFilepath,80);
+                    \Fuel\Core\File::delete($arg['org_file']);
+
+                    $arg['org_file'] = $newFilepath;
 		}
 		return $arg;
 	}
