@@ -30,45 +30,45 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
         Session::set('event_id',$event_id);
         $q = Model_Event_list::read_list();
 
-        $view = $this->_db('event.detail');
-        $view->q		= $q;
+        $view           = $this->_db('event.detail');
+        $view->q	= $q;
         $view->set_safe('desc',$q['description']);
-        $view->orgs		= Model_Organization::admin_ll_index();
+        $view->orgs	= Model_Organization::admin_ll_index();
         $view->action	= Uri::create('api/admin/event/edit.json');;
         $view->cities	= Model_city::read_area();
 
         $org = $this->_em('organization');
         $org->action	 = Uri::create('ajax/admin/event/add_organization.json');
-        $org->orgs		 = Model_Organization::admin_ll_index();
+        $org->orgs	 = Model_Organization::admin_ll_index();
         $org->delete	 = Uri::create('api/admin/event/delete_org.json');
-        $org->q			 = $q;
+        $org->q		 = $q;
         $view->modal_org = $org;
 
-        $cat = $this->_em('categories');
-        $cat->action = Uri::create('ajax/admin/event/add_category.json');
-        $cat->cats   = Model_const::read_key('event_category');
-        $cat->delete = Uri::create('api/admin/event/delete_cat.json');
+        $cat             = $this->_em('categories');
+        $cat->action     = Uri::create('ajax/admin/event/add_category.json');
+        $cat->cats       = Model_const::read_key('event_category');
+        $cat->delete     = Uri::create('api/admin/event/delete_cat.json');
         $cat->q		 = $q;
         $view->modal_cat = $cat;
 
-        $ticket = $this->_em('ticket');
-        $ticket->action = Uri::create('ajax/admin/event/add_ticket.json');
-        $ticket->delete = Uri::create('api/admin/event/del_ticket.json');
-        $ticket->q		= $q;
+        $ticket             = $this->_em('ticket');
+        $ticket->action     = Uri::create('ajax/admin/event/add_ticket.json');
+        $ticket->delete     = Uri::create('api/admin/event/del_ticket.json');
+        $ticket->q          = $q;
         $view->modal_ticket = $ticket;
 
-        $hashtag = $this->_em('hashtag');
-        $hashtag->action = Uri::create('ajax/admin/event/add_hashtag.json');
-        $hashtag->delete = Uri::create('api/admin/event/del_hashtag.json');
-        $hashtag->q		 = $q;
+        $hashtag             = $this->_em('hashtag');
+        $hashtag->action     = Uri::create('ajax/admin/event/add_hashtag.json');
+        $hashtag->delete     = Uri::create('api/admin/event/del_hashtag.json');
+        $hashtag->q          = $q;
         $view->modal_hashtag = $hashtag;
 
-        $guest = $this->_em('guest');
-        $guest->action = Uri::create('ajax/admin/event/add_guest.json');
-        $guest->delete = Uri::create('api/admin/event/del_guest');
-        $guest->type   = Model_const::read_key('guest_type');
-        $guest->q	   = $q;
-        $view->modal_guest = $guest;
+        $guest              = $this->_em('guest');
+        $guest->action      = Uri::create('ajax/admin/event/add_guest.json');
+        $guest->delete      = Uri::create('api/admin/event/del_guest');
+        $guest->type        = Model_const::read_key('guest_type');
+        $guest->q           = $q;
+        $view->modal_guest  = $guest;
 
         $menu	 = $this->_sm('event.edit');
         $menu->q = $q; 
@@ -198,7 +198,6 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
     
     public function action_facebook()
     {
-        
         $appIdDefault       = Model_const::read_one_key('fb_appid');
         $appSecretDefault   = Model_const::read_one_key('fb_secret');
         $appPageIdDefault   = Model_const::read_one_key('fb_pageid');
@@ -257,19 +256,20 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
 
     public function action_event_live($id)
     {
-        $arg				= array();
-        $arg['event_id']	= $id;
-        $arg['status']		= 'live';
-
+        $arg		= array();
+        $arg['event_id']= $id;
+        $arg['status']	= 'live';
+        
+        Model_Email::send_html_email($arg);
         Model_Event_list::toggle_visibility($arg);
         Response::redirect('admin/dashboard2/index');
     }
 
     public function action_event_pending($id)
     {
-        $arg				= array();
-        $arg['event_id']	= $id;
-        $arg['status']		= 'pending';
+        $arg		= array();
+        $arg['event_id']= $id;
+        $arg['status']	= 'pending';
 
         Model_Event_list::toggle_visibility($arg);
         Response::redirect('admin/dashboard2/index');

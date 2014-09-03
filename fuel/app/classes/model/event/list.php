@@ -24,6 +24,7 @@ class Model_Event_list extends Model_ModelCore
         'fb_last_update',
         'fb_photo_count',
         'fb_event_id_official',
+        'admin_email',
         'created_by',
         'created_at'
     );
@@ -283,12 +284,12 @@ class Model_Event_list extends Model_ModelCore
 
     public static function read_public_list($event_id)
     {
-            $q = Model_Event_list::query()
-                    ->related('photo')
-                    ->related('organization')
-                    ->where('status','=','live')
-                    ->where('id','=',$event_id);
-            return $q->get_one();
+        $q = Model_Event_list::query()
+                ->related('photo')
+                ->related('organization')
+                ->where('status','=','live')
+                ->where('id','=',$event_id);
+        return $q->get_one();
     }
 
     public static function search_event($arg)
@@ -302,28 +303,8 @@ class Model_Event_list extends Model_ModelCore
         $x	 = 0;
         foreach($q as $row)
         {
-            $rsp[$x]['title'] = '[Event] '. $row['name'];
-            $rsp[$x]['url']	  = Uri::create('admin/dashboard2/event_manage/'.$row['id']);
-            $rsp[$x]['text']  = $row['organization']['name'];
-            $x++;
-        }
-        return $rsp;
-    }
-
-    public static function public_search_event($arg)
-    {
-        $q = Model_Event_list::query()
-                ->related('organization')
-                ->where('name','like',$arg['search'].'%')
-                ->where('status','=','live')
-                ->get();
-
-        $rsp = array();
-        $x	 = 0;
-        foreach($q as $row)
-        {
-            $rsp[$x]['title'] = '[Event] '. $row['name'];
-            $rsp[$x]['url']	  = Uri::create('view/event/'.$row['id']);
+            $rsp[$x]['title'] = '[Event] '.$row['name'];
+            $rsp[$x]['url']   = Uri::create('admin/dashboard2/event_manage/'.$row['id']);
             $rsp[$x]['text']  = $row['organization']['name'];
             $x++;
         }
@@ -356,7 +337,7 @@ class Model_Event_list extends Model_ModelCore
 
         if(!is_null($photo['photo_id']))
         {
-                Model_Photo::delete_picture($photo['photo_id']);
+            Model_Photo::delete_picture($photo['photo_id']);
         }
 
         Fuel\Core\DB::commit_transaction();
@@ -412,7 +393,7 @@ class Model_Event_list extends Model_ModelCore
     private static function _remove_http($arg)
     {
         $arg['website'] = str_replace('http://','',$arg['website']);
-        $arg['facebook'] = str_replace('http://','',$arg['facebook']);
+        $arg['facebook']= str_replace('http://','',$arg['facebook']);
         $arg['twitter'] = str_replace('http://','',$arg['twitter']);
         return $arg;
     }

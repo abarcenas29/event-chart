@@ -997,7 +997,7 @@ table.divider {
       <center>
           <a href="<?php print Uri::base(); ?>" 
              cm_dontconvertlink>
-          <img src="http://event.deremoe.com/assets/img/logo.png" 
+          <img src="<?php print Uri::create('assets/img/logo.png'); ?>" 
                width="100px" 
                alt="Events Chart" 
                style="padding-top: 20px" />

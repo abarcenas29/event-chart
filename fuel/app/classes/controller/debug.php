@@ -5,7 +5,7 @@ class Controller_Debug extends Controller
     {     
         print '<pre>';
         //print (is_writable(DOCROOT.DS.'uploads'))?'Writable':'Not Writable';
-        print_r(Model_Event_Engine::event_cover('595824153858144'));
+        //print_r(Model_Event_Engine::event_cover('595824153858144'));
         print '</pre>';
     }
     
