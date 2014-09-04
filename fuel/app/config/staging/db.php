@@ -11,7 +11,7 @@ return array(
                 'username'       => 'bo_echart3',
                 'password'       => 'x5LRGsvB2emfEuyh',
                 'port'		 => '3306',
-                'database'	 => 'bo_echart',
+                'database'	 => 'bo_echart3',
         ),
         'profiling' => true
     )

@@ -9,7 +9,7 @@ class Model_chart extends Model
         $half_year = strtotime(Model_chart::$_half_year);
 
         $q = Model_Event_list::query()
-                ->related('photo')
+                ->related('cover')
                 ->where('status','=','live')
                 ->where('start_at','>',date('Y-m-d'))
                 ->where('end_at','< ',date('Y-m-d',$half_year))
@@ -33,7 +33,7 @@ class Model_chart extends Model
     public static function event_today($city = 'all')
     {
         $q = Model_Event_list::query()
-                ->related('photo')
+                ->related('cover')
                 ->where('start_at','<=',date('Y-m-d'))
                 ->where('end_at','>=',date('Y-m-d'))
                 ->where('status','=','live')
@@ -49,7 +49,7 @@ class Model_chart extends Model
         $preview = strtotime("+$day days");
 
         $q = Model_Event_list::query()
-                ->related('photo')
+                ->related('cover')
                 ->where('start_at','<=',date('Y-m-d',$preview))
                 ->where('end_at','>=',date('Y-m-d',$preview))
                 ->where('status','=','live')
@@ -61,7 +61,7 @@ class Model_chart extends Model
     public static function event_archive()
     {
         $q = Model_Event_list::query()
-                ->related('photo')
+                ->related('cover')
                 ->where('status','=','live')
                 ->where('end_at','<',date('Y-m-d'))
                 ->order_by('start_at','desc')
@@ -72,7 +72,7 @@ class Model_chart extends Model
     public static function event_category_today($category)
     {
         $q = Model_Event_list::query()
-                ->related('photo')
+                ->related('cover')
                 ->related('category')
                 ->where('start_at','<=',date('Y-m-d'))
                 ->where('end_at','>=',date('Y-m-d'))
@@ -90,7 +90,7 @@ class Model_chart extends Model
 
         $q = Model_Event_list::query()
                 ->related('category')
-                ->related('photo')
+                ->related('cover')
                 ->where('status','=','live')
                 ->where('category.category','=',$category)
                 ->where('end_at','<',date('Y-m-d',$half_year))

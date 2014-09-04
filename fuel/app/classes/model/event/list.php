@@ -4,7 +4,6 @@ class Model_Event_list extends Model_ModelCore
 {
     protected static $_properties = array(
         'id',
-        'photo_id', // delete this later
         'cover_id',
         'name',
         'description',
@@ -34,11 +33,6 @@ class Model_Event_list extends Model_ModelCore
             'key_from'	=> 'main_org',
             'key_to'	=> 'id',
             'model_to'	=> 'Model_Organization'
-        ),
-        'photo' => array(
-            'key_from'	=> 'photo_id',
-            'key_to'	=> 'id',
-            'model_to'	=> 'Model_Photo'
         ),
         'cover' => array(
             'key_from'	=> 'cover_id',
@@ -105,7 +99,7 @@ class Model_Event_list extends Model_ModelCore
 
         $q  = Model_Event_list::query()
                 ->related('organization')
-                ->related('photo')
+                ->related('cover')
                 ->order_by('start_at','desc');
 
         $total_page = ceil($q->count()/$limit);
@@ -277,7 +271,7 @@ class Model_Event_list extends Model_ModelCore
     public static function read_list()
     {
             $q = Model_Event_list::query()
-                    ->related('photo')
+                    ->related('cover')
                     ->where('id','=',Session::get('event_id'));
             return $q->get_one();
     }
@@ -285,7 +279,7 @@ class Model_Event_list extends Model_ModelCore
     public static function read_public_list($event_id)
     {
         $q = Model_Event_list::query()
-                ->related('photo')
+                ->related('cover')
                 ->related('organization')
                 ->where('status','=','live')
                 ->where('id','=',$event_id);
