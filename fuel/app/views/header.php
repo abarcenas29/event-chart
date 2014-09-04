@@ -26,11 +26,6 @@
     <ul class="uk-nav uk-nav-offcanvas" data-uk-nav>
         <li class="uk-nav-header">Main Navigation</li>
         <li>
-            <a href="#">
-            <i class="fa fa-briefcase"></i> &nbsp; Archive
-            </a>
-        </li>
-        <li>
             <a href="mailto:events@deremoe.com">
             <i class="fa fa-phone"></i> &nbsp; Contact Us
             </a>

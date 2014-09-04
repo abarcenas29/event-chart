@@ -2,11 +2,12 @@
 class Controller_Debug extends Controller
 {
     public function action_index()
-    {     
-        print '<pre>';
-        //print (is_writable(DOCROOT.DS.'uploads'))?'Writable':'Not Writable';
-        //print_r(Model_Event_Engine::event_cover('595824153858144'));
-        print '</pre>';
+    {
+        $dt  = new DateTime('2014-09-01');
+        //$dt->sub(new DateInterval('P01D'));
+        //$dt->add(new DateInterval('P01D'));
+        print $dt->format('Y-m-d');
+        
     }
     
     public function action_mime()

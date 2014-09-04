@@ -89,6 +89,10 @@ class Controller_View extends Controller_AppCore
     private function _google_event($q)
     {
         $url = 'https://www.google.com/calendar/render?action=TEMPLATE&text=[event-name]&dates=[start-at]/[end-at]&details=[detail]&location=[location]&sf=true&output=xml';
+        $adjust_start_at = new DateTime($q['start_at']);
+        
+        $adjust_end_at   = new DateTime($q['end_at']);
+        $adjust_end_at->add(new DateInterval('P01D'));
         
         $keywords = array(  '[event-name]',
                             '[start-at]',
@@ -96,9 +100,10 @@ class Controller_View extends Controller_AppCore
                             '[detail]',
                             '[location]'
         );
+        
         $replaced = array(  str_replace(' ','+',$q['name']),
-                            date('Ymd',strtotime($q['start_at'])),
-                            date('Ymd',strtotime($q['end_at'])),
+                            $adjust_start_at->format('Ymd'),
+                            $adjust_end_at->format('Ymd'),
                             str_replace(' ','+',$q['description']),
                             str_replace(' ','+',$q['venue'])
         );

@@ -4,15 +4,15 @@
  */
 
 return array(
-	'default' => array(
-		'type'		  => 'mysqli',
-		'connection'  => array(
-			'hostname'   => 'localhost',
-			'username'   => 'bo_echart',
-			'password'   => '',
-			'port'		 => '3306',
-			'database'	 => 'bo_echart',
-		),
-		'profiling' => true
-	)
+    'default' => array(
+        'type'		  => 'mysqli',
+        'connection'  => array(
+                'hostname'       => 'localhost',
+                'username'       => 'bo_echart',
+                'password'       => 'x5LRGsvB2emfEuyh',
+                'port'		 => '3306',
+                'database'	 => 'bo_echart',
+        ),
+        'profiling' => true
+    )
 );
