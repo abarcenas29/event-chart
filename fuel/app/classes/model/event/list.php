@@ -152,6 +152,7 @@ class Model_Event_list extends Model_ModelCore
             $q->fb_last_update       = $arg['fb-update'];
             $q->fb_event_id_official = $arg['event-official'];
 
+            $q->admin_email = false;
             $q->status      = 'Pending';
             $q->created_by  = Session::get('email');
             $q->save();
