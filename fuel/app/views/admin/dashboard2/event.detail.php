@@ -4,9 +4,9 @@
     print Asset::css('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css');
     print Asset::js('http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js');
 
-    print cdn::uikit_js_addon('datepicker.min.js');
-    print cdn::uikit_js_addon('sticky.min.js');
-    print cdn::uikit_js_addon('notify.min.js');
+    cdn::uikit_js_addon('datepicker.min.js');
+    cdn::uikit_js_addon('sticky.min.js');
+    cdn::uikit_js_addon('notify.min.js');
     
     print Asset::js('jquery.form.min.js');
 ?>

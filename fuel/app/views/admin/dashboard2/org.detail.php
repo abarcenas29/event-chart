@@ -1,16 +1,13 @@
 <?php
     print Asset::css('ec-admin/admin.dashboard.org.detail.css');
-    print Asset::css('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
-
-    print Asset::js('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
-    print Asset::js('http://rangy.googlecode.com/svn/trunk/currentrelease/rangy-core.js');
-    print Asset::js('hallo.js');
-
     print Asset::js('jquery.form.min.js');
-
-    print Asset::css('uikit/uikit.addons.min.css');
-    print Asset::js('uikit/add-ons/notify.min.js');
+    
+    cdn::uikit_js_addon('notify.min.js');
 ?>
+<form class="uk-form uk-form-horizontal"
+          action="<?php print $action; ?>"
+          id="ec-form-organization"
+          method="post">
 <article class="uk-width-1-1 uk-height-1-1 uk-margin-top"
          id="ec-org-detail-manage">
 <div class="uk-grid 
@@ -53,13 +50,9 @@
     </article>
 		
     <article class="uk-panel uk-panel-box uk-panel-header">
-        <header class="uk-panel-title">
-            Organization Detail
-	</header>
-    <form class="uk-form uk-form-horizontal"
-          action="<?php print $action; ?>"
-          id="ec-form-organization"
-          method="post">
+    <header class="uk-panel-title">
+        Organization Detail
+    </header>
 		
     <div class="uk-form-row">
     <label class="uk-form-label">Name</label>
@@ -132,8 +125,7 @@
         </button>
     </div>
     </div>
-		
-    </form>
+
     </article>
 		
     </div>
@@ -145,15 +137,19 @@
     <header class="uk-panel-title">
             Organization Description
     </header>
-    <section id="description">
-            <?php print isset($desc)?$desc:''; ?>
+    <section>
+        <textarea name="description"
+                  id="description"
+                  data-uk-htmleditor="{markdown:true}"
+                  class="uk-width-1-1"><?php print (isset($desc))?$desc:''; ?></textarea>
     </section>
     </article>
 		
     </div>
 </div>
 </article>
-
+</form>
+    
 <?php if(isset($q)): ?>
 <!-- Upload via Url -->
 <article class="uk-modal" id="ec-url-modal">
@@ -244,19 +240,6 @@ $(document).ready(function(e)
         });
         e.preventDefault();
     });
-    
-    $('#description').hallo(
-    {
-      plugins: {
-        'halloformat': {},
-        'halloblock': {},
-        'hallojustify': {},
-        'hallolists': {},
-        'hallolink': {}
-      },
-      editable: true,
-      placeholder: 'Type your description here.'
-    });
 
     $logo.bind('dragover',function(e)
     {
@@ -276,9 +259,6 @@ $(document).ready(function(e)
         beforeSubmit:function(arr)
         {
             $.UIkit.notify('Crunching Data ...',{status:'info'});
-
-            var desc = $('#description').html();
-            arr.push(pushObject('description',desc));
 
             if(imgArray.length == 1)
             {
