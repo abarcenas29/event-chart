@@ -70,7 +70,6 @@ class Model_Organization extends Model_ModelCore
                 return $rsp;
             }
             $rsp['success'] = false;
-            $rsp['id']	= $q->id;
             return $rsp;
 	}
 	

@@ -35,6 +35,7 @@ class Controller_Api_Admin_Org extends Controller_Api_ApiPrivate
         $param['org_id']    = $rsp['id'];
         $param['url']       = Model_Event_Engine::page_profile_picture($arg['facebook']);
         $param['width']     = 1280;
+        $param['upload_dir']= Config::get('ec.upload');
         Model_Organization::insert_org_logo_url($param);
     }
         
