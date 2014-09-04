@@ -230,7 +230,8 @@ $(document).ready(function(e)
             if(typeof d != 'undefined')
             {
                 $form.find('input[name="name"]').val(d.name);
-                $('#description').html(d.about);
+                $form.find('textarea[name="description"]').data('htmleditor').editor.setValue(d.about);
+                
                 $.UIkit.notify('Fetch Complete',{status:'success'});
             }
             else

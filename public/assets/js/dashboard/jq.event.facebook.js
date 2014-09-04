@@ -9,8 +9,6 @@ $(document).ready(function()
         $.UIkit.notify('Fetching Facebook Event Data',{status:'info'});
         $.post(url,{fbid:fbid},function(d)
         {
-            console.log(d.description);
-            
             $form.find('input[name="name"]').val(d.name);
             $form.find('input[name="address"]').val(d.location);
             $form.find('input[name="lat"]').val(d.venue.latitude);
