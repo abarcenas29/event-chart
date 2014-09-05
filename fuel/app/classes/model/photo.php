@@ -10,7 +10,7 @@ class Model_Photo extends Model_ModelCore
 	);
 	
 	protected static $_belongs_to = array(
-            'event_list_cover' => array(
+            'cover' => array(
                 'key_from'	=> 'id',
                 'key_to'	=> 'cover_id',
                 'model_to'	=> 'Model_Event_List'
@@ -18,7 +18,7 @@ class Model_Photo extends Model_ModelCore
             'organization' => array(
                 'key_from'	=> 'id',
                 'key_to'	=> 'photo_id',
-                'model_to'	=> 'Model_Event_List'
+                'model_to'	=> 'Model_Organization'
             )
 	);
 	

@@ -309,7 +309,8 @@ class Model_Event_list extends Model_ModelCore
     public static function delete_event($event_id)
     {
         $q = Model_Event_list::query()
-                        ->where('id','=',$event_id);
+                ->where('id','=',$event_id);
+        
         Fuel\Core\DB::start_transaction();
         //Category Events
         Model_Event_Category::remove_cat_by_event($event_id);
