@@ -63,10 +63,13 @@ class Model_Photo extends Model_ModelCore
                     ->where('id','=',$photo_id)
                     ->get_one();
             
-            $arg['date']	= $q['date'];
-            $arg['filename']    = $q['filename'];
-            Model_Photo::_delete_file($arg);
-            $q->delete(); 
+            if(count($q) != 0)
+            {
+                $arg['date']	= $q['date'];
+                $arg['filename']    = $q['filename'];
+                Model_Photo::_delete_file($arg);
+                $q->delete(); 
+            }
 	}
 	
 	private static function _delete_file($arg)
