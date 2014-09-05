@@ -92,6 +92,31 @@ html
                 {
                     width:100%;
                     height:20em;
+                    position:relative;
+                    .ec-control-group
+                    {
+                        position:absolute;
+                        z-index:100;
+                        top:1em;
+                        right:1em;
+                        ul
+                        {
+                            li
+                            {
+                                display:inline;
+                                .uk-button
+                                {
+                                    background-color:#e64a19;
+                                    color:#fff;
+                                }
+                                .uk-button:hover
+                                {
+                                    background-color:#e0e0e0;
+                                    color:#424242;
+                                }
+                            }
+                        }
+                    }
                 }
                 
                 #ec-fb-photos

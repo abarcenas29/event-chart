@@ -30,7 +30,7 @@
             <a href="<?php print $calendar; ?>"
                class="uk-text-truncate"
                target="_new">
-                <i class="fa fa-calendar-o"></i>
+                <i class="fa fa-google"></i>
                 &nbsp;
                 <span class="uk-visible-large">Google Calendar</span>
             </a>
@@ -92,7 +92,7 @@
             <?php print date('d M Y',strtotime($q['start_at'])) .' - '.date('d M Y',strtotime($q['end_at'])) ?>
         </h3>
         <h3 title="<?php print $q['venue']; ?>">
-            <i class="fa fa-cab"></i>
+            <i class="fa fa-building"></i>
             <span><?php print $q['venue']; ?></span>
         </h3>
         <h3>
@@ -127,7 +127,30 @@
             <?php endif; ?>
             
             <!-- MAP -->
-            <div id="ec-map"></div>
+            <div id="ec-map">
+                <div class="ec-control-group">
+                <ul>
+                    <li>
+                        <a href="<?php print $maps['maps']; ?>" 
+                           class="uk-button"
+                           data-uk-tooltip
+                           title="Go to Google Maps"
+                           target="_new">
+                        <span class="fa fa-map-marker"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php print $maps['waze']; ?>" 
+                           class="uk-button"
+                           data-uk-tooltip
+                           title="Go to Event Using Waze"
+                           target="_new">
+                        <span class="fa fa-car"></span>
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            </div>
             
             <!-- FACEBOOK PHOTOS -->
             <div class="uk-margin-top uk-width-1-1" id="ec-fb-photos">

@@ -24,10 +24,19 @@
 <div id="ec-main-menu" class="uk-offcanvas">
     <div class="uk-offcanvas-bar">
     <ul class="uk-nav uk-nav-offcanvas" data-uk-nav>
+        <li class="uk-nav-header">Main Site</li>
+        <li><a href="http://deremoe.com">
+                Deremoe
+            </a>
+        </li>
         <li class="uk-nav-header">Main Navigation</li>
+        <li><a href="http://www.iubenda.com/privacy-policy/215152">
+            Privacy Policy
+            </a>
+        </li>
         <li>
             <a href="mailto:events@deremoe.com">
-            <i class="fa fa-phone"></i> &nbsp; Contact Us
+            Contact Us
             </a>
         </li>
     </ul>

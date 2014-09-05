@@ -48,6 +48,7 @@ class Controller_View extends Controller_AppCore
        $view->share_fb  = $this->_facebook_share($event_id);
        $view->share_tw  = $this->_twitter_share($q);
        $view->today     = $today;
+       $view->maps      = $this->_map_share($q);
        
        $view->poster_limit  = $poster_limit;
        $view->poster_counter= $poster_counter;
@@ -60,6 +61,18 @@ class Controller_View extends Controller_AppCore
        $this->template->footer  = View::forge('footer');
        $this->template->content = $view;
        $this->template->title   = $q['name'];
+    }
+    
+    private function _map_share($q)
+    {
+        $coords = array();
+        
+        $url = 'http://maps.google.com/maps?q=[coords]&ll=[coords]&z=17';
+        $coords['maps'] = str_replace('[coords]',$q['lat'].','.$q['long'],$url);
+        $url = 'waze://?ll=[coords]&navigate=yes';
+        $coords['waze'] = str_replace('[coords]',$q['lat'].','.$q['long'],$url);
+        
+        return $coords;
     }
     
     private function _twitter_share($q)

@@ -360,7 +360,8 @@ class Model_Event_list extends Model_ModelCore
         $q->end_at	= $data['end_time'];
         $q->lat		= $data['venue']['latitude'];
         $q->long	= $data['venue']['longitude'];
-        $q->description = $data['description'];
+        //Disabled for format rendering
+        //$q->description = $data['description'];
         $q->save();
     }
     

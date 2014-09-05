@@ -5,7 +5,7 @@ class facebook
 {
     public static function run()
     {
-        \Fuel::$env = \Fuel::DEVELOPMENT;
+        \Fuel::$env = \Fuel::STAGING;
         \Log::info('Facebook Scrape Initilazing');
         
         $event_ids = self::_fetch_fb_ids();
@@ -17,7 +17,7 @@ class facebook
     //Run this once a week
     public static function run_cover()
     {
-        \Fuel::$env = \Fuel::DEVELOPMENT;
+        \Fuel::$env = \Fuel::STAGING;
         \Log::info('Facebook Scrape Initilazing');
         
         $event_ids = self::_fetch_fb_ids();
