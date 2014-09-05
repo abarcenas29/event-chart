@@ -10,11 +10,6 @@ class Model_Photo extends Model_ModelCore
 	);
 	
 	protected static $_belongs_to = array(
-            'event_list' => array(
-                'key_from'	=> 'id',
-                'key_to'	=> 'photo_id',
-                'model_to'	=> 'Model_Event_List'
-            ),
             'event_list_cover' => array(
                 'key_from'	=> 'id',
                 'key_to'	=> 'cover_id',
@@ -65,7 +60,7 @@ class Model_Photo extends Model_ModelCore
             
             if(count($q) != 0)
             {
-                $arg['date']	= $q['date'];
+                $arg['date']        = $q['date'];
                 $arg['filename']    = $q['filename'];
                 Model_Photo::_delete_file($arg);
                 $q->delete(); 
