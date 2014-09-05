@@ -330,9 +330,9 @@ class Model_Event_list extends Model_ModelCore
         //Remove picture
         $photo = $q->get_one();
 
-        if(!is_null($photo['photo_id']))
+        if(!is_null($photo['cover_id']))
         {
-            Model_Photo::delete_picture($photo['photo_id']);
+            Model_Photo::delete_picture($photo['cover_id']);
         }
 
         Fuel\Core\DB::commit_transaction();
