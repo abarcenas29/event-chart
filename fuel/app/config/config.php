@@ -277,8 +277,7 @@ return array(
                     'facebook',
                     'unirest',
                     'twitter',
-                    'email',
-                    'phpFlickr'
+                    'email'
 		 ),
 
 		/**

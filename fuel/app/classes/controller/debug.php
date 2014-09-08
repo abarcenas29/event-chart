@@ -3,13 +3,7 @@ class Controller_Debug extends Controller
 {
     public function action_index()
     {
-      $key    = Model_const::read_one_key('flickr_api_key');
-      $secret = Model_const::read_one_key('flickr_api_secret');
-
-      $f = new phpFlickr\phpFlickr($key['value']);
-
-      $recent = $f->photos_getRecent();
-      Debug::dump($recent);
+      
     }
     
     public function action_mime()
