@@ -112,6 +112,7 @@ class Model_chart extends Model
             $no_days	= (int)$diff->format('%a') + 1;
 
             $chart[$c]['cover']         = Model_chart::_poster_uri($row,'flow-');
+            $chart[$c]['thumb']         = Model_chart::_poster_uri($row,'thumb-');
             $chart[$c]['start_at']	= date('d F y',strtotime($row['start_at']));
             $chart[$c]['end_at']	= date('d F y',strtotime($row['end_at']));
             $chart[$c]['raw_date']	= $row['start_at'];
@@ -119,7 +120,8 @@ class Model_chart extends Model
             $chart[$c]['title']		= $row['name'];
             $chart[$c]['event_id']	= $row['id'];
             $chart[$c]['venue']		= $row['venue'];
-
+            $chart[$c]['link']          = Uri::create('view/event/'.$row['id']);
+            
             $c++;
         }
         return $chart;

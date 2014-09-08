@@ -25,12 +25,23 @@
     <div class="uk-offcanvas-bar">
     <ul class="uk-nav uk-nav-offcanvas" data-uk-nav>
         <li class="uk-nav-header">Main Site</li>
-        <li><a href="http://deremoe.com">
+        <li><a href="http://deremoe.com" 
+               target="_new">
                 Deremoe
             </a>
         </li>
+        <li class="uk-nav-header">Feeds</li>
+        <li><a href="#i-frame-embed">
+                IFrame Embed
+            </a>
+        </li>
+        <li><a href="<?php print Uri::create('feeds/rss'); ?>">
+                RSS
+            </a>
+        </li>
         <li class="uk-nav-header">Main Navigation</li>
-        <li><a href="http://www.iubenda.com/privacy-policy/215152">
+        <li><a href="http://www.iubenda.com/privacy-policy/215152"
+               target="_new">
             Privacy Policy
             </a>
         </li>

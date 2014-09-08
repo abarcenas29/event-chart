@@ -15,7 +15,7 @@
 
 <link rel="shortcut icon" 
       type="image/x-icon" 
-      href="<?php print Uri::create('assets/img/favicon.ico'); ?>">
+      href="<?php print Uri::create('assets/img/favicon.png'); ?>">
 <?php 
         cdn::jquery();
         
