@@ -30,13 +30,14 @@
                 Deremoe
             </a>
         </li>
-        <li class="uk-nav-header">Affiliate Sites</li>
+        <li class="uk-nav-header">Affiliate Partners</li>
         <li><a href="https://www.facebook.com/OtakuEvent"
                target="_new">
             Otaku Events (Facebook)
             </a>
         </li>
-        <li><a href="http://animephproject.com">
+        <li><a href="http://animephproject.com"
+               target="_new">
                 AnimePH Project
             </a>
         </li>

@@ -3,11 +3,13 @@ class Controller_Debug extends Controller
 {
     public function action_index()
     {
-        $dt  = new DateTime('2014-09-01');
-        //$dt->sub(new DateInterval('P01D'));
-        //$dt->add(new DateInterval('P01D'));
-        print $dt->format('Y-m-d');
-        
+      $key    = Model_const::read_one_key('flickr_api_key');
+      $secret = Model_const::read_one_key('flickr_api_secret');
+
+      $f = new phpFlickr\phpFlickr($key['value']);
+
+      $recent = $f->photos_getRecent();
+      Debug::dump($recent);
     }
     
     public function action_mime()

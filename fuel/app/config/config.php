@@ -271,13 +271,14 @@ return array(
 		 * );
 		 */
 		 'packages'  => array(
-		 	'orm',
-			'myauth2',
-			'stwitter',
-			'facebook',
-			'unirest',
-			'twitter',
-			'email'
+                    'orm',
+                    'myauth2',
+                    'stwitter',
+                    'facebook',
+                    'unirest',
+                    'twitter',
+                    'email',
+                    'phpFlickr'
 		 ),
 
 		/**
