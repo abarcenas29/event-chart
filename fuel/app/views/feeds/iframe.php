@@ -39,7 +39,7 @@
         <?php print $row['title']; ?>
     </h1>
     <h2 class="uk-text-small">
-        <span class="fa fa-calendar"></span> &nbsp; <?php print $row['start_at']; ?>
+       <?php print $row['start_at']; ?>
     </h2>
     </section>
     </article>
@@ -62,7 +62,7 @@
         <?php print $row['title']; ?>
     </h1>
     <h2 class="uk-text-small">
-        <span class="fa fa-calendar"></span> &nbsp; <?php print $row['start_at']; ?>
+        <?php print $row['start_at']; ?>
     </h2>
     </section>
     </article>

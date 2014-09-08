@@ -30,13 +30,23 @@
                 Deremoe
             </a>
         </li>
+        <li class="uk-nav-header">Affiliate Sites</li>
+        <li><a href="https://www.facebook.com/OtakuEvent"
+               target="_new">
+            Otaku Events (Facebook)
+            </a>
+        </li>
+        <li><a href="http://animephproject.com">
+                AnimePH Project
+            </a>
+        </li>
         <li class="uk-nav-header">Feeds</li>
-        <li><a href="#i-frame-embed">
+        <li><a href="<?php print Uri::create('feeds/iframe'); ?>">
                 IFrame Embed
             </a>
         </li>
         <li><a href="<?php print Uri::create('feeds/rss'); ?>">
-                RSS
+                Event Chart RSS
             </a>
         </li>
         <li class="uk-nav-header">Main Navigation</li>
