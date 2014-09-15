@@ -28,7 +28,8 @@
     <a href="<?php print Uri::create('view/event/'.$row['event_id']); ?>" 
        class="uk-width-large-1-3 
               uk-width-small-1-1
-              ec-chart-container">
+              ec-chart-container"
+       target="_new">
     <article class="uk-margin-bottom
                     ec-chart-active
                     ec-chart">
@@ -51,7 +52,8 @@
     <a href="<?php print Uri::create('view/event/'.$row['event_id']); ?>" 
        class="uk-width-large-1-3 
               uk-width-small-1-1
-              ec-chart-container">
+              ec-chart-container"
+       target="_new">
     <article class="uk-margin-bottom
                     ec-chart-<?php print $row['event_id']; ?>
                     ec-chart">
