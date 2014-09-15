@@ -194,6 +194,7 @@ class Model_Event_list extends Model_ModelCore
         $q->save();
         $rsp['success'] = true;
         $rsp['response']= 'Data Edited';
+        $rsp['id']      = $q->id;
 
         return $rsp;
     }
