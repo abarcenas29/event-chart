@@ -186,6 +186,10 @@ class Model_Event_list extends Model_ModelCore
         $q->twitter	= $arg['twitter'];
         $q->website	= $arg['website'];
         $q->description = $arg['desc'];
+        
+        $q->fb_event_id          = $arg['fbid'];
+        $q->fb_last_update       = $arg['fb-update'];
+        $q->fb_event_id_official = $arg['event-official'];
 
         $q->save();
         $rsp['success'] = true;
