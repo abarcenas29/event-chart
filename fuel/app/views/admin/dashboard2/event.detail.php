@@ -123,7 +123,7 @@
             <select name="city">
             <?php foreach($cities as $city): ?>
                     <option value="<?php print $city['major_area'] ?>"
-                    <?php print ($city['major_area'] == $q['region'])?'selected':''; ?>>
+                    <?php print (isset($q['region']) && $city['major_area'] == $q['region'])?'selected':''; ?>>
                     <?php print $city['major_area']; ?>
                     </option>
             <?php endforeach; ?>
