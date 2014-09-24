@@ -277,7 +277,7 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
 
     public function action_event_cancel($id)
     {
-        $arg				= array();
+        $arg			= array();
         $arg['event_id']	= $id;
         $arg['status']		= 'canceled';
 

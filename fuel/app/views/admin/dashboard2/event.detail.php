@@ -101,19 +101,19 @@
 	<label class="uk-form-label">Venue</label>
 	<div class="uk-form-controls">
 		<input type="text"
-			   name="address"
-			   placeholder="type the venue address here"
-			   value="<?php print (isset($q['venue']))?$q['venue']:''; ?>"
-			   class="uk-width-9-10"/>
-		
+                       name="address"
+                       placeholder="type the venue address here"
+                       value="<?php print (isset($q['venue']))?$q['venue']:''; ?>"
+                       class="uk-width-9-10"
+                />
 		<input type="hidden"
-			   name="lng"
-			   value="<?php print (isset($q['long']))?$q['long']:'120.988328'; ?>"
-			   />
+                       name="lng"
+                       accept=""value="<?php print (isset($q['long']))?$q['long']:'120.988328'; ?>"
+                />
 		<input type="hidden"
-			   name="lat"
-			   value="<?php print (isset($q['lat']))?$q['lat']:'14.564779'; ?>"
-			   />
+                       name="lat"
+                       value="<?php print (isset($q['lat']))?$q['lat']:'14.564779'; ?>"
+                />
 	</div>
 	</div>
 		
@@ -122,7 +122,8 @@
 	<div class="uk-form-controls">
             <select name="city">
             <?php foreach($cities as $city): ?>
-                    <option value="<?php print $city['major_area'] ?>">
+                    <option value="<?php print $city['major_area'] ?>"
+                    <?php print ($city['major_area'] == $q['region'])?'selected':''; ?>>
                     <?php print $city['major_area']; ?>
                     </option>
             <?php endforeach; ?>
@@ -344,7 +345,7 @@ if(isset($q))
 <script>
 var venueCoords     = [];
 var $map            = $('#ec-event-manage-map');
-var OpenStreetMap   = 'https://{s}.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png';
+var OpenStreetMap   = "<?php print Config::get('ec.map_tile'); ?>";
 
 var $inputLong = $('input[name="lng"]');
 var $inputLat  = $('input[name="lat"]');

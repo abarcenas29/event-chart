@@ -36,7 +36,8 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
         $arg	  = $this->_set_arg();
         $response = Model_Event_list::write_event($arg);
         
-        (isset($response['success']))?$this->_insert_cover_img($response['id'],$arg):'';
+        (isset($response['success']) && !empty($arg['fbid']))?
+            $this->_insert_cover_img($response['id'],$arg):'';
         return $this->response($response);
     }
 
@@ -47,7 +48,8 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
         $arg['event_id']= Session::get('event_id');
 
         $response = Model_Event_list::edit_event($arg);
-        (isset($response['success']))?$this->_insert_cover_img($response['id'],$arg):'';
+        (isset($response['success']) && !empty($arg['fbid']))?
+            $this->_insert_cover_img($response['id'],$arg):'';
         
         return $this->response($response);
     }

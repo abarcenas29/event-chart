@@ -268,9 +268,8 @@ print $poster;
 ?>
 
 <script>
-    var geoLocation = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
-    var venue       = '<?php print $q['venue']; ?>';
-    
-    console.log($('#main-info').find('div').html(marked($('#main-info').find('div').html())));
+    var geoLocation     = <?php print (!is_null($q['lat']))?'['.$q['lat'] .','.$q['long'].']':'[51.505, -0.09]';?>;
+    var venue           = '<?php print $q['venue']; ?>';
+    var OpenStreetMap   = "<?php print Config::get('ec.map_tile'); ?>";
 </script>
 <?php print Asset::js('view/event.js'); ?>

@@ -7,5 +7,6 @@ return array(
             'key'   => 'q7kiZlPhOsvwSFQxoayfhZoIDlyhvNh7',
             'url'   => 'https://mutationevent-qr-code-generator.p.mashape.com/generate.php?',
 	),
-    'fb_page_id' => '118866964809920'
+    'fb_page_id' => '118866964809920',
+    'map_tile'  => 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 );
