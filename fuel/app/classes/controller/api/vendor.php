@@ -8,10 +8,6 @@ class Controller_Api_Vendor extends Controller_Api_ApiCore
     //city = filter the events by city/region
     public function post_events()
     {
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-        header("Access-Control-Allow-Headers: X-Requested-With");
-        
         $city = Input::post('city','all');
         $c = Model_chart::format_chart($city);
         return $this->response($c);
