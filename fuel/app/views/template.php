@@ -20,6 +20,7 @@
     cdn::uikit_css_addon();
     cdn::uikit_js_addon('notify.min.js');
     
+    cdn::default_fonts('roboto');
     print Asset::css('header.css');
 ?>
 
