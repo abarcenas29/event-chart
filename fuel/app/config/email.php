@@ -89,10 +89,10 @@ return array(
 		 * SMTP settings
 		 */
 		'smtp'	=> array(
-			'host'		=> 'pro.turbo-smtp.com',
-			'port'		=> 587,
+			'host'		=> 'smtpcorp.com',
+			'port'		=> 2525,
 			'username'      => 'aldrich.barcenas@gmail.com',
-			'password'	=> 'O6BLO9mA',
+			'password'	=> '1tp@ssw0rd',
 			'timeout'	=> 10,
 		),
 

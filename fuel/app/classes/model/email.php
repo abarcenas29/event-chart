@@ -12,7 +12,7 @@ class Model_Email extends Model_ModelCore
         if(!empty($q['email']))
         {
             $email  = Email::forge();
-            $email->from('event@deremoe.com','Event Charts');
+            $email->from('event@deremoe.com','Deremoe Event Charts');
             $email->to($q['email']);
             $email->subject('Deremoe Event Charts: Added '.$q['name'].' to our list');
             $email->html_body($view);

@@ -260,8 +260,7 @@ class Controller_Admin_Dashboard2 extends Controller_Admin_AdminCore
         $arg['event_id']= $id;
         $arg['status']	= 'live';
         
-        //Disable for now resolving issue
-        //Model_Email::send_html_email($arg);
+        Model_Email::send_html_email($arg);
         Model_Event_list::toggle_visibility($arg);
         Response::redirect('admin/dashboard2/index');
     }
