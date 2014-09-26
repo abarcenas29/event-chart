@@ -23,6 +23,31 @@ class Controller_Api_Vendor extends Controller_Api_ApiCore
         print $_GET['callback'] .'(' . json_encode($c).')';
     }
     
+    public function get_detail_event()
+    {
+        header('content-type: application/json; charset=utf-8');
+        
+        $event_id = Input::get('event_id');
+        $q        = Model_Event_list::read_public_list($event_id);
+        
+        $static_map = 'http://staticmap.openstreetmap.de/';
+        $static_map .= '?center=[coords]&zoom=18&';
+        $static_map .= 'marker=[coords]&maptype=mapnik';
+        
+        $array_key      = array('[coords]');
+        $array_replace  = array($q['long'].','.$q['lat']);
+        $map_url = str_replace($array_replace, $array_key, $static_map);
+        
+        $rsp = array();
+        $rsp['cover']   = uri::create('uploads/'.$q['cover']['date'].'/cover-'.$q['cover']['filename']);
+        $rsp['title']   = $q['name'];
+        $rsp['desc']    = $q['description'];
+        $rsp['map_url'] = $map_url;
+        
+        print $_GET['callback'].'('.json_encode($rsp).')';
+    }
+
+
     //events that is happening today
     public function post_events_today($city = 'all')
     {
