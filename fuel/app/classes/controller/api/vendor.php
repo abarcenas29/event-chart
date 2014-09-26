@@ -6,11 +6,12 @@ class Controller_Api_Vendor extends Controller_Api_ApiCore
 {
     //events that will happen this past 6 months
     //city = filter the events by city/region
-    public function post_events()
+    public function get_events()
     {
-        $city = Input::post('city','all');
+        $city = Input::get('city','all');
         $c = Model_chart::format_chart($city);
-        return $this->response($c);
+        
+        print $_GET['callback'] . json_encode($c);
     }
     
     //events that is happening today
