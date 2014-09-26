@@ -30,12 +30,12 @@ class Controller_Api_Vendor extends Controller_Api_ApiCore
         $event_id = Input::get('event_id');
         $q        = Model_Event_list::read_public_list($event_id);
         
-        $static_map = 'http://staticmap.openstreetmap.de/';
-        $static_map .= '?center=[coords]&zoom=18&';
+        $static_map  = 'http://staticmap.openstreetmap.de/';
+        $static_map .= 'staticmap.php?center=[coords]&zoom=18&';
         $static_map .= 'marker=[coords]&maptype=mapnik';
         
         $array_key      = array('[coords]');
-        $array_replace  = array($q['long'].','.$q['lat']);
+        $array_replace  = array($q['lat'].','.$q['long']);
         $map_url = str_replace($array_key,$array_replace, $static_map);
         
         $rsp = array();
