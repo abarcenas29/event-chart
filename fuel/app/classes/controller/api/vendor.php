@@ -39,7 +39,7 @@ class Controller_Api_Vendor extends Controller_Api_ApiCore
         $map_url = str_replace($array_key,$array_replace, $static_map);
         
         $rsp = array();
-        $rsp['cover']   = uri::create('uploads/'.$q['cover']['date'].'/cover-'.$q['cover']['filename']);
+        $rsp['cover']   = uri::create('uploads/'.$q['cover']['date'].'/flow-'.$q['cover']['filename']);
         $rsp['title']   = $q['name'];
         $rsp['desc']    = $q['description'];
         $rsp['map_url'] = $map_url;
