@@ -6,7 +6,8 @@
     <!-- FOR TODAY EVENTS -->
     <?php foreach($today as $row): ?>
     <a href="<?php print Uri::create('view/event/'.$row['event_id']); ?>" 
-       class="uk-width-large-1-3 
+       class="uk-width-medium-1-3
+              uk-width-large-1-4
               uk-width-small-1-1
               ec-chart-container">
     <article class="uk-margin-bottom
@@ -29,7 +30,8 @@
     <!-- FOR EVENTS SOON -->
     <?php foreach($c as $row): ?>
     <a href="<?php print Uri::create('view/event/'.$row['event_id']); ?>" 
-       class="uk-width-large-1-3 
+       class="uk-width-medium-1-3
+              uk-width-large-1-4
               uk-width-small-1-1
               ec-chart-container">
     <article class="uk-margin-bottom
