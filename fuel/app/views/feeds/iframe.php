@@ -19,6 +19,16 @@
     ?>
 </head>
 <body>
+<header id="ec-main-nav">
+    <section id="container">   
+    <div id="brand">
+        <a href="<?php print Uri::base(); ?>">
+            <img src="<?php print Uri::create('assets/img/calendar-v3.svg'); ?>"/>
+        </a>
+    </div>
+    </section>
+</header>
+
 <main id="ec-chart-content" class="uk-width-1-1">
 <section class="uk-width-9-10 uk-container-center">
 <div class="uk-grid uk-width-1-1 uk-margin-remove">

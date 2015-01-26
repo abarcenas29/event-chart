@@ -6,9 +6,11 @@ class Controller_Api_Admin_Event extends Controller_Api_ApiPrivate
         $event_id = Input::post('fbid');
         
         $data = Model_Event_Engine::event_data($event_id);
-        $data['start_time'] = $this->_convert_date($data['start_time']);
-        (!isset($data['end_time']))?$data['end_time'] = $data['start_time']:'';
-        $data['end_time']   = $this->_convert_date($data['end_time']);
+        if(is_array($data)){
+            $data['start_time'] = $this->_convert_date($data['start_time']);
+            (!isset($data['end_time']))?$data['end_time'] = $data['start_time']:'';
+            $data['end_time']   = $this->_convert_date($data['end_time']);
+        }
         
         return $this->response($data);
     }
