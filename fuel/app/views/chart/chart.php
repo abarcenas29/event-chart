@@ -19,6 +19,12 @@
     <h1 class="uk-text-truncate uk-text-large">
         <?php print $row['title']; ?>
     </h1>
+    <?php if(!empty($row['region'])): ?>
+    <h2 class="uk-text-small">
+        <i class="uk-icon uk-icon-map-marker"></i>
+        <?php print $row['region']; ?>
+    </h2>
+    <?php endif; ?>
     <h2 class="uk-text-small">
         <span class="fa fa-calendar"></span> &nbsp; <?php print $row['start_at']; ?>
     </h2>
